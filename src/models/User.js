@@ -4,17 +4,12 @@ const UserSchema = new Schema(
   {
     email: {
       type: String,
-      unque: true,
-      require: true,
+      unique: true,
+      required: true,
     },
     password: {
       type: String,
-      require: true,
-      min: 8,
-    },
-    confirmpassword: {
-      type: String,
-      require: true,
+      required: true,
       min: 8,
     },
     admin: {

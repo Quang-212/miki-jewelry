@@ -27,6 +27,7 @@
   "devDependencies": {
     "@iconify/react": "^3.2.2",
     "autoprefixer": "^10.4.7",
+    "bcrypt": "^5.0.1",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.2",
     "postcss": "^8.4.14",
