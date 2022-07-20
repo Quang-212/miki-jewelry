@@ -12,11 +12,6 @@ const UserSchema = new Schema(
       require: true,
       min: 8,
     },
-    confirmpassword: {
-      type: String,
-      require: true,
-      min: 8,
-    },
     admin: {
       type: Boolean,
       default: false,
