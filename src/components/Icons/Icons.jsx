@@ -9,7 +9,7 @@ export const CaretDownIcon = () => (
 
 export const LogoIcon = ({ width = '40', height = '40', className }) => (
   <svg
-    class={className}
+    className={className}
     width={width}
     height={height}
     viewBox="0 0 40 40"
