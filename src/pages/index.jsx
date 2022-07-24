@@ -1,12 +1,12 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
-// import {
-//   AboutSection,
-//   BestSellerSection,
-//   HeroSection,
-//   LatestCollectionSection,
-//   ProductCategorySection,
-// } from 'src/sections/main/home';
+import {
+  AboutSection,
+  BestSellerSection,
+  HeroSection,
+  LatestCollectionSection,
+  ProductCategorySection,
+} from 'src/sections/main/home';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
@@ -21,12 +21,11 @@ export default function HomePage() {
           thumbnailUrl: '',
         }}
       />
-      {/* <HeroSection />
-      <AboutSection />
+      <HeroSection />
+      {/* <AboutSection />
       <BestSellerSection />
       <LatestCollectionSection />
-      <ProductCategorySection />
-      <LogoIcon /> */}
+      <ProductCategorySection /> */}
     </div>
   );
 }

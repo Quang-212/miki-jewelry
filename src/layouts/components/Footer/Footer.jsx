@@ -87,7 +87,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <p className="flex justify-center mt-6">MikiShop © 2022</p>
+      <p className="flex justify-center mt-6 mb-2">MikiShop © 2022</p>
     </footer>
   );
 }

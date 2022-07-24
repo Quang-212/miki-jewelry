@@ -2,13 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply max-w-1440-px h-4238-px m-auto subtitle-2;
-  }
-}
-
 @layer components {
+  .wrapper {
+    @apply max-w-1440-px m-auto subtitle-2 bg-[#FFF9F6];
+  }
   .container {
     @apply px-152-px;
   }
@@ -45,5 +42,7 @@
   }
   .caption {
     @apply font-primary font-medium text-sm leading-5 text-primary;
+  }
+  .bg-img {
   }
 }

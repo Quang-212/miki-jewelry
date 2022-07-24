@@ -13,7 +13,7 @@ export default function Header() {
       <nav className="flex justify-between pt-6 pb-4">
         <ul className="flex gap-10 mb-12">
           {navLink.map((item, index) => (
-            <li key={index} className="flex items-center gap-4">
+            <li key={index} className="flex items-center gap-14-px">
               <Button text internalLink={item.path} className="flex items-center gap-4">
                 {item.title}
               </Button>
