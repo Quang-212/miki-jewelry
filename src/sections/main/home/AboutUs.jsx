@@ -1,3 +1,8 @@
 export function AboutSection() {
-  return <div>About Section</div>;
+  return (
+    <div>
+      <div>Content</div>
+      <div>Image</div>
+    </div>
+  );
 }

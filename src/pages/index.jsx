@@ -1,3 +1,4 @@
+import { LogoIcon } from 'src/components/Icons';
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import {
@@ -7,7 +8,6 @@ import {
   LatestCollectionSection,
   ProductCategorySection,
 } from 'src/sections/main/home';
-//always import from src folder, not "./", "../", "../../",...
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
@@ -28,6 +28,7 @@ export default function HomePage() {
       <BestSellerSection />
       <LatestCollectionSection />
       <ProductCategorySection />
+      <LogoIcon />
     </div>
   );
 }
