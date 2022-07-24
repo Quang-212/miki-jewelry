@@ -2,51 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
+@layer base {
   body {
-    @apply 
+    @apply max-w-1440-px h-4238-px m-auto subtitle-2;
   }
-} */
+}
 
 @layer components {
-  .body {
-    @apply max-w-1440-px m-auto font-primary font-medium text-base leading-6 text-primary;
-  }
   .container {
-    @apply mt-120-px px-152-px;
+    @apply px-152-px;
   }
 
   .display {
-    @apply font-secondary font-normal text-8xl leading-48-px;
+    @apply font-secondary font-normal text-8xl leading-48-px text-primary;
   }
   .heading {
-    @apply font-secondary font-bold text-5xl leading-48-px;
+    @apply font-secondary font-bold text-5xl leading-48-px uppercase text-primary;
   }
   .heading-1 {
-    @apply font-bold text-5xl leading-58-px;
+    @apply font-primary font-bold text-5xl leading-58-px text-primary;
   }
   .heading-2 {
-    @apply font-bold text-32-px leading-10;
+    @apply font-primary font-bold text-32-px leading-10 text-primary;
   }
   .heading-3 {
-    @apply font-semibold text-2xl leading-8;
+    @apply font-primary font-semibold text-2xl leading-8 text-primary;
   }
   .heading-4 {
-    @apply font-bold text-2xl leading-8;
+    @apply font-primary font-bold text-2xl leading-8 text-primary;
   }
   .heading-5 {
-    @apply font-bold text-xl leading-7;
+    @apply font-primary font-bold text-xl leading-7 text-primary;
   }
   .subtitle-1 {
-    @apply font-bold text-base leading-6;
+    @apply font-primary font-bold text-base leading-6 text-primary;
   }
   .subtitle-2 {
-    @apply font-medium text-base leading-6;
+    @apply font-primary font-medium text-base leading-6 text-primary;
   }
   .btn {
-    @apply font-bold text-base leading-6;
+    @apply font-primary font-bold text-base leading-6 text-primary;
   }
-  .label {
-    @apply font-medium text-xs leading-5;
+  .caption {
+    @apply font-primary font-medium text-sm leading-5 text-primary;
   }
 }

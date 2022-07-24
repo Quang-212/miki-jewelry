@@ -40,15 +40,54 @@ export const businessLicense = [
 
 export const publicInformation = [
   {
-    title: 'Về chúng tôi',
-    value: ['Thương hiệu', 'Lịch sử', 'Tuyển dụng'],
+    heading: 'Về chúng tôi',
+    content: [
+      {
+        title: 'Thương hiệu',
+        path: PATH.brand,
+      },
+      {
+        title: 'Lịch sử',
+        path: PATH.history,
+      },
+      {
+        title: 'Tuyển dụng',
+        path: PATH.recruitment,
+      },
+    ],
   },
   {
-    title: 'Tài khoản',
-    value: ['Lịch sử mua hàng', 'Giỏ hàng', 'Thông tin'],
+    heading: 'Tài khoản',
+    content: [
+      {
+        title: 'Lịch sử mua hàng',
+        path: PATH.purchasedHistory,
+      },
+      {
+        title: 'Giỏ hàng',
+        path: PATH.cart,
+      },
+      {
+        title: 'Thông tin',
+        path: PATH.informations,
+      },
+    ],
   },
   {
-    title: 'Dịch vụ khách hàng',
-    value: ['Thanh toán', 'Cẩm nang sử dụng', 'Câu hỏi thường gặp'],
+    heading: 'Dịch vụ khách hàng',
+    content: [
+      {
+        title: 'Thanh toán',
+        path: PATH.payment,
+      },
+      {
+        title: 'Cẩm nang sử dụng',
+        path: PATH.handbook,
+      },
+      {
+        title: 'Câu hỏi thường gặp',
+        path: PATH.questions,
+      },
+    ],
   },
 ];

@@ -1,6 +1,6 @@
 .root {
-  @apply flex justify-center items-center gap-2 select-none
-  w-56 h-10 rounded-md py-8-px px-46-px bg-white;
+  @apply flex justify-center items-center gap-2  select-none
+  /* w-56 h-10 rounded-md py-8-px px-46-px bg-white; */;
 }
 
 .root + .root {
@@ -33,7 +33,7 @@
 }
 
 .text {
-  @apply text-green-500 hover:underline;
+  @apply flex items-center gap-4;
 }
 
 .disabled {

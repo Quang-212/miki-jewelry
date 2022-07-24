@@ -14,28 +14,32 @@ module.exports = {
       colors: {
         primary: '#251C17',
         secondary: '#6E5544',
+        'primary-1': '#6E5544',
+        'neutral-1': '#272727',
+        'caption-1': '#D2311B',
       },
       maxWidth: {
+        '412-px': '412px',
         '1440-px': '1440px',
       },
       borderRadius: {
-        none: '0',
-        sm: '0.125rem',
-        md: '0.5rem',
-        lg: '1rem',
+        primary: '8px',
+        secondary: '16px',
       },
       spacing: {
-        '120-px': '120px',
-        '146-px': '146px',
-        '342-px': '342px',
-      },
-      padding: {
+        //* padding, margin, width, height, maxHeight, gap, space, translate
         '8-px': '8px',
         '12-px': '12px',
+        '22-px': '22px',
         '24-px': '24px',
         '32-px': '32px',
         '46-px': '46px',
         '152-px': '152px',
+        '120-px': '120px',
+        '146-px': '146px',
+        '351-px': '351px',
+        '412-px': '412px',
+        '4238-px': '4238px',
       },
       lineHeight: {
         '48-px': '48px',
