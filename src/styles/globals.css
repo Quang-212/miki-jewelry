@@ -4,18 +4,19 @@
 
 @layer components {
   .wrapper {
-    @apply max-w-1440-px m-auto subtitle-2 bg-[#FFF9F6];
+    @apply max-w-1440-px m-auto body bg-[#FFF9F6];
   }
   .container {
     @apply px-152-px;
   }
 
   .display {
-    @apply font-secondary font-normal text-8xl leading-48-px text-primary;
+    @apply font-secondary font-normal text-8xl leading-106-px text-primary;
   }
   .heading {
-    @apply font-secondary font-bold text-5xl leading-48-px text-primary;
+    @apply font-secondary font-bold text-5xl leading-58-px text-primary;
   }
+
   .heading-1 {
     @apply font-primary font-bold text-5xl leading-58-px text-primary;
   }
@@ -31,14 +32,13 @@
   .heading-5 {
     @apply font-primary font-bold text-xl leading-7 text-primary;
   }
-  .subtitle-1 {
-    @apply font-primary font-bold text-base leading-6 text-primary;
-  }
-  .subtitle-2 {
-    @apply font-primary font-medium text-base leading-6 text-primary;
-  }
+  .subtitle-1,
   .btn {
     @apply font-primary font-bold text-base leading-6 text-primary;
+  }
+  .subtitle-2,
+  .body {
+    @apply font-primary font-medium text-base leading-6 text-primary;
   }
   .caption {
     @apply font-primary font-medium text-sm leading-5 text-primary;

@@ -41,7 +41,7 @@ export const LogoIcon = ({ width = '40', height = '40', className }) => (
   </svg>
 );
 
-export const SearchIcon = ({ width = '24px', height = '24px', className }) => (
+export const SearchIcon = ({ width = '24', height = '24', className }) => (
   <svg
     width={width}
     height={height}
@@ -60,7 +60,7 @@ export const SearchIcon = ({ width = '24px', height = '24px', className }) => (
   </svg>
 );
 
-export const BasketIcon = ({ width = '32px', height = '32px' }) => (
+export const BasketIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
@@ -92,7 +92,7 @@ export const BasketIcon = ({ width = '32px', height = '32px' }) => (
   </svg>
 );
 
-export const FavoriteIcon = ({ width = '32px', height = '32px' }) => (
+export const FavoriteIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
@@ -108,7 +108,7 @@ export const FavoriteIcon = ({ width = '32px', height = '32px' }) => (
   </svg>
 );
 
-export const UserIcon = ({ width = '32px', height = '32px' }) => (
+export const UserIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}

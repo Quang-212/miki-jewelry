@@ -2,7 +2,7 @@ import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import {
   AboutSection,
-  BestSellerSection,
+  FeaturedProductsSection,
   HeroSection,
   LatestCollectionSection,
   ProductCategorySection,
@@ -23,8 +23,8 @@ export default function HomePage() {
       />
       <HeroSection />
       <AboutSection />
-      {/* <BestSellerSection />
-      <LatestCollectionSection />
+      <FeaturedProductsSection />
+      {/* <LatestCollectionSection />
       <ProductCategorySection /> */}
     </div>
   );
