@@ -1,5 +1,6 @@
 .root {
-  @apply flex justify-center items-center gap-2 select-none h-10 rounded-primary bg-neutral-5 subtitle-1;
+  @apply flex justify-center items-center gap-2 select-none rounded-primary bg-neutral-5 
+  font-primary font-bold text-base leading-6 text-primary;
 }
 
 .root + .root {
@@ -12,15 +13,15 @@
 }
 
 .primary {
-  @apply text-neutral-5 border-2 border-primary bg-primary hover:bg-neutral-5 hover:text-primary;
+  @apply w-217-px h-10 text-neutral-5 border border-primary bg-primary hover:bg-neutral-5 hover:text-primary;
 }
 
 .outline {
-  @apply py-12-px px-32-px border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  @apply py-12-px px-32-px border border-primary text-primary hover:bg-primary hover:text-white;
 }
 
 .rounded {
-  @apply rounded-full border-2 border-primary border-neutral-400 hover:border-neutral-700;
+  @apply rounded-full border-2 border-primary  hover:border-neutral-700;
 }
 
 .small {
@@ -32,7 +33,12 @@
 }
 
 .text {
-  @apply flex items-center gap-4;
+  @apply flex items-center gap-4  bg-[#FFF9F6]
+  font-primary font-medium text-base leading-6 text-primary;
+}
+
+.icon {
+  /* @apply h-4; */
 }
 
 .disabled {

@@ -45,7 +45,7 @@ export default function Footer() {
                 classNameInput="w-412-px h-12 py-3 px-4 rounded-primary border border-primary-1"
                 classNameMessage="block h-5 caption text-caption-1"
               />
-              <Button className="absolute mt-4 ml-96">
+              <Button icon className="absolute mt-4 ml-96">
                 <ArrowForwardIcon />
               </Button>
             </div>

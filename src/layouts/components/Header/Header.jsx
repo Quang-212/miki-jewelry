@@ -35,7 +35,7 @@ export default function Header() {
               <LogoIcon className="fill-secondary" />
             </a>
           </Link>
-          <span className="heading text-4xl">Miki Jewelry</span>
+          <span className="heading uppercase text-4xl">Miki Jewelry</span>
         </div>
         <div className="flex">
           <div className="flex relative mr-8">

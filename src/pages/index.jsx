@@ -22,8 +22,8 @@ export default function HomePage() {
         }}
       />
       <HeroSection />
-      {/* <AboutSection />
-      <BestSellerSection />
+      <AboutSection />
+      {/* <BestSellerSection />
       <LatestCollectionSection />
       <ProductCategorySection /> */}
     </div>

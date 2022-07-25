@@ -14,7 +14,7 @@
     @apply font-secondary font-normal text-8xl leading-48-px text-primary;
   }
   .heading {
-    @apply font-secondary font-bold text-5xl leading-48-px uppercase text-primary;
+    @apply font-secondary font-bold text-5xl leading-48-px text-primary;
   }
   .heading-1 {
     @apply font-primary font-bold text-5xl leading-58-px text-primary;
@@ -42,7 +42,5 @@
   }
   .caption {
     @apply font-primary font-medium text-sm leading-5 text-primary;
-  }
-  .bg-img {
   }
 }

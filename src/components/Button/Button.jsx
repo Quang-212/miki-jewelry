@@ -15,6 +15,7 @@ export default function Button({
   small = false,
   large = false,
   text = false,
+  icon = false,
   disabled,
   children,
   className,
@@ -46,6 +47,7 @@ export default function Button({
     small,
     large,
     text,
+    icon,
     disabled,
     [className]: className,
   });

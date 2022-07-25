@@ -21,6 +21,7 @@ module.exports = {
       },
       maxWidth: {
         '412-px': '412px',
+        '544-px': '544px',
         '1440-px': '1440px',
       },
       borderRadius: {
@@ -35,11 +36,14 @@ module.exports = {
         '22-px': '22px',
         '24-px': '24px',
         '32-px': '32px',
+        '37-px': '37px',
+        '42-px': '42px',
         '46-px': '46px',
-        '61-px': '61px',
+        '66-px': '66px',
         '152-px': '152px',
         '120-px': '120px',
         '146-px': '146px',
+        '217-px': '217px',
         '351-px': '351px',
         '412-px': '412px',
         '629-px': '629px',
@@ -48,16 +52,13 @@ module.exports = {
       },
       lineHeight: {
         '48-px': '48px',
-        '58-px': '56px',
+        '58-px': '58px',
         '106-px': '106px',
         '128-px': '128px',
       },
       backgroundImage: {
         'hero-image': "url('/static/images/home-hero.jpg')",
         aa: 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))',
-      },
-      backgroundPosition: {
-        // 'center-50%': 'center',
       },
     },
   },
