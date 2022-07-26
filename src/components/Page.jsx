@@ -5,7 +5,7 @@ export default function Page({ data }) {
 
   return (
     <Head>
-      <title>{title}</title>
+      <title>{`${title} | Miki Jewelry`}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
 

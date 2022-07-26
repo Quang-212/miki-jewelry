@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'src/components/Button';
 
 import { CaretDownIcon, LogoIcon, SearchIcon } from 'src/components/Icons';
+import { PATH } from 'src/routes/path';
 import { navCta, navLink } from './navConfig';
 
 export default function Header() {
@@ -30,9 +31,9 @@ export default function Header() {
           ))}
         </ul>
         <div className="flex flex-col items-center">
-          <Link href="/">
+          <Link href={PATH.home}>
             <a>
-              <LogoIcon className="fill-secondary" />
+              <LogoIcon className="fill-primary-1" />
             </a>
           </Link>
           <span className="heading uppercase text-4xl">Miki Jewelry</span>

@@ -24,8 +24,8 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <FeaturedProductsSection />
-      {/* <LatestCollectionSection />
-      <ProductCategorySection /> */}
+      <LatestCollectionSection />
+      {/* <ProductCategorySection /> */}
     </div>
   );
 }

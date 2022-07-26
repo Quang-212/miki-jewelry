@@ -4,7 +4,7 @@
 
 @layer components {
   .wrapper {
-    @apply max-w-1440-px m-auto body bg-[#FFF9F6];
+    @apply max-w-1440-px m-auto body bg-wrapper;
   }
   .container {
     @apply px-152-px;

@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import Button from 'src/components/Button';
 import { images } from 'src/constants';
+import { PATH } from 'src/routes/path';
 
 export function FeaturedProductsSection() {
   const featuredProducts = [
@@ -36,8 +37,8 @@ export function FeaturedProductsSection() {
         </Button>
       </div>
       <ul className="flex justify-between">
-        {featuredProducts.map((product) => (
-          <li className="flex flex-col items-center gap-6-px">
+        {featuredProducts.map((product, index) => (
+          <li key={index} className="flex flex-col items-center gap-6-px">
             <Image
               src={product.image}
               alt={product.title}
@@ -49,7 +50,7 @@ export function FeaturedProductsSection() {
             />
             <h5 className="mt-18-px heading-5">{product.title}</h5>
             <span className="heading-5 text-primary-2">{product.price}</span>
-            <Button primary internalLink="/products" className="mt-10-px">
+            <Button primary internalLink={PATH.products} className="mt-10-px">
               Thêm vào giỏ hàng
             </Button>
           </li>
