@@ -30,7 +30,7 @@ export function FeaturedProductsSection() {
 
   return (
     <section className="flex flex-col gap-72-px mt-120-px container">
-      <div className="flex justify-between">
+      <div className="relative z-10 flex justify-between">
         <h2 className="heading-2">Sản phẩm nổi bật</h2>
         <Button primary internalLink="/products">
           Xem tất cả

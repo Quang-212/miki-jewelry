@@ -3,7 +3,7 @@ import { PATH } from 'src/routes/path';
 
 export function HeroSection() {
   return (
-    <section className="h-629-px bg-hero-image bg-cover bg-center">
+    <section className="relative z-10 h-629-px bg-hero-image bg-cover bg-center">
       <div className="flex w-auto h-full bg-hero-image-rgba">
         <div className="flex flex-col items-center gap-60-px m-auto">
           <h1 className="display text-neutral-5">Thế Giới Nữ Trang</h1>

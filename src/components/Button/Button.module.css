@@ -1,5 +1,5 @@
 .root {
-  @apply inline-flex justify-center items-center gap-2 select-none rounded-primary bg-neutral-5 
+  @apply inline-flex justify-center items-center gap-2 select-none rounded-primary 
   font-primary font-bold text-base leading-6 text-primary;
 }
 
@@ -13,11 +13,13 @@
 }
 
 .primary {
-  @apply h-10 py-2 px-46-px text-neutral-5 border border-primary bg-primary hover:bg-neutral-5 hover:text-primary;
+  @apply h-10 py-2 px-46-px text-neutral-5 border border-primary bg-primary hover:bg-neutral-5 hover:text-primary
+  ease-in-out duration-500;
 }
 
 .outline {
-  @apply py-2 px-6 border border-primary text-primary hover:bg-primary hover:text-white;
+  @apply py-2 px-6 border border-primary text-primary hover:bg-primary hover:text-white bg-neutral-5 
+  ease-in-out duration-500;
 }
 
 .rounded {
@@ -33,12 +35,12 @@
 }
 
 .text {
-  @apply flex items-center gap-4  bg-[#FFF9F6]
+  @apply flex items-center gap-4  
   font-primary font-medium text-base leading-6 text-primary;
 }
 
 .icon {
-  /* @apply h-4; */
+  /* @apply bg-none; */
 }
 
 .disabled {

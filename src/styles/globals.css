@@ -11,10 +11,10 @@
   }
 
   .display {
-    @apply font-secondary font-normal text-8xl leading-106-px text-primary;
+    @apply font-secondary font-normal text-8xl leading-106-px text-primary uppercase;
   }
   .heading {
-    @apply font-secondary font-bold text-5xl leading-58-px text-primary;
+    @apply font-secondary font-bold text-5xl leading-58-px text-primary uppercase;
   }
 
   .heading-1 {

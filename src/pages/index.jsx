@@ -25,7 +25,7 @@ export default function HomePage() {
       <AboutSection />
       <FeaturedProductsSection />
       <LatestCollectionSection />
-      {/* <ProductCategorySection /> */}
+      <ProductCategorySection />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { PATH } from 'src/routes/path';
 
 export function LatestCollectionSection() {
   return (
-    <section className="relative w-full h-732-px mt-120-px">
+    <section className="relative z-10 w-full h-732-px mt-120-px">
       <Image
         src={images.homeLatestCollection}
         alt="Home latest collection"
@@ -16,11 +16,11 @@ export function LatestCollectionSection() {
       />
       <div
         className="
-          relative before:absolute before:w-full before:h-483.5-px before:bg-aa before:bg-no-repeat before:left-152-px before:top-[109px]
-          after:absolute after:w-96 after:h-96 after:bg-bb after:bg-no-repeat after:left-[784px] after:top-[109px]
+          relative before:absolute before:w-full before:h-483.5-px before:bg-latest-collection-framer before:bg-no-repeat before:left-152-px before:top-[109px]
+          after:absolute after:w-96 after:h-96 after:bg-latest-collection-line after:bg-no-repeat after:left-[784px] after:top-[109px]
         "
       ></div>
-      <div className="relative z-10 flex flex-col  gap-4 top-152-px left-52">
+      <article className="relative flex flex-col gap-4 top-152-px left-52">
         <h6 className="text-5xl leading-64-px text-neutral-5">Bộ sưu tập mới nhất</h6>
         <h6 className="mt-10 font-secondary font-semibold text-5xl leading-64-px text-neutral-5">
           Ánh trăng người tình
@@ -32,7 +32,7 @@ export function LatestCollectionSection() {
         <Button outline internalLink={PATH.products} className="w-152-px mt-12 py-3 px-8">
           Xem thêm
         </Button>
-      </div>
+      </article>
     </section>
   );
 }

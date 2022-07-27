@@ -34,7 +34,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="container">
+    <footer className="mt-120-px container">
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
@@ -65,7 +65,7 @@ export default function Footer() {
       <hr className="mt-7 mb-10 border border-primary-1" />
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
-          <p className="heading">Miki Jewelry</p>
+          <span className="heading">Miki Jewelry</span>
           <ul className="w-351-px">
             {businessLicense.map((item, index) => (
               <li key={index}>{item}</li>
