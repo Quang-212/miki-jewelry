@@ -1,51 +1,58 @@
 import User from 'src/models/User';
-import RefreshToken from 'src/models/RefreshToken';
 import dbConnect from 'src/utils/dbConnect';
 import bcrypt from 'bcrypt';
-import generateAccessToken from '../generateToken/generateAccessToken';
-import generateRefreshToken from '../generateToken/generateRefreshToken';
+import generateAccessToken from 'src/pages/api/generateToken/generateAccessToken';
+import generateRefreshToken from 'src/pages/api/generateToken/generateRefreshToken';
+import RefreshToken from 'src/models/RefreshToken';
 import { serialize } from 'cookie';
 
 async function login(req, res) {
   try {
     await dbConnect();
-    if (req.method == 'POST') {
-      //check mail in DB
+    const { method } = req;
+    if (method == 'POST') {
+      //find email in db
       const user = await User.findOne({ email: req.body.email });
       if (!user)
-        return res.status(401).json({
-          message: 'Email is not exist!',
+        return res.status(404).json({
+          message: 'Email does not exist!',
+          code: 404,
         });
-      // compare password user
+      //compare password
       const validateUser = await bcrypt.compare(req.body.password, user.password);
       if (!validateUser)
         return res.status(401).json({
           message: 'Wrong password!',
           code: 401,
         });
-      // user login success
+      // login success!
       if (user && validateUser) {
-        //create new access token and refresh token
         const accessToken = await generateAccessToken(user);
         const refreshToken = await generateRefreshToken(user);
-        //create new refreshToken
-        const newFreshToken = new RefreshToken({
+        // create refresh token in db
+        const newRefreshToken = new RefreshToken({
           userId: user._id,
           refreshToken,
         });
-        // save new refreshToken in DB
-        await newFreshToken.save();
-        // save new refreshToken  cookie
+        // save refresh token in db
+        await newRefreshToken.save();
+
+        // save cookie
         res.setHeader(
           'Set-Cookie',
           serialize('refreshToken', refreshToken, {
             httpOnly: true,
             sameSite: 'Strict',
             path: '/',
-            secure: false,
+            Secure: false,
           }),
         );
-        return res.status(200).json({ user, accessToken });
+
+        return res.status(200).json({
+          message: 'Login successfully!',
+          code: 200,
+          accessToken,
+        });
       }
     }
   } catch (error) {
