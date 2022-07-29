@@ -40,12 +40,8 @@ export default function Footer() {
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col relative">
-              <TextField
-                name="email"
-                classNameInput="w-412-px h-12 py-3 px-4 rounded-primary border border-primary-1"
-                classNameMessage="block h-5 text-caption-1"
-              />
-              <Button icon className="absolute mt-4 ml-96">
+              <TextField name="email" input="max-w-412-px" />
+              <Button icon wrapper="absolute mt-4 ml-96">
                 <ArrowForwardIcon />
               </Button>
             </div>

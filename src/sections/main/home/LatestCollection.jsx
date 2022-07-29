@@ -29,7 +29,7 @@ export function LatestCollectionSection() {
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
         </p>
-        <Button outline internalLink={PATH.products} className="w-152-px mt-12 py-3 px-8">
+        <Button outline internalLink={PATH.products} wrapper="w-152-px mt-12 py-3 px-8">
           Xem thêm
         </Button>
       </article>

@@ -10,7 +10,7 @@ export const CaretDownIcon = ({
     height={height}
     className={className}
     onClick={handleClick}
-    viewBox="0 0 16 16"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -28,7 +28,7 @@ export const LogoIcon = ({ width = '40', height = '40', className }) => (
     width={width}
     height={height}
     className={className}
-    viewBox="0 0 40 40"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -46,16 +46,19 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
     width={width}
     height={height}
     className={className}
-    viewBox="0 0 32 32"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="14.6667" cy="14.6666" r="9.33333" stroke="#33363F" strokeWidth="2" />
+    <circle cx="11" cy="11" r="7" stroke="#251C17" stroke-width="1.5" />
+    <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" stroke-width="1.5" />
+    <path d="M20 20L17 17" stroke="#251C17" stroke-width="1.5" stroke-linecap="round" />
     <path
-      d="M26.6667 26.6667L22.6667 22.6667"
-      stroke="#33363F"
-      strokeWidth="2"
-      strokeLinecap="round"
+      d="M20 20L17 17"
+      stroke="black"
+      strokeOpacity="0.2"
+      stroke-width="1.5"
+      stroke-linecap="round"
     />
   </svg>
 );
@@ -64,7 +67,7 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 32 32"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -96,7 +99,7 @@ export const FavoriteIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 32 32"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -112,7 +115,7 @@ export const UserIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 32 32"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -137,7 +140,7 @@ export const ArrowForwardIcon = ({ width = '16', height = '16' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 16 16"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -152,7 +155,7 @@ export const FacebookIcon = ({ width = '40', height = '40' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 40 40"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -167,7 +170,7 @@ export const TwitterIcon = ({ width = '40', height = '40' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 40 40"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -182,7 +185,7 @@ export const InstagramIcon = ({ width = '40', height = '40' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 40 40"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -216,7 +219,7 @@ export const TikTokIcon = ({ width = '40', height = '40' }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 40 40"
+    viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -297,6 +300,21 @@ export const PinterestIcon = ({ width = '40', height = '40' }) => (
 //   </svg>
 // );
 
+export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
+      fill="black"
+    />
+  </svg>
+);
+
 export const EllipseIcon = ({ width, height, cx, cy, r, fillOpacity, className }) => (
   <svg
     width={width}
@@ -323,15 +341,64 @@ export const EllipseDashIcon = ({ width, height, cx, cy, r, className }) => (
   </svg>
 );
 
-export const aa = () => (
-  <svg width="35" height="246" viewBox="0 0 35 246" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />
+    <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />
+  </svg>
+);
+
+export const CircleDashIcon = ({ width, height, cx1, cy1, r1, d, cx2, cy2, r2, className }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    className={className}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx={cx1} cy={cy1} r={r1} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" />
+    <path d={d} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" />
+    <circle cx={cx2} cy={cy2} r={r2} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" />
+  </svg>
+);
+
+export const Aa = () => (
+  <svg
+    width="544"
+    height="833"
+    viewBox="0 0 544 833"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <circle
-      cx="123"
-      cy="123"
+      cx="127.5"
+      cy="416.5"
+      r="416"
+      stroke="#B78D71"
+      strokeOpacity="0.5"
+      strokeDasharray="25 25"
+    />
+    <path
+      d="M408.591 379.973C409.655 388.087 410.374 396.308 410.733 404.622L410.234 404.643C410.411 408.74 410.5 412.86 410.5 417C410.5 421.14 410.411 425.26 410.234 429.357L410.733 429.378C410.374 437.692 409.655 445.913 408.591 454.026L408.095 453.961C407.017 462.182 405.585 470.291 403.813 478.274L404.301 478.382C402.505 486.478 400.36 494.444 397.884 502.263L397.407 502.112C394.91 509.996 392.076 517.731 388.921 525.3L389.382 525.492C386.198 533.13 382.687 540.6 378.868 547.883L378.425 547.651C374.593 554.959 370.449 562.079 366.011 568.994L366.432 569.264C361.971 576.214 357.214 582.958 352.178 589.477L351.782 589.171C346.746 595.691 341.43 601.985 335.853 608.036L336.22 608.375C330.631 614.44 324.779 620.26 318.684 625.82L318.347 625.45C312.268 630.994 305.947 636.277 299.399 641.281L299.703 641.679C293.161 646.68 286.394 651.404 279.419 655.832L279.151 655.41C272.217 659.813 265.078 663.924 257.752 667.726L257.982 668.17C250.684 671.957 243.201 675.437 235.549 678.593L235.358 678.131C227.779 681.257 220.034 684.066 212.14 686.539L212.289 687.016C204.464 689.468 196.493 691.592 188.392 693.37L188.285 692.882C180.299 694.636 172.187 696.054 163.965 697.12L164.029 697.616C155.915 698.669 147.693 699.381 139.379 699.736L139.357 699.236C135.26 699.412 131.14 699.5 127 699.5C122.859 699.5 118.74 699.412 114.643 699.236L114.621 699.736C106.307 699.381 98.0851 698.669 89.971 697.616L90.0353 697.12C81.8126 696.054 73.7006 694.636 65.715 692.882L65.6077 693.37C57.5069 691.592 49.5357 689.468 41.7107 687.016L41.8602 686.539C33.9663 684.066 26.2213 681.257 18.642 678.131L18.4513 678.593C10.7992 675.437 3.3157 671.957 -3.98209 668.17L-3.75179 667.726C-11.0783 663.924 -18.2173 659.813 -25.1514 655.41L-25.4194 655.832C-32.3935 651.404 -39.1606 646.68 -45.703 641.679L-45.3994 641.281C-51.9466 636.277 -58.2683 630.994 -64.3469 625.45L-64.6838 625.82C-70.7795 620.26 -76.631 614.44 -82.2204 608.375L-81.8527 608.036C-87.4299 601.985 -92.7457 595.691 -97.7823 589.171L-98.178 589.477C-103.214 582.958 -107.971 576.214 -112.432 569.264L-112.011 568.994C-116.449 562.079 -120.593 554.959 -124.425 547.651L-124.868 547.883C-128.687 540.6 -132.198 533.13 -135.382 525.492L-134.921 525.3C-138.076 517.731 -140.91 509.996 -143.407 502.112L-143.884 502.263C-146.36 494.444 -148.505 486.478 -150.301 478.382L-149.813 478.274C-151.585 470.292 -153.017 462.182 -154.095 453.962L-154.591 454.027C-155.655 445.914 -156.374 437.692 -156.733 429.378L-156.234 429.357C-156.411 425.26 -156.5 421.14 -156.5 417C-156.5 412.86 -156.411 408.74 -156.234 404.643L-156.733 404.622C-156.374 396.308 -155.655 388.087 -154.591 379.974L-154.095 380.039C-153.017 371.818 -151.585 363.709 -149.813 355.726L-150.301 355.618C-148.505 347.522 -146.36 339.556 -143.884 331.737L-143.407 331.888C-140.91 324.004 -138.076 316.269 -134.921 308.7L-135.382 308.508C-132.198 300.87 -128.687 293.4 -124.868 286.117L-124.425 286.349C-120.593 279.041 -116.449 271.921 -112.011 265.006L-112.432 264.736C-107.971 257.786 -103.214 251.042 -98.178 244.523L-97.7823 244.829C-92.7457 238.309 -87.4299 232.015 -81.8527 225.964L-82.2204 225.625C-76.631 219.56 -70.7795 213.74 -64.6838 208.18L-64.3469 208.55C-58.2683 203.006 -51.9466 197.723 -45.3994 192.719L-45.703 192.321C-39.1606 187.32 -32.3935 182.597 -25.4194 178.168L-25.1514 178.59C-18.2173 174.187 -11.0783 170.075 -3.75175 166.274L-3.98204 165.83C3.31575 162.043 10.7993 158.563 18.4514 155.407L18.6421 155.869C26.2214 152.743 33.9664 149.934 41.8602 147.461L41.7107 146.984C49.5358 144.532 57.5069 142.408 65.6078 140.63L65.715 141.118C73.7006 139.364 81.8126 137.946 90.0354 136.88L89.971 136.384C98.0852 135.331 106.307 134.619 114.621 134.264L114.643 134.764C118.74 134.588 122.86 134.5 127 134.5C131.141 134.5 135.26 134.588 139.357 134.764L139.379 134.264C147.693 134.619 155.915 135.331 164.029 136.384L163.965 136.88C172.187 137.946 180.299 139.364 188.285 141.118L188.392 140.63C196.493 142.408 204.464 144.532 212.289 146.984L212.14 147.461C220.034 149.934 227.779 152.743 235.358 155.869L235.549 155.407C243.201 158.563 250.684 162.043 257.982 165.83L257.752 166.274C265.078 170.076 272.217 174.187 279.151 178.59L279.419 178.168C286.394 182.597 293.161 187.32 299.703 192.321L299.399 192.719C305.947 197.723 312.268 203.006 318.347 208.55L318.684 208.18C324.779 213.74 330.631 219.56 336.22 225.625L335.853 225.964C341.43 232.015 346.746 238.309 351.782 244.829L352.178 244.523C357.214 251.042 361.971 257.786 366.432 264.736L366.011 265.006C370.449 271.921 374.593 279.041 378.425 286.349L378.868 286.117C382.687 293.4 386.198 300.87 389.382 308.508L388.921 308.7C392.076 316.269 394.91 324.004 397.407 331.888L397.884 331.737C400.36 339.556 402.505 347.522 404.301 355.618L403.813 355.726C405.585 363.709 407.017 371.818 408.095 380.038L408.591 379.973Z"
+      stroke="#B78D71"
+      strokeOpacity="0.5"
+      strokeDasharray="25 25"
+    />
+    <circle
+      cx="127"
+      cy="417"
       r="122.5"
       stroke="#B78D71"
-      stroke-opacity="0.5"
-      stroke-dasharray="25 25"
+      strokeOpacity="0.5"
+      strokeDasharray="25 25"
     />
   </svg>
 );

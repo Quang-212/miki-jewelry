@@ -17,9 +17,9 @@ module.exports = {
         wrapper: '#FFF9F6', //* background color
         'primary-1': '#6E5544',
         'primary-2': '#92715A',
-        'primary-3': '#92715A',
-        'primary-4': '#92715A',
-        'primary-5': '#92715A',
+        'primary-3': '#B78D71',
+        'primary-4': '#D4BBAA',
+        'primary-5': '#E2D1C6',
         'neutral-1': '#272727',
         'neutral-2': '#626262',
         'neutral-3': '#A9A9A9',
@@ -63,12 +63,14 @@ module.exports = {
         '412-px': '412px',
         '450-px': '450px',
         '483.5-px': '483.5px',
+        '490-px': '490px',
         '497-px': '497px',
         '548-px': '548px',
         '629-px': '629px',
         '640.5-px': '640.5px',
         '732-px': '732px',
         '824-px': '824px',
+        '852-px': '852px',
         '4238-px': '4238px',
       },
       lineHeight: {
@@ -79,6 +81,7 @@ module.exports = {
         '106-px': '106px',
       },
       backgroundImage: {
+        //* Home Page
         'hero-image': "url('/static/images/home-hero.jpg')",
         'hero-image-rgba': 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))',
 
@@ -105,6 +108,13 @@ module.exports = {
         'product-category-necklace': "url('/static/images/home-category-necklace.jpg')",
         'product-category-necklace-rgba':
           'linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 28.54%)',
+
+        //* Register Form
+        'register-form': "url('/static/images/register-form.png')",
+        'register-form-rgba': 'rgba(255, 249, 246, 0.8)',
+      },
+      boxShadow: {
+        'register-form': '0px 0px 86px rgba(0, 0, 0, 0.15)',
       },
       dropShadow: {
         about: '0px 4px 162px rgba(0, 0, 0, 0.2)',
@@ -120,10 +130,12 @@ module.exports = {
         1.68: '1.68',
         1.75: '1.75',
       },
+      checkBox: {
+        icon: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z" fill="black"/></svg>',
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
 };

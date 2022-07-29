@@ -2,6 +2,8 @@ export const PATH = {
   home: '/',
   products: '/products',
   about: '/about',
+  register: '/register',
+  login: '/login',
   facebook: '/',
   twitter: '/',
   instagram: '/',

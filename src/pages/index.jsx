@@ -12,7 +12,7 @@ HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function HomePage() {
   return (
-    <div>
+    <>
       <Page
         data={{
           title: 'Miki Shop',
@@ -26,6 +26,6 @@ export default function HomePage() {
       <FeaturedProductsSection />
       <LatestCollectionSection />
       <ProductCategorySection />
-    </div>
+    </>
   );
 }
