@@ -10,7 +10,7 @@ async function generateAccessToken(user) {
     },
     ACC_KEY,
     {
-      expiresIn: '1d',
+      expiresIn: '30s',
     },
   );
 }
