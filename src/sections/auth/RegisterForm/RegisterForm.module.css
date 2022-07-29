@@ -13,3 +13,7 @@
 .caption {
   @apply h-0;
 }
+
+.asd {
+  @apply ml-1;
+}
