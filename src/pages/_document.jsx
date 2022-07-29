@@ -15,9 +15,7 @@ export default function Document() {
         />
       </Head>
       <body>
-        <div className="wrapper">
-          <Main />
-        </div>
+        <Main />
         <NextScript />
       </body>
     </Html>

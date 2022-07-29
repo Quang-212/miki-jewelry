@@ -15,7 +15,7 @@ export default function Header() {
         <ul className="flex gap-10 mb-12">
           {navLink.map((item, index) => (
             <li key={index} className="flex items-center gap-14-px">
-              <Button text internalLink={item.path} className="flex items-center gap-4">
+              <Button text internalLink={item.path} wrapper="flex items-center gap-4">
                 {item.title}
               </Button>
               {index === 1 && (
@@ -36,7 +36,7 @@ export default function Header() {
               <LogoIcon className="fill-primary-1" />
             </a>
           </Link>
-          <span className="heading uppercase text-4xl">Miki Jewelry</span>
+          <span className="heading text-4xl">Miki Jewelry</span>
         </div>
         <div className="flex">
           <div className="flex relative mr-8">

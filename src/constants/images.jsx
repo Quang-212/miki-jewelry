@@ -9,6 +9,8 @@ import homeHero from 'public/static/images/home-hero.jpg';
 import homeLatestCollectionLine from 'public/static/images/home-latest-collection-framer-2.svg';
 import homeLatestCollectionFramer from 'public/static/images/home-latest-collection-framer.svg';
 import homeLatestCollection from 'public/static/images/home-latest-collection.jpg';
+import registerForm from 'public/static/images/register-form.png';
+import loginForm from 'public/static/images/login-form.png';
 
 export default {
   homeHero,
@@ -22,4 +24,6 @@ export default {
   homeCategoryBracelet,
   homeCategoryNecklace,
   homeCategoryEarring,
+  registerForm,
+  loginForm,
 };

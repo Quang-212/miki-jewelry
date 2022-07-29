@@ -1,0 +1,15 @@
+.title {
+  @apply font-primary font-bold text-base leading-6 text-primary-3;
+}
+
+.w-100 {
+  @apply w-full;
+}
+
+.highlight {
+  @apply text-red-500;
+}
+
+.caption {
+  @apply h-0;
+}

@@ -18,9 +18,10 @@ export default function Button({
   icon = false,
   disabled,
   children,
-  className,
+  wrapper,
   leftIcon,
   rightIcon,
+  title,
   onClick,
   ...passProps
 }) {
@@ -40,7 +41,7 @@ export default function Button({
     });
   }
 
-  const classes = mk('root', {
+  const classWrapper = mk('root', {
     primary,
     outline,
     rounded,
@@ -49,7 +50,11 @@ export default function Button({
     text,
     icon,
     disabled,
-    [className]: className,
+    [wrapper]: wrapper,
+  });
+
+  const classTitle = mk('title', {
+    [title]: title,
   });
 
   if (internalLink) {
@@ -57,9 +62,9 @@ export default function Button({
 
     return (
       <Link {...props}>
-        <a className={classes}>
+        <a className={classWrapper}>
           {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
-          <span className={mk('title')}>{children}</span>
+          <span className={classTitle}>{children}</span>
           {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
         </a>
       </Link>
@@ -72,7 +77,7 @@ export default function Button({
   }
 
   return (
-    <Component className={classes} {...props}>
+    <Component className={classWrapper} {...props}>
       {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
       <span className={mk('title')}>{children}</span>
       {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
