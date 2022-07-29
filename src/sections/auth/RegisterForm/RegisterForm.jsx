@@ -59,7 +59,7 @@ export default function RegisterFormSection() {
 
   const { handleSubmit, reset, setFocus } = methods;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     setFocus('firstName');
     reset();
@@ -89,7 +89,7 @@ export default function RegisterFormSection() {
             <div className="flex gap-3 mt-8">
               <TextField name="firstName" placeholder="Họ" input="w-full" />
               <TextField name="lastName" placeholder="Tên" input="w-full" />
-              <TextField name="dateOfBirth" placeholder="Năm sinh" input="w-full" />
+              <TextField name="dateOfBirth" type="date" placeholder="Năm sinh" input="w-full" />
             </div>
             <TextField name="email" placeholder="Địa chỉ email" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
