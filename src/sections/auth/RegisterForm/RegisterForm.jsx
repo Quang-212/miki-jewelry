@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import axios from 'axios';
 
 import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/hook-forms';
@@ -14,8 +15,8 @@ import styles from './RegisterForm.module.css';
 const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  // firstName: yup.string().required('Vui lòng nhập họ của bạn'),
-  // lastName: yup.string().required('Vui lòng nhập tên của bạn'),
+  // firstName: yup.string().required('*Bắt buộc!'),
+  // lastName: yup.string().required('*Bắt buộc!'),
   // email: yup
   //   .string()
   //   .required('Vui lòng nhập địa chỉ email của bạn')
@@ -37,32 +38,47 @@ const schema = yup.object().shape({
   //   .required('Vui lòng nhập lại mật khẩu')
   //   .oneOf([yup.ref('password'), null], 'Password is not matched'),
   // terms: yup
-  //   .array()
-  //   .typeError('Bạn cần đọc và đồng ý với các điều khoản chính sách của Miki Jewelry')
-  //   .min(1, 'Please choose your favorites'),
+  //   .boolean()
+  //   .oneOf([true], 'Bạn cần đọc và đồng ý với các điều khoản chính sách của Miki Jewelry'),
 });
 
 export default function RegisterFormSection() {
   const methods = useForm({
     resolver: yupResolver(schema),
-    defaultValue: {
+    defaultValues: {
       firstName: '',
       lastName: '',
-      // dateOfBirth,
       email: '',
       password: '',
       confirmPassword: '',
-      promotions: [],
-      terms: [],
+      promotions: false,
+      terms: false,
     },
   });
 
-  const { handleSubmit, reset, setFocus } = methods;
+  const {
+    handleSubmit,
+    reset,
+    setFocus,
+    formState: { errors },
+  } = methods;
+  console.log(errors);
 
   const onSubmit = async (data) => {
-    console.log(data);
-    setFocus('firstName');
-    reset();
+    try {
+      console.log(data);
+      setFocus('firstName');
+      reset();
+
+      const res = await axios({
+        method: 'POST',
+        url: 'api/auth/register',
+        data,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -87,9 +103,8 @@ export default function RegisterFormSection() {
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <h5 className="mt-72-px heading-5">Đăng ký tài khoản</h5>
             <div className="flex gap-3 mt-8">
-              <TextField name="firstName" placeholder="Họ" input="w-full" />
+              <TextField name="firstName" placeholder="Họ" input="w-full" caption={mk('asd')} />
               <TextField name="lastName" placeholder="Tên" input="w-full" />
-              <TextField name="dateOfBirth" type="date" placeholder="Năm sinh" input="w-full" />
             </div>
             <TextField name="email" placeholder="Địa chỉ email" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />

@@ -6,9 +6,11 @@ async function register(req, res) {
   try {
     await dbConnect();
     const { method } = req;
+    const { firstName, lastName, email, password } = req.body;
+
     if (method == 'POST') {
       const existUser = await User.findOne({
-        email: req.body.email,
+        email,
       });
       if (existUser) {
         return res.status(409).json({
@@ -17,10 +19,12 @@ async function register(req, res) {
         });
       }
       const salt = await genSalt(10);
-      const hashPassword = await hash(req.body.password, salt);
+      const hashPassword = await hash(password, salt);
 
       const createUser = new User({
-        email: req.body.email,
+        firstName,
+        lastName,
+        email,
         password: hashPassword,
       });
       await createUser.save();

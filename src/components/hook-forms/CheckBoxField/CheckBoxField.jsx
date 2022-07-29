@@ -19,6 +19,7 @@ export function CheckBoxField({
 }) {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
 
@@ -55,7 +56,7 @@ export function CheckBoxField({
       <input
         id={value.id}
         type="checkbox"
-        value={value.id}
+        checked={watch(name)}
         className={classInput}
         {...other}
         {...register(name)}
