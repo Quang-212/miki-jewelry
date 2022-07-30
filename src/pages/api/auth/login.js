@@ -1,10 +1,10 @@
-import User from 'src/models/User';
-import dbConnect from 'src/utils/dbConnect';
 import bcrypt from 'bcrypt';
+import { serialize } from 'cookie';
+import RefreshToken from 'src/models/RefreshToken';
+import User from 'src/models/User';
 import generateAccessToken from 'src/pages/api/generateToken/generateAccessToken';
 import generateRefreshToken from 'src/pages/api/generateToken/generateRefreshToken';
-import RefreshToken from 'src/models/RefreshToken';
-import { serialize } from 'cookie';
+import dbConnect from 'src/utils/dbConnect';
 
 async function login(req, res) {
   try {

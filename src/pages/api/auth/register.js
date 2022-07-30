@@ -1,7 +1,6 @@
-import dbConnect from 'src/utils/dbConnect';
+import { genSalt, hash } from 'bcrypt';
 import User from 'src/models/User';
-import { hash, genSalt } from 'bcrypt';
-
+import dbConnect from 'src/utils/dbConnect';
 async function register(req, res) {
   try {
     await dbConnect();
