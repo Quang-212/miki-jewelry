@@ -52,6 +52,7 @@ async function login(req, res) {
           message: 'Login successfully!',
           code: 200,
           accessToken,
+          user,
         });
       }
     }

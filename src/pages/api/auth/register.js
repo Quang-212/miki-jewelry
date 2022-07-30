@@ -22,8 +22,7 @@ async function register(req, res) {
       const hashPassword = await hash(password, salt);
 
       const createUser = new User({
-        firstName,
-        lastName,
+        userName: firstName + lastName,
         email,
         password: hashPassword,
       });
