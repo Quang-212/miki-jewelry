@@ -1,13 +1,10 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import RegisterFormSection, {
-  CircleDashIcon1,
-  CircleDashIcon2,
-  CircleDashIcon3,
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
-} from 'src/sections/auth/RegisterForm';
+} from 'src/sections/auth/register-form';
 
 RegisterPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 
@@ -26,9 +23,6 @@ export default function RegisterPage() {
       <CircleIcon1 />
       <CircleIcon2 />
       <CircleIcon3 />
-      <CircleDashIcon1 />
-      <CircleDashIcon2 />
-      <CircleDashIcon3 />
     </>
   );
 }

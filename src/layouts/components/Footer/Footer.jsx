@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -10,10 +11,10 @@ import { businessLicense, publicInformation, socialLink } from './navConfig';
 const schema = yup.object().shape({
   email: yup
     .string()
-    .required('*Please enter your email address')
+    .required('*Vui lòng nhập địa chỉ email của bạn')
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      '*Please enter a valid email address',
+      '*Vui lòng nhập đúng địa chỉ email của bạn',
     ),
 });
 
@@ -27,14 +28,21 @@ export default function Footer() {
 
   const { handleSubmit, reset, setFocus } = methods;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     setFocus('email');
     reset();
+
+    // const res = await axios({
+    //   method: 'POST',
+    // url: '/api/auth/user',
+    //   data,
+    // });
+    // console.log(res.data);
   };
 
   return (
-    <footer className="mt-120-px container">
+    <footer className="relative z-50 mt-120-px container">
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>

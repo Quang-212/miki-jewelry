@@ -10,7 +10,7 @@ export default function Header() {
   const [iconDirection, setIconDirection] = useState('up');
 
   return (
-    <header className="container">
+    <header className="relative z-50 container">
       <nav className="flex justify-between pt-6 pb-4">
         <ul className="flex gap-10 mb-12">
           {navLink.map((item, index) => (

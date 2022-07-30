@@ -1,9 +1,6 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import LoginFormSection, {
-  CircleDashIcon1,
-  CircleDashIcon2,
-  CircleDashIcon3,
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
@@ -26,9 +23,6 @@ export default function LoginPage() {
       <CircleIcon1 />
       <CircleIcon2 />
       <CircleIcon3 />
-      <CircleDashIcon1 />
-      <CircleDashIcon2 />
-      <CircleDashIcon3 />
     </>
   );
 }
