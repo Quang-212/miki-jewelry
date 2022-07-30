@@ -2,6 +2,8 @@ import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import RegisterFormSection, {
   CircleDashIcon1,
+  CircleDashIcon2,
+  CircleDashIcon3,
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
@@ -25,6 +27,8 @@ export default function RegisterPage() {
       <CircleIcon2 />
       <CircleIcon3 />
       <CircleDashIcon1 />
+      <CircleDashIcon2 />
+      <CircleDashIcon3 />
     </>
   );
 }

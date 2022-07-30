@@ -110,7 +110,6 @@ module.exports = {
           'linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 28.54%)',
 
         //* Register Form
-        'register-form': "url('/static/images/register-form.png')",
         'register-form-rgba': 'rgba(255, 249, 246, 0.8)',
       },
       boxShadow: {

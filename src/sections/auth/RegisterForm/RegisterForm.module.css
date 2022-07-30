@@ -1,5 +1,5 @@
 .title {
-  @apply font-primary font-bold text-base leading-6 text-primary-3;
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
 }
 
 .w-100 {
