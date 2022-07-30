@@ -4,6 +4,7 @@ export const PATH = {
   about: '/about',
   register: '/register',
   login: '/login',
+  forgotPassword: '/forgot-password',
   facebook: '/',
   twitter: '/',
   instagram: '/',

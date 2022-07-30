@@ -15,14 +15,14 @@ async function login(req, res) {
       const user = await User.findOne({ email: req.body.email });
       if (!user)
         return res.status(404).json({
-          message: 'Email does not exist!',
+          message: 'Email không tồn tại',
           code: 404,
         });
       //compare password
       const validateUser = await bcrypt.compare(req.body.password, user.password);
       if (!validateUser)
         return res.status(401).json({
-          message: 'Wrong password!',
+          message: 'Mật khẩu không đúng',
           code: 401,
         });
       // login success!
@@ -49,7 +49,7 @@ async function login(req, res) {
         );
 
         return res.status(200).json({
-          message: 'Login successfully!',
+          message: 'Chào mừng bạn đến với Miki Jewelry',
           code: 200,
           accessToken,
           user,

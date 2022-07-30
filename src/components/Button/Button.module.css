@@ -3,9 +3,9 @@
   font-primary font-bold text-base leading-6 text-primary;
 }
 
-.root + .root {
+/* .root + .root {
   @apply ml-2;
-}
+} */
 
 .icon + .title,
 .icon + .icon {
@@ -35,7 +35,7 @@
 }
 
 .text {
-  @apply flex items-center gap-4  
+  @apply inline-flex items-center gap-4  
   font-primary font-medium text-base leading-6 text-primary;
 }
 

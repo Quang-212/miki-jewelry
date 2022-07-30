@@ -5,7 +5,7 @@ async function register(req, res) {
   try {
     await dbConnect();
     const { method } = req;
-    const { firstName, lastName, email, password } = req.body;
+    const { userName, email, password } = req.body;
 
     if (method == 'POST') {
       const existUser = await User.findOne({
@@ -13,7 +13,7 @@ async function register(req, res) {
       });
       if (existUser) {
         return res.status(409).json({
-          message: 'Email exist!',
+          message: 'Email bạn vừa đăng ký đã tồn tại.',
           code: 409,
         });
       }
@@ -21,13 +21,13 @@ async function register(req, res) {
       const hashPassword = await hash(password, salt);
 
       const createUser = new User({
-        userName: firstName + lastName,
+        userName,
         email,
         password: hashPassword,
       });
       await createUser.save();
       return res.status(201).json({
-        message: 'Register Success!',
+        message: 'Chúc mừng bạn đã đăng ký thành công',
         code: 201,
       });
     }
