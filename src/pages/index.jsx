@@ -2,6 +2,9 @@ import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
 import {
   AboutSection,
+  CircleIcon1,
+  CircleIcon2,
+  CircleIcon3,
   FeaturedProductsSection,
   HeroSection,
   LatestCollectionSection,
@@ -26,6 +29,9 @@ export default function HomePage() {
       <FeaturedProductsSection />
       <LatestCollectionSection />
       <ProductCategorySection />
+      <CircleIcon1 />
+      <CircleIcon2 />
+      <CircleIcon3 />
     </>
   );
 }

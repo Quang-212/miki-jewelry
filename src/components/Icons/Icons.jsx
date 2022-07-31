@@ -301,57 +301,6 @@ export const PinterestIcon = ({ width = '40', height = '40' }) => (
   </svg>
 );
 
-// export const SunIcon = ({ width = '40px', height = '40px' }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width={width}
-//     height={height}
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2">
-//       <path d="M12 3V2m0 20v-1m9-9h1M2 12h1m15.5-6.5L20 4M4 20l1.5-1.5M4 4l1.5 1.5m13 13L20 20" />
-//       <circle cx="12" cy="12" r="4" />
-//     </g>
-//   </svg>
-// );
-
-// export const MoonIcon = () => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width="1em"
-//     height="1em"
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" strokeWidth="2">
-//       <path d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.684 7.684 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.28 7.28 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675Z" />
-//       <path d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.332 2.332 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.332 2.332 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.332 2.332 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.332 2.332 0 0 1-2.588 0l-.945-.63Z" />
-//     </g>
-//   </svg>
-// );
-
-// export const GoToTopIcon = ({ width = '40px', height = '40px' }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width={width}
-//     height={height}
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" stroke-width="2">
-//       <circle cx="12" cy="12" r="10" />
-//       <path stroke-linecap="round" stroke-linejoin="round" d="m8 13.5l4-4l4 4" />
-//     </g>
-//   </svg>
-// );
-
 export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
@@ -402,8 +351,21 @@ export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, classNam
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />
-    <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />
+    {cx1 && <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />}
+    {cx2 && <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />}
+  </svg>
+);
+
+export const Aa = () => (
+  <svg
+    width="111"
+    height="387"
+    viewBox="0 0 111 387"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="275.5" cy="275.5" r="275.5" fill="#B78D71" fill-opacity="0.15" />
+    <circle cx="275.5" cy="275.5" r="220.453" fill="#B78D71" fill-opacity="0.1" />
   </svg>
 );
 
@@ -449,18 +411,5 @@ export const CircleDashIcon = ({
       strokeDasharray="25 25"
       {...other}
     />
-  </svg>
-);
-
-export const Aa = () => (
-  <svg
-    width="352"
-    height="1041"
-    viewBox="0 0 352 1041"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="520.5" cy="520.5" r="520.5" fill="#B78D71" fill-opacity="0.15" />
-    <circle cx="520.5" cy="520.5" r="416.5" fill="#B78D71" fill-opacity="0.1" />
   </svg>
 );

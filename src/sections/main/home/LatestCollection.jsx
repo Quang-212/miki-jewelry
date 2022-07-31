@@ -6,7 +6,7 @@ import { PATH } from 'src/routes/path';
 
 export function LatestCollectionSection() {
   return (
-    <section className="relative z-10 w-full h-732-px mt-120-px">
+    <section className="relative w-full h-732-px mt-120-px">
       <Image
         src={images.homeLatestCollection}
         alt="Home latest collection"
