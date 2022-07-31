@@ -14,7 +14,7 @@ export function HeroSection() {
             </h3>
             <hr className="w-824-px border-2" />
           </div>
-          <Button outline internalLink={PATH.home}>
+          <Button normal internalLink={PATH.home}>
             Tìm hiểu thêm
           </Button>
         </div>

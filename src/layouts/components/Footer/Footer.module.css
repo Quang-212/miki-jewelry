@@ -1,0 +1,11 @@
+.footer {
+  @apply relative z-50 mt-120-px container;
+}
+
+.divider {
+  @apply mt-7 mb-10;
+}
+
+.copyright {
+  @apply flex justify-center mt-6 mb-2;
+}

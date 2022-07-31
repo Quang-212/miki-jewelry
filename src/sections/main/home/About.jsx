@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import Button from 'src/components/Button';
-import { EllipseIcon } from 'src/components/Icons';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 
@@ -15,7 +14,7 @@ export function AboutSection() {
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
         </p>
-        <Button primary internalLink={PATH.about} wrapper="mt-66-px w-217-px">
+        <Button primary internalLink={PATH.brandHistory} wrapper="mt-66-px w-217-px">
           Tìm hiểu thêm
         </Button>
       </div>

@@ -1,12 +1,16 @@
-import axios from 'axios';
 import { yupResolver } from '@hookform/resolvers/yup';
+import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import Button from 'src/components/Button';
+import { NormalDivider } from 'src/components/Divider';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { ArrowForwardIcon } from 'src/components/Icons';
-import { businessLicense, publicInformation, socialLink } from './navConfig';
+import { businessLicense, publicInformation, socialLink } from './footer-config';
+import styles from './Footer.module.css';
+
+const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
   email: yup
@@ -42,7 +46,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative z-50 mt-120-px container">
+    <footer className={mk('footer')}>
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
@@ -66,7 +70,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <hr className="mt-7 mb-10 border border-primary-1" />
+      <NormalDivider wrapper={mk('divider')} />
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
           <span className="heading">Miki Jewelry</span>
@@ -91,7 +95,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <p className="flex justify-center mt-6 mb-2">MikiShop © 2022</p>
+      <p className={mk('copyright')}>MikiShop © 2022</p>
     </footer>
   );
 }

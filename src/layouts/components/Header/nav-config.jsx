@@ -12,14 +12,14 @@ export const navLink = [
   },
   {
     title: 'Về chúng tôi',
-    path: PATH.about,
+    path: PATH.brandHistory,
   },
 ];
 
 export const navCta = [
   {
     icon: <BasketIcon />,
-    path: PATH.about,
+    path: PATH.home,
   },
   {
     icon: <FavoriteIcon />,
@@ -27,6 +27,6 @@ export const navCta = [
   },
   {
     icon: <UserIcon />,
-    path: PATH.about,
+    path: PATH.home,
   },
 ];

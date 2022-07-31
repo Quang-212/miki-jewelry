@@ -1,10 +1,9 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts';
-//always import from src folder, not "./", "../", "../../",...
 
-AboutPage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+BrandHistoryPage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function AboutPage() {
+export default function BrandHistoryPage() {
   return (
     <div>
       <Page
@@ -15,7 +14,7 @@ export default function AboutPage() {
           thumbnailUrl: '',
         }}
       />
-      <h1 className="text-green-500">About Page</h1>
+      <h1 className="text-green-500">Brand & History Page</h1>
     </div>
   );
 }

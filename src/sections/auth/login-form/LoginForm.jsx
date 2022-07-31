@@ -103,13 +103,8 @@ export default function LoginFormSection() {
           placeholder="blur"
           className="rounded-l-secondary"
         />
-
-        <div className="flex flex-col  w-490-px px-10">
-          <Button icon internalLink={PATH.home} wrapper="mt-14">
-            <LogoIcon className="fill-primary-1" />
-          </Button>
-          <span className="text-center heading leading-48-px text-40-px">Miki Jewelry</span>
-
+        <div className="flex flex-col w-490-px px-10">
+          <BrandLogo wrapper="mt-14" />
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <h5 className="mt-72-px heading-5">Đăng nhập</h5>
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
@@ -118,13 +113,11 @@ export default function LoginFormSection() {
             <Button text internalLink={PATH.forgotPassword} title="caption">
               Quên mật khẩu ?
             </Button>
-
             <Button primary wrapper="w-full mt-8">
               Đăng nhập
             </Button>
 
             <p className="mt-8">Hoặc đăng nhập bằng</p>
-
             <div className="mt-6">
               <Button outline rounded leftIcon={<FacebookColorIcon />}>
                 Facebook

@@ -35,6 +35,10 @@ module.exports = {
       borderRadius: {
         primary: '8px',
         secondary: '16px',
+        tertiary: '12px',
+      },
+      borderWidth: {
+        '1.5-px': '1.5px',
       },
       spacing: {
         //* inset, padding, margin, width, height, maxHeight, gap, space, translate
@@ -81,6 +85,8 @@ module.exports = {
         '106-px': '106px',
       },
       backgroundImage: {
+        'btn-primary': 'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))',
+
         //* Home Page
         'hero-image': "url('/static/images/home-hero.jpg')",
         'hero-image-rgba': 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))',
@@ -114,10 +120,12 @@ module.exports = {
       },
       boxShadow: {
         'register-form': '0px 0px 86px rgba(0, 0, 0, 0.15)',
+        'btn-normal': 'inset 0px 0px 8px rgba(0, 0, 0, 0.6)',
       },
       dropShadow: {
         about: '0px 4px 162px rgba(0, 0, 0, 0.2)',
         'product-category': '0px 4px 52px rgba(15, 15, 15, 0.25)',
+        'product-card': '0px 4px 58px rgba(15, 15, 15, 0.1)',
       },
       backgroundPosition: {
         'center-22%': 'center 22%',
@@ -128,6 +136,10 @@ module.exports = {
       scale: {
         1.68: '1.68',
         1.75: '1.75',
+      },
+      transitionDuration: {
+        400: '400ms',
+        600: '600ms',
       },
       checkBox: {
         icon: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z" fill="black"/></svg>',

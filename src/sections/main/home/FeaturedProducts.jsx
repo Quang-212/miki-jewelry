@@ -1,6 +1,6 @@
-import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 import Button from 'src/components/Button';
+import { CardProduct } from 'src/components/Card';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 
@@ -9,50 +9,49 @@ export function FeaturedProductsSection() {
     {
       image: images.homeFeaturedProduct,
       title: 'Lira Earings',
-      price: '355.000đ',
+      price: '355.000',
     },
     {
       image: images.homeFeaturedProduct,
       title: 'Lira Earings',
-      price: '355.000đ',
+      price: '355.000',
     },
     {
       image: images.homeFeaturedProduct,
       title: 'Lira Earings',
-      price: '355.000đ',
+      price: '355.000',
     },
     {
       image: images.homeFeaturedProduct,
       title: 'Lira Earings',
-      price: '355.000đ',
+      price: '355.000',
     },
   ];
+
+  const { push } = useRouter();
+
+  const handleClick = () => push(PATH.products);
 
   return (
     <section className="flex flex-col gap-72-px mt-120-px container">
       <div className="relative z-10 flex justify-between">
         <h2 className="heading-2">Sản phẩm nổi bật</h2>
-        <Button primary internalLink="/products">
+        <Button primary internalLink={PATH.products}>
           Xem tất cả
         </Button>
       </div>
       <ul className="flex justify-between">
         {featuredProducts.map((product, index) => (
-          <li key={index} className="flex flex-col items-center gap-6-px">
-            <Image
+          <li key={index}>
+            <CardProduct
               src={product.image}
               alt={product.title}
               width={254}
-              height={300}
-              objectFit="cover"
-              placeholder="blur"
-              className="rounded-primary"
+              height={307}
+              title={product.title}
+              price={product.price}
+              onClick={handleClick}
             />
-            <h5 className="mt-18-px heading-5">{product.title}</h5>
-            <span className="heading-5 text-primary-2">{product.price}</span>
-            <Button primary internalLink={PATH.products} className="mt-10-px">
-              Thêm vào giỏ hàng
-            </Button>
           </li>
         ))}
       </ul>

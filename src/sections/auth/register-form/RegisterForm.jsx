@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/hook-forms';
-import { LogoIcon } from 'src/components/Icons';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 import styles from './RegisterForm.module.css';
@@ -118,13 +118,8 @@ export default function RegisterFormSection() {
           placeholder="blur"
           className="rounded-l-secondary"
         />
-
         <div className="relative z-50 flex flex-col w-490-px px-10">
-          <Button icon internalLink={PATH.home} wrapper="mt-14">
-            <LogoIcon className="fill-primary-1" />
-          </Button>
-          <span className="text-center heading leading-48-px text-40-px">Miki Jewelry</span>
-
+          <BrandLogo wrapper="mt-14" />
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <h5 className="mt-72-px heading-5">Đăng ký tài khoản</h5>
             <div className="flex gap-3 mt-8">
@@ -159,7 +154,6 @@ export default function RegisterFormSection() {
             <Button primary wrapper="w-full">
               Đăng ký
             </Button>
-
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
               <Button text internalLink={PATH.login} wrapper="ml-2" title={mk('title')}>
