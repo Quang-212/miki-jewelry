@@ -25,8 +25,8 @@ export const navCta = [
     icon: <FavoriteIcon />,
     path: PATH.home,
   },
-  {
-    icon: <UserIcon />,
-    path: PATH.about,
-  },
+  // {
+  //   icon: <UserIcon />,
+  //   path: PATH.login,
+  // },
 ];

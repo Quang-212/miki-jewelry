@@ -1,13 +1,14 @@
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import Button from 'src/components/Button';
-
-import { CaretDownIcon, LogoIcon, SearchIcon } from 'src/components/Icons';
+import { CaretDownIcon, LogoIcon, SearchIcon, UserIcon } from 'src/components/Icons';
 import { PATH } from 'src/routes/path';
 import { navCta, navLink } from './navConfig';
-
 export default function Header() {
   const [iconDirection, setIconDirection] = useState('up');
+  const { data: session } = useSession();
 
   return (
     <header className="container">
@@ -54,6 +55,26 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              {session ? (
+                <>
+                  <Image
+                    width={40}
+                    height={40}
+                    className=" rounded-full"
+                    src={session.user.image}
+                  />
+                  <span>{session.user.email}</span>
+                  <button onClick={() => signOut()}>Đăng xuất</button>
+                </>
+              ) : (
+                <Link href={PATH.login}>
+                  <a>
+                    <UserIcon />
+                  </a>
+                </Link>
+              )}
+            </li>
           </ul>
         </div>
       </nav>
