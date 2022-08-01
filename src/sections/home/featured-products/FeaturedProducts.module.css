@@ -1,0 +1,7 @@
+.featured-products {
+  @apply flex flex-col gap-72-px mt-120-px container;
+}
+
+.row-1 {
+  @apply relative z-10 flex justify-between;
+}

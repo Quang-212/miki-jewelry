@@ -9,7 +9,7 @@
 }
 
 .normal {
-  @apply py-2 px-46-px border-primary text-primary bg-neutral-5 hover:shadow-btn-normal hover:scale-105
+  @apply py-2 px-46-px border-primary text-primary bg-neutral-5 hover:shadow-btn-normal hover:scale-95
   ease-in-out duration-400;
 }
 

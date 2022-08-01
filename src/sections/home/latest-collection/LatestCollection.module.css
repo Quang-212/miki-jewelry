@@ -1,0 +1,33 @@
+.latest-collection {
+  @apply relative w-full h-732-px mt-120-px;
+}
+
+.image {
+  @apply absolute object-90% scale-y-1.68 scale-x-1.75;
+}
+
+.framer {
+  @apply relative before:absolute before:w-full before:h-483.5-px before:bg-latest-collection-framer before:bg-no-repeat 
+  before:left-152-px before:top-[109px] after:absolute after:w-96 after:h-96 after:bg-latest-collection-line after:bg-no-repeat 
+  after:left-[784px] after:top-[109px];
+}
+
+.article {
+  @apply relative flex flex-col gap-4 top-152-px left-52;
+}
+
+.heading {
+  @apply text-5xl leading-64-px text-neutral-5;
+}
+
+.title {
+  @apply mt-10 font-secondary font-semibold text-5xl leading-64-px text-neutral-5;
+}
+
+.body {
+  @apply w-352-px font-secondary font-semibold leading-20-px text-neutral-5;
+}
+
+.btn {
+  @apply max-w-[217px] mt-12 py-3 px-8;
+}

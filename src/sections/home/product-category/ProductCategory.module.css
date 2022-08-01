@@ -1,0 +1,3 @@
+.product-category {
+  @apply flex justify-between mt-120-px container;
+}

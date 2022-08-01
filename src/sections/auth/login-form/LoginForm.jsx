@@ -6,9 +6,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/hook-forms';
-import { FacebookColorIcon, GoogleColorIcon, LogoIcon } from 'src/components/Icons';
+import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 import styles from './LoginForm.module.css';

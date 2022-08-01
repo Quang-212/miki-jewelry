@@ -3,7 +3,7 @@
 }
 
 .divider {
-  @apply mt-7 mb-10;
+  @apply mt-7 mb-10 border border-primary-1;
 }
 
 .copyright {

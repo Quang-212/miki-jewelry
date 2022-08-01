@@ -1,8 +1,13 @@
+import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
+
 import Button from 'src/components/Button';
 import { CardProduct } from 'src/components/Card';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
+import styles from './FeaturedProducts.module.css';
+
+const mk = classNames.bind(styles);
 
 export function FeaturedProductsSection() {
   const featuredProducts = [
@@ -33,8 +38,8 @@ export function FeaturedProductsSection() {
   const handleClick = () => push(PATH.products);
 
   return (
-    <section className="flex flex-col gap-72-px mt-120-px container">
-      <div className="relative z-10 flex justify-between">
+    <section className={mk('featured-products')}>
+      <div className={mk('row-1')}>
         <h2 className="heading-2">Sản phẩm nổi bật</h2>
         <Button primary internalLink={PATH.products}>
           Xem tất cả

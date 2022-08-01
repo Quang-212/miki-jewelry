@@ -1,0 +1,1 @@
+export { LatestCollectionSection } from './LatestCollection';
