@@ -1,11 +1,12 @@
 import { genSalt, hash } from 'bcrypt';
 import User from 'src/models/User';
+import UserPromotion from 'src/models/UserPromotion';
 import dbConnect from 'src/utils/dbConnect';
 async function register(req, res) {
   try {
     await dbConnect();
     const { method } = req;
-    const { userName, email, password } = req.body;
+    const { userName, email, password, promotions } = req.body;
 
     if (method == 'POST') {
       const existUser = await User.findOne({
@@ -25,7 +26,18 @@ async function register(req, res) {
         email,
         password: hashPassword,
       });
+
       await createUser.save();
+
+      if (promotions) {
+        const existUser = await UserPromotion.findOne({ email });
+        if (!existUser) {
+          const newUserPromotion = new UserPromotion({
+            email,
+          });
+          await newUserPromotion.save();
+        }
+      }
       return res.status(201).json({
         message: 'Chúc mừng bạn đã đăng ký thành công',
         code: 201,

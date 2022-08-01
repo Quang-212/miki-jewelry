@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import classNames from 'classnames/bind';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
@@ -35,6 +37,7 @@ const schema = yup.object().shape({
 });
 
 export default function LoginFormSection() {
+  const { replace } = useRouter();
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -123,7 +126,17 @@ export default function LoginFormSection() {
               <Button outline rounded leftIcon={<FacebookColorIcon />}>
                 Facebook
               </Button>
+<<<<<<< HEAD
               <Button outline rounded leftIcon={<GoogleColorIcon />} wrapper="w-200-px ml-4">
+=======
+              <Button
+                onClick={() => signIn()}
+                outline
+                rounded
+                leftIcon={<GoogleColorIcon />}
+                wrapper="w-[200px] ml-4"
+              >
+>>>>>>> auth
                 Google
               </Button>
             </div>
@@ -144,4 +157,20 @@ export default function LoginFormSection() {
       </div>
     </section>
   );
+
+  /* {session?.user && (
+        <>
+          <Header />
+          <div className="flex">
+            <img className=" rounded-full" src={session.user.image} alt={session.user.name} />
+            <div className="mt-4 ml-5">
+              <p>{session.user.email}</p>
+              <button className="bg-green-200 rounded-lg border" onClick={() => signOut()}>
+                Đăng xuất
+              </button>
+            </div>
+          </div>
+          <HomePage />
+        </>
+      )} */
 }
