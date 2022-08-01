@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import Button from 'src/components/Button';
+import Copyright from 'src/components/Copyright';
 import { NormalDivider } from 'src/components/Divider';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { ArrowForwardIcon } from 'src/components/Icons';
@@ -36,13 +37,6 @@ export default function Footer() {
     console.log(data);
     setFocus('email');
     reset();
-
-    // const res = await axios({
-    //   method: 'POST',
-    // url: '/api/auth/user',
-    //   data,
-    // });
-    // console.log(res.data);
   };
 
   return (
@@ -70,7 +64,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
+
       <NormalDivider wrapper={mk('divider')} />
+
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
           <span className="heading">Miki Jewelry</span>
@@ -95,7 +91,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <p className={mk('copyright')}>MikiShop © 2022</p>
+      <Copyright wrapper="mt-6">MikiShop © 2022</Copyright>
     </footer>
   );
 }

@@ -1,4 +1,8 @@
-import Link from 'next/link';
+import Page from 'src/components/Page';
+import MainLayout from 'src/layouts/MainLayout';
+import Page404Section from 'src/sections/page-404';
+
+Page404.getLayout = (page) => <MainLayout variant="404">{page}</MainLayout>;
 
 export default function Page404() {
   return (
@@ -11,16 +15,7 @@ export default function Page404() {
           thumbnailUrl: '',
         }}
       />
-      <div className="my-80 text-center text-4xl leading-relaxed">
-        <h1>Ooops...</h1>
-        <h2>That page cannot be found 😵</h2>
-        <p>
-          Go back to the{' '}
-          <Link href="/">
-            <a className="font-bold text-green-600">Homepage</a>
-          </Link>
-        </p>
-      </div>
+      <Page404Section />
     </>
   );
 }

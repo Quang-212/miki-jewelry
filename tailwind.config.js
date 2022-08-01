@@ -38,6 +38,7 @@ module.exports = {
         tertiary: '12px',
       },
       borderWidth: {
+        '1/2-px': '0.5px',
         '1.5-px': '1.5px',
       },
       spacing: {
@@ -54,12 +55,15 @@ module.exports = {
         '37-px': '37px',
         '42-px': '42px',
         '46-px': '46px',
+        '52-px': '52px',
         '60-px': '60px',
         '66-px': '66px',
         '72-px': '72px',
         '152-px': '152px',
         '120-px': '120px',
         '146-px': '146px',
+        '180-px': '180px',
+        '200-px': '200px',
         '217-px': '217px',
         '254-px': '254px',
         '351-px': '351px',

@@ -38,7 +38,7 @@ export function FeaturedProductsSection() {
   const handleClick = () => push(PATH.products);
 
   return (
-    <section className={mk('featured-products')}>
+    <section className={mk('featured-products', 'container')}>
       <div className={mk('row-1')}>
         <h2 className="heading-2">Sản phẩm nổi bật</h2>
         <Button primary internalLink={PATH.products}>

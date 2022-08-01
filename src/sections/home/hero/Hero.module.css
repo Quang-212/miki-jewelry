@@ -7,7 +7,7 @@
 }
 
 .heading {
-  @apply my-5 heading-4 text-neutral-5;
+  @apply my-5 font-primary font-bold text-2xl leading-8 text-neutral-5;
 }
 
 .divider {

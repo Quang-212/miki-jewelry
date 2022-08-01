@@ -301,6 +301,22 @@ export const PinterestIcon = ({ width = '40', height = '40' }) => (
   </svg>
 );
 
+export const MiniStarIcon = ({ width = '8', height = '8', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox={`0 0 ${width} ${height}`}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4 0L5.08036 2.91964L8 4L5.08036 5.08036L4 8L2.91964 5.08036L0 4L2.91964 2.91964L4 0Z"
+      fill="#6E5544"
+    />
+  </svg>
+);
+
 export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
@@ -313,32 +329,6 @@ export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
       d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
       fill="black"
     />
-  </svg>
-);
-
-export const EllipseIcon = ({ width, height, cx, cy, r, fillOpacity, className }) => (
-  <svg
-    width={width}
-    height={height}
-    className={className}
-    viewBox={`0 0 ${width} ${height}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx={cx} cy={cy} r={r} fill="#B78D71" fillOpacity={fillOpacity} />
-  </svg>
-);
-
-export const EllipseDashIcon = ({ width, height, cx, cy, r, className }) => (
-  <svg
-    width={width}
-    height={height}
-    className={className}
-    viewBox={`0 0 ${width} ${height}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx={cx} cy={cy} r={r} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" />
   </svg>
 );
 

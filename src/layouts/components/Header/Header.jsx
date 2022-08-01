@@ -36,7 +36,7 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <BrandLogo />
+        <BrandLogo vertical />
         <div className="flex">
           <div className="flex relative mr-8">
             <input placeholder="Tìm kiếm" className={mk('input-search')} />

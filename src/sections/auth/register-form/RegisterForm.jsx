@@ -21,27 +21,25 @@ const schema = yup.object().shape({
   // lastName: yup.string().required('*Bắt buộc!'),
   // email: yup
   //   .string()
-  //   .required('Vui lòng nhập địa chỉ email của bạn')
+  //   .required('*Vui lòng nhập địa chỉ email của bạn')
   //   .matches(
   //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //     'Vui lòng nhập đúng địa chỉ email của bạn',
+  //     '*Vui lòng nhập đúng địa chỉ email của bạn',
   //   ),
   // password: yup
   //   .string()
   //   .trim()
-  //   .required('Vui lòng nhập mật khẩu')
+  //   .required('*Vui lòng nhập mật khẩu')
   //   .matches(
   //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-  //     'Minimum of 8 characters, at least one letter and one number',
+  //     '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
   //   ),
   // confirmPassword: yup
   //   .string()
   //   .trim()
-  //   .required('Vui lòng nhập lại mật khẩu')
-  //   .oneOf([yup.ref('password'), null], 'Mật khẩu đã nhập chưa đúng'),
-  // terms: yup
-  //   .boolean()
-  //   .oneOf([true], 'Bạn cần đọc và đồng ý với các điều khoản chính sách của Miki Jewelry'),
+  //   .required('*Vui lòng nhập lại mật khẩu')
+  //   .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng'),
+  // terms: yup.boolean().oneOf([true], '*Bạn cần đọc và đồng ý với các điều khoản chính sách'),
 });
 
 export default function RegisterFormSection() {
@@ -107,8 +105,8 @@ export default function RegisterFormSection() {
   };
 
   return (
-    <section className="relative z-50 container pt-120-px">
-      <div className="flex h-852-px rounded-secondary register-form-rgba shadow-register-form">
+    <section className={mk('register')}>
+      <div className={mk('wrapper')}>
         <Image
           src={images.registerForm}
           alt="Ảnh form đăng ký"
@@ -118,17 +116,22 @@ export default function RegisterFormSection() {
           placeholder="blur"
           className="rounded-l-secondary"
         />
-        <div className="relative z-50 flex flex-col w-490-px px-10">
-          <BrandLogo wrapper="mt-14" />
+        <div className={mk('form')}>
+          <BrandLogo vertical wrapper="mt-14" />
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <h5 className="mt-72-px heading-5">Đăng ký tài khoản</h5>
+            <h5 className="mt-14 heading-5">Đăng ký tài khoản</h5>
             <div className="flex gap-3 mt-8">
-              <TextField name="firstName" placeholder="Họ" input="w-full" caption={mk('asd')} />
+              <TextField name="firstName" placeholder="Họ" input="w-full" />
               <TextField name="lastName" placeholder="Tên" input="w-full" />
             </div>
             <TextField name="email" placeholder="Địa chỉ email" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
-            <TextField name="confirmPassword" type="password" placeholder="Nhập lại mật khẩu" />
+            <TextField
+              name="confirmPassword"
+              type="password"
+              placeholder="Nhập lại mật khẩu"
+              wrapper="mt-4"
+            />
 
             <CheckBoxField
               name="promotions"
@@ -137,7 +140,7 @@ export default function RegisterFormSection() {
                 highlight: false,
                 content: 'Nhận thông tin khuyến mãi qua email',
               }}
-              caption={mk('caption')}
+              caption="h-0"
             />
             <CheckBoxField
               name="terms"
@@ -148,6 +151,7 @@ export default function RegisterFormSection() {
                 content: 'Tôi đã đọc và đồng ý với các điều khoản chính sách của Miki Jewelry',
               }}
               wrapper="mt-7"
+              caption="h-6"
               highlight="text-primary-3"
             />
 
@@ -156,7 +160,7 @@ export default function RegisterFormSection() {
             </Button>
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
-              <Button text internalLink={PATH.login} wrapper="ml-2" title={mk('title')}>
+              <Button text internalLink={PATH.login} wrapper="ml-2" title={mk('title-btn-login')}>
                 Đăng nhập
               </Button>
             </p>

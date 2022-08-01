@@ -7,8 +7,10 @@ import { LogoIcon } from '../Icons';
 
 const mk = classNames.bind(styles);
 
-export default function BrandLogo({ wrapper }) {
+export default function BrandLogo({ vertical, horizontal, wrapper }) {
   const classWrapper = mk('root', {
+    vertical,
+    horizontal,
     [wrapper]: wrapper,
   });
 

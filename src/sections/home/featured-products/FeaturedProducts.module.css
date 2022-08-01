@@ -1,5 +1,5 @@
 .featured-products {
-  @apply flex flex-col gap-72-px mt-120-px container;
+  @apply flex flex-col gap-72-px mt-120-px;
 }
 
 .row-1 {
