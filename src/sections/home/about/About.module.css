@@ -1,0 +1,11 @@
+.about {
+  @apply flex gap-42-px mt-120-px container;
+}
+
+.col-1 {
+  @apply flex flex-col gap-8 w-2/4 max-w-544-px;
+}
+
+.image {
+  @apply z-50 rounded-secondary drop-shadow-about;
+}

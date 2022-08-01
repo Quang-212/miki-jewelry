@@ -1,0 +1,15 @@
+.hero {
+  @apply relative z-10 h-629-px bg-hero-image bg-cover bg-center;
+}
+
+.bg-image-rgba {
+  @apply flex w-auto h-full bg-hero-image-rgba;
+}
+
+.heading {
+  @apply my-5 font-primary font-bold text-2xl leading-8 text-neutral-5;
+}
+
+.divider {
+  @apply w-824-px border-2;
+}

@@ -1,21 +1,27 @@
-import Link from 'next/link';
+import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Button from 'src/components/Button';
 
-import { CaretDownIcon, LogoIcon, SearchIcon } from 'src/components/Icons';
-import { PATH } from 'src/routes/path';
-import { navCta, navLink } from './navConfig';
+import BrandLogo from 'src/components/BrandLogo';
+import Button from 'src/components/Button';
+import { CaretDownIcon, SearchIcon } from 'src/components/Icons';
+import styles from './Header.module.css';
+import { navCta, navLink } from './nav-config';
+
+const mk = classNames.bind(styles);
 
 export default function Header() {
   const [iconDirection, setIconDirection] = useState('up');
 
+  const { pathname } = useRouter();
+
   return (
-    <header className="relative z-50 container">
-      <nav className="flex justify-between pt-6 pb-4">
+    <header className={mk('header')}>
+      <nav className={mk('nav')}>
         <ul className="flex gap-10 mb-12">
           {navLink.map((item, index) => (
             <li key={index} className="flex items-center gap-14-px">
-              <Button text internalLink={item.path} wrapper="flex items-center gap-4">
+              <Button text internalLink={item.path} title={mk({ active: pathname === item.path })}>
                 {item.title}
               </Button>
               {index === 1 && (
@@ -30,28 +36,18 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <div className="flex flex-col items-center">
-          <Link href={PATH.home}>
-            <a>
-              <LogoIcon className="fill-primary-1" />
-            </a>
-          </Link>
-          <span className="heading text-4xl">Miki Jewelry</span>
-        </div>
+        <BrandLogo vertical />
         <div className="flex">
           <div className="flex relative mr-8">
-            <input
-              placeholder="Tìm kiếm"
-              className="h-10 w-56 py-2 px-4 rounded-primary border border-neutral-1 bg-white"
-            />
-            <SearchIcon className="absolute mt-2 ml-48" />
+            <input placeholder="Tìm kiếm" className={mk('input-search')} />
+            <SearchIcon className={mk('search-icon')} />
           </div>
           <ul className="flex gap-8 mb-12">
             {navCta.map((item, index) => (
               <li key={index}>
-                <Link href={item.path}>
-                  <a>{item.icon}</a>
-                </Link>
+                <Button icon internalLink={item.path}>
+                  {item.icon}
+                </Button>
               </li>
             ))}
           </ul>

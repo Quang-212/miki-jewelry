@@ -1,5 +1,5 @@
 import Page from 'src/components/Page';
-import MainLayout from 'src/layouts';
+import MainLayout from 'src/layouts/MainLayout';
 import RegisterFormSection, {
   CircleIcon1,
   CircleIcon2,

@@ -1,0 +1,11 @@
+.root {
+  @apply flex;
+}
+
+.vertical {
+  @apply flex-col items-center;
+}
+
+.horizontal {
+  @apply flex-row items-center gap-6;
+}

@@ -15,5 +15,5 @@
 }
 
 .caption {
-  @apply block h-6 ml-1 text-caption-1;
+  @apply block ml-1 text-caption-1 text-sm leading-5;
 }

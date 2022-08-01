@@ -1,0 +1,11 @@
+.footer {
+  @apply relative flex flex-col;
+}
+
+.admin {
+  /* @apply */
+}
+
+.not-found {
+  @apply flex flex-col h-screen container;
+}

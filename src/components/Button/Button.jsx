@@ -9,6 +9,7 @@ const mk = classNames.bind(styles);
 export default function Button({
   internalLink,
   externalLink,
+  normal,
   primary,
   outline,
   rounded,
@@ -25,7 +26,7 @@ export default function Button({
   onClick,
   ...passProps
 }) {
-  let Component = 'button';
+  let ButtonWrapper = 'button';
 
   const props = {
     onClick,
@@ -42,6 +43,7 @@ export default function Button({
   }
 
   const classWrapper = mk('root', {
+    normal,
     primary,
     outline,
     rounded,
@@ -72,16 +74,16 @@ export default function Button({
   }
 
   if (externalLink) {
-    Component = 'a';
+    ButtonWrapper = 'a';
     props.href = externalLink;
   }
 
   return (
-    <Component className={classWrapper} {...props}>
+    <ButtonWrapper className={classWrapper} {...props}>
       {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
       <span className={mk('title')}>{children}</span>
       {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
-    </Component>
+    </ButtonWrapper>
   );
 }
 

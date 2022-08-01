@@ -1,20 +1,26 @@
+import classNames from 'classnames/bind';
+
 import Button from 'src/components/Button';
+import { NormalDivider } from 'src/components/Divider';
 import { PATH } from 'src/routes/path';
+import styles from './Hero.module.css';
+
+const mk = classNames.bind(styles);
 
 export function HeroSection() {
   return (
-    <section className="relative z-10 h-629-px bg-hero-image bg-cover bg-center">
-      <div className="flex w-auto h-full bg-hero-image-rgba">
+    <section className={mk('hero')}>
+      <div className={mk('bg-image-rgba')}>
         <div className="flex flex-col items-center gap-60-px m-auto">
           <h1 className="display text-neutral-5">Thế Giới Nữ Trang</h1>
           <div className="flex flex-col items-center">
-            <hr className="w-824-px border-2" />
-            <h3 className="my-5 heading-3 text-neutral-5">
+            <NormalDivider wrapper={mk('divider')} />
+            <h3 className={mk('heading')}>
               Tôn vinh vẻ đẹp phái nữ - Trao quà tặng - Trao yêu thương
             </h3>
-            <hr className="w-824-px border-2" />
+            <NormalDivider wrapper={mk('divider')} />
           </div>
-          <Button outline internalLink={PATH.home}>
+          <Button normal internalLink={PATH.home}>
             Tìm hiểu thêm
           </Button>
         </div>

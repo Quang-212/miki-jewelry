@@ -1,0 +1,7 @@
+.footer {
+  @apply relative z-50 mt-120-px container;
+}
+
+.divider {
+  @apply mt-7 mb-10 border border-primary-1;
+}

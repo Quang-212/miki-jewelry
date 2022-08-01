@@ -1,29 +1,30 @@
 .root {
-  @apply inline-flex justify-center items-center gap-2 select-none rounded-primary 
-  font-primary font-bold text-base leading-6 text-primary;
+  @apply inline-flex justify-center items-center gap-2 select-none 
+  rounded-primary font-primary font-bold text-base leading-6 text-primary;
 }
-
-/* .root + .root {
-  @apply ml-2;
-} */
 
 .icon + .title,
 .icon + .icon {
   @apply ml-2;
 }
 
+.normal {
+  @apply py-2 px-46-px border-primary text-primary bg-neutral-5 hover:shadow-btn-normal hover:scale-95
+  ease-in-out duration-400;
+}
+
 .primary {
-  @apply h-10 py-2 px-46-px text-neutral-5 border border-primary bg-primary hover:bg-neutral-5 hover:text-primary
-  ease-in-out duration-500;
+  @apply h-10 py-2 px-46-px text-neutral-5 border-1.5-px border-primary bg-primary hover:bg-neutral-5 hover:text-primary
+  ease-in-out duration-600;
 }
 
 .outline {
   @apply py-2 px-6 border border-primary text-primary hover:bg-primary hover:text-white bg-neutral-5 
-  ease-in-out duration-500;
+  ease-in-out duration-600;
 }
 
 .rounded {
-  @apply rounded-full border-2 border-primary  hover:border-neutral-700;
+  @apply rounded-full border-2 border-primary  hover:border-neutral-600;
 }
 
 .small {
@@ -35,8 +36,7 @@
 }
 
 .text {
-  @apply inline-flex items-center gap-4  
-  font-primary font-medium text-base leading-6 text-primary;
+  @apply font-primary font-medium text-base leading-6 text-primary;
 }
 
 .icon {

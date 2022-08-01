@@ -1,7 +1,15 @@
-.title {
-  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
+.login {
+  @apply container pt-120-px;
 }
 
-.asd {
-  @apply max-w-[200px];
+.wrapper {
+  @apply flex h-852-px rounded-secondary bg-register-form-rgba shadow-register-form;
+}
+
+.form {
+  @apply flex flex-col w-490-px px-10;
+}
+
+.title-btn-register {
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
 }

@@ -1,5 +1,5 @@
 import Page from 'src/components/Page';
-import MainLayout from 'src/layouts';
+import MainLayout from 'src/layouts/MainLayout';
 import {
   AboutSection,
   CircleIcon1,
@@ -9,7 +9,7 @@ import {
   HeroSection,
   LatestCollectionSection,
   ProductCategorySection,
-} from 'src/sections/main/home';
+} from 'src/sections/home';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 

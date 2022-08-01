@@ -1,8 +1,13 @@
+import classNames from 'classnames/bind';
+
 import { EllipseIcon } from 'src/components/Icons';
+import styles from './ProductCategory.module.css';
+
+const mk = classNames.bind(styles);
 
 export function ProductCategorySection() {
   return (
-    <section className="flex justify-between mt-120-px container">
+    <section className={mk('product-category')}>
       <div className="flex items-center flex-wrap gap-10 w-[900px]">
         <div className="w-254-px h-254-px rounded-tl-secondary bg-product-category-ring bg-cover bg-center drop-shadow-product-category">
           <div className="flex justify-center items-end w-auto h-full rounded-tl-secondary bg-product-category-ring-rgba">
