@@ -152,4 +152,20 @@ export default function LoginFormSection() {
       </div>
     </section>
   );
+
+  /* {session?.user && (
+        <>
+          <Header />
+          <div className="flex">
+            <img className=" rounded-full" src={session.user.image} alt={session.user.name} />
+            <div className="mt-4 ml-5">
+              <p>{session.user.email}</p>
+              <button className="bg-green-200 rounded-lg border" onClick={() => signOut()}>
+                Đăng xuất
+              </button>
+            </div>
+          </div>
+          <HomePage />
+        </>
+      )} */
 }

@@ -42,7 +42,7 @@ export function Footer() {
 
       const res = await axios({
         method: 'POST',
-        url: '/api/auth/register',
+        url: '/api/userPromotion',
         data,
       });
       console.log(res.data);
