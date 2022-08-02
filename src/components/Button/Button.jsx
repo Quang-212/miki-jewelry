@@ -42,7 +42,7 @@ export default function Button({
     });
   }
 
-  const classWrapper = mk('root', {
+  const classWrapper = mk('root', 'btn', {
     normal,
     primary,
     outline,

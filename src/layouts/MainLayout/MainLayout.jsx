@@ -1,9 +1,8 @@
-import BrandLogo from 'src/components/BrandLogo';
-import Copyright from 'src/components/Copyright';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import classNames from 'classnames/bind';
 
+import BrandLogo from 'src/components/BrandLogo';
+import Copyright from 'src/components/Copyright';
+import { Footer, Header, Sidebar, SubHeader } from '../components';
 import styles from './MainLayout.module.css';
 
 const mk = classNames.bind(styles);
@@ -21,11 +20,9 @@ export default function MainLayout({ variant, children }) {
   if (variant === 'admin') {
     return (
       <div className={mk('relative', 'wrapper', 'admin')}>
-        <Header />
-        {/* <Sidebar /> */}
-        <h1>Admin Layout</h1>
+        <SubHeader />
+        <Sidebar />
         <main>{children}</main>
-        <Footer />
       </div>
     );
   }

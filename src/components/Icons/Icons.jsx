@@ -50,15 +50,15 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="11" cy="11" r="7" stroke="#251C17" stroke-width="1.5" />
-    <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" stroke-width="1.5" />
-    <path d="M20 20L17 17" stroke="#251C17" stroke-width="1.5" stroke-linecap="round" />
+    <circle cx="11" cy="11" r="7" stroke="#251C17" strokeWidth="1.5" />
+    <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" strokeWidth="1.5" />
+    <path d="M20 20L17 17" stroke="#251C17" strokeWidth="1.5" strokeLinecap="round" />
     <path
       d="M20 20L17 17"
       stroke="black"
       strokeOpacity="0.2"
-      stroke-width="1.5"
-      stroke-linecap="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
     />
   </svg>
 );
@@ -317,17 +317,37 @@ export const MiniStarIcon = ({ width = '8', height = '8', className }) => (
   </svg>
 );
 
-export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
+export const BellRingIcon = ({ width = '32', height = '32', className }) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 16 16"
   >
     <path
-      d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
-      fill="black"
+      fill="current-color"
+      d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7c0-2.42-1.72-4.44-4.005-4.901z"
+    />
+  </svg>
+);
+
+export const Ba = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width="1em"
+    height="1em"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill="currentColor"
+      d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7c0-2.42-1.72-4.44-4.005-4.901z"
     />
   </svg>
 );
@@ -343,19 +363,6 @@ export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, classNam
   >
     {cx1 && <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />}
     {cx2 && <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />}
-  </svg>
-);
-
-export const Aa = () => (
-  <svg
-    width="111"
-    height="387"
-    viewBox="0 0 111 387"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="275.5" cy="275.5" r="275.5" fill="#B78D71" fill-opacity="0.15" />
-    <circle cx="275.5" cy="275.5" r="220.453" fill="#B78D71" fill-opacity="0.1" />
   </svg>
 );
 

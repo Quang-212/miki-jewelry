@@ -1,27 +1,19 @@
-<<<<<<< HEAD
 import classNames from 'classnames/bind';
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
-import { CaretDownIcon, SearchIcon } from 'src/components/Icons';
+import { CaretDownIcon, SearchIcon, UserIcon } from 'src/components/Icons';
+import { PATH } from 'src/routes/path';
 import styles from './Header.module.css';
 import { navCta, navLink } from './nav-config';
 
 const mk = classNames.bind(styles);
 
-=======
-import { signOut, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import Button from 'src/components/Button';
-import { CaretDownIcon, LogoIcon, SearchIcon, UserIcon } from 'src/components/Icons';
-import { PATH } from 'src/routes/path';
-import { navCta, navLink } from './navConfig';
->>>>>>> auth
-export default function Header() {
+export function Header() {
   const [iconDirection, setIconDirection] = useState('up');
   const { data: session } = useSession();
 
@@ -65,21 +57,14 @@ export default function Header() {
             <li>
               {session ? (
                 <>
-                  <Image
-                    width={40}
-                    height={40}
-                    className=" rounded-full"
-                    src={session.user.image}
-                  />
+                  <Image width={40} height={40} className="rounded-full" src={session.user.image} />
                   <span>{session.user.email}</span>
                   <button onClick={() => signOut()}>Đăng xuất</button>
                 </>
               ) : (
-                <Link href={PATH.login}>
-                  <a>
-                    <UserIcon />
-                  </a>
-                </Link>
+                <Button icon internalLink={PATH.login}>
+                  <UserIcon />
+                </Button>
               )}
             </li>
           </ul>

@@ -28,6 +28,7 @@ module.exports = {
         'caption-1': '#D2311B',
       },
       maxWidth: {
+        '228-px': '228px',
         '412-px': '412px',
         '544-px': '544px',
         '1440-px': '1440px',
@@ -65,6 +66,7 @@ module.exports = {
         '180-px': '180px',
         '200-px': '200px',
         '217-px': '217px',
+        '228-px': '228px',
         '254-px': '254px',
         '351-px': '351px',
         '352-px': '352px',

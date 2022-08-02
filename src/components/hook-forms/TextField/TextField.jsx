@@ -31,8 +31,10 @@ export function TextField({ name, label, placeholder, wrapper, input, caption, .
         placeholder={placeholder}
         className={classInput}
         style={{
-          borderColor: errors[name]?.message ? 'red' : '',
-          backgroundColor: errors[name]?.message ? '#ffebeb' : '',
+          ...(errors?.[name] && {
+            borderColor: 'red',
+            backgroundColor: '#ffebeb',
+          }),
         }}
         {...other}
         {...register(name)}

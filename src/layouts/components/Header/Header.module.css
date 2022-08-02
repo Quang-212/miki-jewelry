@@ -11,7 +11,7 @@
 }
 
 .input-search {
-  @apply h-10 w-56 py-2 px-4 rounded-primary border border-neutral-1 bg-white;
+  @apply h-10 max-w-[228px] py-2 px-4 rounded-primary border border-neutral-1 bg-white;
 }
 
 .search-icon {
