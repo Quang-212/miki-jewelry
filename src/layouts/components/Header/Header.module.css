@@ -1,9 +1,9 @@
 .header {
-  @apply relative z-50 container;
+  @apply relative z-50;
 }
 
 .nav {
-  @apply flex justify-between pt-6 pb-4;
+  @apply flex justify-between items-end pt-4 pb-6;
 }
 
 .active {
@@ -11,9 +11,9 @@
 }
 
 .input-search {
-  @apply h-10 max-w-[228px] py-2 px-4 rounded-primary border border-neutral-1 bg-white;
+  @apply h-10 max-w-[279px] py-2 px-4 rounded-primary border border-neutral-1 bg-white;
 }
 
 .search-icon {
-  @apply absolute mt-2 ml-48 cursor-pointer;
+  @apply absolute mt-2 ml-[220px] cursor-pointer;
 }

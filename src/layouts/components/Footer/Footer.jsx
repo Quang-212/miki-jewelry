@@ -52,7 +52,7 @@ export function Footer() {
   };
 
   return (
-    <footer className={mk('footer')}>
+    <footer className={mk('footer', 'container')}>
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>

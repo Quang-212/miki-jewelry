@@ -11,6 +11,7 @@ import homeLatestCollectionFramer from 'public/static/images/home-latest-collect
 import homeLatestCollection from 'public/static/images/home-latest-collection.jpg';
 import registerForm from 'public/static/images/register-form.png';
 import loginForm from 'public/static/images/login-form.png';
+import adminAvatar from 'public/static/images/avatar-admin.jpg';
 
 export default {
   homeHero,
@@ -26,4 +27,5 @@ export default {
   homeCategoryEarring,
   registerForm,
   loginForm,
+  adminAvatar,
 };

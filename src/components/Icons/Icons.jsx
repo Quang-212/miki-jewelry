@@ -187,6 +187,7 @@ export const GoogleColorIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
+    className={className}
     viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +318,7 @@ export const MiniStarIcon = ({ width = '8', height = '8', className }) => (
   </svg>
 );
 
-export const BellRingIcon = ({ width = '32', height = '32', className }) => (
+export const BellRingIcon = ({ width = '24', height = '24', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"

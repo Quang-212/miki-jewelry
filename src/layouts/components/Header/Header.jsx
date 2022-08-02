@@ -20,9 +20,9 @@ export function Header() {
   const { pathname } = useRouter();
 
   return (
-    <header className={mk('header')}>
+    <header className={mk('header', 'container')}>
       <nav className={mk('nav')}>
-        <ul className="flex gap-10 mb-12">
+        <ul className="flex gap-10 mb-2">
           {navLink.map((item, index) => (
             <li key={index} className="flex items-center gap-14-px">
               <Button text internalLink={item.path} title={mk({ active: pathname === item.path })}>
@@ -41,12 +41,12 @@ export function Header() {
           ))}
         </ul>
         <BrandLogo vertical />
-        <div className="flex">
+        <div className="flex items-center">
           <div className="flex relative mr-8">
             <input placeholder="Tìm kiếm" className={mk('input-search')} />
             <SearchIcon className={mk('search-icon')} />
           </div>
-          <ul className="flex gap-8 mb-12">
+          <ul className="flex gap-8">
             {navCta.map((item, index) => (
               <li key={index}>
                 <Button icon internalLink={item.path}>

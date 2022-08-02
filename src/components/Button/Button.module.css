@@ -12,7 +12,7 @@
 }
 
 .primary {
-  @apply h-10 py-2 px-46-px border-1.5-px border-primary bg-primary text-neutral-5 hover:bg-neutral-5 
+  @apply h-10 py-2 px-46-px border-2 border-primary bg-primary text-neutral-5 hover:bg-neutral-5 
   hover:text-primary ease-in-out duration-600;
 }
 
