@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
-import Image from 'next/image';
 
 import Button from 'src/components/Button';
+import Image from 'src/components/Image';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 import styles from './LatestCollection.module.css';

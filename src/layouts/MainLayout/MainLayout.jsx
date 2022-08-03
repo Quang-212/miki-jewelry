@@ -19,17 +19,19 @@ export default function MainLayout({ variant, children }) {
 
   if (variant === 'admin') {
     return (
-      <div className={mk('relative', 'wrapper', 'admin')}>
-        <SubHeader />
+      <div className={mk('relative', 'sub-wrapper', 'admin')}>
         <Sidebar />
-        <main>{children}</main>
+        <div className="flex flex-col gap-8 w-5/6">
+          <SubHeader />
+          <main>{children}</main>
+        </div>
       </div>
     );
   }
 
   if (variant === '404') {
     return (
-      <div className={mk('relative', 'wrapper', 'not-found')}>
+      <div className={mk('relative', 'sub-wrapper', 'not-found')}>
         <BrandLogo horizontal wrapper="mt-6" />
         <main className="m-auto">{children}</main>
         <Copyright>MikiShop © 2022. Thương hiệu thời trang hàng đầu Việt Nam</Copyright>

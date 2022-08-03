@@ -9,3 +9,11 @@
 .horizontal {
   @apply flex-row items-center gap-6;
 }
+
+.logo-icon {
+  @apply fill-primary-1;
+}
+
+.brand-name {
+  @apply font-secondary font-bold text-primary uppercase text-4xl leading-48-px;
+}

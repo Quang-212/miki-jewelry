@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import classNames from 'classnames/bind';
 
 import Button from 'src/components/Button';
+import Image from 'src/components/Image';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes/path';
 import styles from './About.module.css';

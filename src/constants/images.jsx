@@ -1,3 +1,4 @@
+import logo from 'public/static/images/logo.png';
 import homeAbout from 'public/static/images/home-about.png';
 import homeCategoryBracelet from 'public/static/images/home-category-bracelet.png';
 import homeCategoryEarring from 'public/static/images/home-category-earring.png';
@@ -14,6 +15,7 @@ import loginForm from 'public/static/images/login-form.png';
 import adminAvatar from 'public/static/images/avatar-admin.jpg';
 
 export default {
+  logo,
   homeHero,
   homeAbout,
   homeFeaturedProduct,

@@ -15,6 +15,8 @@ export function TextField({ name, label, placeholder, wrapper, input, caption, .
     [wrapper]: wrapper,
   });
 
+  // const classLabel = mk('root', {})
+
   const classInput = mk('input', {
     [input]: input,
   });
@@ -25,7 +27,9 @@ export function TextField({ name, label, placeholder, wrapper, input, caption, .
 
   return (
     <div className={classWrapper}>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className={mk('label')}>
+        {label}
+      </label>
       <input
         type="text"
         placeholder={placeholder}

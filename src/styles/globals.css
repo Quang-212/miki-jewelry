@@ -61,6 +61,9 @@
   .wrapper {
     @apply max-w-1440-px m-auto body bg-wrapper;
   }
+  .sub-wrapper {
+    @apply m-auto px-16 body bg-wrapper;
+  }
   .container {
     @apply px-152-px;
   }

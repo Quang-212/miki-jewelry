@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import classNames from 'classnames/bind';
 
 import { BellRingIcon, SearchIcon } from 'src/components/Icons';
+import Image from 'src/components/Image';
 import { images } from 'src/constants';
 import styles from './SubHeader.module.css';
 
@@ -9,7 +9,7 @@ const mk = classNames.bind(styles);
 
 export function SubHeader() {
   return (
-    <header className="relative z-50 container">
+    <header className="relative z-50">
       <nav className="flex justify-between items-center pt-6 pb-4">
         <div className="flex relative">
           <input
@@ -33,8 +33,6 @@ export function SubHeader() {
               width={40}
               height={40}
               className="rounded-full"
-              objectFit="cover"
-              placeholder="blur"
             />
           </li>
         </ul>

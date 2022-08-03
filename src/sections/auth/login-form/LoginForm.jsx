@@ -46,13 +46,7 @@ export default function LoginFormSection() {
     },
   });
 
-  const {
-    handleSubmit,
-    reset,
-    setFocus,
-    formState: { errors },
-  } = methods;
-  console.log(errors);
+  const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
     try {
