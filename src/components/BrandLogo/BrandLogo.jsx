@@ -7,17 +7,23 @@ import { LogoIcon } from '../Icons';
 
 const mk = classNames.bind(styles);
 
-export default function BrandLogo({ vertical, horizontal, wrapper }) {
+export default function BrandLogo({ vertical, horizontal, wrapper, logo, brandName }) {
   const classWrapper = mk('root', {
     vertical,
     horizontal,
     [wrapper]: wrapper,
   });
+  const classIcon = mk('logo-icon', {
+    [logo]: logo,
+  });
+  const classBrandName = mk('brand-name', {
+    [brandName]: brandName,
+  });
 
   return (
     <div className={classWrapper}>
       <Button icon internalLink={PATH.home}>
-        <LogoIcon className="fill-primary-1" />
+        <LogoIcon className={classIcon} />
       </Button>
       <span className="heading text-4xl leading-48-px">Miki Jewelry</span>
     </div>

@@ -1,5 +1,5 @@
 .footer {
-  @apply relative z-50 mt-120-px container;
+  @apply relative z-50 mt-120-px;
 }
 
 .divider {

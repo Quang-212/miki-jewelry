@@ -1,5 +1,5 @@
 .about {
-  @apply flex gap-42-px mt-120-px container;
+  @apply flex gap-42-px mt-120-px;
 }
 
 .col-1 {

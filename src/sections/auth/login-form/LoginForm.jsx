@@ -46,13 +46,7 @@ export default function LoginFormSection() {
     },
   });
 
-  const {
-    handleSubmit,
-    reset,
-    setFocus,
-    formState: { errors },
-  } = methods;
-  console.log(errors);
+  const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
     try {
@@ -123,20 +117,15 @@ export default function LoginFormSection() {
 
             <p className="mt-8">Hoặc đăng nhập bằng</p>
             <div className="mt-6">
-              <Button outline rounded leftIcon={<FacebookColorIcon />}>
+              <Button rounded leftIcon={<FacebookColorIcon />}>
                 Facebook
               </Button>
-<<<<<<< HEAD
-              <Button outline rounded leftIcon={<GoogleColorIcon />} wrapper="w-200-px ml-4">
-=======
               <Button
                 onClick={() => signIn()}
-                outline
                 rounded
                 leftIcon={<GoogleColorIcon />}
                 wrapper="w-[200px] ml-4"
               >
->>>>>>> auth
                 Google
               </Button>
             </div>

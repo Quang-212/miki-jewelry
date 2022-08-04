@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import Image from 'next/image';
 
+import Image from 'src/components/Image';
 import { PATH } from 'src/routes/path';
 import Button from '../../Button';
 import styles from './CardProduct.module.css';
@@ -47,11 +47,9 @@ export function CardProduct({
       <CardImage className={classImageWrapper}>
         <Image
           src={src}
-          alt={alt ?? 'Product Image'}
+          alt={alt}
           width={width}
           height={height}
-          objectFit={objectFit}
-          placeholder={placeholder}
           className={classImage}
           onClick={onClick}
         />

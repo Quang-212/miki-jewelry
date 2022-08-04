@@ -42,7 +42,7 @@ export default function Button({
     });
   }
 
-  const classWrapper = mk('root', {
+  const classWrapper = mk('root', 'btn', {
     normal,
     primary,
     outline,
@@ -81,7 +81,7 @@ export default function Button({
   return (
     <ButtonWrapper className={classWrapper} {...props}>
       {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
-      <span className={mk('title')}>{children}</span>
+      <span className={classTitle}>{children}</span>
       {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
     </ButtonWrapper>
   );

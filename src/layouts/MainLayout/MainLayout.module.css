@@ -3,9 +3,9 @@
 }
 
 .admin {
-  /* @apply */
+  @apply flex justify-between gap-10;
 }
 
 .not-found {
-  @apply flex flex-col h-screen container;
+  @apply flex flex-col h-screen;
 }

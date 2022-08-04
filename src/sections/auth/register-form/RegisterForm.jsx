@@ -152,7 +152,7 @@ export default function RegisterFormSection() {
               }}
               wrapper="mt-7"
               caption="h-6"
-              highlight="text-primary-3"
+              highlight="text-primary-3 hover:underline hover:opacity-80 transition-all duration-500 ease-in-out"
             />
 
             <Button primary wrapper="w-full">

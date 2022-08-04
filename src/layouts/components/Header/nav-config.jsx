@@ -21,19 +21,12 @@ export const navCta = [
     icon: <BasketIcon />,
     path: PATH.home,
   },
-  {
-    icon: <FavoriteIcon />,
-    path: PATH.home,
-  },
-<<<<<<< HEAD:src/layouts/components/Header/nav-config.jsx
-  {
-    icon: <UserIcon />,
-    path: PATH.home,
-  },
-=======
+  // {
+  //   icon: <FavoriteIcon />,
+  //   path: PATH.home,
+  // },
   // {
   //   icon: <UserIcon />,
   //   path: PATH.login,
   // },
->>>>>>> auth:src/layouts/components/Header/navConfig.jsx
 ];

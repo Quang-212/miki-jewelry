@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -23,7 +24,7 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function Footer() {
+export function Footer() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -34,13 +35,24 @@ export default function Footer() {
   const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data);
-    setFocus('email');
-    reset();
+    try {
+      console.log(data);
+      setFocus('email');
+      reset();
+
+      const res = await axios({
+        method: 'POST',
+        url: '/api/userPromotion',
+        data,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <footer className={mk('footer')}>
+    <footer className={mk('footer', 'container')}>
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
