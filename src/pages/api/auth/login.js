@@ -47,11 +47,12 @@ async function login(req, res) {
             Secure: false,
           }),
         );
-
+        const { password, ...other } = user._doc;
         return res.status(200).json({
           message: 'Chào mừng bạn đến với Miki Jewelry',
           code: 200,
           accessToken,
+          ...other,
         });
       }
     }

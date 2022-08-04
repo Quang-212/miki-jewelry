@@ -1,8 +1,8 @@
 import UserPromotion from 'src/models/UserPromotion';
 import dbConnect from 'src/utils/dbConnect';
 
-export default async function userPromotion() {
-  await dbConnect();
+export default async function userPromotion(req, res) {
+  dbConnect();
   const { email } = req.body;
   if (req.method == 'POST') {
     const userPromotionExist = await UserPromotion.findOne({ email });
