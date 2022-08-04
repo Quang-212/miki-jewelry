@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import NextImage from 'next/image';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import { images } from 'src/constants';
@@ -13,7 +14,7 @@ export default function Image({
   objectFit = 'cover',
   placeholder = 'blur',
   className,
-  fallback: customFallback = images.adminAvatar,
+  fallback: customFallback = images.noImage,
   ...passProps
 }) {
   const [fallback, setFallback] = useState('');
@@ -34,3 +35,12 @@ export default function Image({
     />
   );
 }
+
+Image.propTypes = {
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  objectFit: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  fallback: PropTypes.string,
+};

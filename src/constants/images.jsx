@@ -13,6 +13,7 @@ import homeLatestCollection from 'public/static/images/home-latest-collection.jp
 import registerForm from 'public/static/images/register-form.png';
 import loginForm from 'public/static/images/login-form.png';
 import adminAvatar from 'public/static/images/avatar-admin.jpg';
+import noImage from 'public/static/images/no-image.png';
 
 export default {
   logo,
@@ -30,4 +31,5 @@ export default {
   registerForm,
   loginForm,
   adminAvatar,
+  noImage,
 };

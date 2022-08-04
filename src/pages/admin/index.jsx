@@ -1,6 +1,5 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
-import { ProductEdit } from 'src/sections/admin/products';
 
 AdminPage.getLayout = (page) => <MainLayout variant="admin">{page}</MainLayout>;
 
@@ -9,13 +8,13 @@ export default function AdminPage() {
     <>
       <Page
         data={{
-          title: 'Miki Shop',
+          title: 'Dashboard Admin',
           description: '',
           url: '',
           thumbnailUrl: '',
         }}
       />
-      <ProductEdit />
+      <h1>Dashboard Admin</h1>
     </>
   );
 }
