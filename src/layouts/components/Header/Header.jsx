@@ -1,22 +1,31 @@
+import classNames from 'classnames/bind';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+
+import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
-import { CaretDownIcon, LogoIcon, SearchIcon, UserIcon } from 'src/components/Icons';
+import { CaretDownIcon, SearchIcon, UserIcon } from 'src/components/Icons';
 import { PATH } from 'src/routes/path';
-import { navCta, navLink } from './navConfig';
-export default function Header() {
+import styles from './Header.module.css';
+import { navCta, navLink } from './nav-config';
+
+const mk = classNames.bind(styles);
+
+export function Header() {
   const [iconDirection, setIconDirection] = useState('up');
   const { data: session } = useSession();
 
+  const { pathname } = useRouter();
+
   return (
-    <header className="container">
-      <nav className="flex justify-between pt-6 pb-4">
-        <ul className="flex gap-10 mb-12">
+    <header className={mk('header', 'container')}>
+      <nav className={mk('nav')}>
+        <ul className="flex gap-10 mb-2">
           {navLink.map((item, index) => (
             <li key={index} className="flex items-center gap-14-px">
-              <Button text internalLink={item.path} wrapper="flex items-center gap-4">
+              <Button text internalLink={item.path} title={mk({ active: pathname === item.path })}>
                 {item.title}
               </Button>
               {index === 1 && (
@@ -31,48 +40,31 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <div className="flex flex-col items-center">
-          <Link href={PATH.home}>
-            <a>
-              <LogoIcon className="fill-primary-1" />
-            </a>
-          </Link>
-          <span className="heading text-4xl">Miki Jewelry</span>
-        </div>
-        <div className="flex">
+        <BrandLogo vertical />
+        <div className="flex items-center">
           <div className="flex relative mr-8">
-            <input
-              placeholder="Tìm kiếm"
-              className="h-10 w-56 py-2 px-4 rounded-primary border border-neutral-1 bg-white"
-            />
-            <SearchIcon className="absolute mt-2 ml-48" />
+            <input placeholder="Tìm kiếm" className={mk('input-search')} />
+            <SearchIcon className={mk('search-icon')} />
           </div>
-          <ul className="flex gap-8 mb-12">
+          <ul className="flex gap-8">
             {navCta.map((item, index) => (
               <li key={index}>
-                <Link href={item.path}>
-                  <a>{item.icon}</a>
-                </Link>
+                <Button icon internalLink={item.path}>
+                  {item.icon}
+                </Button>
               </li>
             ))}
             <li>
               {session ? (
                 <>
-                  <Image
-                    width={40}
-                    height={40}
-                    className=" rounded-full"
-                    src={session.user.image}
-                  />
+                  <Image width={40} height={40} className="rounded-full" src={session.user.image} />
                   <span>{session.user.email}</span>
                   <button onClick={() => signOut()}>Đăng xuất</button>
                 </>
               ) : (
-                <Link href={PATH.login}>
-                  <a>
-                    <UserIcon />
-                  </a>
-                </Link>
+                <Button icon internalLink={PATH.login}>
+                  <UserIcon />
+                </Button>
               )}
             </li>
           </ul>

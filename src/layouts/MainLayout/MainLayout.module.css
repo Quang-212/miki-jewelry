@@ -1,0 +1,11 @@
+.footer {
+  @apply relative flex flex-col;
+}
+
+.admin {
+  @apply flex justify-between gap-10;
+}
+
+.not-found {
+  @apply flex flex-col h-screen;
+}

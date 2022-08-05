@@ -2,7 +2,6 @@ import { genSalt, hash } from 'bcrypt';
 import User from 'src/models/User';
 import UserPromotion from 'src/models/UserPromotion';
 import dbConnect from 'src/utils/dbConnect';
-
 async function register(req, res) {
   try {
     await dbConnect();

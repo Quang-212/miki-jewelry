@@ -1,3 +1,4 @@
+import logo from 'public/static/images/logo.png';
 import homeAbout from 'public/static/images/home-about.png';
 import homeCategoryBracelet from 'public/static/images/home-category-bracelet.png';
 import homeCategoryEarring from 'public/static/images/home-category-earring.png';
@@ -11,8 +12,11 @@ import homeLatestCollectionFramer from 'public/static/images/home-latest-collect
 import homeLatestCollection from 'public/static/images/home-latest-collection.jpg';
 import registerForm from 'public/static/images/register-form.png';
 import loginForm from 'public/static/images/login-form.png';
+import adminAvatar from 'public/static/images/avatar-admin.jpg';
+import noImage from 'public/static/images/no-image.png';
 
 export default {
+  logo,
   homeHero,
   homeAbout,
   homeFeaturedProduct,
@@ -26,4 +30,6 @@ export default {
   homeCategoryEarring,
   registerForm,
   loginForm,
+  adminAvatar,
+  noImage,
 };

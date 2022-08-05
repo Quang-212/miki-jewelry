@@ -1,0 +1,20 @@
+.register {
+  @apply relative z-50 mt-120-px;
+}
+
+.wrapper {
+  @apply flex h-852-px rounded-secondary bg-register-form-rgba shadow-register-form;
+}
+
+.form {
+  @apply relative z-50 flex flex-col w-490-px px-10;
+}
+
+.title-btn-login {
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase hover:underline hover:opacity-80
+  transition-all duration-500 ease-in-out;
+}
+
+.caption {
+  @apply h-0;
+}

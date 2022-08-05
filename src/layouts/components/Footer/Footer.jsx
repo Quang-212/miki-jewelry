@@ -1,23 +1,30 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
+import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import Button from 'src/components/Button';
+import Copyright from 'src/components/Copyright';
+import { NormalDivider } from 'src/components/Divider';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { ArrowForwardIcon } from 'src/components/Icons';
-import { businessLicense, publicInformation, socialLink } from './navConfig';
+import { businessLicense, publicInformation, socialLink } from './footer-config';
+import styles from './Footer.module.css';
+
+const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
   email: yup
     .string()
-    .required('*Please enter your email address')
+    .required('*Vui lòng nhập địa chỉ email của bạn')
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      '*Please enter a valid email address',
+      '*Vui lòng nhập đúng địa chỉ email của bạn',
     ),
 });
 
-export default function Footer() {
+export function Footer() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -27,14 +34,25 @@ export default function Footer() {
 
   const { handleSubmit, reset, setFocus } = methods;
 
-  const onSubmit = (data) => {
-    console.log(data);
-    setFocus('email');
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      setFocus('email');
+      reset();
+
+      const res = await axios({
+        method: 'POST',
+        url: '/api/userPromotion',
+        data,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <footer className="mt-120-px container">
+    <footer className={mk('footer', 'container')}>
       <div className="flex justify-between">
         <div className="flex flex-col gap-8">
           <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
@@ -58,7 +76,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <hr className="mt-7 mb-10 border border-primary-1" />
+
+      <NormalDivider wrapper={mk('divider')} />
+
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
           <span className="heading">Miki Jewelry</span>
@@ -83,7 +103,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <p className="flex justify-center mt-6 mb-2">MikiShop © 2022</p>
+      <Copyright wrapper="mt-6">MikiShop © 2022</Copyright>
     </footer>
   );
 }

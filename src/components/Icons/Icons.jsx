@@ -50,15 +50,15 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="11" cy="11" r="7" stroke="#251C17" stroke-width="1.5" />
-    <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" stroke-width="1.5" />
-    <path d="M20 20L17 17" stroke="#251C17" stroke-width="1.5" stroke-linecap="round" />
+    <circle cx="11" cy="11" r="7" stroke="#251C17" strokeWidth="1.5" />
+    <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" strokeWidth="1.5" />
+    <path d="M20 20L17 17" stroke="#251C17" strokeWidth="1.5" strokeLinecap="round" />
     <path
       d="M20 20L17 17"
       stroke="black"
       strokeOpacity="0.2"
-      stroke-width="1.5"
-      stroke-linecap="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
     />
   </svg>
 );
@@ -187,6 +187,7 @@ export const GoogleColorIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
+    className={className}
     viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -301,95 +302,152 @@ export const PinterestIcon = ({ width = '40', height = '40' }) => (
   </svg>
 );
 
-// export const SunIcon = ({ width = '40px', height = '40px' }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width={width}
-//     height={height}
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2">
-//       <path d="M12 3V2m0 20v-1m9-9h1M2 12h1m15.5-6.5L20 4M4 20l1.5-1.5M4 4l1.5 1.5m13 13L20 20" />
-//       <circle cx="12" cy="12" r="4" />
-//     </g>
-//   </svg>
-// );
-
-// export const MoonIcon = () => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width="1em"
-//     height="1em"
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" strokeWidth="2">
-//       <path d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.684 7.684 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.28 7.28 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675Z" />
-//       <path d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.332 2.332 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.332 2.332 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.332 2.332 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.332 2.332 0 0 1-2.588 0l-.945-.63Z" />
-//     </g>
-//   </svg>
-// );
-
-// export const GoToTopIcon = ({ width = '40px', height = '40px' }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     aria-hidden="true"
-//     role="img"
-//     width={width}
-//     height={height}
-//     preserveAspectRatio="xMidYMid meet"
-//     viewBox="0 0 24 24"
-//   >
-//     <g fill="none" stroke="currentColor" stroke-width="2">
-//       <circle cx="12" cy="12" r="10" />
-//       <path stroke-linecap="round" stroke-linejoin="round" d="m8 13.5l4-4l4 4" />
-//     </g>
-//   </svg>
-// );
-
-export const EmptyCheckBoxIcon = ({ width = '32', height = '32' }) => (
+export const MiniStarIcon = ({ width = '8', height = '8', className }) => (
   <svg
     width={width}
     height={height}
+    className={className}
     viewBox={`0 0 ${width} ${height}`}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
-      fill="black"
+      d="M4 0L5.08036 2.91964L8 4L5.08036 5.08036L4 8L2.91964 5.08036L0 4L2.91964 2.91964L4 0Z"
+      fill="#6E5544"
     />
   </svg>
 );
 
-export const EllipseIcon = ({ width, height, cx, cy, r, fillOpacity, className }) => (
+export const BellRingIcon = ({ width = '24', height = '24', className }) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 16 16"
+    // viewBox={`0 0 ${width} ${height}`}
   >
-    <circle cx={cx} cy={cy} r={r} fill="#B78D71" fillOpacity={fillOpacity} />
+    <path
+      fill="current-color"
+      d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7c0-2.42-1.72-4.44-4.005-4.901z"
+    />
   </svg>
 );
 
-export const EllipseDashIcon = ({ width, height, cx, cy, r, className }) => (
+export const HomeIcon = ({ width = '28', height = '28', className }) => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 36 36"
   >
-    <circle cx={cx} cy={cy} r={r} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" />
+    <path
+      fill="current-color"
+      d="M33 19a1 1 0 0 1-.71-.29L18 4.41L3.71 18.71A1 1 0 0 1 2.3 17.3l15-15a1 1 0 0 1 1.41 0l15 15A1 1 0 0 1 33 19Z"
+      className="clr-i-solid clr-i-solid-path-1"
+    />
+    <path
+      fill="current-color"
+      d="M18 7.79L6 19.83V32a2 2 0 0 0 2 2h7V24h6v10h7a2 2 0 0 0 2-2V19.76Z"
+      className="clr-i-solid clr-i-solid-path-2"
+    />
+    <path fill="none" d="M0 0h36v36H0z" />
+  </svg>
+);
+
+export const ProductIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="current-color"
+      d="M21.993 7.95a.96.96 0 0 0-.029-.214c-.007-.025-.021-.049-.03-.074c-.021-.057-.04-.113-.07-.165c-.016-.027-.038-.049-.057-.075c-.032-.045-.063-.091-.102-.13c-.023-.022-.053-.04-.078-.061c-.039-.032-.075-.067-.12-.094c-.004-.003-.009-.003-.014-.006l-.008-.006l-8.979-4.99a1.002 1.002 0 0 0-.97-.001l-9.021 4.99c-.003.003-.006.007-.011.01l-.01.004c-.035.02-.061.049-.094.073c-.036.027-.074.051-.106.082c-.03.031-.053.067-.079.102c-.027.035-.057.066-.079.104c-.026.043-.04.092-.059.139c-.014.033-.032.064-.041.1a.975.975 0 0 0-.029.21c-.001.017-.007.032-.007.05V16c0 .363.197.698.515.874l8.978 4.987l.001.001l.002.001l.02.011c.043.024.09.037.135.054c.032.013.063.03.097.039a1.013 1.013 0 0 0 .506 0c.033-.009.064-.026.097-.039c.045-.017.092-.029.135-.054l.02-.011l.002-.001l.001-.001l8.978-4.987c.316-.176.513-.511.513-.874V7.998c0-.017-.006-.031-.007-.048zm-10.021 3.922L5.058 8.005L7.82 6.477l6.834 3.905l-2.682 1.49zm.048-7.719L18.941 8l-2.244 1.247l-6.83-3.903l2.153-1.191zM13 19.301l.002-5.679L16 11.944V15l2-1v-3.175l2-1.119v5.705l-7 3.89z"
+    />
+  </svg>
+);
+
+export const CategoryIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="current-color"
+      d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm10 10h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zM17 3c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4zM7 13c-2.206 0-4 1.794-4 4s1.794 4 4 4s4-1.794 4-4s-1.794-4-4-4z"
+    />
+  </svg>
+);
+
+export const CustomerIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 1408 1664"
+  >
+    <path
+      fill="current-color"
+      d="m576 1536l96-448l-96-128l-128-64zm256 0l128-640l-128 64l-96 128zM992 526q-2-4-4-6q-10-8-96-8q-70 0-167 19q-7 2-21 2t-21-2q-97-19-167-19q-86 0-96 8q-2 2-4 6q2 18 4 27q2 3 7.5 6.5T435 570q2 4 7.5 20.5t7 20.5t7.5 17t8.5 17t9 14t12 13.5t14 9.5t17.5 8t20.5 4t24.5 2q36 0 59-12.5t32.5-30T669 619t11.5-29.5T698 577h12q11 0 17.5 12.5T739 619t14.5 34.5t32.5 30t59 12.5q13 0 24.5-2t20.5-4t17.5-8t14-9.5t12-13.5t9-14t8.5-17t7.5-17t7-20.5T973 570q2-7 7.5-10.5t7.5-6.5q2-9 4-27zm416 879q0 121-73 190t-194 69H267q-121 0-194-69T0 1405q0-61 4.5-118t19-125.5T61 1038t63.5-103.5T218 860l-90-220h214q-22-64-22-128q0-12 2-32q-194-40-194-96q0-57 210-99q17-62 51.5-134T460 37q32-37 76-37q30 0 84 31t84 31t84-31t84-31q44 0 76 37q36 42 70.5 114t51.5 134q210 42 210 99q0 56-194 96q7 81-20 160h214l-82 225q63 33 107.5 96.5T1371 1105t29 151.5t8 148.5z"
+    />
+  </svg>
+);
+
+export const OrderIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 640 512"
+  >
+    <path
+      fill="current-color"
+      d="M0 48C0 21.49 21.49 0 48 0h320c26.5 0 48 21.49 48 48v48h50.7c17 0 32.4 6.7 45.3 18.7l77.3 77.3c12 12 18.7 28.3 18.7 45.3V352c17.7 0 32 14.3 32 32s-14.3 32-32 32h-32c0 53-43 96-96 96c-53.9 0-96-43-96-96H256c0 53-43 96-96 96c-53.9 0-96-43-96-96H48c-26.51 0-48-21.5-48-48V48zm544 208v-18.7L466.7 160H416v96h128zM160 464c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm320-96c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zM256.1 95.03c-8.5-9.37-23.7-9.37-33.1 0c-9.3 9.37-9.3 24.57 0 33.07l39.1 39.9H96c-13.25 0-24 10.7-24 24s10.75 24 24 24h166.1L223 255c-9.3 9.4-9.3 24.6 0 33.1c9.4 10.2 24.6 10.2 33.1 0l80-80c10.2-8.5 10.2-23.7 0-33.1l-80-79.97z"
+    />
+  </svg>
+);
+
+export const Ba = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    width="1em"
+    height="1em"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill="currentColor"
+      d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7c0-2.42-1.72-4.44-4.005-4.901z"
+    />
   </svg>
 );
 
@@ -402,8 +460,8 @@ export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, classNam
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />
-    <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />
+    {cx1 && <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />}
+    {cx2 && <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />}
   </svg>
 );
 
@@ -449,18 +507,5 @@ export const CircleDashIcon = ({
       strokeDasharray="25 25"
       {...other}
     />
-  </svg>
-);
-
-export const Aa = () => (
-  <svg
-    width="352"
-    height="1041"
-    viewBox="0 0 352 1041"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="520.5" cy="520.5" r="520.5" fill="#B78D71" fill-opacity="0.15" />
-    <circle cx="520.5" cy="520.5" r="416.5" fill="#B78D71" fill-opacity="0.1" />
   </svg>
 );

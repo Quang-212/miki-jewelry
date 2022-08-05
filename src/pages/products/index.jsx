@@ -1,6 +1,5 @@
 import Page from 'src/components/Page';
-import MainLayout from 'src/layouts';
-//always import from src folder, not "./", "../", "../../",...
+import MainLayout from 'src/layouts/MainLayout';
 
 AboutPage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 

@@ -1,0 +1,11 @@
+.page-not-found {
+  @apply flex flex-col items-center gap-8 -mt-32;
+}
+
+.text-404 {
+  @apply text-9xl font-extrabold text-primary-2;
+}
+
+.title-btn-products {
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
+}

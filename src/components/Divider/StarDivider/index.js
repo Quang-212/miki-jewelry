@@ -1,0 +1,1 @@
+export { StarDivider } from './StarDivider';

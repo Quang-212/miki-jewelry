@@ -1,0 +1,7 @@
+.root {
+  @apply flex justify-center items-center gap-4;
+}
+
+.normal-divider {
+  @apply border-1/2-px border-neutral-2 w-180-px;
+}

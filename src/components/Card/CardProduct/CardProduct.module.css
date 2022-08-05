@@ -1,0 +1,15 @@
+.root {
+  @apply flex flex-col items-center gap-4 cursor-pointer;
+}
+
+.image-wrapper {
+  @apply overflow-hidden max-h-[306px] rounded-primary hover:rounded-tertiary transition-all ease-in-out duration-500;
+}
+
+.image {
+  @apply transition-all ease-in-out duration-500;
+}
+
+.text-wrapper {
+  @apply flex flex-col items-center gap-6-px;
+}

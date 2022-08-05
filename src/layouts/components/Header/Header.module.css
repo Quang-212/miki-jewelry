@@ -1,3 +1,19 @@
-.custom-login {
-  @apply text-blue-600;
+.header {
+  @apply relative z-50;
+}
+
+.nav {
+  @apply flex justify-between items-end pt-4 pb-6;
+}
+
+.active {
+  @apply font-bold;
+}
+
+.input-search {
+  @apply h-10 max-w-[279px] py-2 px-4 rounded-primary border border-neutral-1 bg-white;
+}
+
+.search-icon {
+  @apply absolute mt-2 ml-[220px] cursor-pointer;
 }

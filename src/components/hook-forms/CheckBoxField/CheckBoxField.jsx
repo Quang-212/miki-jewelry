@@ -43,8 +43,10 @@ export function CheckBoxField({
     return (
       <>
         {string.substring(0, string.indexOf(target))}
-        <Link href={PATH.home}>
-          <a className={className}>{target}</a>
+        <Link href={PATH.terms}>
+          <a target="_blank" className={className}>
+            {target}
+          </a>
         </Link>
         {string.substring(string.indexOf(target))}
       </>
