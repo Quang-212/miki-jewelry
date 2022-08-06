@@ -4,11 +4,12 @@ export default function verifyToken(handler) {
   return (req, res) => {
     const token = req.headers?.authorization;
     const accesstoken = token?.split(' ')?.[1];
+
     if (accesstoken) {
       jwt.verify(accesstoken, ACC_KEY, async (err, payload) => {
         if (err)
           return res.status(403).json({
-            message: 'Token is not valid',
+            message: 'Token đã hết hạn',
             code: 403,
           });
         req.user = payload;
@@ -16,7 +17,7 @@ export default function verifyToken(handler) {
       });
     } else {
       return res.status(403).json({
-        message: "You're not authenticated",
+        message: 'Bạn không được xác thực',
         code: 403,
       });
     }

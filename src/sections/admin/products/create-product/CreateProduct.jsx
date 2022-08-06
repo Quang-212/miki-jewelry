@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import qs from 'qs';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Divider';
@@ -8,11 +11,11 @@ import { productSizes, productVisibilityStatus } from '../products-config';
 export function CreateProduct() {
   const methods = useForm({
     defaultValues: {
-      productPriceOld: '',
-      productPriceNew: '',
-      productCoupon: '',
+      priceOld: '',
+      priceNew: '',
+      coupon: '',
 
-      productVisibilityStatus: '',
+      visibilityStatus: '',
 
       sizeXs: false,
       sizeS: false,
@@ -20,30 +23,71 @@ export function CreateProduct() {
       sizeL: false,
       sizeXl: false,
 
-      productCategory: '',
-      productTag: '',
+      category: '',
+      tag: '',
 
-      productPublishDate: '',
-      productPublishTime: '',
+      publishDate: '',
+      publishTime: '',
 
-      productSku: '',
-      productStockQuantity: '',
+      sku: '',
+      stockQuantity: '',
 
-      productName: '',
-      productUrl: '',
-      productDescription: '',
+      name: '',
+      url: '',
+      description: '',
 
-      productPageTitle: '',
-      productMetaDescription: '',
+      pageTitle: '',
+      metaDescription: '',
     },
   });
 
   const { handleSubmit, setFocus, reset } = methods;
-
-  const onSubmit = (data) => {
-    console.log(data);
+  /* const [previewImg, setPreviewImg] = useState('');
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewImg(reader.result);
+    };
+  };*/
+  const param = qs.stringify({
+    category: {
+      bracelet: 1,
+    },
+  });
+  const onSubmit = async (data) => {
+    const res = await axios({
+      method: 'GET',
+      url: `/api/product/${param}`,
+    });
+    console.log(res.data);
   };
 
+  /*
+  const uploadImg = async (base64EncodedImage) => {
+    console.log(base64EncodedImage);
+    // const item = JSON.parse(localStorage.getItem('JwtToken'));
+    // const accesstoken = item.accessToken;
+    try {
+      const res = await axios({
+        method: 'POST',
+        url: '/api/product/create',
+        data: { image: base64EncodedImage },
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: 'Bearer ' + accesstoken,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+*/
   return (
     <section className="flex flex-col gap-8">
       <h2 className="heading-2">Products Edit</h2>
@@ -140,8 +184,12 @@ export function CreateProduct() {
               type="file"
               wrapper="mt-5"
               input="mt-2"
+              // onChange={handleChange}
             />
           </div>
+          {/* <div>
+            <img className=" w-52 h-52" src={previewImg} />
+          </div> */}
 
           <div className="bg-white pt-6 px-6">
             <h5 className="heading-5">Search engine optimization</h5>

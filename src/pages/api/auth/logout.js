@@ -7,7 +7,7 @@ async function logout(req, res) {
   res.setHeader('Set-Cookie', 'refreshToken = delete; path=/');
   await RefreshToken.findOneAndDelete({ userId: req.user._id });
   return res.status(200).json({
-    message: 'You are logged out',
+    message: 'Bạn đã đăng xuất',
     code: 200,
   });
 }
