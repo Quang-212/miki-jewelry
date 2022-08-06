@@ -9,23 +9,23 @@ import { PATH } from 'src/routes/path';
 
 export const socialLink = [
   {
-    icon: <FacebookIcon />,
+    icon: <FacebookIcon className="w-6 h-6" />,
     path: PATH.facebook,
   },
   {
-    icon: <TwitterIcon />,
+    icon: <TwitterIcon className="w-6 h-6" />,
     path: PATH.twitter,
   },
   {
-    icon: <InstagramIcon />,
+    icon: <InstagramIcon className="w-6 h-6" />,
     path: PATH.instagram,
   },
   {
-    icon: <TikTokIcon />,
+    icon: <TikTokIcon className="w-6 h-6" />,
     path: PATH.tiktok,
   },
   {
-    icon: <PinterestIcon />,
+    icon: <PinterestIcon className="w-6 h-6" />,
     path: PATH.pinterest,
   },
 ];

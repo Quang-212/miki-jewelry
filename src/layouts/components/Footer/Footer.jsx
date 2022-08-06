@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -9,6 +8,7 @@ import Copyright from 'src/components/Copyright';
 import { NormalDivider } from 'src/components/Divider';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { ArrowForwardIcon } from 'src/components/Icons';
+import { userPromotion } from 'src/fetching/userPromotion';
 import { businessLicense, publicInformation, socialLink } from './footer-config';
 import styles from './Footer.module.css';
 
@@ -40,11 +40,7 @@ export function Footer() {
       setFocus('email');
       reset();
 
-      const res = await axios({
-        method: 'POST',
-        url: '/api/userPromotion',
-        data,
-      });
+      const res = await userPromotion();
       console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -53,24 +49,28 @@ export function Footer() {
 
   return (
     <footer className={mk('footer', 'container')}>
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-8">
-          <p className="heading-2">Đăng ký để nhận khuyến mãi</p>
+      <div className={mk('connect')}>
+        <div className={mk('promotions')}>
+          <p className="heading-2 xs:heading-3 xs:text-[23.5px] xs:tracking-tight">
+            Đăng ký để nhận khuyến mãi
+          </p>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col relative">
-              <TextField name="email" input="max-w-412-px" />
-              <Button icon wrapper="absolute mt-4 ml-96">
+              <TextField name="email" placeholder="Email" input="max-w-412-px xs:min-w-343-px" />
+              <Button icon wrapper="absolute mt-4 ml-96 xs:ml-312-px">
                 <ArrowForwardIcon />
               </Button>
             </div>
           </FormProvider>
         </div>
-        <div className="flex flex-col items-end gap-10">
-          <p className="heading-2">Kết nối với chúng tôi tại</p>
-          <ul className="flex gap-9">
+        <div className={mk('social')}>
+          <p className="heading-2 xs:heading-3">Kết nối với chúng tôi tại</p>
+          <ul className="flex gap-9 xs:gap-6">
             {socialLink.map((item, index) => (
               <li key={index}>
-                <Button externalLink={item.path}>{item.icon}</Button>
+                <Button externalLink={item.path} wrapper="xs:text-2xl">
+                  {item.icon}
+                </Button>
               </li>
             ))}
           </ul>
@@ -79,19 +79,19 @@ export function Footer() {
 
       <NormalDivider wrapper={mk('divider')} />
 
-      <div className="flex justify-between">
+      <div className={mk('credit')}>
         <div className="flex flex-col gap-4">
-          <span className="heading">Miki Jewelry</span>
+          <span className="heading xs:text-2xl xs:leading-8">Miki Jewelry</span>
           <ul className="w-351-px">
             {businessLicense.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
         </div>
-        <div className="flex gap-16">
+        <div className={mk('information')}>
           {publicInformation.map((item, index) => (
-            <ul key={index} className="flex flex-col items-start gap-22-px">
-              <li className="heading-5">{item.heading}</li>
+            <ul key={index} className={mk('information-links')}>
+              <li className="heading-5 xs:subtitle-1">{item.heading}</li>
               {item.content.map((value, index) => (
                 <li key={index}>
                   <Button text externalLink={value.path}>
@@ -103,7 +103,7 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <Copyright wrapper="mt-6">MikiShop © 2022</Copyright>
+      <Copyright className="mt-6 xs:mt-10">MikiShop © 2022</Copyright>
     </footer>
   );
 }

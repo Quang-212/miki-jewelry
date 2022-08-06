@@ -1,9 +1,7 @@
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 
 import styles from './Copyright.module.css';
 
-const mk = classNames.bind(styles);
-
-export default function Copyright({ children }) {
-  return <p className={mk('copyright')}>{children}</p>;
+export default function Copyright({ className, children }) {
+  return <p className={classNames(styles.root, className)}>{children}</p>;
 }

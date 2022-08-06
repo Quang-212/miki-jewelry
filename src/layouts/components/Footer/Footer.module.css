@@ -2,6 +2,30 @@
   @apply relative z-50 mt-120-px;
 }
 
+.connect {
+  @apply flex justify-between xs:flex-col;
+}
+
+.promotions {
+  @apply flex flex-col gap-8 xs:gap-4;
+}
+
+.social {
+  @apply flex flex-col items-end gap-10 xs:items-start xs:gap-4;
+}
+
 .divider {
-  @apply mt-7 mb-10 border border-primary-1;
+  @apply mt-7 mb-10 border border-primary-1 xs:hidden;
+}
+
+.credit {
+  @apply flex justify-between xs:flex-col xs:gap-10 xs:mt-10;
+}
+
+.information {
+  @apply flex gap-16 flex-wrap xs:justify-between xs:gap-10;
+}
+
+.information-links {
+  @apply flex flex-col items-start gap-22-px xs:gap-4;
 }

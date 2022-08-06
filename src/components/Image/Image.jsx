@@ -37,7 +37,7 @@ export default function Image({
 }
 
 Image.propTypes = {
-  src: PropTypes.string,
+  src: PropTypes.object,
   alt: PropTypes.string,
   objectFit: PropTypes.string,
   placeholder: PropTypes.string,

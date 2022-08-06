@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
@@ -13,6 +12,7 @@ import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
 import { images } from 'src/constants';
+import { loginForm } from 'src/fetching/auth';
 import { PATH } from 'src/routes/path';
 import styles from './LoginForm.module.css';
 
@@ -55,11 +55,7 @@ export default function LoginFormSection() {
       reset();
 
       const res = await toast.promise(
-        axios({
-          method: 'POST',
-          url: 'api/auth/login',
-          data,
-        }),
+        loginForm,
         {
           pending: {
             render() {
@@ -83,6 +79,7 @@ export default function LoginFormSection() {
         },
         { autoClose: 10000 },
       );
+      replace(PATH.home);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -147,19 +144,21 @@ export default function LoginFormSection() {
     </section>
   );
 
-  /* {session?.user && (
-        <>
-          <Header />
-          <div className="flex">
-            <img className=" rounded-full" src={session.user.image} alt={session.user.name} />
-            <div className="mt-4 ml-5">
-              <p>{session.user.email}</p>
-              <button className="bg-green-200 rounded-lg border" onClick={() => signOut()}>
-                Đăng xuất
-              </button>
-            </div>
-          </div>
-          <HomePage />
-        </>
-      )} */
+  // {
+  //   session?.user && (
+  //     <>
+  //       <Header />
+  //       <div className="flex">
+  //         <img className=" rounded-full" src={session.user.image} alt={session.user.name} />
+  //         <div className="mt-4 ml-5">
+  //           <p>{session.user.email}</p>
+  //           <button className="bg-green-200 rounded-lg border" onClick={() => signOut()}>
+  //             Đăng xuất
+  //           </button>
+  //         </div>
+  //       </div>
+  //       <HomePage />
+  //     </>
+  //   );
+  // }
 }

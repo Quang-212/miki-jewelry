@@ -151,11 +151,12 @@ export const ArrowForwardIcon = ({ width = '16', height = '16' }) => (
   </svg>
 );
 
-export const FacebookIcon = ({ width = '40', height = '40' }) => (
+export const FacebookIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    className={className}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -171,7 +172,7 @@ export const FacebookColorIcon = ({ width = '40', height = '40', className }) =>
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -188,7 +189,7 @@ export const GoogleColorIcon = ({ width = '40', height = '40', className }) => (
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -219,11 +220,12 @@ export const GoogleColorIcon = ({ width = '40', height = '40', className }) => (
   </svg>
 );
 
-export const TwitterIcon = ({ width = '40', height = '40' }) => (
+export const TwitterIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    className={className}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -234,11 +236,12 @@ export const TwitterIcon = ({ width = '40', height = '40' }) => (
   </svg>
 );
 
-export const InstagramIcon = ({ width = '40', height = '40' }) => (
+export const InstagramIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    className={className}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -262,17 +265,18 @@ export const InstagramIcon = ({ width = '40', height = '40' }) => (
     </g>
     <defs>
       <clipPath id="clip0_294_694">
-        <rect width={width} height={height} fill="white" />
+        <rect width="40" height="40" fill="white" />
       </clipPath>
     </defs>
   </svg>
 );
 
-export const TikTokIcon = ({ width = '40', height = '40' }) => (
+export const TikTokIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    className={className}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -287,10 +291,11 @@ export const TikTokIcon = ({ width = '40', height = '40' }) => (
   </svg>
 );
 
-export const PinterestIcon = ({ width = '40', height = '40' }) => (
+export const PinterestIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
     height={height}
+    className={className}
     viewBox="0 0 42 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
