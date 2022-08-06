@@ -1,29 +1,26 @@
 import { Schema, models, model } from 'mongoose';
 
 const Product = new Schema({
-  name: { type: String, require: true, unique: true },
-  priceNew: { type: Number, require: true },
-  coupon: { type: Number, require: true },
-  size: {
-    type: Array,
-    enum: {
-      values: ['S', 'XS', 'M', 'L', 'XL'],
-      message: 'Size không hợp lệ',
-    },
-  },
+  name: { type: String, required: true, unique: true },
+  priceOld: Number,
+  priceNew: Number,
+  coupon: Number,
+  visibilityStatus: String,
+  size: Array,
   category: {
     type: String,
-    require: true,
+    enum: ['bracelet', 'earring', 'necklace', 'ring'],
+    required: true,
   },
-  image: {
-    type: Array,
-    require: true,
-  },
-  description: { type: String },
-  sku: { type: String },
-  stockQuantity: {
-    type: Number,
-  },
+  tag: String,
+  publishDate: String,
+  publishTime: String,
+  sku: String,
+  stockQuantity: String,
+  url: Array,
+  description: String,
+  pageTitle: String,
+  metaDescription: String,
 });
 
 export default models.Product || model('Product', Product);

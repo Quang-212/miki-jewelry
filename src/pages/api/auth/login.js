@@ -52,11 +52,7 @@ async function login(req, res) {
           message: 'Chào mừng bạn đến với Miki Jewelry',
           code: 200,
           accessToken,
-<<<<<<< .merge_file_a04176
           ...other,
-=======
-          user,
->>>>>>> .merge_file_a02732
         });
       }
     }

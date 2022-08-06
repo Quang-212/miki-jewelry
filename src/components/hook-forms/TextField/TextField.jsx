@@ -5,7 +5,16 @@ import styles from './TextField.module.css';
 
 const mk = classNames.bind(styles);
 
-export function TextField({ name, label, placeholder, wrapper, input, caption, ...other }) {
+export function TextField({
+  name,
+  label,
+  placeholder,
+  wrapper,
+  input,
+  caption,
+  onChange,
+  ...other
+}) {
   const {
     register,
     formState: { errors },
@@ -42,6 +51,7 @@ export function TextField({ name, label, placeholder, wrapper, input, caption, .
         }}
         {...other}
         {...register(name)}
+        onChange={onChange}
       />
       <span className={classCaption}>{errors[name]?.message}</span>
     </div>

@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 import dbConnect from 'src/utils/dbConnect';
 import verifyToken from 'src/middlewares/verifyToken';
 import withAuthorization from 'src/middlewares/withAuthorization';
 import { cloudinary } from 'src/utils/cloudinary';
 import Product from 'src/models/Product';
-import { data } from 'autoprefixer';
 
 export const config = {
   api: {
@@ -14,46 +13,43 @@ export const config = {
     },
   },
 };
-async function createProduct(req, res) {
+const createProduct = async (req, res) => {
   await dbConnect();
   const _id = new mongoose.Types.ObjectId();
   const { method } = req;
+
+  const option = {
+    upload_preset: 'miki-shop',
+    public_id: _id,
+    overwrite: true,
+  };
+  console.log(option);
+  const arr = ['bracelet', 'earring', 'necklace', 'ring'];
   if (method == 'POST') {
     try {
-      const { name, priceNew, coupon, size, category, image, description, sku, stockQuantity } =
-        req.body;
-      const option = {
-        upload_preset: 'miki-shop',
-        public_id: _id,
-        overwrite: true,
-      };
+      // const upload = await cloudinary.uploader.upload(image, option);
 
-      const upload = await cloudinary.uploader.upload(image, option);
-      const datat = new Product({
+      const newData = new Product({
+        ...req.body,
         _id,
-        name,
-        priceNew,
-        coupon,
-        size,
-        category,
-        iamge: upload.secure_url,
-        description,
-        sku,
-        stockQuantity,
+        name: req.body.name + Math.random().toString(),
+        category: arr[Math.floor(Math.random() * arr.length)],
+        // image: upload.secure_url,
       });
 
-      await data.save();
+      await newData.save();
       return res.status(201).json({
         message: 'Bạn đã upload thành công !',
         code: 201,
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
-        message: error.message,
+        message: 'Lỗi server',
         code: 500,
       });
     }
   }
-}
+};
 
 export default createProduct;
