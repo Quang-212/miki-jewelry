@@ -7,7 +7,7 @@ import { useState } from 'react';
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CaretDownIcon, SearchIcon, UserIcon } from 'src/components/Icons';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './Header.module.css';
 import { navCta, navLink } from './nav-config';
 

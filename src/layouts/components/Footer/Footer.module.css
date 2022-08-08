@@ -1,5 +1,5 @@
 .footer {
-  @apply relative z-50 mt-120-px;
+  @apply relative z-50 mt-120-px xs:mt-16;
 }
 
 .connect {
@@ -12,6 +12,10 @@
 
 .social {
   @apply flex flex-col items-end gap-10 xs:items-start xs:gap-4;
+}
+
+.social-icon {
+  @apply xs:w-6 xs:h-6;
 }
 
 .divider {

@@ -1,7 +1,7 @@
 import className from 'classnames/bind';
 
 import Button from 'src/components/Button';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './Page404.module.css';
 
 const mk = className.bind(styles);

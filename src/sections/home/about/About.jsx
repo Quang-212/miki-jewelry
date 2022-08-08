@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import { images } from 'src/constants';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './About.module.css';
 
 const mk = classNames.bind(styles);

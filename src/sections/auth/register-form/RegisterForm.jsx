@@ -11,7 +11,7 @@ import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/hook-forms';
 import { images } from 'src/constants';
 import { registerForm } from 'src/fetching/auth';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './RegisterForm.module.css';
 
 const mk = classNames.bind(styles);

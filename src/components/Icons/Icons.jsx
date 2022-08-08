@@ -28,7 +28,7 @@ export const LogoIcon = ({ width = '40', height = '40', className }) => (
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -46,7 +46,7 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
     width={width}
     height={height}
     className={className}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -67,7 +67,7 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -99,7 +99,7 @@ export const FavoriteIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -115,7 +115,7 @@ export const UserIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -140,7 +140,7 @@ export const ArrowForwardIcon = ({ width = '16', height = '16' }) => (
   <svg
     width={width}
     height={height}
-    viewBox={`0 0 ${width} ${height}`}
+    viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

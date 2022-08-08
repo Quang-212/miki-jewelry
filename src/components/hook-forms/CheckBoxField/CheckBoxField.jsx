@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
 
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './CheckBoxField.module.css';
 
 const mk = classNames.bind(styles);

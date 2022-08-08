@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import Image from 'src/components/Image';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import Button from '../../Button';
 import styles from './CardProduct.module.css';
 

@@ -1,5 +1,5 @@
 import { BasketIcon, FavoriteIcon, UserIcon } from 'src/components/Icons';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 
 export const navLink = [
   {

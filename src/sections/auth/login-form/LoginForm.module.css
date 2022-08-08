@@ -1,13 +1,15 @@
 .login {
-  @apply container pt-120-px;
+  @apply container pt-120-px xs:pt-0;
 }
 
 .wrapper {
-  @apply flex h-852-px rounded-secondary bg-register-form-rgba shadow-register-form;
+  @apply flex h-852-px rounded-secondary bg-register-form-rgba shadow-register-form
+  xs:shadow-none xs:h-auto;
 }
 
 .form {
-  @apply flex flex-col w-490-px px-10;
+  @apply flex flex-col w-490-px px-10
+  xs:px-0 xs:max-w-[343px];
 }
 
 .title-btn-register {

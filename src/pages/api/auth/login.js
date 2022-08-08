@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { serialize } from 'cookie';
+
 import RefreshToken from 'src/models/RefreshToken';
 import User from 'src/models/User';
 import generateAccessToken from 'src/pages/api/generateToken/generateAccessToken';

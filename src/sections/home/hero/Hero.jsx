@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Divider';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './Hero.module.css';
 
 const mk = classNames.bind(styles);
