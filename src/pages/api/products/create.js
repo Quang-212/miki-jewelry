@@ -23,18 +23,19 @@ const createProduct = async (req, res) => {
     public_id: _id,
     overwrite: true,
   };
-  console.log(option);
-  const arr = ['bracelet', 'earring', 'necklace', 'ring'];
+  //console.log(option);
+  // const arr = ['bracelet', 'earring', 'necklace', 'ring'];
+
   if (method == 'POST') {
     try {
-      // const upload = await cloudinary.uploader.upload(image, option);
+      // const upload = await cloudinary.uploader.upload(url, option);
 
       const newData = new Product({
         ...req.body,
         _id,
         name: req.body.name + Math.random().toString(),
-        category: arr[Math.floor(Math.random() * arr.length)],
-        // image: upload.secure_url,
+        // category: arr[Math.floor(Math.random() * arr.length)],
+        // url: upload.secure_url,
       });
 
       await newData.save();
@@ -52,4 +53,4 @@ const createProduct = async (req, res) => {
   }
 };
 
-export default createProduct;
+export default verifyToken(withAuthorization(createProduct));
