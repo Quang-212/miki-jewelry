@@ -1,14 +1,24 @@
 import Button from 'src/components/Button';
+import { useProducts } from 'src/hooks/useProducts';
 import { PATH } from 'src/routes';
 import useSWR from 'swr';
 
+import { LoadingRotatingLines } from 'src/components/Loadings';
+
 export function ProductsList() {
-  const { data, error, mutate, isValidating } = useSWR(`/api/admin/products?_limit=15&_page=25`);
-  console.log(data?.data);
+  const { products, isLoading, isError } = useProducts();
+
+  if (isError) return <h2>{isError}</h2>;
+
+  if (isLoading) return <LoadingRotatingLines />;
 
   return (
     <section>
-      <h2>{data?.data.productList[4].priceNew}</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product._id}>{product.name}</li>
+        ))}
+      </ul>
       <div className="flex justify-between">
         <div className="flex flex-col">
           <span>Admin/Products</span>

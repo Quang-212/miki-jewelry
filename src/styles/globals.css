@@ -54,9 +54,6 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
-@layer base {
-}
-
 @layer components {
   .wrapper {
     @apply max-w-1440-px m-auto body bg-wrapper;

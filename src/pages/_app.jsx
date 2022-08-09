@@ -13,23 +13,29 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <RecoilRoot>
-        <SWRConfig value={{ fetcher: (url) => axios.get(url), shouldRetryOnError: false }}>
+        <SWRConfig
+          value={{
+            fetcher: (url) => axios.get(url),
+            shouldRetryOnError: false,
+            revalidateOnFocus: false,
+          }}
+        >
           {getLayout(<Component {...pageProps} />)}
-        </SWRConfig>
 
-        <ToastContainer
-          bodyClassName="toast"
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          limit={5}
-        />
+          <ToastContainer
+            bodyClassName="toast"
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            limit={5}
+          />
+        </SWRConfig>
       </RecoilRoot>
     </SessionProvider>
   );
