@@ -17,7 +17,7 @@ export default function verifyToken(handler) {
       });
     } else {
       return res.status(403).json({
-        message: 'Bạn không được xác thực',
+        message: 'Vui lòng đăng nhập ',
         code: 403,
       });
     }

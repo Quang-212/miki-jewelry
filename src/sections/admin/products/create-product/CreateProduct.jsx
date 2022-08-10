@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import qs from 'qs';
+import { useForm } from 'react-hook-form';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
@@ -14,28 +13,21 @@ export function CreateProduct() {
       priceOld: '',
       priceNew: '',
       coupon: '',
-
       visibilityStatus: '',
-
       sizeXs: false,
       sizeS: false,
       sizeM: false,
       sizeL: false,
       sizeXl: false,
-
       category: '',
       tag: '',
-
       publishDate: '',
       publishTime: '',
-
       sku: '',
       stockQuantity: '',
-
       name: '',
       url: '',
       description: '',
-
       pageTitle: '',
       metaDescription: '',
     },
