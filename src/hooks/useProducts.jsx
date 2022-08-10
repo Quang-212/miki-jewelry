@@ -1,4 +1,4 @@
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 
 export function useProducts(limit = 10) {
   const url = `/api/admin/products?limit=${limit}`;
@@ -6,7 +6,7 @@ export function useProducts(limit = 10) {
   const { data, error, mutate, isValidating } = useSWR(url);
 
   return {
-    products: data?.data.productList,
+    products: data?.data.productList || [],
     isLoading: !error && !data,
     isError: error,
   };

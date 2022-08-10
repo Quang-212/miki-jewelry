@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 
 import Button from 'src/components/Button';
-import { NormalDivider } from 'src/components/Divider';
+import { NormalDivider } from 'src/components/Dividers';
 import { PATH } from 'src/routes';
 import styles from './Hero.module.css';
 

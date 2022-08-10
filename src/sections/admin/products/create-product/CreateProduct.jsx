@@ -4,7 +4,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 import Button from 'src/components/Button';
-import { NormalDivider } from 'src/components/Divider';
+import { NormalDivider } from 'src/components/Dividers';
 import { CheckBoxField, FormProvider, RadioField, TextField } from 'src/components/hook-forms';
 import { productSizes, productVisibilityStatus } from '../products-config';
 
