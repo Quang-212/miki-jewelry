@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
-import dbConnect from 'src/utils/dbConnect';
-import verifyToken from 'src/middlewares/verifyToken';
-import withAuthorization from 'src/middlewares/withAuthorization';
-import { cloudinary } from 'src/utils/cloudinary';
 import Product from 'src/models/Product';
+import dbConnect from 'src/utils/dbConnect';
 
 export const config = {
   api: {
