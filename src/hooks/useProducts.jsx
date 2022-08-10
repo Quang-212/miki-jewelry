@@ -1,7 +1,10 @@
+import qs from 'qs';
 import useSWR from 'swr';
 
-export function useProducts(limit = 10) {
-  const url = `/api/admin/products?limit=${limit}`;
+export function useProducts(query) {
+  const queryString = qs.stringify(query);
+
+  const url = `/api/admin/products?${queryString}`;
 
   const { data, error, mutate, isValidating } = useSWR(url);
 

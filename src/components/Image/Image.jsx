@@ -12,7 +12,7 @@ export default function Image({
   width,
   height,
   objectFit = 'cover',
-  placeholder = 'blur',
+  placeholder = 'empty',
   className,
   fallback: customFallback = images.noImage,
   ...passProps
@@ -29,6 +29,7 @@ export default function Image({
       height={height}
       objectFit={objectFit}
       placeholder={placeholder}
+      blurDataURL
       onError={handleError}
       className={classNames(styles.root, className)}
       {...passProps}

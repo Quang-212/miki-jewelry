@@ -1,44 +1,64 @@
-import { useTable } from 'react-table';
+import { useRowSelect, useTable } from 'react-table';
 import { useEffect, useMemo, useState } from 'react';
 
 import Button from 'src/components/Button';
 import { useProducts } from 'src/hooks/useProducts';
 import { PATH } from 'src/routes';
 import { LoadingRotatingLines } from 'src/components/Loadings';
+import { COLUMNS_PRODUCTS } from 'src/components/Table';
+import { Checkbox } from 'src/components/Checkbox';
 
 export function ProductsList() {
   const [products, setProducts] = useState([]);
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(1);
 
-  const { products: products1, isLoading, isError } = useProducts(count);
-
-  useEffect(() => {
-    products1 && setProducts(products1);
-  }, [products1]);
-
-  const productsData = useMemo(() => [...products], [products]);
-  const productsColumn = useMemo(
-    () =>
-      products[0]
-        ? Object.keys(products[0])
-            .filter((key) => key !== 'size')
-            .map((key) => {
-              return { Header: key, accessor: key };
-            })
-        : [],
-    [products],
-  );
-
-  const tableInstance = useTable({
-    columns: productsColumn,
-    data: productsData,
+  const {
+    products: _products,
+    isLoading,
+    isError,
+  } = useProducts({
+    limit: count,
+    select: {
+      slug: 0,
+      __v: 0,
+    },
   });
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+  useEffect(() => {
+    _products && setProducts(_products);
+  }, [_products]);
+
+  const productsData = useMemo(() => [...products], [products]);
+
+  const productsColumn = useMemo(() => COLUMNS_PRODUCTS, []);
+
+  const tableHooks = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      {
+        id: 'selection',
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+          <Checkbox {...getToggleAllRowsSelectedProps()} />
+        ),
+        Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
+      },
+      ...columns,
+    ]);
+  };
+
+  const tableInstance = useTable(
+    {
+      columns: productsColumn,
+      data: productsData,
+    },
+    useRowSelect,
+    tableHooks,
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } =
+    tableInstance;
 
   //! DUMA NHỚ RETURN CUỐI CÙNG !!!
   if (isError) return <h2>{isError}</h2>;
-
   if (isLoading) return <LoadingRotatingLines />;
 
   return (
@@ -61,10 +81,19 @@ export function ProductsList() {
       <button onClick={() => setCount((prev) => prev + 1)}>Count</button>
       <table {...getTableProps()} className="table-fixed text-base text-gray-900">
         <thead className="p-2">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()} className="border border-green-500">
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps} className="p-2 border border-green-500">
+          {headerGroups.map((headerGroup, index) => (
+            <tr
+              key={index}
+              {...headerGroup.getHeaderGroupProps()}
+              className="border border-green-500"
+            >
+              {headerGroup.headers.map((column, index) => (
+                <th
+                  key={index}
+                  {...column.getHeaderProps()}
+                  className="p-2 border border-green-500"
+                >
+                  {/* {console.log(column)} */}
                   {column.render('Header')}
                 </th>
               ))}
@@ -77,7 +106,8 @@ export function ProductsList() {
             return (
               <tr {...row.getRowProps()} className="border border-green-500">
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()} className="p-5 border border-green-500">
+                  <td {...cell.getCellProps()} className="border border-green-500">
+                    {console.log(cell.column.id)}
                     {cell.render('Cell')}
                   </td>
                 ))}
@@ -86,6 +116,17 @@ export function ProductsList() {
           })}
         </tbody>
       </table>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              selectedFlatRows: selectedFlatRows.map((row) => row.original),
+            },
+            null,
+            2,
+          )}
+        </code>
+      </pre>
     </section>
   );
 }

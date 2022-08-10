@@ -54,6 +54,12 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
+/* @layer base {
+  table {
+    padding: 0 !important;
+  }
+} */
+
 @layer components {
   .wrapper {
     @apply max-w-1440-px m-auto body bg-wrapper;

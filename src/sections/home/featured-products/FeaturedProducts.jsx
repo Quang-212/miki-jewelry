@@ -53,6 +53,7 @@ export function FeaturedProductsSection() {
               alt={product.title}
               width={254}
               height={307}
+              placeholder="blur"
               title={product.title}
               price={product.price}
               onClick={handleClick}
