@@ -34,17 +34,21 @@ export const COLUMNS_PRODUCTS = [
         <table className=" table-fixed text-base text-gray-900">
           <thead className="p-2">
             <tr className="border-dashed border border-green-500">
-              {Object.keys(value[0]).map((item) => (
-                <th className="p-2 border-dashed border border-green-500">{item}</th>
+              {Object.keys(value[0]).map((item, index) => (
+                <th key={index} className="p-2 border-dashed border border-green-500">
+                  {item}
+                </th>
               ))}
             </tr>
           </thead>
 
           <tbody>
-            {value.map((item) => (
-              <tr className="border-dashed border border-green-500">
+            {value.map((item, index) => (
+              <tr key={index} className="border-dashed border border-green-500">
                 {Object.entries(item).map(([_, value]) => (
-                  <td className=" border-dashed border border-green-500">{value}</td>
+                  <td key={value} className=" border-dashed border border-green-500">
+                    {value}
+                  </td>
                 ))}
               </tr>
             ))}

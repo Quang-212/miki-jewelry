@@ -38,7 +38,7 @@ export default function Image({
 }
 
 Image.propTypes = {
-  src: PropTypes.object,
+  src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   alt: PropTypes.string,
   objectFit: PropTypes.string,
   placeholder: PropTypes.string,

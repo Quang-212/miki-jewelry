@@ -8,6 +8,9 @@ import { LogoIcon } from '../Icons';
 const mk = classNames.bind(styles);
 
 export default function BrandLogo({ vertical, horizontal, wrapper, logo, brandName }) {
+  const BrandLogoWrapper = 'div';
+  const BrandName = 'span';
+
   const classWrapper = mk('root', {
     vertical,
     horizontal,
@@ -23,11 +26,11 @@ export default function BrandLogo({ vertical, horizontal, wrapper, logo, brandNa
   });
 
   return (
-    <div className={classWrapper}>
+    <BrandLogoWrapper className={classWrapper}>
       <Button icon internalLink={PATH.home}>
         <LogoIcon className={classIcon} />
       </Button>
-      <span className={classBrandName}>Miki Jewelry</span>
-    </div>
+      <BrandName className={classBrandName}>Miki Jewelry</BrandName>
+    </BrandLogoWrapper>
   );
 }

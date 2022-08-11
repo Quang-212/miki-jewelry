@@ -27,6 +27,8 @@ export default function Button({
   ...passProps
 }) {
   let ButtonWrapper = 'button';
+  const ButtonTitle = 'span';
+  const ButtonIcon = 'span';
 
   const props = {
     onClick,
@@ -60,16 +62,17 @@ export default function Button({
   });
 
   if (internalLink) {
+    ButtonWrapper = Link;
     props.href = internalLink;
 
     return (
-      <Link {...props}>
+      <ButtonWrapper {...props}>
         <a className={classWrapper}>
-          {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
-          <span className={classTitle}>{children}</span>
-          {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
+          {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
+          <ButtonTitle className={classTitle}>{children}</ButtonTitle>
+          {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
         </a>
-      </Link>
+      </ButtonWrapper>
     );
   }
 
@@ -80,9 +83,9 @@ export default function Button({
 
   return (
     <ButtonWrapper className={classWrapper} {...props}>
-      {leftIcon && <span className={mk('icon')}>{leftIcon}</span>}
-      <span className={classTitle}>{children}</span>
-      {rightIcon && <span className={mk('icon')}>{rightIcon}</span>}
+      {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
+      <ButtonTitle className={classTitle}>{children}</ButtonTitle>
+      {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
     </ButtonWrapper>
   );
 }

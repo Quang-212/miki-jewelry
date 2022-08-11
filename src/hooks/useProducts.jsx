@@ -4,12 +4,12 @@ import useSWR from 'swr';
 export function useProducts(query) {
   const queryString = qs.stringify(query);
 
-  const url = `/api/admin/products?${queryString}`;
+  const url = `/api/products?${queryString}`;
 
   const { data, error, mutate, isValidating } = useSWR(url);
 
   return {
-    products: data?.data.productList || [],
+    productsState: data?.data || null,
     isLoading: !error && !data,
     isError: error,
   };
