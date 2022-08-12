@@ -2,6 +2,7 @@ import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 import LoginFormSection, {
   CircleIcon1,
+  CircleIcon1Mobile,
   CircleIcon2,
   CircleIcon3,
 } from 'src/sections/auth/login-form';
@@ -21,6 +22,7 @@ export default function LoginPage() {
       />
       <LoginFormSection />
       <CircleIcon1 />
+      <CircleIcon1Mobile />
       <CircleIcon2 />
       <CircleIcon3 />
     </>

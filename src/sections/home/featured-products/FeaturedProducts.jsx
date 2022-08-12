@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Button from 'src/components/Button';
 import { CardProduct } from 'src/components/Card';
 import { images } from 'src/constants';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
 import styles from './FeaturedProducts.module.css';
 
 const mk = classNames.bind(styles);
@@ -53,6 +53,7 @@ export function FeaturedProductsSection() {
               alt={product.title}
               width={254}
               height={307}
+              placeholder="blur"
               title={product.title}
               price={product.price}
               onClick={handleClick}

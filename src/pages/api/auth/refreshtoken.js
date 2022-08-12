@@ -1,9 +1,9 @@
-import generateAccessToken from '../generateToken/generateAccessToken';
-import RefreshToken from 'src/models/RefreshToken';
-import dbConnect from 'src/utils/dbConnect';
 import jwt from 'jsonwebtoken';
 
-import verifyToken from 'src/middlewares/verifyToken';
+import RefreshToken from 'src/models/RefreshToken';
+import dbConnect from 'src/utils/dbConnect';
+import generateAccessToken from '../generateToken/generateAccessToken';
+
 const REF_KEY = process.env.REFRESH_TOKEN_KEY;
 
 async function handlerRefreshToken(req, res) {

@@ -1,3 +1,5 @@
+import classNames from 'classnames/bind';
+
 import {
   FacebookIcon,
   InstagramIcon,
@@ -5,27 +7,30 @@ import {
   TikTokIcon,
   TwitterIcon,
 } from 'src/components/Icons';
-import { PATH } from 'src/routes/path';
+import { PATH } from 'src/routes';
+import styles from './Footer.module.css';
+
+const mk = classNames.bind(styles);
 
 export const socialLink = [
   {
-    icon: <FacebookIcon />,
+    icon: <FacebookIcon className={mk('social-icon')} />,
     path: PATH.facebook,
   },
   {
-    icon: <TwitterIcon />,
+    icon: <TwitterIcon className={mk('social-icon')} />,
     path: PATH.twitter,
   },
   {
-    icon: <InstagramIcon />,
+    icon: <InstagramIcon className={mk('social-icon')} />,
     path: PATH.instagram,
   },
   {
-    icon: <TikTokIcon />,
+    icon: <TikTokIcon className={mk('social-icon')} />,
     path: PATH.tiktok,
   },
   {
-    icon: <PinterestIcon />,
+    icon: <PinterestIcon className={mk('social-icon')} />,
     path: PATH.pinterest,
   },
 ];

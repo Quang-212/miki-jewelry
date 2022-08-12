@@ -1,7 +1,11 @@
 import jwt from 'jsonwebtoken';
+
 import dbConnect from 'src/utils/dbConnect';
+
 const ACC_KEY = process.env.ACCESS_TOKEN_KEY;
+
 dbConnect();
+
 async function generateAccessToken(user) {
   return jwt.sign(
     {

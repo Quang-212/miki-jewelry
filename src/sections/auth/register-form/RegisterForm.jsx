@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -11,7 +10,8 @@ import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/hook-forms';
 import { images } from 'src/constants';
-import { PATH } from 'src/routes/path';
+import { registerForm } from 'src/fetching/auth';
+import { PATH } from 'src/routes';
 import styles from './RegisterForm.module.css';
 
 const mk = classNames.bind(styles);
@@ -69,11 +69,7 @@ export default function RegisterFormSection() {
       reset();
 
       const res = await toast.promise(
-        axios({
-          method: 'POST',
-          url: 'api/auth/register',
-          data,
-        }),
+        registerForm,
         {
           pending: {
             render() {

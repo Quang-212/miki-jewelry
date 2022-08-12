@@ -54,8 +54,11 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
-@layer base {
-}
+/* @layer base {
+  table {
+    padding: 0 !important;
+  }
+} */
 
 @layer components {
   .wrapper {
@@ -65,7 +68,7 @@
     @apply m-auto px-16 body bg-wrapper;
   }
   .container {
-    @apply px-152-px;
+    @apply px-152-px xs:px-4;
   }
 
   .display {

@@ -1,8 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -12,32 +10,35 @@ import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
+import Image from 'src/components/Image';
 import { images } from 'src/constants';
-import { PATH } from 'src/routes/path';
+import { loginForm } from 'src/fetching/auth';
+import { PATH } from 'src/routes';
 import styles from './LoginForm.module.css';
 
 const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  // email: yup
-  //   .string()
-  //   .required('*Vui lòng nhập địa chỉ email của bạn')
-  //   .matches(
-  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //     '*Vui lòng nhập đúng địa chỉ email của bạn',
-  //   ),
-  // password: yup
-  //   .string()
-  //   .trim()
-  //   .required('*Vui lòng nhập mật khẩu')
-  //   .matches(
-  //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-  //     '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
-  //   ),
+  email: yup
+    .string()
+    .required('*Vui lòng nhập địa chỉ email của bạn')
+    .matches(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      '*Vui lòng nhập đúng địa chỉ email của bạn',
+    ),
+  password: yup
+    .string()
+    .trim()
+    .required('*Vui lòng nhập mật khẩu')
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+      '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
+    ),
 });
 
 export default function LoginFormSection() {
   const { replace } = useRouter();
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -55,11 +56,7 @@ export default function LoginFormSection() {
       reset();
 
       const res = await toast.promise(
-        axios({
-          method: 'POST',
-          url: 'api/auth/login',
-          data,
-        }),
+        loginForm,
         {
           pending: {
             render() {
@@ -83,6 +80,7 @@ export default function LoginFormSection() {
         },
         { autoClose: 10000 },
       );
+      replace(PATH.home);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -92,23 +90,25 @@ export default function LoginFormSection() {
   return (
     <section className={mk('login')}>
       <div className={mk('wrapper')}>
-        <Image
-          src={images.loginForm}
-          alt="Ảnh form đăng ký"
-          width={646}
-          height={852}
-          objectFit="cover"
-          placeholder="blur"
-          className="rounded-l-secondary"
-        />
+        <div className="xs:hidden">
+          <Image
+            src={images.loginForm}
+            alt="Ảnh form đăng ký"
+            width={646}
+            height={852}
+            objectFit="cover"
+            placeholder="blur"
+            className="rounded-l-secondary"
+          />
+        </div>
         <div className={mk('form')}>
-          <BrandLogo vertical wrapper="mt-14" />
+          <BrandLogo vertical wrapper="mt-14 xs:mt-10" />
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <h5 className="mt-72-px heading-5">Đăng nhập</h5>
+            <h5 className="mt-72-px heading-5 xs:mt-7 xs:subtitle-1">Đăng nhập</h5>
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
 
-            <Button text internalLink={PATH.forgotPassword} wrapper="mt-5" title="caption">
+            <Button text internalLink={PATH.forgotPassword} wrapper="mt-5 xs:mt-0" title="caption">
               Quên mật khẩu ?
             </Button>
             <Button primary wrapper="w-full mt-8">
@@ -116,15 +116,15 @@ export default function LoginFormSection() {
             </Button>
 
             <p className="mt-8">Hoặc đăng nhập bằng</p>
-            <div className="mt-6">
-              <Button rounded leftIcon={<FacebookColorIcon />}>
+            <div className="flex justify-between gap-2 mt-6 xs:mt-4">
+              <Button rounded leftIcon={<FacebookColorIcon />} wrapper="xs:w-[168px]">
                 Facebook
               </Button>
               <Button
                 onClick={() => signIn()}
                 rounded
                 leftIcon={<GoogleColorIcon />}
-                wrapper="w-[200px] ml-4"
+                wrapper="w-[200px] xs:w-[168px]"
               >
                 Google
               </Button>
@@ -146,20 +146,4 @@ export default function LoginFormSection() {
       </div>
     </section>
   );
-
-  /* {session?.user && (
-        <>
-          <Header />
-          <div className="flex">
-            <img className=" rounded-full" src={session.user.image} alt={session.user.name} />
-            <div className="mt-4 ml-5">
-              <p>{session.user.email}</p>
-              <button className="bg-green-200 rounded-lg border" onClick={() => signOut()}>
-                Đăng xuất
-              </button>
-            </div>
-          </div>
-          <HomePage />
-        </>
-      )} */
 }

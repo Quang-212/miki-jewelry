@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        xs: { max: '376px' },
+      },
       fontFamily: {
         primary: ['Montserrat'],
         secondary: ['Playfair Display'],
@@ -34,6 +37,9 @@ module.exports = {
         '544-px': '544px',
         '1440-px': '1440px',
       },
+      minWidth: {
+        '343-px': '343px',
+      },
       borderRadius: {
         primary: '8px',
         secondary: '16px',
@@ -50,9 +56,11 @@ module.exports = {
         '10-px': '10px',
         '12-px': '12px',
         '14-px': '14px',
+        '17-px': '17px',
         '18-px': '18px',
         '22-px': '22px',
         '24-px': '24px',
+        '26-px': '26px',
         '32-px': '32px',
         '37-px': '37px',
         '42-px': '42px',
@@ -68,6 +76,7 @@ module.exports = {
         '200-px': '200px',
         '228-px': '228px',
         '254-px': '254px',
+        '312-px': '312px',
         '351-px': '351px',
         '352-px': '352px',
         '412-px': '412px',

@@ -11,9 +11,11 @@
 }
 
 .logo-icon {
-  @apply fill-primary-1;
+  @apply fill-primary-1 
+  xs:w-17-px xs:h-17-px;
 }
 
 .brand-name {
-  @apply font-secondary font-bold text-primary uppercase text-4xl leading-48-px;
+  @apply text-4xl leading-48-px 
+  xs:text-2xl xs:leading-8;
 }
