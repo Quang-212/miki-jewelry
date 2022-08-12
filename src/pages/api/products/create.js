@@ -22,7 +22,7 @@ const createProduct = async (req, res) => {
   };
   //console.log(option);
   const arr = ['bracelet', 'earring', 'necklace', 'ring'];
-  const arrColor = ['gold', 'silver', 'gray', 'pink', 'violet'];
+
   if (method == 'POST') {
     try {
       // const upload = await cloudinary.uploader.upload(url, option);
