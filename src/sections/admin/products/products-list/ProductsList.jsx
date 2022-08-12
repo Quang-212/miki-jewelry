@@ -55,9 +55,6 @@ export function ProductsList() {
           columns={productsColumn}
           data={productsData}
           onPageChange={setPagination}
-          pageSize={limit}
-          pageCount={pageCount}
-          pageIndex={pageIndex}
           pageState={{ limit, pageCount, pageIndex }}
         />
       </div>

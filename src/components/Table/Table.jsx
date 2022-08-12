@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 
@@ -18,6 +19,15 @@ export default function Table({
   const TableData = 'td';
   const Pagination = 'div';
 
+  const handleDelete = async (id) => {
+    console.log(id);
+    const res = await axios({
+      method: 'POST',
+      url: '/api/products/delete',
+      data: { id },
+    });
+  };
+
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       {
@@ -32,7 +42,7 @@ export default function Table({
         id: 'edit',
         Header: 'Edit',
         Cell: ({ row }) => (
-          <Button primary onClick={() => alert(`Edit ${row.values._id}`)}>
+          <Button primary onClick={() => alert(`${row.value_id}`)}>
             Edit
           </Button>
         ),
@@ -41,7 +51,7 @@ export default function Table({
         id: 'delete',
         Header: 'Delete',
         Cell: ({ row }) => (
-          <Button primary onClick={() => alert(`Delete ${row.values._id}`)}>
+          <Button primary onClick={() => handleDelete(row.values._id)}>
             Delete
           </Button>
         ),
