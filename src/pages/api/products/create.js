@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
-import dbConnect from 'src/utils/dbConnect';
-import verifyToken from 'src/middlewares/verifyToken';
-import withAuthorization from 'src/middlewares/withAuthorization';
-import { cloudinary } from 'src/utils/cloudinary';
 import Product from 'src/models/Product';
+import dbConnect from 'src/utils/dbConnect';
 
 export const config = {
   api: {
@@ -24,8 +21,8 @@ const createProduct = async (req, res) => {
     overwrite: true,
   };
   //console.log(option);
-  // const arr = ['bracelet', 'earring', 'necklace', 'ring'];
-
+  const arr = ['bracelet', 'earring', 'necklace', 'ring'];
+  const arrColor = ['gold', 'silver', 'gray', 'pink', 'violet'];
   if (method == 'POST') {
     try {
       // const upload = await cloudinary.uploader.upload(url, option);
@@ -34,7 +31,9 @@ const createProduct = async (req, res) => {
         ...req.body,
         _id,
         name: req.body.name + Math.random().toString(),
-        // category: arr[Math.floor(Math.random() * arr.length)],
+        category: arr[Math.floor(Math.random() * arr.length)],
+        stocks: [...req.body.stocks],
+
         // url: upload.secure_url,
       });
 
@@ -53,4 +52,4 @@ const createProduct = async (req, res) => {
   }
 };
 
-export default verifyToken(withAuthorization(createProduct));
+export default createProduct;

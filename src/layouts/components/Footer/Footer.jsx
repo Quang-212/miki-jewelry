@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 import Button from 'src/components/Button';
 import Copyright from 'src/components/Copyright';
-import { NormalDivider } from 'src/components/Divider';
+import { NormalDivider } from 'src/components/Dividers';
 import { FormProvider, TextField } from 'src/components/hook-forms';
 import { ArrowForwardIcon } from 'src/components/Icons';
 import { userPromotion } from 'src/fetching/userPromotion';

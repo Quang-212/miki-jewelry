@@ -1,6 +1,6 @@
-import mongoose, { Schema, models, model } from 'mongoose';
+import { Schema, models, model } from 'mongoose';
 
-const refreshToken = new Schema(
+const RefreshToken = new Schema(
   {
     userId: { type: String },
     refreshToken: { type: String },
@@ -10,4 +10,4 @@ const refreshToken = new Schema(
   },
 );
 
-export default models.RefreshToken || model('RefreshToken', refreshToken);
+export default models.RefreshToken || model('RefreshToken', RefreshToken);
