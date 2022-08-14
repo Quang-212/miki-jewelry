@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 
 import Button from '../Button';
@@ -10,7 +10,11 @@ export default function Table({
   data,
   onPageChange,
   pageState: { limit: _pageSize, pageCount: controlledPageCount, pageIndex },
+  handleDelete,
 }) {
+  // const [data1, setData] = useState(data);
+  // console.log(data);
+
   const Table = 'table';
   const TableHead = 'thead';
   const TableRow = 'tr';
@@ -19,14 +23,14 @@ export default function Table({
   const TableData = 'td';
   const Pagination = 'div';
 
-  const handleDelete = async (id) => {
-    console.log(id);
-    const res = await axios({
-      method: 'POST',
-      url: '/api/products/delete',
-      data: { id },
-    });
-  };
+  // const handleDelete = async (id) => {
+  //   console.log(id);
+  //   const res = await axios({
+  //     method: 'POST',
+  //     url: '/api/products/delete',
+  //     data: { id },
+  //   });
+  // };
 
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
@@ -42,7 +46,7 @@ export default function Table({
         id: 'edit',
         Header: 'Edit',
         Cell: ({ row }) => (
-          <Button primary onClick={() => alert(`${row.value_id}`)}>
+          <Button primary onClick={() => alert(`${row.values._id}`)}>
             Edit
           </Button>
         ),
@@ -51,7 +55,7 @@ export default function Table({
         id: 'delete',
         Header: 'Delete',
         Cell: ({ row }) => (
-          <Button primary onClick={() => handleDelete(row.values._id)}>
+          <Button primary onClick={() => handleDelete(row.index)}>
             Delete
           </Button>
         ),
@@ -122,7 +126,7 @@ export default function Table({
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {page.map((row, index) => {
+          {rows.map((row, index) => {
             prepareRow(row);
             return (
               <TableRow

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 
 import Button from 'src/components/Button';
@@ -5,6 +6,7 @@ import { LoadingRotatingLines } from 'src/components/Loadings';
 import Table, { COLUMNS_PRODUCTS } from 'src/components/Table';
 import { useProducts } from 'src/hooks/useProducts';
 import { PATH } from 'src/routes';
+import { CreateProduct } from '../create-product';
 
 export function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,7 @@ export function ProductsList() {
     pageIndex: 0,
     pageCount: 0,
   });
+
   const { productsState, isLoading, isError } = useProducts({
     limit,
     page: pageIndex,
@@ -22,7 +25,30 @@ export function ProductsList() {
       __v: 0,
     },
   });
+
   const _products = productsState?.productList;
+
+  // const handleDelete = async (id, index) => {
+  //   const res = await axios({
+  //     method: 'POST',
+  //     url: '/api/products/delete',
+  //     data: { id },
+  //   });
+
+  //   const dataUpdate = [..._products];
+  //   console.log(dataUpdate);
+  //   dataUpdate.splice(index, 1);
+  //   // setProducts(dataUpdate);
+  //   console.log(dataUpdate);
+  // };
+
+  const handleDelete = (index) => {
+    const dataUpdate = [..._products];
+    console.log(dataUpdate);
+    dataUpdate.splice(index, 1);
+    setProducts(dataUpdate);
+    console.log(dataUpdate);
+  };
 
   useEffect(() => {
     _products && setProducts(_products);
@@ -32,6 +58,8 @@ export function ProductsList() {
 
   const productsColumn = useMemo(() => COLUMNS_PRODUCTS, [products]);
   const productsData = useMemo(() => [...products], [products]);
+  // const [data, setData] = useState(productsData);
+  // console.log(productsData);
 
   if (isError) return <h2>{isError}</h2>;
   //! DUMA NHỚ RETURN CUỐI CÙNG !!!
@@ -56,6 +84,7 @@ export function ProductsList() {
           data={productsData}
           onPageChange={setPagination}
           pageState={{ limit, pageCount, pageIndex }}
+          handleDelete={handleDelete}
         />
       </div>
     </section>

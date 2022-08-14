@@ -4,10 +4,6 @@ export const productVisibilityStatus = [
     content: 'Published',
   },
   {
-    id: 'scheduled',
-    content: 'Scheduled',
-  },
-  {
     id: 'hidden',
     content: 'Hidden',
   },

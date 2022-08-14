@@ -7,7 +7,7 @@ const mk = classNames.bind(styles);
 
 export function RadioField({
   name,
-  option,
+  options,
   value,
   wrapper,
   subWrapper,
@@ -43,7 +43,7 @@ export function RadioField({
 
   return (
     <div className={classWrapper}>
-      {option.map((value, index) => (
+      {options.map((value, index) => (
         <div key={index} className={classSubWrapper}>
           <input id={value.id} type="radio" className={classInput} {...other} {...register(name)} />
           <label htmlFor={value.id} className={classLabel}>
