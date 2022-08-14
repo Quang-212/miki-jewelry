@@ -14,6 +14,7 @@ const Product = new Schema({
     required: true,
   },
   slug: String,
+  discount: Number,
   coupon: String,
   images: [
     {

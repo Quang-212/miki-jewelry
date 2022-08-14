@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 
 import Button from 'src/components/Button';
 import { LoadingRotatingLines } from 'src/components/Loadings';
-import Table, { COLUMNS_PRODUCTS } from 'src/components/Table';
+import Table from 'src/components/Table';
+import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks/useProducts';
 import { PATH } from 'src/routes';
-import { CreateProduct } from '../create-product';
+import { columnProducts } from './columns-config';
 
 export function ProductsList() {
   const [products, setProducts] = useState([]);
@@ -28,27 +28,11 @@ export function ProductsList() {
 
   const _products = productsState?.productList;
 
-  const handleDelete = async (id, index) => {
-    const res = await axios({
-      method: 'POST',
-      url: '/api/products/delete',
-      data: { id },
-    });
+  const handleDelete = async (id) => {
+    await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
+    id = [id].flat(Infinity);
+    setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
   };
-  //   const dataUpdate = [..._products];
-  //   console.log(dataUpdate);
-  //   dataUpdate.splice(index, 1);
-  //   // setProducts(dataUpdate);
-  //   console.log(dataUpdate);
-  // };
-
-  // const handleDelete = (index) => {
-  //   const dataUpdate = [..._products];
-  //   console.log(dataUpdate);
-  //   dataUpdate.splice(index, 1);
-  //   setProducts(dataUpdate);
-  //   console.log(dataUpdate);
-  // };
 
   useEffect(() => {
     _products && setProducts(_products);
@@ -56,14 +40,12 @@ export function ProductsList() {
       setPagination((prev) => ({ ...prev, pageCount: Math.ceil(productsState.total / limit) }));
   }, [_products, limit]);
 
-  const productsColumn = useMemo(() => COLUMNS_PRODUCTS, [products]);
+  const productsColumn = useMemo(() => columnProducts, [products]);
   const productsData = useMemo(() => [...products], [products]);
-  // const [data, setData] = useState(productsData);
-  // console.log(productsData);
 
   if (isError) return <h2>{isError}</h2>;
-  //! DUMA NHỚ RETURN CUỐI CÙNG !!!
-  //! FUCK WHEN LOADING => Table is unmount
+  //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
+  //! FUCK WHEN LOADING => Table is unmount (the same)
   if (isLoading) return <LoadingRotatingLines className="absolute z-10 left-2/4 top-3/4" />;
 
   return (
@@ -78,7 +60,6 @@ export function ProductsList() {
         </Button>
       </div>
       <div className="flex flex-col gap-4">
-        <button onClick={() => setLimit((prev) => prev + 1)}>Plus One</button>
         <Table
           columns={productsColumn}
           data={productsData}

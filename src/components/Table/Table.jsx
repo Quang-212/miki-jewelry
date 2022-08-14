@@ -12,9 +12,6 @@ export default function Table({
   pageState: { limit: _pageSize, pageCount: controlledPageCount, pageIndex },
   handleDelete,
 }) {
-  // const [data1, setData] = useState(data);
-  // console.log(data);
-
   const Table = 'table';
   const TableHead = 'thead';
   const TableRow = 'tr';
@@ -22,15 +19,6 @@ export default function Table({
   const TableBody = 'tbody';
   const TableData = 'td';
   const Pagination = 'div';
-
-  // const handleDelete = async (id) => {
-  //   console.log(id);
-  //   const res = await axios({
-  //     method: 'POST',
-  //     url: '/api/products/delete',
-  //     data: { id },
-  //   });
-  // };
 
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
@@ -55,7 +43,12 @@ export default function Table({
         id: 'delete',
         Header: 'Delete',
         Cell: ({ row }) => (
-          <Button primary onClick={() => handleDelete(row.index)}>
+          <Button
+            primary
+            onClick={() => {
+              handleDelete(row.values._id, row.index);
+            }}
+          >
             Delete
           </Button>
         ),
@@ -105,6 +98,15 @@ export default function Table({
   }, [_pageIndex, pageSize]);
   return (
     <>
+      {console.log(selectedFlatRows)}
+      <Button
+        primary
+        onClick={() => {
+          return handleDelete(selectedFlatRows.map((row) => row.original._id));
+        }}
+      >
+        Delete many
+      </Button>
       <Table {...getTableProps()} className="table-fixed text-center text-base text-gray-900">
         <TableHead className="p-2">
           {headerGroups.map((headerGroup, index) => (
@@ -183,17 +185,17 @@ export default function Table({
           ))}
         </select>
       </Pagination>
-      {/* <pre>
+      <pre>
         <code>
           {JSON.stringify(
             {
-              selectedFlatRows: selectedFlatRows.map((row) => row.original),
+              selectedFlatRows: selectedFlatRows.map((row) => row.original._id),
             },
             null,
             2,
           )}
         </code>
-      </pre> */}
+      </pre>
     </>
   );
 }

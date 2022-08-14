@@ -24,7 +24,8 @@ const createProduct = async (req, res) => {
   if (method == 'POST') {
     try {
       // const upload = await cloudinary.uploader.upload(url, option);
-      const { name, category, description, visibilityStatus, slug, coupon, stocks } = req.body.data;
+      const { name, category, description, visibilityStatus, slug, discount, coupon, stocks } =
+        req.body.data;
 
       const newData = new Product({
         _id,
@@ -35,6 +36,7 @@ const createProduct = async (req, res) => {
         visibilityStatus,
         slug,
         stocks,
+        discount,
         coupon,
       });
       await newData.save();
