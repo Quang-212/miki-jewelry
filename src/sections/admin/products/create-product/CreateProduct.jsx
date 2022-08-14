@@ -50,7 +50,6 @@ export function CreateProduct() {
       name: '',
       slug: '',
       description: '',
-      price: '',
       category: '',
       visibilityStatus: '',
       coupon: '',
@@ -100,15 +99,15 @@ export function CreateProduct() {
         url: '/api/upload',
         data: formData,
       });
-      console.log(upload.data);
-
-      // const product = await createProduct({
-      //   images: upload.data.map((image, index) => ({
-      //     ...image,
-      //     type: index === primaryPicture ? 'primary' : 'secondary',
-      //   })),
-      // });
-      // console.log(product);
+      console.log(data);
+      const product = await createProduct({
+        images: upload.data.map((image, index) => ({
+          ...image,
+          type: index === primaryPicture ? 'primary' : 'secondary',
+        })),
+        data,
+      });
+      console.log(product);
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +171,7 @@ export function CreateProduct() {
             <div className="bg-white pt-4 px-4 w-full">
               <h5 className="heading-5">Visibility Status</h5>
               <RadioField
-                name="productVisibilityStatus"
+                name="visibilityStatus"
                 options={productVisibilityStatus}
                 wrapper="mt-5"
                 subWrapper="flex items-center gap-4"
@@ -181,7 +180,7 @@ export function CreateProduct() {
 
             <div className="bg-white pt-4 px-4 w-full">
               <h5 className="heading-5">Coupon</h5>
-              <TextField name="productCoupon" wrapper="mt-5" />
+              <TextField name="coupon" wrapper="mt-5" />
             </div>
           </div>
           {stocksField.map(({ id }, index) => (

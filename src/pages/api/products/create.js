@@ -20,23 +20,23 @@ const createProduct = async (req, res) => {
     public_id: _id,
     overwrite: true,
   };
-  //console.log(option);
-  const arr = ['bracelet', 'earring', 'necklace', 'ring'];
 
   if (method == 'POST') {
     try {
       // const upload = await cloudinary.uploader.upload(url, option);
+      const { name, category, description, visibilityStatus, slug, coupon, stocks } = req.body.data;
 
       const newData = new Product({
-        ...req.body,
         _id,
-        name: req.body.name + Math.random().toString(),
-        category: arr[Math.floor(Math.random() * arr.length)],
-        stocks: [...req.body.stocks],
-
-        // url: upload.secure_url,
+        images: req.body.images,
+        name,
+        category,
+        description,
+        visibilityStatus,
+        slug,
+        stocks,
+        coupon,
       });
-
       await newData.save();
       return res.status(201).json({
         message: 'Bạn đã upload thành công !',

@@ -4,13 +4,17 @@ const Product = new Schema({
   name: { type: String, required: true, unique: true },
   category: {
     type: String,
-    enum: ['bracelet', 'earring', 'necklace', 'ring'],
+    enum: ['Bracelet', 'Earring', 'Necklace', 'Ring'],
     required: true,
   },
   description: String,
-  visibilityStatus: Boolean,
+  visibilityStatus: {
+    type: String,
+    enum: ['published', 'hidden'],
+    required: true,
+  },
   slug: String,
-  discount: Number,
+  coupon: String,
   images: [
     {
       url: String,
@@ -22,7 +26,7 @@ const Product = new Schema({
   ],
   stocks: [
     {
-      size: Number,
+      size: String,
       price: Number,
       color: String,
       quantity: Number,
