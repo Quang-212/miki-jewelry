@@ -28,13 +28,13 @@ export function ProductsList() {
 
   const _products = productsState?.productList;
 
-  // const handleDelete = async (id, index) => {
-  //   const res = await axios({
-  //     method: 'POST',
-  //     url: '/api/products/delete',
-  //     data: { id },
-  //   });
-
+  const handleDelete = async (id, index) => {
+    const res = await axios({
+      method: 'POST',
+      url: '/api/products/delete',
+      data: { id },
+    });
+  };
   //   const dataUpdate = [..._products];
   //   console.log(dataUpdate);
   //   dataUpdate.splice(index, 1);
@@ -42,13 +42,13 @@ export function ProductsList() {
   //   console.log(dataUpdate);
   // };
 
-  const handleDelete = (index) => {
-    const dataUpdate = [..._products];
-    console.log(dataUpdate);
-    dataUpdate.splice(index, 1);
-    setProducts(dataUpdate);
-    console.log(dataUpdate);
-  };
+  // const handleDelete = (index) => {
+  //   const dataUpdate = [..._products];
+  //   console.log(dataUpdate);
+  //   dataUpdate.splice(index, 1);
+  //   setProducts(dataUpdate);
+  //   console.log(dataUpdate);
+  // };
 
   useEffect(() => {
     _products && setProducts(_products);

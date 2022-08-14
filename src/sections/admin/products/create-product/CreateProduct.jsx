@@ -108,6 +108,7 @@ export function CreateProduct() {
           ...image,
           type: index === primaryPicture ? 'primary' : 'secondary',
         })),
+        data,
       });
       console.log(product);
     } catch (error) {

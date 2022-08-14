@@ -45,14 +45,7 @@ export function RadioField({
     <div className={classWrapper}>
       {options.map((value, index) => (
         <div key={index} className={classSubWrapper}>
-          <input
-            id={value.id}
-            type="radio"
-            value={value.id}
-            className={classInput}
-            {...other}
-            {...register(name)}
-          />
+          <input id={value.id} type="radio" className={classInput} {...other} {...register(name)} />
           <label htmlFor={value.id} className={classLabel}>
             {value.content}
           </label>

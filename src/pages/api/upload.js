@@ -3,9 +3,9 @@ import { v2 as cloudinary } from 'cloudinary';
 import { unlink } from 'fs';
 
 cloudinary.config({
-  cloud_name: 'clouds-store', //need to change before use
-  api_key: '357675581138582', //need to change before use
-  api_secret: '3-40WPZO6Zogw2Lr8KnK6W7HlyA', //need to change before use
+  cloud_name: process.env.CLOUD_NAME, //need to change before use
+  api_key: process.env.API_KEY, //need to change before use
+  api_secret: process.env.API_SECRET, //need to change before use
 });
 // disable next.js' default body parser
 export const config = {
@@ -24,6 +24,7 @@ export default async function handler(req, res) {
   console.log(req.files);
 
   const upload = await Promise.all(req.files.map((file) => cloudinary.uploader.upload(file.path)));
+  console.log(upload);
   const response = upload.map((res) => ({
     url: res.secure_url,
     public_id: res.public_id,
