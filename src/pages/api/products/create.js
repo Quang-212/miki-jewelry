@@ -15,11 +15,11 @@ const createProduct = async (req, res) => {
   const _id = new mongoose.Types.ObjectId();
   const { method } = req;
 
-  const option = {
-    upload_preset: 'miki-shop',
-    public_id: _id,
-    overwrite: true,
-  };
+  // const option = {
+  //   upload_preset: 'miki-shop',
+  //   public_id: _id,
+  //   overwrite: true,
+  // };
 
   if (method == 'POST') {
     try {
