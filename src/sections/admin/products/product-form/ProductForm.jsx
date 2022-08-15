@@ -1,57 +1,51 @@
-import axios from 'axios';
-import qs from 'qs';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import {
-  CheckBoxField,
-  FormProvider,
-  RadioField,
-  SelectField,
-  TextField,
-} from 'src/components/hook-forms';
-import { productSizes, productVisibilityStatus } from '../products-config';
+import { FormProvider, RadioField, SelectField, TextField } from 'src/components/hook-forms';
 import { createProduct } from 'src/fetching/products';
-import { useState } from 'react';
+import { uploadFile } from 'src/fetching/uploadFile';
+import { productVisibilityStatus } from '../products-config';
 
 const stocksSchema = yup.object().shape({
-  size: yup.string().required('Please enter size of a product'),
+  size: yup.string().required('Size is required'),
   quantity: yup
     .number()
-    .typeError('Please enter quantity of a product')
+    .typeError('Quantity is required')
     .positive('This field must contain positive numbers')
     .integer('This field must contain integers'),
   price: yup
     .number()
-    .typeError('Please enter price of a product')
+    .typeError('Price is required')
     .positive('This field must contain positive numbers')
     .integer('This field must contain integers'),
-  sku: yup.string().required('Please enter product SKU'),
+  sku: yup.string().required('SKU is required'),
 });
 
 const schema = yup.object().shape({
-  name: yup.string().required('Please enter product name'),
-  slug: yup.string().required('Please enter product slug'),
-  description: yup.string().required('Please enter product description'),
-  category: yup.string().required('Please choose product category'),
-  visibilityStatus: yup.string().typeError('Please choose product visibility status'),
+  name: yup.string().required('Name is required'),
+  slug: yup.string().required('Slug is required'),
+  description: yup.string().required('Description is required'),
+  category: yup.string().required('Category is required'),
+  visibilityStatus: yup.string().typeError('Visibility status is required'),
   stocks: yup.array().of(stocksSchema),
 });
 
-export function CreateProduct() {
-  const [picture, setPicture] = useState({});
+export function ProductForm() {
   const [primaryPicture, setPrimaryPicture] = useState({});
 
   const methods = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       name: '',
       slug: '',
       description: '',
       category: '',
       visibilityStatus: '',
+      discount: '',
       coupon: '',
       stocks: [],
     },
@@ -77,29 +71,24 @@ export function CreateProduct() {
     name: 'picturesFile',
   });
 
-  const handleUpload = (event, index) => {
-    setPicture((prev) => ({ ...prev, [index]: event.target.files[0] }));
-  };
-
   const handleCheckPrimaryPicture = (event) => {
     setPrimaryPicture(+event.target.value);
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
+    setFocus('name');
+
     const formData = new FormData();
     data.picturesFile.forEach((file) => {
       formData.append('pictures-file', file[0]);
-      console.log(file);
     });
     console.log([...formData]);
 
     try {
-      const upload = await axios({
-        method: 'POST',
-        url: '/api/upload',
-        data: formData,
-      });
-      console.log(data);
+      const upload = await uploadFile(formData);
+      console.log(upload.data);
+
       const product = await createProduct({
         images: upload.data.map((image, index) => ({
           ...image,
@@ -151,7 +140,6 @@ export function CreateProduct() {
               </div>
             ))}
           </div>
-
           <Button primary title="uppercase">
             Create
           </Button>
@@ -167,7 +155,6 @@ export function CreateProduct() {
                 wrapper="mt-5"
               />
             </div>
-
             <div className="bg-white pt-4 px-4 w-full">
               <h5 className="heading-5">Visibility Status</h5>
               <RadioField
@@ -177,7 +164,13 @@ export function CreateProduct() {
                 subWrapper="flex items-center gap-4"
               />
             </div>
+          </div>
 
+          <div className="flex justify-between">
+            <div className="bg-white pt-4 px-4 w-full">
+              <h5 className="heading-5">Discount</h5>
+              <TextField name="discount" wrapper="mt-5" />
+            </div>
             <div className="bg-white pt-4 px-4 w-full">
               <h5 className="heading-5">Coupon</h5>
               <TextField name="coupon" wrapper="mt-5" />

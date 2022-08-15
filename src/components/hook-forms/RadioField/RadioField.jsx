@@ -47,8 +47,8 @@ export function RadioField({
         <div key={index} className={classSubWrapper}>
           <input
             id={value.id}
-            value={value.id}
             type="radio"
+            value={value.id}
             className={classInput}
             {...other}
             {...register(name)}

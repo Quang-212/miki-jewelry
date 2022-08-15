@@ -6,9 +6,12 @@ const deleteProduct = async (req, res) => {
 
   const { method } = req;
   const { id } = req.body;
+  const { type = 'one' } = req.query;
 
   if (method == 'POST') {
-    await Product.findOneAndDelete(id);
+    type === 'many'
+      ? await Product.deleteMany({ _id: { $in: id } })
+      : await Product.findByIdAndDelete(id);
     return res.status(200).json({
       message: 'Bạn đã xóa thành công sản phẩm',
       code: 200,
@@ -17,3 +20,5 @@ const deleteProduct = async (req, res) => {
 };
 
 export default deleteProduct;
+
+//* delete many

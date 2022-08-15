@@ -1,6 +1,6 @@
-import Image from '../Image';
+import Image from '../../../../components/Image';
 
-export const COLUMNS_PRODUCTS = [
+export const columnProducts = [
   {
     Header: 'Id',
     accessor: '_id',

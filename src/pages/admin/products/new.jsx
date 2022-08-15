@@ -1,4 +1,4 @@
-import { CreateProduct } from 'src/sections/admin/products';
+import { ProductForm } from 'src/sections/admin/products';
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 
@@ -15,7 +15,7 @@ export default function CreateProductPage() {
           thumbnailUrl: '',
         }}
       />
-      <CreateProduct />
+      <ProductForm />
     </>
   );
 }
