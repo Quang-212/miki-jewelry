@@ -20,5 +20,3 @@ const deleteProduct = async (req, res) => {
 };
 
 export default deleteProduct;
-
-//* delete many

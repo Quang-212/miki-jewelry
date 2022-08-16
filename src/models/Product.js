@@ -1,21 +1,9 @@
-import { Schema, models, model } from 'mongoose';
+import { model, models, Schema } from 'mongoose';
 
 const Product = new Schema({
   name: { type: String, required: true, unique: true },
-  category: {
-    type: String,
-    enum: ['Bracelet', 'Earring', 'Necklace', 'Ring'],
-    required: true,
-  },
-  description: String,
-  visibilityStatus: {
-    type: String,
-    enum: ['published', 'hidden'],
-    required: true,
-  },
   slug: String,
-  discount: Number,
-  coupon: String,
+  description: String,
   images: [
     {
       url: String,
@@ -25,6 +13,18 @@ const Product = new Schema({
       },
     },
   ],
+  category: {
+    type: String,
+    enum: ['Bracelet', 'Earring', 'Necklace', 'Ring'],
+    required: true,
+  },
+  visibilityStatus: {
+    type: String,
+    enum: ['published', 'hidden'],
+    required: true,
+  },
+  discount: Number,
+  coupon: String,
   stocks: [
     {
       size: String,

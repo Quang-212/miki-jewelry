@@ -15,14 +15,6 @@ const deleteProduct = async (req, res) => {
         code: 200,
         product,
       });
-    case 'DELETE':
-      const handlerDelete = await Product.findByIdAndDelete(id);
-      return res.status(200).json({
-        message: 'Xóa thành công sản phẩm',
-        code: 200,
-        handlerDelete,
-      });
-
     default:
       return res.status(404).json({
         message: 'Không tìm thấy yêu cầu hợp lệ',
