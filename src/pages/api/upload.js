@@ -1,6 +1,6 @@
-import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { unlink } from 'fs';
+import multer from 'multer';
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME, //need to change before use
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   console.log(req.files);
 
   const upload = await Promise.all(req.files.map((file) => cloudinary.uploader.upload(file.path)));
-  console.log(upload);
+
   const response = upload.map((res) => ({
     url: res.secure_url,
     public_id: res.public_id,
