@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -9,6 +9,8 @@ import { FormProvider, RadioField, SelectField, TextField } from 'src/components
 import { createProduct } from 'src/fetching/products';
 import { uploadFile } from 'src/fetching/uploadFile';
 import { productVisibilityStatus } from '../products-config';
+import Image from 'src/components/Image';
+import axios from 'axios';
 
 const stocksSchema = yup.object().shape({
   size: yup.string().required('Size is required'),
@@ -31,27 +33,36 @@ const schema = yup.object().shape({
   description: yup.string().required('Description is required'),
   category: yup.string().required('Category is required'),
   visibilityStatus: yup.string().typeError('Visibility status is required'),
-  stocks: yup.array().of(stocksSchema),
+  discount: yup
+    .number()
+    .positive('This field must contain positive numbers')
+    .integer('This field must contain integers'),
+  stocks: yup.array(1, 'At least ONE stock').of(stocksSchema),
 });
 
-export function ProductForm() {
+export function ProductForm({ currentProduct, setCurrentProduct, setProducts, setUpdate }) {
   const [primaryPicture, setPrimaryPicture] = useState({});
+  const [idImages, setIdImages] = useState([]);
+  console.log('id image: ', idImages);
 
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      name: '',
-      slug: '',
-      description: '',
-      category: '',
-      visibilityStatus: '',
-      discount: '',
-      coupon: '',
-      stocks: [],
+      name: currentProduct.data.name,
+      slug: currentProduct.data.slug,
+      description: currentProduct.data.description,
+      category: currentProduct.data.category,
+      visibilityStatus: currentProduct.data.visibilityStatus,
+      discount: currentProduct.data.discount,
+      coupon: currentProduct.data.coupon,
+      stocks: currentProduct.data.stocks,
+      images: currentProduct.data.images,
     },
   });
 
-  const { control, handleSubmit, setFocus, reset } = methods;
+  // console.log(currentProduct.data.images);
+
+  const { control, handleSubmit, register, setFocus, reset, getValues } = methods;
 
   const {
     fields: stocksField,
@@ -68,7 +79,7 @@ export function ProductForm() {
     remove: removePicture,
   } = useFieldArray({
     control,
-    name: 'picturesFile',
+    name: 'images',
   });
 
   const handleCheckPrimaryPicture = (event) => {
@@ -79,8 +90,14 @@ export function ProductForm() {
     console.log(data);
     setFocus('name');
 
+    const removedImage = await axios({
+      method: 'POST',
+      url: '/api/images/delete',
+      data: { images: idImages },
+    });
+
     const formData = new FormData();
-    data.picturesFile.forEach((file) => {
+    data.images.forEach((file) => {
       formData.append('pictures-file', file[0]);
     });
     console.log([...formData]);
@@ -104,7 +121,7 @@ export function ProductForm() {
 
   return (
     <section className="flex flex-col gap-8">
-      <h2 className="heading-2">Products Edit</h2>
+      <h2 className="heading-2">{currentProduct.isEdit ? 'Edit Product' : 'Create Product'}</h2>
       <NormalDivider />
       <FormProvider
         methods={methods}
@@ -124,24 +141,37 @@ export function ProductForm() {
             <Button primary type="button" onClick={() => addPicture()}>
               Add image
             </Button>
-            {picturesField.map(({ id }, index) => (
-              <div key={id}>
-                <input
-                  name="primary"
-                  type="checkbox"
-                  value={index}
-                  checked={primaryPicture === index}
-                  onChange={handleCheckPrimaryPicture}
-                />
-                <TextField name={`picturesFile[${index}]`} type="file" />
-                <Button primary type="button" onClick={() => removePicture(index)}>
-                  Remove
-                </Button>
-              </div>
-            ))}
+            {picturesField.map((item, index) => {
+              const preview = item[0] && URL.createObjectURL(item[0]);
+              return (
+                <div key={item.id}>
+                  <input
+                    name="primary"
+                    type="checkbox"
+                    value={index}
+                    checked={primaryPicture === index}
+                    onChange={handleCheckPrimaryPicture}
+                  />
+                  <Image src={preview || item.url} alt="hello" width={120} height={120} />
+                  {/* {console.log(item.type, item._id)} */}
+                  <TextField name={`images[${index}]`} type="file" />
+                  <Button
+                    primary
+                    type="button"
+                    onClick={() => {
+                      console.log(item.type, item._id),
+                        removePicture(index),
+                        setIdImages((prev) => [...prev, item._id]);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              );
+            })}
           </div>
           <Button primary title="uppercase">
-            Create
+            {currentProduct.isEdit ? 'Update' : 'Create'}
           </Button>
         </div>
 

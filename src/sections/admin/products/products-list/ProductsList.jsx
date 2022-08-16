@@ -6,10 +6,17 @@ import Table from 'src/components/Table';
 import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks/useProducts';
 import { PATH } from 'src/routes';
+import { ProductForm } from '../product-form';
 import { columnProducts } from './columns-config';
 
 export function ProductsList() {
   const [products, setProducts] = useState([]);
+  const [showProductsList, setShowProductsList] = useState(true);
+  const [currentProduct, setCurrentProduct] = useState({
+    data: {},
+    isEdit: false,
+    formOpen: false,
+  });
 
   const [{ limit, pageIndex, pageCount }, setPagination] = useState({
     limit: 5,
@@ -21,17 +28,34 @@ export function ProductsList() {
     limit,
     page: pageIndex,
     select: {
-      slug: 0,
       __v: 0,
     },
   });
 
   const _products = productsState?.productList;
 
-  const handleDelete = async (id) => {
+  const handleDeleteProduct = async (id) => {
     await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
     id = [id].flat(Infinity);
     setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
+  };
+
+  const handleCreateProduct = () => {
+    setCurrentProduct({
+      data: {},
+      isEdit: false,
+      formOpen: true,
+    });
+    setShowProductsList(false);
+  };
+
+  const handleEditProduct = (product) => {
+    setCurrentProduct({
+      data: product,
+      isEdit: true,
+      formOpen: true,
+    });
+    setShowProductsList(false);
   };
 
   useEffect(() => {
@@ -50,24 +74,36 @@ export function ProductsList() {
 
   return (
     <section>
-      <div className="flex justify-between">
-        <div className="flex flex-col">
-          <span>Admin/Products</span>
-          <h2 className="heading-2">Products List</h2>
-        </div>
-        <Button primary internalLink={PATH.createProduct}>
-          New Product
-        </Button>
-      </div>
-      <div className="flex flex-col gap-4">
-        <Table
-          columns={productsColumn}
-          data={productsData}
-          onPageChange={setPagination}
-          pageState={{ limit, pageCount, pageIndex }}
-          handleDelete={handleDelete}
+      {showProductsList && (
+        <>
+          <div className="flex justify-between">
+            <div className="flex flex-col">
+              <span>Admin/Products</span>
+              <h2 className="heading-2">Products List</h2>
+            </div>
+            <Button primary onClick={handleCreateProduct}>
+              New Product
+            </Button>
+          </div>
+          <div className="flex flex-col gap-4">
+            <Table
+              columns={productsColumn}
+              data={productsData}
+              onPageChange={setPagination}
+              pageState={{ limit, pageCount, pageIndex }}
+              handleEdit={handleEditProduct}
+              handleDelete={handleDeleteProduct}
+            />
+          </div>
+        </>
+      )}
+      {currentProduct.formOpen && (
+        <ProductForm
+          currentProduct={currentProduct}
+          setCurrentProduct={setCurrentProduct}
+          setProducts={setProducts}
         />
-      </div>
+      )}
     </section>
   );
 }

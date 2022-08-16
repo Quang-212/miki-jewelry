@@ -1,17 +1,22 @@
 import Image from '../../../../components/Image';
 
+const formatVndCurrency = (number) =>
+  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(number);
+
+const formatLocaleNumber = (number) => new Intl.NumberFormat('de-DE').format(number);
+
+function myFunction(x) {
+  alert('Cell index is: ' + x.cellIndex);
+}
+
 export const columnProducts = [
-  {
-    Header: 'Id',
-    accessor: '_id',
-  },
   {
     Header: 'Image',
     accessor: 'images',
-    Cell: ({ value }) => (
+    Cell: ({ row, value }) => (
       <Image
-        src={value.filter((image) => image.type === 'primary')[0].url}
-        alt="hello"
+        src={value.find((image) => image.type === 'primary').url}
+        alt={row.original.name}
         width={80}
         height={80}
       />
@@ -29,7 +34,13 @@ export const columnProducts = [
     Header: 'Stocks',
     accessor: 'stocks',
     Cell: ({ value }) => {
-      value = value.map(({ _id, ...other }) => other);
+      const isLowStock = (asd) => asd <= 10;
+      value = value.map(({ _id, ...other }) => {
+        other.price = formatVndCurrency(other.price);
+        other.quantity = formatLocaleNumber(other.quantity);
+        return other;
+      });
+
       return (
         <table className=" table-fixed text-base text-gray-900">
           <thead className="p-2">
@@ -44,9 +55,16 @@ export const columnProducts = [
 
           <tbody>
             {value.map((item, index) => (
-              <tr key={index} className="border-dashed border border-green-500">
+              <tr
+                key={index}
+                className={
+                  isLowStock(item.quantity)
+                    ? 'bg-yellow-400'
+                    : 'border-dashed border border-green-500'
+                }
+              >
                 {Object.entries(item).map(([_, value]) => (
-                  <td key={value} className=" border-dashed border border-green-500">
+                  <td key={value} className="border-dashed border border-green-500">
                     {value}
                   </td>
                 ))}
@@ -60,7 +78,6 @@ export const columnProducts = [
   {
     Header: 'Visibility Status',
     accessor: 'visibilityStatus',
-    Cell: ({ value }) => (value ? 'Published' : 'Hidden'),
   },
   {
     Header: 'Discount',

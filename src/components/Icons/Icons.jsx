@@ -23,6 +23,21 @@ export const CaretDownIcon = ({
   </svg>
 );
 
+export const MenuVerticalIcon = ({ width = '24', height = '24', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 32 32"
+  >
+    <circle cx="16" cy="8" r="2" fill="#251C17" />
+    <circle cx="16" cy="16" r="2" fill="#251C17" />
+    <circle cx="16" cy="24" r="2" fill="#251C17" />
+  </svg>
+);
+
 export const LogoIcon = ({ width = '40', height = '40', className }) => (
   <svg
     width={width}
