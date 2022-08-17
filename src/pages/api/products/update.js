@@ -6,13 +6,11 @@ async function updateProduct(req, res) {
   const { id } = req.query;
   console.log(id);
   const { method } = req;
-  if (method == 'POST') {
-    await Product.findOneAndUpdate(id, {
-      ...req.body,
-    });
+  if (method == 'PATCH') {
+    await Product.findByIdAndUpdate(id, req.body);
 
     return res.status(200).json({
-      message: 'Update thành công',
+      message: 'Cập nhật thành công',
       code: 200,
     });
   }

@@ -5,11 +5,6 @@ import Button from '../Button';
 import { Checkbox } from '../Checkbox';
 import { MenuVerticalIcon } from '../Icons';
 
-const range = (start, end) =>
-  Array(end - start + 1)
-    .fill()
-    .map((_, index) => start + index);
-
 export default function Table({
   columns,
   data,
@@ -18,7 +13,6 @@ export default function Table({
   handleEdit,
   handleDelete,
 }) {
-  // console.log(data);
   const Table = 'table';
   const TableHead = 'thead';
   const TableRow = 'tr';
@@ -39,7 +33,7 @@ export default function Table({
       {
         id: 'order',
         Header: 'No',
-        Cell: ({ row }) => Number(row.id) + 1,
+        Cell: ({ row, state }) => state.pageIndex * state.pageSize + 1 + Number(row.id),
       },
       ...columns,
       {
@@ -55,12 +49,9 @@ export default function Table({
         id: 'edit',
         Header: 'Edit',
         Cell: ({ row }) => (
-          <>
-            {/* {console.log(row)} */}
-            <Button primary onClick={() => handleEdit(row.original)}>
-              Edit
-            </Button>
-          </>
+          <Button primary onClick={() => handleEdit(row.original)}>
+            Edit
+          </Button>
         ),
       },
       {
@@ -70,7 +61,6 @@ export default function Table({
           <Button
             primary
             onClick={() => {
-              // console.log(row.original._id);
               handleDelete(row.original._id);
             }}
           >

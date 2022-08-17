@@ -5,7 +5,6 @@ import { LoadingRotatingLines } from 'src/components/Loadings';
 import Table from 'src/components/Table';
 import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks/useProducts';
-import { PATH } from 'src/routes';
 import { ProductForm } from '../product-form';
 import { columnProducts } from './columns-config';
 
@@ -17,6 +16,7 @@ export function ProductsList() {
     isEdit: false,
     formOpen: false,
   });
+  console.log(currentProduct);
 
   const [{ limit, pageIndex, pageCount }, setPagination] = useState({
     limit: 5,
@@ -34,19 +34,13 @@ export function ProductsList() {
 
   const _products = productsState?.productList;
 
-  const handleDeleteProduct = async (id) => {
-    await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
-    id = [id].flat(Infinity);
-    setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
-  };
-
   const handleCreateProduct = () => {
     setCurrentProduct({
       data: {},
       isEdit: false,
       formOpen: true,
     });
-    setShowProductsList(false);
+    setShowProductsList((prev) => !prev);
   };
 
   const handleEditProduct = (product) => {
@@ -55,7 +49,13 @@ export function ProductsList() {
       isEdit: true,
       formOpen: true,
     });
-    setShowProductsList(false);
+    setShowProductsList((prev) => !prev);
+  };
+
+  const handleDeleteProduct = async (id) => {
+    await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
+    id = [id].flat(Infinity);
+    setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
   };
 
   useEffect(() => {
@@ -99,9 +99,9 @@ export function ProductsList() {
       )}
       {currentProduct.formOpen && (
         <ProductForm
+          setShowProductsList={setShowProductsList}
           currentProduct={currentProduct}
           setCurrentProduct={setCurrentProduct}
-          setProducts={setProducts}
         />
       )}
     </section>

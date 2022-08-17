@@ -1,16 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { isEmpty } from 'lodash';
+import { toast } from 'react-toastify';
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FormProvider, RadioField, SelectField, TextField } from 'src/components/hook-forms';
-import { createProduct } from 'src/fetching/products';
+import Image from 'src/components/Image';
+import { deleteImage } from 'src/fetching/deleteImage';
+import { createProduct, updateProduct } from 'src/fetching/products';
 import { uploadFile } from 'src/fetching/uploadFile';
 import { productVisibilityStatus } from '../products-config';
-import Image from 'src/components/Image';
-import axios from 'axios';
 
 const stocksSchema = yup.object().shape({
   size: yup.string().required('Size is required'),
@@ -40,10 +42,22 @@ const schema = yup.object().shape({
   stocks: yup.array(1, 'At least ONE stock').of(stocksSchema),
 });
 
-export function ProductForm({ currentProduct, setCurrentProduct, setProducts, setUpdate }) {
-  const [primaryPicture, setPrimaryPicture] = useState({});
-  const [idImages, setIdImages] = useState([]);
-  console.log('id image: ', idImages);
+export function ProductForm({ setShowProductsList, currentProduct, setCurrentProduct }) {
+  const [primaryImage, setPrimaryImage] = useState(
+    currentProduct.data.images?.findIndex((image) => image.type === 'primary') || 0,
+  );
+  const [previewImages, setPreviewImages] = useState([]);
+
+  const handleCheckPrimaryImage = (event) => {
+    setPrimaryImage(+event.target.value);
+  };
+
+  const previewImage = (index) => previewImages[index] && URL.createObjectURL(previewImages[index]);
+
+  const handleGoToProductsList = () => {
+    setCurrentProduct((prev) => ({ ...prev, formOpen: false }));
+    setShowProductsList((prev) => !prev);
+  };
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -60,9 +74,10 @@ export function ProductForm({ currentProduct, setCurrentProduct, setProducts, se
     },
   });
 
-  // console.log(currentProduct.data.images);
-
-  const { control, handleSubmit, register, setFocus, reset, getValues } = methods;
+  const { control, handleSubmit, setFocus } = methods;
+  const image = useWatch({
+    control,
+  });
 
   const {
     fields: stocksField,
@@ -74,46 +89,134 @@ export function ProductForm({ currentProduct, setCurrentProduct, setProducts, se
   });
 
   const {
-    fields: picturesField,
-    append: addPicture,
-    remove: removePicture,
+    fields: imagesField,
+    append: addImage,
+    remove: removeImage,
   } = useFieldArray({
     control,
     name: 'images',
   });
 
-  const handleCheckPrimaryPicture = (event) => {
-    setPrimaryPicture(+event.target.value);
-  };
+  useEffect(() => {
+    setPreviewImages(image.images?.map((image) => image[0]) || []);
+  }, [image]);
 
   const onSubmit = async (data) => {
-    console.log(data);
-    setFocus('name');
-
-    const removedImage = await axios({
-      method: 'POST',
-      url: '/api/images/delete',
-      data: { images: idImages },
-    });
-
-    const formData = new FormData();
-    data.images.forEach((file) => {
-      formData.append('pictures-file', file[0]);
-    });
-    console.log([...formData]);
-
     try {
-      const upload = await uploadFile(formData);
-      console.log(upload.data);
+      console.log(data);
+      setFocus('name');
 
-      const product = await createProduct({
-        images: upload.data.map((image, index) => ({
-          ...image,
-          type: index === primaryPicture ? 'primary' : 'secondary',
-        })),
-        data,
+      const formData = new FormData();
+
+      const distributedImage = data.images.reduce(
+        (imageCategory, image) => {
+          if (image.url) {
+            imageCategory.formattedImages.push(image);
+          } else {
+            imageCategory.files.push(image);
+            imageCategory.formattedImages.push(null);
+          }
+          return imageCategory;
+        },
+        {
+          files: [],
+          formattedImages: [],
+        },
+      );
+
+      distributedImage.files.forEach((file) => {
+        formData.append('pictures-file', file[0]);
       });
-      console.log(product);
+
+      if (currentProduct.isEdit) {
+        const newUploadedImage = !isEmpty(distributedImage.files) && (await uploadFile(formData));
+
+        const imageIds = currentProduct.data.images
+          ?.filter((_, index) => distributedImage.formattedImages[index] === null)
+          .map((image) => ({ public_id: image.public_id }));
+
+        let index = 0;
+        const newImages = distributedImage.formattedImages
+          .map((image) => {
+            if (image) return image;
+            else {
+              const qwerty = newUploadedImage.data[index];
+              index++;
+              return qwerty;
+            }
+          })
+          .map((image, index) => ({
+            ...image,
+            type: primaryImage === index ? 'primary' : 'secondary',
+          }));
+        console.log(newImages, newUploadedImage.data);
+
+        const apiRequests = [
+          updateProduct({ ...data, images: newImages }, currentProduct.data._id),
+        ];
+
+        !isEmpty(distributedImage.files) && apiRequests.push(deleteImage({ images: imageIds }));
+        const updatedProduct = await toast.promise(
+          Promise.all(apiRequests),
+          {
+            pending: {
+              render() {
+                return 'Đang kết nối';
+              },
+              icon: false,
+            },
+            success: {
+              render({ data }) {
+                return data[0].data.message;
+              },
+              // other options
+              icon: '😊',
+            },
+            error: {
+              render({ data }) {
+                return data[0].response.data.message;
+              },
+            },
+          },
+          { autoClose: 4000 },
+        );
+        console.log(updatedProduct);
+      } else {
+        const upload = await uploadFile(formData);
+        console.log(upload.data);
+
+        const product = await toast.promise(
+          createProduct({
+            ...data,
+            images: upload.data.map((image, index) => ({
+              ...image,
+              type: index === primaryImage ? 'primary' : 'secondary',
+            })),
+          }),
+          {
+            pending: {
+              render() {
+                return 'Đang kết nối';
+              },
+              icon: false,
+            },
+            success: {
+              render({ data }) {
+                return data.data.message;
+              },
+              // other options
+              icon: '😊',
+            },
+            error: {
+              render({ data }) {
+                return data.response.data.message;
+              },
+            },
+          },
+          { autoClose: 4000 },
+        );
+        console.log(product);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +224,12 @@ export function ProductForm({ currentProduct, setCurrentProduct, setProducts, se
 
   return (
     <section className="flex flex-col gap-8">
-      <h2 className="heading-2">{currentProduct.isEdit ? 'Edit Product' : 'Create Product'}</h2>
+      <div className="flex justify-between">
+        <h2 className="heading-2">{currentProduct.isEdit ? 'Edit Product' : 'Create Product'}</h2>
+        <Button primary onClick={handleGoToProductsList}>
+          Products List
+        </Button>
+      </div>
       <NormalDivider />
       <FormProvider
         methods={methods}
@@ -138,32 +246,27 @@ export function ProductForm({ currentProduct, setCurrentProduct, setProducts, se
 
           <div className="bg-white pt-6 px-6">
             <h5 className="heading-5">Images</h5>
-            <Button primary type="button" onClick={() => addPicture()}>
+            <Button primary type="button" onClick={() => addImage()}>
               Add image
             </Button>
-            {picturesField.map((item, index) => {
-              const preview = item[0] && URL.createObjectURL(item[0]);
+            {imagesField.map((item, index) => {
               return (
                 <div key={item.id}>
                   <input
                     name="primary"
                     type="checkbox"
                     value={index}
-                    checked={primaryPicture === index}
-                    onChange={handleCheckPrimaryPicture}
+                    checked={primaryImage === index}
+                    onChange={handleCheckPrimaryImage}
                   />
-                  <Image src={preview || item.url} alt="hello" width={120} height={120} />
-                  {/* {console.log(item.type, item._id)} */}
+                  <Image
+                    src={previewImage(index) || item.url}
+                    alt="hello"
+                    width={120}
+                    height={120}
+                  />
                   <TextField name={`images[${index}]`} type="file" />
-                  <Button
-                    primary
-                    type="button"
-                    onClick={() => {
-                      console.log(item.type, item._id),
-                        removePicture(index),
-                        setIdImages((prev) => [...prev, item._id]);
-                    }}
-                  >
+                  <Button primary type="button" onClick={() => removeImage(index)}>
                     Remove
                   </Button>
                 </div>

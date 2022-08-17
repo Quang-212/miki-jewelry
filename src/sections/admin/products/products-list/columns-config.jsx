@@ -5,9 +5,8 @@ const formatVndCurrency = (number) =>
 
 const formatLocaleNumber = (number) => new Intl.NumberFormat('de-DE').format(number);
 
-function myFunction(x) {
-  alert('Cell index is: ' + x.cellIndex);
-}
+const isLowStock = (quantity) => Number(quantity.split('.').join('')) <= 10;
+const isOutOfStock = (quantity) => Number(quantity.split('.').join('')) === 0;
 
 export const columnProducts = [
   {
@@ -34,7 +33,6 @@ export const columnProducts = [
     Header: 'Stocks',
     accessor: 'stocks',
     Cell: ({ value }) => {
-      const isLowStock = (asd) => asd <= 10;
       value = value.map(({ _id, ...other }) => {
         other.price = formatVndCurrency(other.price);
         other.quantity = formatLocaleNumber(other.quantity);
@@ -55,16 +53,17 @@ export const columnProducts = [
 
           <tbody>
             {value.map((item, index) => (
-              <tr
-                key={index}
-                className={
-                  isLowStock(item.quantity)
-                    ? 'bg-yellow-400'
-                    : 'border-dashed border border-green-500'
-                }
-              >
-                {Object.entries(item).map(([_, value]) => (
-                  <td key={value} className="border-dashed border border-green-500">
+              <tr key={index} className="border-dashed border border-green-500">
+                {Object.entries(item).map(([key, value]) => (
+                  <td
+                    key={value}
+                    className={
+                      (isLowStock(item.quantity) && key === 'quantity') ||
+                      (isOutOfStock(item.quantity) && key === 'quantity')
+                        ? 'bg-yellow-400'
+                        : 'border-dashed border border-green-500'
+                    }
+                  >
                     {value}
                   </td>
                 ))}

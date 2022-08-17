@@ -7,6 +7,7 @@ const Product = new Schema({
   images: [
     {
       url: String,
+      public_id: String,
       type: {
         type: String,
         enum: ['primary', 'secondary'],
