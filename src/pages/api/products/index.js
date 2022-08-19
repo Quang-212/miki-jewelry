@@ -23,6 +23,9 @@ export default async function getProductList(req, res) {
     case 'price-down':
       sortFild['stocks.price'] = -1;
       break;
+    case 'new-product':
+      sortFild['createdAt'] = -1;
+      break;
     case 'sale':
       sortFild['discount'] = -1;
       break;
@@ -30,7 +33,7 @@ export default async function getProductList(req, res) {
       sortFild['name'] = 1;
   }
   // console.log(sortFild);
-  const productList = await Product.find({}, 'stocks.price name discount ')
+  const productList = await Product.find({}, 'stocks.price name discount createdAt')
     .sort(sortFild)
     .limit(+limit)
     .skip(page * +limit)
