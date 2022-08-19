@@ -51,7 +51,7 @@ export function TextField({
         }}
         {...other}
         {...register(name)}
-        onChange={onChange}
+        // onChange={onChange}
       />
       <span className={classCaption}>{errors[name]?.message}</span>
     </div>

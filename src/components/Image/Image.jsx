@@ -23,14 +23,14 @@ export default function Image({
 
   return (
     <NextImage
-      src={fallback || src}
+      src={src || images.noImage}
       alt={alt}
       width={width}
       height={height}
       objectFit={objectFit}
       placeholder={placeholder}
       blurDataURL
-      onError={handleError}
+      onError={() => console.log('error image')}
       className={classNames(styles.root, className)}
       {...passProps}
     />

@@ -1,15 +1,16 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 
 import Button from '../Button';
 import { Checkbox } from '../Checkbox';
+import { MenuVerticalIcon } from '../Icons';
 
 export default function Table({
   columns,
   data,
   onPageChange,
-  pageState: { limit: _pageSize, pageCount: controlledPageCount, pageIndex },
+  pageState: { limit: _pageSize, pageCount: _pageCount, pageIndex },
+  handleEdit,
   handleDelete,
 }) {
   const Table = 'table';
@@ -29,12 +30,26 @@ export default function Table({
         ),
         Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
       },
+      {
+        id: 'order',
+        Header: 'No',
+        Cell: ({ row, state }) => state.pageIndex * state.pageSize + 1 + Number(row.id),
+      },
       ...columns,
+      {
+        id: 'actions',
+        Cell: ({ row }) => (
+          <Button onClick={() => alert(`${row.id}`)}>
+            {' '}
+            <MenuVerticalIcon />
+          </Button>
+        ),
+      },
       {
         id: 'edit',
         Header: 'Edit',
         Cell: ({ row }) => (
-          <Button primary onClick={() => alert(`${row.values._id}`)}>
+          <Button primary onClick={() => handleEdit(row.original)}>
             Edit
           </Button>
         ),
@@ -46,7 +61,7 @@ export default function Table({
           <Button
             primary
             onClick={() => {
-              handleDelete(row.values._id, row.index);
+              handleDelete(row.original._id);
             }}
           >
             Delete
@@ -57,13 +72,14 @@ export default function Table({
   };
 
   const isEven = (element) => element % 2 === 0;
+
   const tableInstance = useTable(
     {
       columns,
       data,
       initialState: { pageIndex, pageSize: _pageSize },
       manualPagination: true,
-      pageCount: controlledPageCount,
+      pageCount: _pageCount,
     },
     usePagination,
     useRowSelect,
@@ -96,15 +112,10 @@ export default function Table({
       limit: pageSize,
     }));
   }, [_pageIndex, pageSize]);
+
   return (
     <>
-      {console.log(selectedFlatRows)}
-      <Button
-        primary
-        onClick={() => {
-          return handleDelete(selectedFlatRows.map((row) => row.original._id));
-        }}
-      >
+      <Button primary onClick={() => handleDelete(selectedFlatRows.map((row) => row.original._id))}>
         Delete many
       </Button>
       <Table {...getTableProps()} className="table-fixed text-center text-base text-gray-900">
@@ -128,7 +139,7 @@ export default function Table({
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {rows.map((row, index) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
               <TableRow
@@ -185,7 +196,7 @@ export default function Table({
           ))}
         </select>
       </Pagination>
-      <pre>
+      {/* <pre>
         <code>
           {JSON.stringify(
             {
@@ -195,7 +206,7 @@ export default function Table({
             2,
           )}
         </code>
-      </pre>
+      </pre> */}
     </>
   );
 }

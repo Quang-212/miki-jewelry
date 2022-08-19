@@ -9,7 +9,9 @@ cloudinary.config({
 });
 // disable next.js' default body parser
 export const config = {
-  api: { bodyParser: false },
+  api: {
+    bodyParser: false,
+  },
 };
 
 export default async function handler(req, res) {
