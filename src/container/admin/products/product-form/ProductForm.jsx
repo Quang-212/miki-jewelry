@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { toast } from 'react-toastify';
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { FormProvider, RadioField, SelectField, TextField } from 'src/components/hook-forms';
+import { FormProvider, RadioField, SelectField, TextField } from 'src/components/HookForms';
 import Image from 'src/components/Image';
 import { deleteImage } from 'src/fetching/deleteImage';
 import { createProduct, updateProduct } from 'src/fetching/products';

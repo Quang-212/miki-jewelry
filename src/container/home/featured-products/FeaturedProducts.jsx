@@ -56,6 +56,7 @@ export function FeaturedProductsSection() {
               placeholder="blur"
               title={product.title}
               price={product.price}
+              wrapper="max-w-254-px"
               onClick={handleClick}
             />
           </li>

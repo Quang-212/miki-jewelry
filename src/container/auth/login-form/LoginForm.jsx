@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
-import { FormProvider, TextField } from 'src/components/hook-forms';
+import { FormProvider, TextField } from 'src/components/HookForms';
 import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { images } from 'src/constants';

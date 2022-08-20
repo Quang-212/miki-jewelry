@@ -5,7 +5,7 @@ import LoginFormSection, {
   CircleIcon1Mobile,
   CircleIcon2,
   CircleIcon3,
-} from 'src/sections/auth/login-form';
+} from 'src/container/auth/login-form';
 
 LoginPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 

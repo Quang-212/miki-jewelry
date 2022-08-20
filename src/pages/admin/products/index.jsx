@@ -1,4 +1,4 @@
-import { ProductsList } from 'src/sections/admin/products';
+import { ProductsList } from 'src/container/admin/products';
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 

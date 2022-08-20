@@ -16,7 +16,6 @@ export function ProductsList() {
     isEdit: false,
     formOpen: false,
   });
-  console.log(currentProduct);
 
   const [{ limit, pageIndex, pageCount }, setPagination] = useState({
     limit: 5,

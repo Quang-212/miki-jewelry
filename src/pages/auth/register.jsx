@@ -4,7 +4,7 @@ import RegisterFormSection, {
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
-} from 'src/sections/auth/register-form';
+} from 'src/container/auth/register-form';
 
 RegisterPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 

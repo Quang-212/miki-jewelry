@@ -5,25 +5,22 @@ import MainLayout from 'src/layouts/MainLayout';
 import { HeroSection, ProductsListSection } from 'src/container/products';
 import qs from 'qs';
 import { getProducts } from 'src/fetching/products';
-import useSWR from 'swr';
 
 ProductsList.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function ProductsList(props) {
-  const { productsState, isLoading, isError } = useProducts(
-    {
-      limit: 8,
-      select: {
-        _id: 1,
-        name: 1,
-        images: 1,
-        stocks: 1,
-      },
-    },
-    { fallbackData: props },
-  );
-  const { products } = props;
-  console.log(productsState);
+export default function ProductsList({ products }) {
+  // const { productsState, isLoading, isError } = useProducts(
+  //   {
+  //     limit: 8,
+  //     select: {
+  //       _id: 1,
+  //       name: 1,
+  //       images: 1,
+  //       stocks: 1,
+  //     },
+  //   },
+  // );
+  // console.log(productsState);
 
   return (
     <>
@@ -36,14 +33,13 @@ export default function ProductsList(props) {
         }}
       />
       <HeroSection />
-      {/* <ProductsListSection products={products} /> */}
+      <ProductsListSection products={products} />
     </>
   );
 }
 
-export const getStaticProps = async ({ params, query }) => {
-  const products = await getProducts();
-  console.log(products);
+export const getServerSideProps = async ({ params, query }) => {
+  const products = await getProducts(query);
 
   return {
     props: {

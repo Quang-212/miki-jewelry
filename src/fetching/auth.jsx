@@ -8,3 +8,12 @@ export const loginForm = (data, options) => {
     ...options,
   });
 };
+
+export const registerForm = (data, options) => {
+  return axios({
+    method: 'POST',
+    url: '/api/auth/register',
+    data,
+    ...options,
+  });
+};

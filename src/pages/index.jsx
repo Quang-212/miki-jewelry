@@ -9,7 +9,7 @@ import {
   HeroSection,
   LatestCollectionSection,
   ProductCategorySection,
-} from 'src/sections/home';
+} from 'src/container/home';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 

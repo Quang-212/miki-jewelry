@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
-import { CheckBoxField, FormProvider, TextField } from 'src/components/hook-forms';
+import { CheckBoxField, FormProvider, TextField } from 'src/components/HookForms';
 import { images } from 'src/constants';
 import { registerForm } from 'src/fetching/auth';
 import { PATH } from 'src/routes';
