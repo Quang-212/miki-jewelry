@@ -6,6 +6,7 @@ const handlerDeleteImage = async (req, res) => {
   const { method } = req;
   if (method == 'POST') {
     const files = req.body.images;
+    console.log(files);
     await Promise.all(files.map((file) => cloudinary.uploader.destroy(file.public_id)));
     return res.status(200).json({
       message: 'Xóa ảnh thành công',

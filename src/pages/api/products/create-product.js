@@ -23,7 +23,7 @@ const createProduct = async (req, res) => {
 
   if (method == 'POST') {
     try {
-      const newData = await Product.create(req.body);
+      await Product.create(req.body);
       return res.status(201).json({
         message: 'Bạn đã tạo mới sản phẩm thành công!',
         code: 201,

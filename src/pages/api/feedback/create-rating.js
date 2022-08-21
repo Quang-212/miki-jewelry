@@ -18,6 +18,11 @@ const ratingProduct = async (req, res) => {
         message: 'Tạo thành công rating',
         code: 201,
       });
+    default:
+      return res.status(403).json({
+        message: 'Không thành công',
+        code: 400,
+      });
   }
 };
 
