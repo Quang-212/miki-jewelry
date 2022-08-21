@@ -2,7 +2,6 @@ import { Schema, models, model } from 'mongoose';
 
 const RefreshToken = new Schema(
   {
-    userId: { type: String },
     refreshToken: { type: String },
   },
   {

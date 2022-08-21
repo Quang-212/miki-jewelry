@@ -1,43 +1,42 @@
 import { genSalt, hash } from 'bcrypt';
-
 import User from 'src/models/User';
 import UserPromotion from 'src/models/UserPromotion';
 import dbConnect from 'src/utils/dbConnect';
 
-async function register(req, res) {
+async function registerUser(req, res) {
   try {
     await dbConnect();
     const { method } = req;
     const { userName, email, password, promotions } = req.body;
-
     if (method == 'POST') {
-      const existUser = await User.findOne({
+      //kiểm tra user trong data
+      const userExist = await User.findOne({
         email,
       });
-      if (existUser) {
+      if (userExist) {
         return res.status(409).json({
           message: 'Email bạn vừa đăng ký đã tồn tại.',
           code: 409,
         });
       }
+      //băm mật khẩu user
       const salt = await genSalt(10);
       const hashPassword = await hash(password, salt);
-
-      const createUser = new User({
+      // tạo user mới
+      const createUser = await User.create({
         userName,
         email,
         password: hashPassword,
       });
-
-      await createUser.save();
-
+      //kiểm tra user đã đăng kí nhận khuyến mãi chưa?
       if (promotions) {
-        const existUser = await UserPromotion.findOne({ email });
-        if (!existUser) {
-          const newUserPromotion = new UserPromotion({
+        // tìm emal nười dùng trong data
+        const emailUser = await UserPromotion.findOne({ email });
+        if (!emailUser) {
+          //tạo mới email trong data
+          await UserPromotion.create({
             email,
           });
-          await newUserPromotion.save();
         }
       }
       return res.status(201).json({
@@ -53,4 +52,4 @@ async function register(req, res) {
   }
 }
 
-export default register;
+export default registerUser;

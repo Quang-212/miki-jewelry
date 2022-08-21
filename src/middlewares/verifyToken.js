@@ -1,15 +1,15 @@
 import jwt from 'jsonwebtoken';
-const ACC_KEY = process.env.ACCESS_TOKEN_KEY;
 export default function verifyToken(handler) {
+  const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
   return (req, res) => {
-    const token = req.headers?.authorization;
-    const accesstoken = token?.split(' ')?.[1];
-
-    if (accesstoken) {
-      jwt.verify(accesstoken, ACC_KEY, async (err, payload) => {
+    // lấy access token qua header
+    const getAccessToken = req.headers?.authorization;
+    const accessToken = getAccessToken?.split(' ')?.[1];
+    if (accessToken) {
+      jwt.verify(accessToken, ACCESS_TOKEN_KEY, async (err, payload) => {
         if (err)
           return res.status(403).json({
-            message: 'Token đã hết hạn',
+            message: 'Mã token đã hết hạn',
             code: 403,
           });
         req.user = payload;

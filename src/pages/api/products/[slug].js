@@ -6,10 +6,10 @@ import withAuthorization from 'src/middlewares/withAuthorization';
 const deleteProduct = async (req, res) => {
   await dbConnect();
   const { method } = req;
-  const { id } = req.query;
+  const { slug } = req.query;
   switch (method) {
     case 'GET':
-      const product = await Product.findById(id);
+      const product = await Product.findOne({ slug });
       return res.status(200).json({
         message: 'Tìm kiếm thành công sản phẩm',
         code: 200,

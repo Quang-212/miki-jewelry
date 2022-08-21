@@ -1,9 +1,12 @@
 import { model, models, Schema } from 'mongoose';
+const mongoose = require('mongoose');
+const slug = require('mongoose-slug-generator');
+mongoose.plugin(slug);
 
 const Product = new Schema(
   {
     name: { type: String, required: true, unique: true },
-    slug: String,
+    slug: { type: String, slug: 'name', unique: true },
     description: String,
     images: [
       {
