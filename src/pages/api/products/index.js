@@ -15,26 +15,26 @@ export default async function getProductList(req, res) {
 
   const { sort } = req.query;
   // console.log(sort);
-  const sortFild = {};
+  const sortField = {};
   switch (sort) {
     case 'price-up':
-      sortFild['stocks.price'] = 1;
+      sortField['stocks.price'] = 1;
       break;
     case 'price-down':
-      sortFild['stocks.price'] = -1;
+      sortField['stocks.price'] = -1;
       break;
     case 'new-product':
-      sortFild['createdAt'] = -1;
+      sortField['createdAt'] = -1;
       break;
     case 'sale':
-      sortFild['discount'] = -1;
+      sortField['discount'] = -1;
       break;
     default:
-      sortFild['name'] = 1;
+      sortField['name'] = 1;
   }
-  // console.log(sortFild);
-  const productList = await Product.find({}, 'stocks.price name discount createdAt')
-    .sort(sortFild)
+  // console.log(sortField);
+  const productList = await Product.find({}, 'stocks.price')
+    .sort(sortField)
     .limit(+limit)
     .skip(page * +limit)
     .select(select)

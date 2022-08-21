@@ -1,18 +1,14 @@
 import jwt from 'jsonwebtoken';
-
 import dbConnect from 'src/utils/dbConnect';
-
-const ACC_KEY = process.env.ACCESS_TOKEN_KEY;
-
-dbConnect();
-
+import { ACCESS_TOKEN_KEY } from 'src/pages/api/constant';
 async function generateAccessToken(user) {
+  await dbConnect();
   return jwt.sign(
     {
       _id: user._id,
       admin: user.admin,
     },
-    ACC_KEY,
+    ACCESS_TOKEN_KEY,
     {
       expiresIn: '1d',
     },

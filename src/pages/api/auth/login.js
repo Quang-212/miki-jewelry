@@ -1,44 +1,41 @@
 import bcrypt from 'bcrypt';
 import { serialize } from 'cookie';
-
 import RefreshToken from 'src/models/RefreshToken';
 import User from 'src/models/User';
 import generateAccessToken from 'src/pages/api/generateToken/generateAccessToken';
 import generateRefreshToken from 'src/pages/api/generateToken/generateRefreshToken';
 import dbConnect from 'src/utils/dbConnect';
 
-async function login(req, res) {
+async function loginUser(req, res) {
   try {
     await dbConnect();
     const { method } = req;
     if (method == 'POST') {
-      //find email in db
-      const user = await User.findOne({ email: req.body.email });
-      if (!user)
+      //tìm kiếm email user có tồn tại trong data
+      const emailUser = await User.findOne({ email: req.body.email });
+      if (!emailUser)
         return res.status(404).json({
           message: 'Email không tồn tại',
           code: 404,
         });
-      //compare password
-      const validateUser = await bcrypt.compare(req.body.password, user.password);
+      //so sánh mật khẩu user nhập
+      const validateUser = await bcrypt.compare(req.body.password, emailUser.password);
       if (!validateUser)
         return res.status(401).json({
           message: 'Mật khẩu không đúng',
           code: 401,
         });
-      // login success!
-      if (user && validateUser) {
-        const accessToken = await generateAccessToken(user);
-        const refreshToken = await generateRefreshToken(user);
-        // create refresh token in db
-        const newRefreshToken = new RefreshToken({
-          userId: user._id,
+      // user đăng nhập thành công
+      if (emailUser && validateUser) {
+        const accessToken = await generateAccessToken(emailUser);
+        const refreshToken = await generateRefreshToken(emailUser);
+        //tạo refresh token mới trong data
+        await RefreshToken.create({
+          _id: emailUser._id,
           refreshToken,
         });
-        // save refresh token in db
-        await newRefreshToken.save();
 
-        // save cookie
+        // lưu refresh trên cookie
         res.setHeader(
           'Set-Cookie',
           serialize('refreshToken', refreshToken, {
@@ -48,7 +45,7 @@ async function login(req, res) {
             Secure: false,
           }),
         );
-        const { password, ...other } = user._doc;
+        const { password, ...other } = emailUser._doc;
         return res.status(200).json({
           message: 'Chào mừng bạn đến với Miki Jewelry',
           code: 200,
@@ -65,4 +62,4 @@ async function login(req, res) {
   }
 }
 
-export default login;
+export default loginUser;

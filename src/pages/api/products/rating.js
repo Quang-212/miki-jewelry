@@ -6,7 +6,7 @@ async function handlerRating(req, res) {
 
   const getProductId = await Rating.aggregate([
     {
-      $group: { _id: '$count', count: { $sum: 1 } },
+      $group: { _id: '$product_id', avg: { $avg: '$count' }, count: { $sum: 1 } },
     },
     { $sort: { _id: 1 } },
   ]);

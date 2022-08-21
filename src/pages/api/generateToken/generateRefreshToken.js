@@ -1,18 +1,14 @@
 import jwt from 'jsonwebtoken';
-
 import dbConnect from 'src/utils/dbConnect';
-
-const REF_KEY = process.env.REFRESH_TOKEN_KEY;
-
-dbConnect();
-
+import { REFRESH_TOKEN_KEY } from 'src/pages/api/constant';
 async function generateRefreshToken(user) {
+  await dbConnect();
   return jwt.sign(
     {
       _id: user._id,
       admin: user.admin,
     },
-    REF_KEY,
+    REFRESH_TOKEN_KEY,
     {
       expiresIn: '365d',
     },
