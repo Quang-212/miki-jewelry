@@ -15,7 +15,7 @@ export function SelectField({ name, label, options, wrapper, select, caption, ..
     [wrapper]: wrapper,
   });
 
-  const classLabel = mk('label', {
+  const classLabel = mk('label', 'subtitle-2', {
     [label]: label,
   });
 

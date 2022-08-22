@@ -4,10 +4,12 @@ import UserPromotion from 'src/models/UserPromotion';
 import dbConnect from 'src/utils/dbConnect';
 
 async function registerUser(req, res) {
+  await dbConnect();
+  console.log('hello' + req.body);
+  const { method } = req;
+  const { userName, email, password, promotions } = req.body;
+
   try {
-    await dbConnect();
-    const { method } = req;
-    const { userName, email, password, promotions } = req.body;
     if (method == 'POST') {
       //kiểm tra user trong data
       const userExist = await User.findOne({

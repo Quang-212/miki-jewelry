@@ -1,6 +1,6 @@
-.label {
+/* .label {
   @apply subtitle-1;
-}
+} */
 
 .input {
   @apply w-full h-12 py-3 px-4 rounded-primary border border-primary-1 bg-wrapper;

@@ -1,28 +1,39 @@
-import axios from 'axios';
 import Page from 'src/components/Page';
-import { useProducts } from 'src/hooks/useProducts';
-import MainLayout from 'src/layouts/MainLayout';
-import { HeroSection, ProductsListSection, ProductsPagination } from 'src/container/products';
-import qs from 'qs';
+import {
+  HeroSection,
+  ProductsListSection,
+  ProductsPaginationSection,
+} from 'src/container/products';
+import { SortingSection } from 'src/container/products/sorting';
 import { getProducts } from 'src/fetching/products';
-import useSWR from 'swr';
+import MainLayout from 'src/layouts/MainLayout';
 import getQueryUrl from 'src/utils/getQueryUrl';
 
 ProductsList.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductsList({ initProducts }) {
+  const { page, limit } = getQueryUrl();
+
   return (
     <>
       <Page
         data={{
-          title: '',
-          description: '',
+          title: 'All Products',
+          description: 'All Products',
           url: '',
           thumbnailUrl: '',
         }}
       />
       <HeroSection />
-      <ProductsListSection initProducts={initProducts} />
+      <div className="container mt-10 flex flex-col gap-8">
+        <div>BreadCrumbs</div>
+        <div className="flex justify-between mt-4">
+          <span className="heading-2">Danh mục sản phẩm</span>
+          <SortingSection />
+        </div>
+        <ProductsListSection initProducts={initProducts} page={page} limit={limit} />
+        <ProductsPaginationSection />
+      </div>
     </>
   );
 }

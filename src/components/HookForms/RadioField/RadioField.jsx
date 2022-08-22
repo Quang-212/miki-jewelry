@@ -33,7 +33,7 @@ export function RadioField({
     [input]: input,
   });
 
-  const classLabel = mk('label', {
+  const classLabel = mk('label', 'subtitle-2', {
     [label]: label,
   });
 

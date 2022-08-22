@@ -48,11 +48,11 @@ export default function RegisterFormSection() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      firstName: '1234',
+      lastName: '1234',
+      email: 'nk@gmail.com',
+      password: '123',
+      confirmPassword: '123',
       promotions: false,
       terms: false,
     },
@@ -61,6 +61,7 @@ export default function RegisterFormSection() {
   const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
+    console.log(data);
     data = { ...data, userName: `${data.firstName} ${data.lastName}` };
 
     try {
@@ -69,7 +70,7 @@ export default function RegisterFormSection() {
       reset();
 
       const res = await toast.promise(
-        registerForm,
+        registerForm(data),
         {
           pending: {
             render() {

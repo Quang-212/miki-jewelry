@@ -33,13 +33,13 @@ export default async function getProductList(req, res) {
       sortField['name'] = 1;
   }
   // console.log(sortField);
-  const productList = await Product.find({}, 'stocks.price')
+  const productList = await Product.find({})
     .sort(sortField)
     .limit(+limit)
     .skip(page * +limit)
     .select(select)
     .exec();
-
+  console.log(productList);
   const total = await Product.countDocuments();
 
   return res.status(200).json({ productList, total, perPage: +limit });

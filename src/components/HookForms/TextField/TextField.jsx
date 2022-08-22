@@ -24,7 +24,7 @@ export function TextField({
     [wrapper]: wrapper,
   });
 
-  // const classLabel = mk('root', {})
+  const classLabel = mk('root', 'subtitle-1', {});
 
   const classInput = mk('input', {
     [input]: input,
@@ -36,7 +36,7 @@ export function TextField({
 
   return (
     <div className={classWrapper}>
-      <label htmlFor={name} className={mk('label')}>
+      <label htmlFor={name} className={classLabel}>
         {label}
       </label>
       <input

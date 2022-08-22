@@ -31,7 +31,6 @@ const stocksSchema = yup.object().shape({
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
-  slug: yup.string().required('Slug is required'),
   description: yup.string().required('Description is required'),
   category: yup.string().required('Category is required'),
   visibilityStatus: yup.string().typeError('Visibility status is required'),
@@ -63,7 +62,6 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
     resolver: yupResolver(schema),
     defaultValues: {
       name: currentProduct.data.name,
-      slug: currentProduct.data.slug,
       description: currentProduct.data.description,
       category: currentProduct.data.category,
       visibilityStatus: currentProduct.data.visibilityStatus,
@@ -240,7 +238,6 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
           <div className="bg-white pt-6 px-6">
             <h5 className="heading-5">Basic information</h5>
             <TextField name="name" label="Name" input="mt-2" />
-            <TextField name="slug" label="Slug" input="mt-2" />
             <TextField name="description" label="Description" />
           </div>
 

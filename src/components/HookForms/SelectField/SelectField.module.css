@@ -7,9 +7,9 @@
   @apply cursor-pointer;
 }
 
-.label {
+/* .label {
   @apply subtitle-2;
-}
+} */
 
 .select {
   @apply w-full h-12 py-3 px-4 rounded-primary border border-primary-1 bg-wrapper;
