@@ -5,7 +5,9 @@ import dbConnect from 'src/utils/dbConnect';
 
 async function registerUser(req, res) {
   try {
-    await dbConnect();
+  await dbConnect();
+
+  try {
     const { method } = req;
     const { userName, email, password, promotions } = req.body;
     if (method == 'POST') {
@@ -23,7 +25,7 @@ async function registerUser(req, res) {
       const salt = await genSalt(10);
       const hashPassword = await hash(password, salt);
       // tạo user mới
-      const createUser = await User.create({
+      await User.create({
         userName,
         email,
         password: hashPassword,

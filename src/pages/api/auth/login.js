@@ -8,10 +8,12 @@ import dbConnect from 'src/utils/dbConnect';
 
 async function loginUser(req, res) {
   try {
-    await dbConnect();
+  await dbConnect();
+  try {
     const { method } = req;
     if (method == 'POST') {
       //tìm kiếm email user có tồn tại trong data
+      console.log(req.body.email);
       const emailUser = await User.findOne({ email: req.body.email });
       if (!emailUser)
         return res.status(404).json({
