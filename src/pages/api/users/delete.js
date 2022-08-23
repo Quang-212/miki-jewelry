@@ -28,4 +28,4 @@ async function handlerDelete(req, res) {
   }
 }
 
-export default verifyToken(withAuthorization(handlerDelete));
+export default verifyToken(withAuthorization(handlerDelete, 'admin'));

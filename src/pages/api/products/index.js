@@ -5,8 +5,9 @@ import dbConnect from 'src/utils/dbConnect';
 
 async function getProductList(req, res) {
   await dbConnect();
+  const { method } = req;
+  const { sortBy, order } = req.query;
   try {
-    const { method } = req;
     switch (method) {
       case 'GET':
         let { limit = 10, page = 0, select = {}, category = '' } = qs.parse(req.query);
@@ -15,19 +16,31 @@ async function getProductList(req, res) {
           select[field] = +value;
           return select;
         }, {});
-        //lọc theo trường
-        let sortType = 'desc';
-        // sắp xếp sản phẩm theo danh mục
-        const sortField = {};
-        const { sortBy, order } = req.query;
-        if (req.query.hasOwnProperty('order')) {
-          sortField[sortBy] = order;
-        } else {
-          sortField[sortBy] = sortType;
+
+        // khởi tạo 1 đối tượng
+        const sortInstance = {};
+        let initalSort = 1;
+        if (order == 'desc') {
+          initalSort = -1;
         }
+
+        switch (sortBy) {
+          case 'new':
+            sortInstance['createdAt'] = -initalSort;
+            break;
+          case 'sale':
+            sortInstance['discount'] = -initalSort;
+            break;
+          case 'price':
+            sortInstance['stocks.price'] = initalSort;
+            break;
+          default:
+            sortInstance['name'] = initalSort;
+        }
+
         //tìm kiếm sản phẩm trong data
-        const productList = await Product.find({}, 'discount name createdAt stocks.price')
-          .sort(sortField)
+        const productList = await Product.find({}, 'discount stocks.price name images')
+          .sort(sortInstance)
           .limit(+limit)
           .skip(page * +limit)
           .select(select)
