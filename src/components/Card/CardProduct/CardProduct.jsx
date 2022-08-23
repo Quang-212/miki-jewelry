@@ -50,13 +50,15 @@ export function CardProduct({
           alt={alt}
           width={width}
           height={height}
+          objectFit={objectFit}
+          placeholder={placeholder}
           className={classImage}
           onClick={onClick}
         />
       </CardImage>
       <CardTextWrapper className={classTextWrapper} onClick={onClick}>
         <CardTextTitle className="heading-5">{title}</CardTextTitle>
-        <CardTextPrice className="heading-5 text-primary-2">{price}đ</CardTextPrice>
+        <CardTextPrice className="heading-5 text-primary-2">{price}</CardTextPrice>
       </CardTextWrapper>
       <Button primary internalLink={PATH.products}>
         Thêm vào giỏ hàng

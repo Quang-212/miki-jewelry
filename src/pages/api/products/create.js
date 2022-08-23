@@ -2,9 +2,9 @@ import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function createProduct(req, res) {
-  await dbConnect();
+  const { method } = req;
   try {
-    const { method } = req;
+    await dbConnect();
     switch (method) {
       case 'POST':
         await Product.create(req.body);

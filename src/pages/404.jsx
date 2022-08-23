@@ -1,6 +1,6 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
-import Page404Section from 'src/sections/page-404';
+import Page404Section from 'src/container/page-404';
 
 Page404.getLayout = (page) => <MainLayout variant="404">{page}</MainLayout>;
 

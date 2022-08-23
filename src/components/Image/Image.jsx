@@ -14,16 +14,12 @@ export default function Image({
   objectFit = 'cover',
   placeholder = 'empty',
   className,
-  fallback: customFallback = images.noImage,
+  fallback = images.noImage,
   ...passProps
 }) {
-  const [fallback, setFallback] = useState('');
-
-  const handleError = () => setFallback(customFallback);
-
   return (
     <NextImage
-      src={src || images.noImage}
+      src={src || fallback}
       alt={alt}
       width={width}
       height={height}

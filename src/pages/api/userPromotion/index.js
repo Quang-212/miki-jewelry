@@ -17,7 +17,10 @@ async function userPromotion(req, res) {
           });
         }
       default:
-        throw new Error('Phương thức không hợp lệ');
+        return res.status(400).json({
+          message: 'Yêu cầu không hợp lệ',
+          code: 400,
+        });
     }
   } catch (error) {
     return res.status(500).json({

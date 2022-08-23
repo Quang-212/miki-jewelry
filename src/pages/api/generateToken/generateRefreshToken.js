@@ -6,7 +6,7 @@ async function generateRefreshToken(user) {
   return jwt.sign(
     {
       _id: user._id,
-      admin: user.admin,
+      role: user.role,
     },
     REFRESH_TOKEN_KEY,
     {

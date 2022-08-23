@@ -1,0 +1,20 @@
+.root {
+  /* @apply */
+}
+
+.select,
+.label {
+  @apply cursor-pointer;
+}
+
+/* .label {
+  @apply subtitle-2;
+} */
+
+.select {
+  @apply w-full h-12 py-3 px-4 rounded-primary border border-primary-1 bg-wrapper;
+}
+
+.caption {
+  @apply block h-6 ml-1 text-caption-1 text-sm leading-5;
+}

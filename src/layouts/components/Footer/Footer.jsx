@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import Button from 'src/components/Button';
 import Copyright from 'src/components/Copyright';
 import { NormalDivider } from 'src/components/Dividers';
-import { FormProvider, TextField } from 'src/components/hook-forms';
+import { FormProvider, TextField } from 'src/components/HookForms';
 import { ArrowForwardIcon } from 'src/components/Icons';
 import { userPromotion } from 'src/fetching/userPromotion';
 import { businessLicense, publicInformation, socialLink } from './footer-config';
