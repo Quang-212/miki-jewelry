@@ -1,9 +1,7 @@
-import Button from '../Button';
-import { DoubleArrowLeftIcon, KeyboardArrowRightIcon } from '../Icons';
 import classNames from 'classnames/bind';
-import styles from './Pagination.module.css';
 import ReactPaginate from 'react-paginate';
-import React, { useEffect, useState } from 'react';
+
+import styles from './Pagination.module.css';
 
 const mk = classNames.bind(styles);
 
@@ -13,7 +11,7 @@ export default function Pagination({ pageCount, onPageChange, previousLabelIcon,
       pageCount={pageCount}
       pageRangeDisplayed="4"
       marginPagesDisplayed="2"
-      // previousLabel={previousLabelIcon ? previousLabelIcon : 'previous'}
+      previousLabel={previousLabelIcon ? previousLabelIcon : 'previous'}
       breakLabel="..."
       nextLabel={nextLabelIcon ? nextLabelIcon : 'next'}
       onPageChange={onPageChange}

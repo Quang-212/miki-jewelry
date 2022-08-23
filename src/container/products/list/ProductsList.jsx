@@ -27,7 +27,7 @@ export function ProductsListSection({ initProducts, page, limit }) {
   if (isLoading) return <LoadingRotatingLines className="absolute z-10 left-2/4 top-3/4" />;
 
   return (
-    <section className="container mt-10 flex flex-col gap-8">
+    <section>
       <ul className="flex justify-between flex-wrap gap-10">
         {products?.map((product) => (
           <li key={product._id}>

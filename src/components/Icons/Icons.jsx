@@ -166,6 +166,22 @@ export const ArrowForwardIcon = ({ width = '16', height = '16' }) => (
   </svg>
 );
 
+export const NavigateNextIcon = ({ width = '24', height = '24', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z"
+      fill="#626262"
+    />
+  </svg>
+);
+
 export const KeyboardArrowRightIcon = ({ width = '11', height = '16', className }) => (
   <svg
     width={width}

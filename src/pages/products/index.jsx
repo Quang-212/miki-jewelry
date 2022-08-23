@@ -1,10 +1,11 @@
 import Page from 'src/components/Page';
+import { BreadcrumbSection } from 'src/container/breadcrumb';
 import {
   HeroSection,
   ProductsListSection,
   ProductsPaginationSection,
+  SortingSection,
 } from 'src/container/products';
-import { SortingSection } from 'src/container/products/sorting';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
 import getQueryUrl from 'src/utils/getQueryUrl';
@@ -18,15 +19,15 @@ export default function ProductsList({ initProducts }) {
     <>
       <Page
         data={{
-          title: 'All Products',
-          description: 'All Products',
+          title: 'Tất cả sản phẩm',
+          description: 'Tất cả sản phẩm',
           url: '',
           thumbnailUrl: '',
         }}
       />
       <HeroSection />
       <div className="container mt-10 flex flex-col gap-8">
-        <div>BreadCrumbs</div>
+        <BreadcrumbSection />
         <div className="flex justify-between mt-4">
           <span className="heading-2">Danh mục sản phẩm</span>
           <SortingSection />
