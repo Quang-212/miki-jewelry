@@ -5,46 +5,51 @@ import dbConnect from 'src/utils/dbConnect';
 
 async function registerUser(req, res) {
   await dbConnect();
-  console.log('hello' + req.body);
   const { method } = req;
   const { userName, email, password, promotions } = req.body;
-
   try {
-    if (method == 'POST') {
-      //kiểm tra user trong data
-      const userExist = await User.findOne({
-        email,
-      });
-      if (userExist) {
-        return res.status(409).json({
-          message: 'Email bạn vừa đăng ký đã tồn tại.',
-          code: 409,
+    switch (method) {
+      case 'POST':
+        //kiểm tra user trong data
+        const userExist = await User.findOne({
+          email,
         });
-      }
-      //băm mật khẩu user
-      const salt = await genSalt(10);
-      const hashPassword = await hash(password, salt);
-      // tạo user mới
-      const createUser = await User.create({
-        userName,
-        email,
-        password: hashPassword,
-      });
-      //kiểm tra user đã đăng kí nhận khuyến mãi chưa?
-      if (promotions) {
-        // tìm emal nười dùng trong data
-        const emailUser = await UserPromotion.findOne({ email });
-        if (!emailUser) {
-          //tạo mới email trong data
-          await UserPromotion.create({
-            email,
+        if (userExist) {
+          return res.status(409).json({
+            message: 'Email bạn vừa đăng ký đã tồn tại.',
+            code: 409,
           });
         }
-      }
-      return res.status(201).json({
-        message: 'Chúc mừng bạn đã đăng ký thành công',
-        code: 201,
-      });
+        //băm mật khẩu user
+        const salt = await genSalt(10);
+        const hashPassword = await hash(password, salt);
+        // tạo user mới
+        await User.create({
+          userName,
+          email,
+          password: hashPassword,
+        });
+        //kiểm tra user đã đăng kí nhận khuyến mãi chưa?
+        if (promotions) {
+          // tìm emal nười dùng trong data
+          const emailUser = await UserPromotion.findOne({ email });
+          if (!emailUser) {
+            //tạo mới email trong data
+            await UserPromotion.create({
+              email,
+            });
+          }
+        }
+        return res.status(201).json({
+          message: 'Chúc mừng bạn đã đăng ký thành công',
+          code: 201,
+        });
+
+      default:
+        return res.status(400).json({
+          message: 'Yêu cầu không hợp lệ',
+          code: 400,
+        });
     }
   } catch (error) {
     return res.status(500).json({

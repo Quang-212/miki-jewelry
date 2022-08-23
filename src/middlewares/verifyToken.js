@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-export default function verifyToken(handler) {
-  const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
+import { ACCESS_TOKEN_KEY } from 'src/pages/api/constant';
+export default async function verifyToken(handler) {
   return (req, res) => {
     // lấy access token qua header
     const getAccessToken = req.headers?.authorization;

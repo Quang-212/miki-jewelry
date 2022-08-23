@@ -15,7 +15,10 @@ async function handlerDelete(req, res) {
           code: 200,
         });
       default:
-        throw new Error('Không tìm thấy yêu cầu hợp lệ');
+        return res.status(400).json({
+          message: 'Yêu cầu không hợp lệ',
+          code: 400,
+        });
     }
   } catch (error) {
     return res.status(500).json({

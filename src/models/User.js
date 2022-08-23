@@ -16,9 +16,9 @@ const UserSchema = new Schema(
       required: true,
       min: 8,
     },
-    admin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      default: 'user',
     },
   },
 

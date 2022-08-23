@@ -4,8 +4,8 @@ import dbConnect from 'src/utils/dbConnect';
 
 async function logout(req, res) {
   await dbConnect();
+  const { method } = req;
   try {
-    const { method } = req;
     switch (method) {
       case 'POST':
         //xóa refresh trên cookie
@@ -17,7 +17,10 @@ async function logout(req, res) {
           code: 200,
         });
       default:
-        throw new Error('Phương thức không hợp lệ');
+        return res.status(400).json({
+          message: 'Yêu cầu không hợp lệ',
+          code: 400,
+        });
     }
   } catch (error) {
     return res.status(500).json({

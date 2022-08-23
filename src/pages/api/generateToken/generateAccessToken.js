@@ -6,7 +6,7 @@ async function generateAccessToken(user) {
   return jwt.sign(
     {
       _id: user._id,
-      admin: user.admin,
+      role: user.role,
     },
     ACCESS_TOKEN_KEY,
     {
