@@ -520,6 +520,54 @@ export const OrderIcon = ({ width = '28', height = '28', className }) => (
   </svg>
 );
 
+export const MinusIcon = ({ width = '20', height = '4', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 20 4"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M18 2L2 2" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path
+      d="M18 2L2 2"
+      stroke="currentColor"
+      strokeOpacity="0"
+      strokeWidth="2.66667"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const PlusIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M16 8L16 24" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path
+      d="M16 8L16 24"
+      stroke="black"
+      strokeOpacity="0"
+      strokeWidth="2.66667"
+      strokeLinecap="round"
+    />
+    <path d="M24 16L8 16" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path
+      d="M24 16L8 16"
+      stroke="black"
+      strokeOpacity="0"
+      strokeWidth="2.66667"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const Ba = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

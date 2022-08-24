@@ -27,7 +27,14 @@ export default function ProductsList({ initProducts }) {
       />
       <HeroSection />
       <div className="container mt-10 flex flex-col gap-8">
-        <BreadcrumbSection />
+        <BreadcrumbSection
+          breadcrumbs={[
+            {
+              label: 'Tất cả sản phẩm',
+              href: '/products',
+            },
+          ]}
+        />
         <div className="flex justify-between mt-4">
           <span className="heading-2">Danh mục sản phẩm</span>
           <SortingSection />

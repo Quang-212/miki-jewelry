@@ -1,0 +1,7 @@
+.item {
+  @apply flex hover:underline text-neutral-2;
+}
+
+.item-highlight {
+  @apply flex;
+}

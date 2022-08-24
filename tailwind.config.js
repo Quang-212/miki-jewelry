@@ -29,6 +29,8 @@ module.exports = {
         'neutral-4': '#E9E9E9',
         'neutral-5': '#FFFFFF',
         'caption-1': '#D2311B',
+        'caption-2': '#58C27D',
+        discount: '#A18A68',
       },
       maxWidth: {
         '218-px': '218px',
@@ -42,6 +44,7 @@ module.exports = {
         '343-px': '343px',
       },
       borderRadius: {
+        tag: '4px',
         primary: '8px',
         secondary: '16px',
         tertiary: '12px',

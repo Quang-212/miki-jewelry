@@ -172,7 +172,8 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
             },
             error: {
               render({ data }) {
-                return data[0].response.data.message;
+                console.log(data)
+                return data.response.data.message;
               },
             },
           },

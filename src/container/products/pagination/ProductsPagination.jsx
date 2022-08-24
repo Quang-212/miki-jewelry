@@ -10,7 +10,7 @@ export function ProductsPaginationSection() {
   const [limit, setLimit] = useState(16);
 
   const router = useRouter();
-  const { query, pathname } = router;
+  const { query, pathname, push } = router;
 
   const { productsState, isLoading } = useProducts({
     page: page,
@@ -39,7 +39,7 @@ export function ProductsPaginationSection() {
   const handlePageClick = (event) => {
     if (pathname !== '/products') return;
     const pageIndex = event.selected;
-    router.replace(`?page=${pageIndex}&limit=${limit}`);
+    push(`?page=${pageIndex}&limit=${limit}`);
   };
 
   return (

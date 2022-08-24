@@ -1,5 +1,4 @@
 import { Children, Fragment } from 'react';
-import { NavigateNextIcon } from '../Icons';
 
 const BreadcrumbNavigation = 'nav';
 const BreadcrumbOrderList = 'ol';
@@ -13,9 +12,6 @@ export default function Breadcrumb({ children }) {
       return (
         <Fragment key={index}>
           {child}
-          <span>
-            <NavigateNextIcon />
-          </span>
         </Fragment>
       );
     }

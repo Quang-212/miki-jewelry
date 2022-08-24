@@ -26,7 +26,7 @@ async function getProductList(req, res) {
           sortField[sortBy] = sortType;
         }
         //tìm kiếm sản phẩm trong data
-        const productList = await Product.find({}, 'discount name createdAt stocks.price')
+        const productList = await Product.find({})
           .sort(sortField)
           .limit(+limit)
           .skip(page * +limit)

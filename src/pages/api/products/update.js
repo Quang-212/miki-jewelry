@@ -4,6 +4,9 @@ import Product from 'src/models/Product';
 async function updateProduct(req, res) {
   await dbConnect();
   const { method } = req;
+  const { id } = req.query;
+  const { data } = req.body;
+
   try {
     switch (method) {
       case 'PATCH':
