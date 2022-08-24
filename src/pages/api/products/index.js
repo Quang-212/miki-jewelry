@@ -17,7 +17,7 @@ async function getProductList(req, res) {
           return select;
         }, {});
         //tìm kiếm sản phẩm trong data
-        const productList = await Product.find({}, 'discount stocks.price name images')
+        const productList = await Product.find({})
           .sort(sort)
           .limit(+limit)
           .skip(page * +limit)
@@ -25,6 +25,11 @@ async function getProductList(req, res) {
           .exec();
         const total = await Product.countDocuments();
         return res.status(200).json({ productList, total, perPage: +limit });
+      default:
+        return res.status(404).json({
+          message: 'Không tìm thấy yêu cầu hợp lệ',
+          code: 404,
+        });
     }
   } catch (error) {
     return res.status(500).json({
