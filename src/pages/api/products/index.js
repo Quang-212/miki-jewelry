@@ -1,12 +1,12 @@
 import qs from 'qs';
 
+import { verifySort } from 'src/middlewares/verifySort';
 import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function getProductList(req, res) {
   await dbConnect();
-  const { method } = req;
-  const { sortBy, order } = req.query;
+  const { method, sort } = req;
   try {
     switch (method) {
       case 'GET':
@@ -16,31 +16,9 @@ async function getProductList(req, res) {
           select[field] = +value;
           return select;
         }, {});
-
-        // khởi tạo 1 đối tượng
-        const sortInstance = {};
-        let initalSort = 1;
-        if (order == 'desc') {
-          initalSort = -1;
-        }
-
-        switch (sortBy) {
-          case 'new':
-            sortInstance['createdAt'] = -initalSort;
-            break;
-          case 'sale':
-            sortInstance['discount'] = -initalSort;
-            break;
-          case 'price':
-            sortInstance['stocks.price'] = initalSort;
-            break;
-          default:
-            sortInstance['name'] = initalSort;
-        }
-
         //tìm kiếm sản phẩm trong data
         const productList = await Product.find({}, 'discount stocks.price name images')
-          .sort(sortInstance)
+          .sort(sort)
           .limit(+limit)
           .skip(page * +limit)
           .select(select)
@@ -55,4 +33,4 @@ async function getProductList(req, res) {
     });
   }
 }
-export default getProductList;
+export default verifySort(getProductList);
