@@ -5,9 +5,9 @@ import withAuthorization from 'src/middlewares/withAuthorization';
 
 const deleteProduct = async (req, res) => {
   await dbConnect();
+  const { method } = req;
+  const { slug } = req.query;
   try {
-    const { method } = req;
-    const { slug } = req.query;
     switch (method) {
       case 'GET':
         const product = await Product.findOne({ slug });

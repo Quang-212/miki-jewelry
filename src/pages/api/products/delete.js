@@ -18,7 +18,10 @@ const deleteProduct = async (req, res) => {
           code: 200,
         });
       default:
-        throw new Error('không tìm thấy yêu cầu hợp lệ');
+        return res.status(404).json({
+          message: 'Không tìm thấy yêu cầu hợp lệ',
+          code: 404,
+        });
     }
   } catch (error) {
     return res.status(500).json({

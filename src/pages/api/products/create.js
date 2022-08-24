@@ -13,7 +13,10 @@ async function createProduct(req, res) {
           code: 201,
         });
       default:
-        throw new Error('Không tìm thấy yêu cầu hợp lệ');
+        return res.status(404).json({
+          message: 'Không tìm thấy yêu cầu hợp lệ',
+          code: 404,
+        });
     }
   } catch (error) {
     return res.status(500).json({
