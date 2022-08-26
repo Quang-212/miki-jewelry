@@ -1,1 +1,1 @@
-export { SortingSection } from './sorting';
+export { Sorting } from './sorting';

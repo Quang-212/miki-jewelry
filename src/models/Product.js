@@ -20,7 +20,7 @@ const Product = new Schema(
     ],
     category: {
       type: String,
-      enum: ['Bracelet', 'Earring', 'Necklace', 'Ring'],
+      enum: ['bracelet', 'earring', 'necklace', 'ring'],
       required: true,
     },
     visibilityStatus: {

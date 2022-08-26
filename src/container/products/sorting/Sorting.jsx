@@ -13,9 +13,9 @@ const sorting = [
   { name: 'Sản phẩm ưu đãi' },
 ];
 
-export function SortingSection() {
+export function Sorting() {
   const [selected, setSelected] = useState(sorting[0]);
-  // console.log(selected);
+  console.log(selected);
 
   return (
     <div className="z-10 w-72">

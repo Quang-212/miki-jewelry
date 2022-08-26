@@ -8,7 +8,7 @@ import styles from './LatestCollection.module.css';
 
 const mk = classNames.bind(styles);
 
-export function LatestCollectionSection() {
+export function LatestCollection() {
   return (
     <section className={mk('latest-collection')}>
       <Image

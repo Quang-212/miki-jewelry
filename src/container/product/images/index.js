@@ -1,1 +1,1 @@
-export { ProductImagesSection } from './Images';
+export { Images } from './Images';

@@ -6,7 +6,7 @@ async function handlerRating(req, res) {
   const { method } = req;
   try {
     switch (method) {
-      case 'POST':
+      case 'GET':
         const getProductId = await Rating.aggregate([
           {
             $group: { _id: '$product_id', avg: { $avg: '$count' }, count: { $sum: 1 } },

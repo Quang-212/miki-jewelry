@@ -1,14 +1,14 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 import {
-  AboutSection,
+  About,
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
-  FeaturedProductsSection,
-  HeroSection,
-  LatestCollectionSection,
-  ProductCategorySection,
+  FeaturedProducts,
+  Hero,
+  LatestCollection,
+  ProductCategory,
 } from 'src/container/home';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
@@ -18,17 +18,17 @@ export default function HomePage() {
     <>
       <Page
         data={{
-          title: 'Miki Shop',
-          description: '',
+          title: 'Trang chủ',
+          description: 'Trang chủ',
           url: '',
           thumbnailUrl: '',
         }}
       />
-      <HeroSection />
-      <AboutSection />
-      <FeaturedProductsSection />
-      <LatestCollectionSection />
-      <ProductCategorySection />
+      <Hero />
+      <About />
+      <FeaturedProducts />
+      <LatestCollection />
+      <ProductCategory />
       <CircleIcon1 />
       <CircleIcon2 />
       <CircleIcon3 />

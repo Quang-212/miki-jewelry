@@ -1,1 +1,1 @@
-export { LatestCollectionSection } from './LatestCollection';
+export { LatestCollection } from './LatestCollection';

@@ -30,4 +30,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export default verifyToken(withAuthorization(deleteProduct));
+export default deleteProduct;

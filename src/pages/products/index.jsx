@@ -1,18 +1,13 @@
 import Page from 'src/components/Page';
-import { BreadcrumbSection } from 'src/container/breadcrumb';
-import {
-  HeroSection,
-  ProductsListSection,
-  ProductsPaginationSection,
-  SortingSection,
-} from 'src/container/products';
+import { Breadcrumb } from 'src/container/breadcrumb';
+import { Hero, ProductsList, Pagination, Sorting } from 'src/container/products';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
 import getQueryUrl from 'src/utils/getQueryUrl';
 
-ProductsList.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+ProductsAll.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function ProductsList({ initProducts }) {
+export default function ProductsAll({ products }) {
   const { page, limit } = getQueryUrl();
 
   return (
@@ -25,9 +20,9 @@ export default function ProductsList({ initProducts }) {
           thumbnailUrl: '',
         }}
       />
-      <HeroSection />
+      <Hero />
       <div className="container mt-10 flex flex-col gap-8">
-        <BreadcrumbSection
+        <Breadcrumb
           breadcrumbs={[
             {
               label: 'Tất cả sản phẩm',
@@ -37,22 +32,34 @@ export default function ProductsList({ initProducts }) {
         />
         <div className="flex justify-between mt-4">
           <span className="heading-2">Danh mục sản phẩm</span>
-          <SortingSection />
+          <Sorting />
         </div>
-        <ProductsListSection initProducts={initProducts} page={page} limit={limit} />
-        <ProductsPaginationSection />
+        <ProductsList initProducts={products} page={page} limit={limit} />
+        <Pagination />
       </div>
     </>
   );
 }
 
-export const getStaticProps = async () => {
-  const products = await getProducts();
+// export const getStaticProps = async () => {
+//   const products = await getProducts();
+
+//   return {
+//     props: {
+//       initProducts: products.data.productList,
+//     },
+//     revalidate: 10,
+//   };
+// };
+
+export const getServerSideProps = async ({ query }) => {
+  console.log(query);
+  const products = await getProducts({ category: query.category });
+  // console.log(products.data.productList);
 
   return {
     props: {
-      initProducts: products.data.productList,
+      products: products.data.productList,
     },
-    revalidate: 10,
   };
 };

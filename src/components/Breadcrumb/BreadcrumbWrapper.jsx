@@ -3,17 +3,13 @@ import { Children, Fragment } from 'react';
 const BreadcrumbNavigation = 'nav';
 const BreadcrumbOrderList = 'ol';
 
-export default function Breadcrumb({ children }) {
+export default function BreadcrumbWrapper({ children }) {
   const childrenArray = Children.toArray(children);
   // console.log(childrenArray);
 
   const childrenWithSeparators = childrenArray.map((child, index) => {
     if (index !== children.length - 1) {
-      return (
-        <Fragment key={index}>
-          {child}
-        </Fragment>
-      );
+      return <Fragment key={index}>{child}</Fragment>;
     }
     return child;
   });

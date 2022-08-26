@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import Button from 'src/components/Button';
 import { LoadingRotatingLines } from 'src/components/Loadings';
-import Table from 'src/components/Table';
+import DynamicTable from 'src/components/Tables/DynamicTable';
 import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks/useProducts';
 import { ProductForm } from '../product-form';
@@ -85,7 +85,7 @@ export function ProductsList() {
             </Button>
           </div>
           <div className="flex flex-col gap-4">
-            <Table
+            <DynamicTable
               columns={productsColumn}
               data={productsData}
               onPageChange={setPagination}

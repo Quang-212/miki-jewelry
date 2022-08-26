@@ -27,6 +27,8 @@ export function SelectField({ name, label, options, wrapper, select, caption, ..
     [caption]: caption,
   });
 
+  const capitalizeLetter = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
   return (
     <div className={classWrapper}>
       <label htmlFor={name} className={classLabel}>
@@ -34,7 +36,9 @@ export function SelectField({ name, label, options, wrapper, select, caption, ..
       </label>
       <select className={classSelect} {...other} {...register(name)}>
         {options.map((value, index) => (
-          <option key={index}>{value}</option>
+          <option key={index} value={value}>
+            {capitalizeLetter(value)}
+          </option>
         ))}
       </select>
       <span className={classCaption}>{errors[name]?.message}</span>

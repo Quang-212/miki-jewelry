@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import BasicTable from 'src/components/Table/BasicTable';
+import BasicTable from 'src/components/Tables/BasicTable';
 import { tableColumns, tableData, notes } from '../more-information-config';
 
 export function TabWarrantyReturn() {
@@ -38,8 +38,8 @@ export function TabWarrantyReturn() {
       </div>
       <div className="flex flex-col gap-4">
         <h5 className="heading-5">Lưu ý:</h5>
-        {notes.map((note) => (
-          <p>{note}</p>
+        {notes.map((note, index) => (
+          <p key={index}>{note}</p>
         ))}
       </div>
     </div>

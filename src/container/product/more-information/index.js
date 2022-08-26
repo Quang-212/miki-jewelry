@@ -1,1 +1,1 @@
-export { ProductMoreInformationSection } from './MoreInformation';
+export { MoreInformation } from './MoreInformation';

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 
-import Button from '../Button';
-import { Checkbox } from '../Checkbox';
-import { MenuVerticalIcon } from '../Icons';
+import Button from '../../Button';
+import { Checkbox } from '../../Checkbox';
+import { MenuVerticalIcon } from '../../Icons';
 
-export default function Table({
+export default function DynamicTable({
   columns,
   data,
   onPageChange,

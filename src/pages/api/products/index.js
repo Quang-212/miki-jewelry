@@ -11,13 +11,14 @@ async function getProductList(req, res) {
     switch (method) {
       case 'GET':
         let { limit = 10, page = 0, select = {}, category = '' } = qs.parse(req.query);
+        console.log(category);
 
         select = Object.entries(select).reduce((select, [field, value]) => {
           select[field] = +value;
           return select;
         }, {});
         //tìm kiếm sản phẩm trong data
-        const productList = await Product.find({})
+        const productList = await Product.find({ ...(category && { category }) })
           .sort(sort)
           .limit(+limit)
           .skip(page * +limit)

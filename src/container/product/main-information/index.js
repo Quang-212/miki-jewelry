@@ -1,1 +1,1 @@
-export { ProductMainInformationSection } from './MainInformation';
+export { MainInformation } from './MainInformation';

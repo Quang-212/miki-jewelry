@@ -1,1 +1,1 @@
-export { ProductsPaginationSection } from './ProductsPagination';
+export { ProductsPagination as Pagination } from './ProductsPagination';

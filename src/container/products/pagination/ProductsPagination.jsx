@@ -5,7 +5,7 @@ import { KeyboardArrowRightIcon } from 'src/components/Icons';
 import Pagination from 'src/components/Pagination';
 import { useProducts } from 'src/hooks/useProducts';
 
-export function ProductsPaginationSection() {
+export function ProductsPagination() {
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(16);
 

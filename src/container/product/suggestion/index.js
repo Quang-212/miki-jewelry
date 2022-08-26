@@ -1,0 +1,1 @@
+export { Suggestion } from './Suggestion';

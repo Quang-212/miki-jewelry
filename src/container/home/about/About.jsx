@@ -8,7 +8,7 @@ import styles from './About.module.css';
 
 const mk = classNames.bind(styles);
 
-export function AboutSection() {
+export function About() {
   return (
     <section className={mk('about', 'container')}>
       <article className={mk('col-1')}>

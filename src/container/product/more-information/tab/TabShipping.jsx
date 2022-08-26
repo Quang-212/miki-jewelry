@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import BasicTable from 'src/components/Table/BasicTable';
+import BasicTable from 'src/components/Tables/BasicTable';
 import { tableColumns, tableData } from '../more-information-config';
 
 export function TabShipping() {

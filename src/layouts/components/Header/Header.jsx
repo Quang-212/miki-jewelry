@@ -13,6 +13,81 @@ import { navCta, navLink } from './nav-config';
 
 const mk = classNames.bind(styles);
 
+const PRODUCTS_CATEGORY = [
+  {
+    heading: 'Nhẫn',
+    content: [
+      {
+        title: 'Nhẫn cỡ lớn',
+        path: '/large-ring',
+      },
+      {
+        title: 'Nhẫn ngón út',
+        path: '/large-ring',
+      },
+      {
+        title: 'Nhẫn xoay',
+        path: '/large-ring',
+      },
+      {
+        title: 'Nhẫn cưới',
+        path: '/large-ring',
+      },
+    ],
+  },
+  {
+    heading: 'Dây chuyền',
+    content: [
+      {
+        title: 'Dây chuyền trơn',
+        path: '/large-ring',
+      },
+      {
+        title: 'Dây chuyền có mặt',
+        path: '/large-ring',
+      },
+      {
+        title: 'Mặt dây chuyền',
+        path: '/large-ring',
+      },
+    ],
+  },
+  {
+    heading: 'Bông tai',
+    content: [
+      {
+        title: 'Bông tai xỏ lỗ',
+        path: '/large-ring',
+      },
+      {
+        title: 'Bông tai treo',
+        path: '/large-ring',
+      },
+      {
+        title: 'Khuyên vành tai',
+        path: '/large-ring',
+      },
+    ],
+  },
+  {
+    heading: 'Lắc',
+    content: [
+      {
+        title: 'Lắc tay',
+        path: '/large-ring',
+      },
+      {
+        title: 'Lắc tay',
+        path: '/large-ring',
+      },
+      {
+        title: 'Charm',
+        path: '/large-ring',
+      },
+    ],
+  },
+];
+
 export function Header() {
   const [iconDirection, setIconDirection] = useState('up');
   const { data: session } = useSession();

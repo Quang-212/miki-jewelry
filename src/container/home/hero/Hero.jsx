@@ -7,7 +7,7 @@ import styles from './Hero.module.css';
 
 const mk = classNames.bind(styles);
 
-export function HeroSection() {
+export function Hero() {
   return (
     <section className={mk('hero')}>
       <div className={mk('bg-image-rgba')}>

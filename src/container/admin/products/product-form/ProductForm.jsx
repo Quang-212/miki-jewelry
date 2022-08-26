@@ -19,7 +19,7 @@ const stocksSchema = yup.object().shape({
   quantity: yup
     .number()
     .typeError('Quantity is required')
-    .positive('This field must contain positive numbers')
+    // .positive('This field must contain positive numbers')
     .integer('This field must contain integers'),
   price: yup
     .number()
@@ -172,7 +172,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
             },
             error: {
               render({ data }) {
-                console.log(data)
+                console.log(data);
                 return data.response.data.message;
               },
             },
@@ -187,7 +187,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
         const product = await toast.promise(
           createProduct({
             ...data,
-            images: upload.data.map((image, index) => ({
+            images: upload.data.response.map((image, index) => ({
               ...image,
               type: index === primaryImage ? 'primary' : 'secondary',
             })),
@@ -282,7 +282,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
               <h5 className="heading-5">Categories</h5>
               <SelectField
                 name="category"
-                options={['Ring', 'Necklace', 'Earring', 'Bracelet']}
+                options={['ring', 'necklace', 'earring', 'bracelet']}
                 wrapper="mt-5"
               />
             </div>

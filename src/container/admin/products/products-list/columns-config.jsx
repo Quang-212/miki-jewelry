@@ -1,9 +1,5 @@
+import { formatLocaleNumber, formatVndCurrency } from 'src/utils/formatNumber';
 import Image from '../../../../components/Image';
-
-const formatVndCurrency = (number) =>
-  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(number);
-
-const formatLocaleNumber = (number) => new Intl.NumberFormat('de-DE').format(number);
 
 const isLowStock = (quantity) => Number(quantity.split('.').join('')) <= 10;
 const isOutOfStock = (quantity) => Number(quantity.split('.').join('')) === 0;

@@ -5,7 +5,7 @@ import styles from './ProductCategory.module.css';
 
 const mk = classNames.bind(styles);
 
-export function ProductCategorySection() {
+export function ProductCategory() {
   return (
     <section className={mk('product-category', 'container')}>
       <div className="flex items-center flex-wrap gap-10 w-[900px]">

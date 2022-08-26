@@ -1,7 +1,7 @@
 import Tab from 'src/components/Tab';
-import { TabComments, TabDescription, TabShipping, TabWarrantyReturn } from './tab-content';
+import { TabComments, TabDescription, TabShipping, TabWarrantyReturn } from './tab';
 
-export function ProductMoreInformationSection() {
+export function MoreInformation() {
   const tabTitle = ['Mô tả', 'Bảo hành và Hoàn trả', 'Vận chuyển', 'Đánh giá(02)'];
 
   const tabContent = [<TabDescription />, <TabWarrantyReturn />, <TabShipping />, <TabComments />];

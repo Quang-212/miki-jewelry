@@ -10,6 +10,7 @@ const getQueryUrl = () => {
     router,
     page,
     limit,
+    query,
   };
 };
 
