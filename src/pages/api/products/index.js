@@ -1,28 +1,43 @@
 import qs from 'qs';
-
-import { verifySort } from 'src/middlewares/verifySort';
 import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function getProductList(req, res) {
   await dbConnect();
-  const { method, sort } = req;
+  const { method } = req;
+
   try {
     switch (method) {
       case 'GET':
-        let { limit = 10, page = 0, select = {}, category = '' } = qs.parse(req.query);
+        let {
+          limit = 10,
+          page = 0,
+          select = {},
+          category = '',
+          sortBy = 'createdAt',
+          order = -1,
+        } = qs.parse(req.query);
+
+        const generateSort = (sortBy, order) => {
+          if (sortBy == 'price') {
+            return { 'stocks.price': order };
+          }
+          return { [sortBy]: order };
+        };
 
         select = Object.entries(select).reduce((select, [field, value]) => {
           select[field] = +value;
           return select;
         }, {});
         //tìm kiếm sản phẩm trong data
-        const productList = await Product.find({})
-          .sort(sort)
+
+        const productList = await Product.find({ ...(category && { category }) })
+          .sort(generateSort(sortBy, order))
           .limit(+limit)
           .skip(page * +limit)
           .select(select)
           .exec();
+
         const total = await Product.countDocuments();
         return res.status(200).json({ productList, total, perPage: +limit });
       default:
@@ -38,4 +53,4 @@ async function getProductList(req, res) {
     });
   }
 }
-export default verifySort(getProductList);
+export default getProductList;

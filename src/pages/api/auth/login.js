@@ -2,8 +2,7 @@ import bcrypt from 'bcrypt';
 import { serialize } from 'cookie';
 import RefreshToken from 'src/models/RefreshToken';
 import User from 'src/models/User';
-import generateAccessToken from 'src/pages/api/generateToken/generateAccessToken';
-import generateRefreshToken from 'src/pages/api/generateToken/generateRefreshToken';
+import { generateRefreshToken, generateAccessToken } from 'src/utils/generateToken';
 import dbConnect from 'src/utils/dbConnect';
 
 async function loginUser(req, res) {

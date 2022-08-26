@@ -4,5 +4,72 @@
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "json.schemas": [],
-  "editor.fontSize": 15
+  "editor.fontSize": 15,
+  "editor.tokenColorCustomizations": {
+    "[Dracula]": {
+      "textMateRules": [
+        {
+          "scope": [
+            "keyword.control.import.js",
+            "keyword.control.from.js",
+            "storage.type.js",
+            "keyword.operator.assignment.js",
+            "storage.modifier.async.js",
+            "variable.other.readwrite.js",
+            "keyword.control.flow.js",
+            "storage.type.function.js",
+            "keyword.operator.new.js",
+            "new.expr.js",
+            "meta.var.expr.js",
+            "source.js",
+            "support.class",
+            "constant",
+            "keyword",
+            "variable"
+          ],
+          "settings": {
+            "foreground": "#fcc54f",
+            "fontStyle": ""
+          }
+        },
+        {
+          "scope": [
+            "variable.other.readwrite.alias.js",
+            "variable.other.property.js",
+            "variable.other.readwrite.alias.js",
+            "variable.other.readwrite.js",
+            "entity.name.type.class",
+            "variable.other.property.js",
+            "variable.other.constant.object.js",
+            "entity.name.type.module.js",
+            "variable.parameter.js",
+            "entity.name.function.js"
+          ],
+          "settings": {
+            "foreground": "#67f3b9",
+            "fontStyle": ""
+          }
+        },
+        {
+          "scope": [
+            "string.quoted.single.js",
+            "variable.other.constant.js",
+            "variable.other.readwrite.js",
+            "variable.parameter"
+          ],
+          "settings": {
+            "foreground": "#cb6df0",
+            "fontStyle": ""
+          }
+        },
+        {
+          "scope": ["comment", "punctuation.definition.comment"],
+          "settings": {
+            "foreground": "#888787",
+            "fontStyle": "italic bold"
+          }
+        }
+      ]
+    }
+  }
 }
