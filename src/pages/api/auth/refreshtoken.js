@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import RefreshToken from 'src/models/RefreshToken';
 import dbConnect from 'src/utils/dbConnect';
-import generateAccessToken from '../generateToken/generateAccessToken';
+import { generateAccessToken } from 'src/utils/generateToken';
 import { REFRESH_TOKEN_KEY } from 'src/pages/api/constant';
 
 async function handlerRefreshToken(req, res) {
@@ -45,5 +45,4 @@ async function handlerRefreshToken(req, res) {
     });
   }
 }
-
 export default handlerRefreshToken;

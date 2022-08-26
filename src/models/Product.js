@@ -18,11 +18,20 @@ const Product = new Schema(
         },
       },
     ],
-    category: {
-      type: String,
-      enum: ['bracelet', 'earring', 'necklace', 'ring'],
-      required: true,
-    },
+    // category: {
+    //   type: String,
+    //   enum: ['bracelet', 'earring', 'necklace', 'ring'],
+    //   required: true,
+    //   lowercase: true,
+    // },
+    category: [
+      {
+        type: String,
+        required: true,
+        lowercase: true,
+      },
+    ],
+
     visibilityStatus: {
       type: String,
       enum: ['published', 'hidden'],
