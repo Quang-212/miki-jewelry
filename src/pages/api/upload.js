@@ -44,7 +44,7 @@ async function handlerUploadImage(req, res) {
         });
       default:
         return res.status(400).json({
-          message: 'Yêu cầu không hợp lệ',
+          message: 'Không tìm thấy yêu cầu hợp lệ',
           code: 400,
         });
     }
