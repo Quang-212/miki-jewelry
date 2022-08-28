@@ -53,6 +53,9 @@ module.exports = {
         '1/2-px': '0.5px',
         '1.5-px': '1.5px',
       },
+      divideWidth: {
+        1: '1px',
+      },
       spacing: {
         //* inset, padding, margin, width, height, maxHeight, gap, space, translate
         '6-px': '6px',
@@ -141,6 +144,7 @@ module.exports = {
       boxShadow: {
         'register-form': '0px 0px 86px rgba(0, 0, 0, 0.15)',
         'btn-normal': 'inset 0px 0px 8px rgba(0, 0, 0, 0.6)',
+        'popper-search': 'rgb(0 0 0 / 12%) 0px 2px 12px',
       },
       dropShadow: {
         about: '0px 4px 162px rgba(0, 0, 0, 0.2)',

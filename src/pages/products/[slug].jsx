@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { StarDivider } from 'src/components/Dividers';
 import Page from 'src/components/Page';
-import { Breadcrumb } from 'src/container/breadcrumb';
+import Breadcrumb from 'src/components/Breadcrumb';
 import { Images, MainInformation, MoreInformation, Suggestion } from 'src/container/product';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';

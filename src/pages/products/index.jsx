@@ -1,14 +1,13 @@
 import Page from 'src/components/Page';
-import { Breadcrumb } from 'src/container/breadcrumb';
-import { Hero, ProductsList, Pagination, Sorting } from 'src/container/products';
+import Breadcrumb from 'src/components/Breadcrumb';
+import { Hero, Pagination, ProductsList, Sorting } from 'src/container/products';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
-import getQueryUrl from 'src/utils/getQueryUrl';
 
 ProductsAll.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function ProductsAll({ products }) {
-  const { page, limit } = getQueryUrl();
+export default function ProductsAll({ products, pageCount }) {
+  const breadcrumbs = [{ label: 'Tất cả sản phẩm', href: '/products' }];
 
   return (
     <>
@@ -22,44 +21,39 @@ export default function ProductsAll({ products }) {
       />
       <Hero />
       <div className="container mt-10 flex flex-col gap-8">
-        <Breadcrumb
-          breadcrumbs={[
-            {
-              label: 'Tất cả sản phẩm',
-              href: '/products',
-            },
-          ]}
-        />
+        <Breadcrumb breadcrumbs={breadcrumbs} />
         <div className="flex justify-between mt-4">
           <span className="heading-2">Danh mục sản phẩm</span>
           <Sorting />
         </div>
-        <ProductsList initProducts={products} page={page} limit={limit} />
-        <Pagination />
+        <ProductsList products={products} />
+        <Pagination pageCount={pageCount} />
       </div>
     </>
   );
 }
 
-// export const getStaticProps = async () => {
-//   const products = await getProducts();
-
-//   return {
-//     props: {
-//       initProducts: products.data.productList,
-//     },
-//     revalidate: 10,
-//   };
-// };
-
 export const getServerSideProps = async ({ query }) => {
   console.log(query);
-  const products = await getProducts({ category: query.category });
+  const products = await getProducts({
+    limit: 2,
+    page: query.page,
+    category: query.category,
+    sortBy: query.sortBy,
+    order: query.order,
+    select: {
+      __v: 0,
+      _id: 0,
+      coupon: 0,
+      visibilityStatus: 0,
+    },
+  });
   // console.log(products.data.productList);
 
   return {
     props: {
       products: products.data.productList,
+      pageCount: Math.ceil(products.data.total) / 2,
     },
   };
 };

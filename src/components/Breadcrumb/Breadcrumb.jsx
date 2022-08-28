@@ -1,10 +1,9 @@
-import { useRouter } from 'next/router';
-
-import BreadcrumbWrapper from 'src/components/Breadcrumb';
 import BreadcrumbItem from 'src/components/Breadcrumb/BreadcrumbItem';
+import BreadcrumbWrapper from 'src/components/Breadcrumb/BreadcrumbWrapper';
+import useRouter from 'src/hooks/useRouter';
 import { PATH } from 'src/routes';
 
-export function Breadcrumb({ breadcrumbs }) {
+export default function Breadcrumb({ breadcrumbs }) {
   const { pathname } = useRouter();
 
   return (

@@ -1,126 +1,89 @@
 import classNames from 'classnames/bind';
 import { signOut, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Popover } from '@headlessui/react';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CaretDownIcon, SearchIcon, UserIcon } from 'src/components/Icons';
+import Image from 'src/components/Image';
+import useRouter from 'src/hooks/useRouter';
 import { PATH } from 'src/routes';
 import styles from './Header.module.css';
-import { navCta, navLink } from './nav-config';
+import { navCta, NAVIGATION_LINKS } from './nav-config';
+import ProductsCategoryMenu from './ProductsCategoryMenu';
+import { Wrapper as PopperWrapper } from 'src/components/Popper';
+import ProductItem from 'src/components/ProductItem';
 
 const mk = classNames.bind(styles);
 
-const PRODUCTS_CATEGORY = [
-  {
-    heading: 'Nhẫn',
-    content: [
-      {
-        title: 'Nhẫn cỡ lớn',
-        path: '/large-ring',
-      },
-      {
-        title: 'Nhẫn ngón út',
-        path: '/large-ring',
-      },
-      {
-        title: 'Nhẫn xoay',
-        path: '/large-ring',
-      },
-      {
-        title: 'Nhẫn cưới',
-        path: '/large-ring',
-      },
-    ],
-  },
-  {
-    heading: 'Dây chuyền',
-    content: [
-      {
-        title: 'Dây chuyền trơn',
-        path: '/large-ring',
-      },
-      {
-        title: 'Dây chuyền có mặt',
-        path: '/large-ring',
-      },
-      {
-        title: 'Mặt dây chuyền',
-        path: '/large-ring',
-      },
-    ],
-  },
-  {
-    heading: 'Bông tai',
-    content: [
-      {
-        title: 'Bông tai xỏ lỗ',
-        path: '/large-ring',
-      },
-      {
-        title: 'Bông tai treo',
-        path: '/large-ring',
-      },
-      {
-        title: 'Khuyên vành tai',
-        path: '/large-ring',
-      },
-    ],
-  },
-  {
-    heading: 'Lắc',
-    content: [
-      {
-        title: 'Lắc tay',
-        path: '/large-ring',
-      },
-      {
-        title: 'Lắc tay',
-        path: '/large-ring',
-      },
-      {
-        title: 'Charm',
-        path: '/large-ring',
-      },
-    ],
-  },
-];
-
 export function Header() {
-  const [iconDirection, setIconDirection] = useState('up');
+  const [searchResult, setSearchResult] = useState([]);
+
   const { data: session } = useSession();
 
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSearchResult([1, 2, 3, 4]);
+    }, 3000);
+  }, []);
 
   return (
     <header className={mk('header', 'container')}>
       <nav className={mk('nav')}>
         <ul className="flex gap-10 mb-2">
-          {navLink.map((item, index) => (
+          {NAVIGATION_LINKS.map((item, index) => (
             <li key={index} className="flex items-center gap-14-px">
-              <Button text internalLink={item.path} title={mk({ active: pathname === item.path })}>
-                {item.title}
-              </Button>
-              {index === 1 && (
-                <CaretDownIcon
-                  direction={iconDirection}
-                  className="cursor-pointer"
-                  handleClick={() =>
-                    setIconDirection((preState) => (preState === 'up' ? 'down' : 'up'))
+              {index === 1 ? (
+                <ProductsCategoryMenu
+                  title={item.title}
+                  button={
+                    pathname === item.path
+                      ? 'flex items-center gap-2 font-bold'
+                      : 'flex items-center gap-2'
                   }
+                  href={item.path}
                 />
+              ) : (
+                <Button
+                  text
+                  internalLink={item.path}
+                  title={mk({ active: pathname === item.path })}
+                >
+                  {item.title}
+                </Button>
               )}
             </li>
           ))}
         </ul>
         <BrandLogo vertical />
         <div className="flex items-center">
-          <div className="flex relative mr-8">
-            <input placeholder="Tìm kiếm" className={mk('input-search')} />
-            <SearchIcon className={mk('search-icon')} />
-          </div>
+          <HeadlessTippy
+            visible={searchResult.length > 0}
+            interactive
+            render={(attrs) => (
+              <div className="w-[400px]" tabIndex="-1" {...attrs}>
+                <PopperWrapper>
+                  <h4 className="py-1 px-3">Sản phẩm: 4</h4>
+                  <div className="flex flex-col divide-y-2">
+                    <ProductItem />
+                    <ProductItem />
+                    <ProductItem />
+                    <ProductItem />
+                  </div>
+                </PopperWrapper>
+              </div>
+            )}
+          >
+            <div className="flex relative mr-8">
+              <input placeholder="Tìm kiếm" className={mk('input-search')} />
+              <SearchIcon className={mk('search-icon')} />
+            </div>
+          </HeadlessTippy>
+
           <ul className="flex gap-8">
             {navCta.map((item, index) => (
               <li key={index}>
@@ -129,7 +92,7 @@ export function Header() {
                 </Button>
               </li>
             ))}
-            <li>
+            {/* <li>
               {session ? (
                 <>
                   <Image width={40} height={40} className="rounded-full" src={session.user.image} />
@@ -141,7 +104,7 @@ export function Header() {
                   <UserIcon />
                 </Button>
               )}
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

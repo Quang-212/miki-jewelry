@@ -9,17 +9,18 @@ export default function Pagination({ pageCount, onPageChange, previousLabelIcon,
   return (
     <ReactPaginate
       pageCount={pageCount}
-      pageRangeDisplayed="4"
+      pageRangeDisplayed="3"
       marginPagesDisplayed="2"
       previousLabel={previousLabelIcon ? previousLabelIcon : 'previous'}
       breakLabel="..."
       nextLabel={nextLabelIcon ? nextLabelIcon : 'next'}
       onPageChange={onPageChange}
       renderOnZeroPageCount={null}
-      className="flex items-center"
-      pageClassName="flex items-center justify-center w-10 h-10 border border-primary solid"
-      breakClassName="flex items-center justify-center w-10 h-10 border border-primary solid"
-      nextClassName="flex items-center justify-center w-10 h-10 border border-primary solid"
+      className={mk('wrapper')}
+      pageClassName={mk('page')}
+      previousClassName={mk('previous')}
+      breakClassName={mk('break')}
+      nextClassName={mk('next')}
     />
   );
 }

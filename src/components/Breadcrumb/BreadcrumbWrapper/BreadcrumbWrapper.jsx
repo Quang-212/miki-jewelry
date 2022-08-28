@@ -1,4 +1,8 @@
 import { Children, Fragment } from 'react';
+import classNames from 'classnames/bind';
+import styles from './BreadcrumbWrapper.module.css';
+
+const mk = classNames.bind(styles);
 
 const BreadcrumbNavigation = 'nav';
 const BreadcrumbOrderList = 'ol';
@@ -17,7 +21,7 @@ export default function BreadcrumbWrapper({ children }) {
 
   return (
     <BreadcrumbNavigation aria-label="breadcrumb">
-      <BreadcrumbOrderList className="flex items-center">
+      <BreadcrumbOrderList className={mk('order-list')}>
         {childrenWithSeparators}
       </BreadcrumbOrderList>
     </BreadcrumbNavigation>

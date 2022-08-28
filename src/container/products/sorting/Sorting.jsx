@@ -1,21 +1,22 @@
-import { useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/solid';
-import { Fragment } from 'react';
-import { CheckIcon } from 'src/components/Icons';
+import { useRouter } from 'next/router';
 
-const sorting = [
-  { name: 'A-Z' },
-  { name: 'Z-A' },
-  { name: 'Giá tăng dần' },
-  { name: 'Giá giảm dần' },
-  { name: 'Sản phẩm mới' },
-  { name: 'Sản phẩm ưu đãi' },
-];
+import { Fragment, useEffect, useState } from 'react';
+import { CheckIcon } from 'src/components/Icons';
+import searchByQuery from 'src/utils/searchByQuery';
+import { sorting } from './sorting-config';
 
 export function Sorting() {
   const [selected, setSelected] = useState(sorting[0]);
-  console.log(selected);
+  // console.log(selected);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const { sortBy, order } = selected;
+    searchByQuery({ router, sortBy, order });
+  }, [selected]);
 
   return (
     <div className="z-10 w-72">

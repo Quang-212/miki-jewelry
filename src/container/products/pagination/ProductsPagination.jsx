@@ -1,45 +1,16 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
-import { KeyboardArrowRightIcon } from 'src/components/Icons';
+import { KeyboardArrowIcon } from 'src/components/Icons';
 import Pagination from 'src/components/Pagination';
-import { useProducts } from 'src/hooks/useProducts';
+import searchByQuery from 'src/utils/searchByQuery';
 
-export function ProductsPagination() {
-  const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(16);
-
+export function ProductsPagination({ pageCount }) {
   const router = useRouter();
-  const { query, pathname, push } = router;
-
-  const { productsState, isLoading } = useProducts({
-    page: page,
-    limit,
-    select: {
-      _id: 1,
-      name: 1,
-      images: 1,
-      stocks: 1,
-    },
-  });
-
-  const pageCount = Math.ceil(productsState?.total / limit);
-
-  useEffect(() => {
-    if (query.page) {
-      let p = Number(query.page) >= 0 ? query.page : 0;
-      setPage(Number(p));
-    }
-    if (query.limit) {
-      let l = Number(query.limit) >= 10 ? query.limit : 10;
-      setLimit(Number(l));
-    }
-  }, [query.page, query.limit]);
 
   const handlePageClick = (event) => {
-    if (pathname !== '/products') return;
+    if (router.pathname !== '/products') return;
     const pageIndex = event.selected;
-    push(`?page=${pageIndex}&limit=${limit}`);
+    searchByQuery({ router, page: pageIndex });
   };
 
   return (
@@ -47,7 +18,8 @@ export function ProductsPagination() {
       <Pagination
         pageCount={pageCount}
         onPageChange={handlePageClick}
-        nextLabelIcon={<KeyboardArrowRightIcon />}
+        previousLabelIcon={<KeyboardArrowIcon className="rotate-180" />}
+        nextLabelIcon={<KeyboardArrowIcon />}
       />
     </div>
   );

@@ -1,12 +1,14 @@
-import { RotatingLines } from 'react-loader-spinner';
+import { Triangle } from 'react-loader-spinner';
 
 export const LoadingRotatingLines = ({ className }) => (
   <span className={className}>
-    <RotatingLines
-      strokeColor="#6E5544"
-      strokeWidth="5"
-      animationDuration="0.75"
-      width="96"
+    <Triangle
+      height="80"
+      width="80"
+      color="#4fa94d"
+      ariaLabel="triangle-loading"
+      wrapperStyle={{}}
+      wrapperClassName=""
       visible={true}
     />
   </span>

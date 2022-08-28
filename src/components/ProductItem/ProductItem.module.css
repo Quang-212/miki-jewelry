@@ -1,0 +1,23 @@
+.root {
+  @apply flex items-center gap-2 py-1 px-4 cursor-pointer hover:bg-red-100;
+}
+
+.image {
+  @apply rounded-full;
+}
+
+.info {
+  @apply flex flex-col;
+}
+
+.name {
+  @apply font-primary font-bold text-xl leading-6 text-primary;
+}
+
+.sub-info {
+  @apply flex items-center;
+}
+
+.price {
+  /* @apply text-sm; */
+}

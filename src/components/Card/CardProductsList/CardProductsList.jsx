@@ -4,13 +4,13 @@ import Image from 'src/components/Image';
 import { PATH } from 'src/routes';
 import Button from '../../Button';
 import { CardProduct } from '../CardProduct';
-import styles from './CardProduct.module.css';
+// import styles from './CardProduct.module.css';
 
-const mk = classNames.bind(styles);
+// const mk = classNames.bind(styles);
 
-export function CardProductsList({
-  src,
-  alt,
+export default function CardProductsList({
+  // src,
+  // alt,
   width,
   height,
   objectFit = 'cover',
@@ -22,12 +22,12 @@ export function CardProductsList({
   imageWrapper,
   image,
   textWrapper,
-  onClick,
+  handleClick,
   ...passProps
 }) {
   const CardListWrapper = 'ul';
   const CardListItem = 'li';
-
+  console.log(productsList);
   // const classWrapper = mk('root', 'group', {
   //   [wrapper]: wrapper,
   // });
@@ -42,7 +42,7 @@ export function CardProductsList({
   // });
 
   return (
-    <CardListWrapper className="flex justify-between">
+    <CardListWrapper className="flex justify-between flex-wrap gap-10">
       {productsList.map((product, index) => (
         <CardListItem key={index}>
           <CardProduct
@@ -53,7 +53,7 @@ export function CardProductsList({
             title={product.name}
             price={product.stocks[0].price}
             wrapper="max-w-254-px"
-            // onClick={handleClick}
+            onClick={handleClick}
           />
         </CardListItem>
       ))}
