@@ -1,13 +1,13 @@
 import Cart from 'src/models/Order';
 import dbConnect from 'src/utils/dbConnect';
 
-async function handleGetUserCart(req, res) {
+async function handleCreateOrder(req, res) {
   await dbConnect();
   const { method } = req;
   const { userId } = req.query;
   try {
     switch (method) {
-      case 'GET':
+      case 'POST':
         const cart = await Cart.find({ userId });
         return res.status(200).json({
           message: 'tìm kiếm giỏ hàng thành công',
@@ -28,4 +28,4 @@ async function handleGetUserCart(req, res) {
   }
 }
 
-export default handleGetUserCart;
+export default handleCreateOrder;
