@@ -1,26 +1,30 @@
 import classNames from 'classnames';
 import NextImage from 'next/image';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { images } from 'src/constants';
 import styles from './Image.module.css';
 
-export default function Image({
-  src,
-  alt,
-  width,
-  height,
-  objectFit = 'cover',
-  placeholder = 'empty',
-  className,
-  fallback = images.noImage,
-  ...passProps
-}) {
-  return (
+const Image = React.forwardRef(
+  (
+    {
+      src,
+      alt,
+      width,
+      height,
+      objectFit = 'cover',
+      placeholder = 'placeholder',
+      className,
+      fallback = images.noImage,
+      ...passProps
+    },
+    ref,
+  ) => (
     <NextImage
       src={src || fallback}
       alt={alt}
+      onLoadingComplete={ref}
       width={width}
       height={height}
       objectFit={objectFit}
@@ -30,8 +34,10 @@ export default function Image({
       className={classNames(styles.root, className)}
       {...passProps}
     />
-  );
-}
+  ),
+);
+
+export default Image;
 
 Image.propTypes = {
   src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),

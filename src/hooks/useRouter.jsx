@@ -1,6 +1,6 @@
 import { useRouter as useNextRouter } from 'next/router';
 
-const useRouter = () => {
+export default function useRouter() {
   const router = useNextRouter();
   const { query } = router;
   const page = Number(query.page) >= 0 ? Number(query.page) : 0;
@@ -12,6 +12,4 @@ const useRouter = () => {
     limit,
     query,
   };
-};
-
-export default useRouter;
+}

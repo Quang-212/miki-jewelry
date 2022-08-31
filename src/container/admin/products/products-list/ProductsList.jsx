@@ -4,7 +4,7 @@ import Button from 'src/components/Button';
 import { LoadingRotatingLines } from 'src/components/Loadings';
 import DynamicTable from 'src/components/Tables/DynamicTable';
 import { deleteProduct } from 'src/fetching/products';
-import { useProducts } from 'src/hooks/useProducts';
+import { useProducts } from 'src/hooks';
 import { ProductForm } from '../product-form';
 import { columnProducts } from './columns-config';
 

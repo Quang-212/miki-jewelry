@@ -1,3 +1,3 @@
 .wrapper {
-  @apply flex flex-col w-full min-h-[100px] pt-2 rounded-primary shadow-popper-search bg-emerald-50;
+  @apply flex flex-col justify-center w-full min-h-[100px] pt-2 rounded-primary shadow-popper-search bg-wrapper;
 }

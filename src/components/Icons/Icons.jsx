@@ -77,6 +77,122 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
   </svg>
 );
 
+export const CloseIcon = ({ width = '20', height = '20', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M16 2C8.2 2 2 8.2 2 16s6.2 14 14 14s14-6.2 14-14S23.8 2 16 2zm5.4 21L16 17.6L10.6 23L9 21.4l5.4-5.4L9 10.6L10.6 9l5.4 5.4L21.4 9l1.6 1.6l-5.4 5.4l5.4 5.4l-1.6 1.6z"
+    />
+  </svg>
+);
+
+export const LoadingIcon = ({ width = '20', height = '20', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <circle cx="12" cy="2" r="0" fill="currentColor">
+      <animate
+        attributeName="r"
+        begin="0"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(45 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.125s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(90 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.25s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(135 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.375s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(180 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.5s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(225 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.625s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(270 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.75s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+    <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(315 12 12)">
+      <animate
+        attributeName="r"
+        begin="0.875s"
+        calcMode="spline"
+        dur="1s"
+        keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+        repeatCount="indefinite"
+        values="0;2;0;0"
+      />
+    </circle>
+  </svg>
+);
+
 export const BasketIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
@@ -109,22 +225,6 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
   </svg>
 );
 
-export const FavoriteIcon = ({ width = '32', height = '32' }) => (
-  <svg
-    width={width}
-    height={height}
-    viewBox="0 0 32 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M5.93424 18.5442L15.3153 27.3567C15.6398 27.6615 15.802 27.8139 16 27.8139C16.198 27.8139 16.3602 27.6615 16.6847 27.3567L26.0658 18.5442C28.674 16.094 28.9907 12.0621 26.7971 9.23467L26.3846 8.70304C23.7604 5.32069 18.4928 5.88794 16.6489 9.75145C16.3884 10.2972 15.6116 10.2972 15.3511 9.75145C13.5072 5.88794 8.23964 5.32069 5.6154 8.70304L5.20293 9.23467C3.00927 12.0621 3.32601 16.094 5.93424 18.5442Z"
-      stroke="#33363F"
-      strokeWidth="2"
-    />
-  </svg>
-);
-
 export const UserIcon = ({ width = '32', height = '32' }) => (
   <svg
     width={width}
@@ -146,6 +246,167 @@ export const UserIcon = ({ width = '32', height = '32' }) => (
       stroke="#33363F"
       strokeWidth="2"
       strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const UserPlusIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8a3.91 3.91 0 0 0 4 4a3.91 3.91 0 0 0 4-4a3.91 3.91 0 0 0-4-4a3.91 3.91 0 0 0-4 4zm6 0a1.91 1.91 0 0 1-2 2a1.91 1.91 0 0 1-2-2a1.91 1.91 0 0 1 2-2a1.91 1.91 0 0 1 2 2zM4 18a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3v1h2v-1a5 5 0 0 0-5-5H7a5 5 0 0 0-5 5v1h2z"
+    />
+  </svg>
+);
+
+export const FeedbackIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M12 6a3.939 3.939 0 0 0-3.934 3.934h2C10.066 8.867 10.934 8 12 8s1.934.867 1.934 1.934c0 .598-.481 1.032-1.216 1.626a9.208 9.208 0 0 0-.691.599c-.998.997-1.027 2.056-1.027 2.174V15h2l-.001-.633c.001-.016.033-.386.441-.793c.15-.15.339-.3.535-.458c.779-.631 1.958-1.584 1.958-3.182A3.937 3.937 0 0 0 12 6zm-1 10h2v2h-2z"
+    />
+    <path
+      fill="currentColor"
+      d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z"
+    />
+  </svg>
+);
+
+export const LanguagesIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 36 36"
+  >
+    <path
+      fill="currentColor"
+      d="M30 3H14v5h2V5h14c.6 0 1 .4 1 1v11c0 .6-.4 1-1 1H17v7h-5.3L8 27.9V25H5c-.6 0-1-.4-1-1V13c0-.6.4-1 1-1h13v-2H5c-1.7 0-3 1.3-3 3v11c0 1.7 1.3 3 3 3h1v5.1l6.3-5.1H19v-7h11c1.7 0 3-1.3 3-3V6c0-1.7-1.3-3-3-3z"
+      className="clr-i-outline clr-i-outline-path-1"
+    />
+    <path
+      fill="currentColor"
+      d="M6.2 22.9h2.4l.6-1.6h3.1l.6 1.6h2.4L11.9 14H9.5l-3.3 8.9zm4.5-6.4l1 3.1h-2l1-3.1z"
+      className="clr-i-outline clr-i-outline-path-2"
+    />
+    <path
+      fill="currentColor"
+      d="M20 17c1.1 0 2.6-.3 4-1c1.4.7 3 1 4 1v-2s-1 0-2.1-.4c1.2-1.2 2.1-3 2.1-5.6V8h-3V6h-2v2h-3v2h5.9c-.2 1.8-1 2.9-1.9 3.6c-.6-.5-1.2-1.2-1.6-2.1h-2.1c.4 1.3 1 2.3 1.8 3.1c-1 .4-1.9.4-2.1.4v2z"
+      className="clr-i-outline clr-i-outline-path-3"
+    />
+    <path fill="none" d="M0 0h36v36H0z" />
+  </svg>
+);
+
+export const EnglishIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 48 48"
+  >
+    <g
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="4"
+    >
+      <rect width="36" height="36" x="6" y="6" rx="3" />
+      <path d="M13 31V17h8m-8 7h7.5M13 31h7.5m5.5 0V19m0 12v-6.5a4.5 4.5 0 0 1 4.5-4.5v0a4.5 4.5 0 0 1 4.5 4.5V31" />
+    </g>
+  </svg>
+);
+
+export const VietnameseIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 64 64"
+  >
+    <path
+      fill="#ec1c24"
+      d="M64 44c0 6.075-3.373 11-10 11H10C3.373 55 0 50.075 0 44V22c0-6.075 3.373-11 10-11h44c6.627 0 10 4.925 10 11v22"
+    />
+    <path
+      fill="#f9cb38"
+      d="m45.43 28.963l-9.997.015l-3.103-10.114l-3.08 10.114l-10.01-.015l8.106 6.157l-3.14 10.05l8.13-6.241l8.147 6.241l-3.147-10.05z"
+    />
+  </svg>
+);
+
+export const HistoryIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 48 48"
+  >
+    <g fill="none" stroke="currentColor" strokeWidth="4">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M42 24V9a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h15"
+      />
+      <circle cx="32" cy="32" r="6" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m37 36l5 4M14 16h20m-20 8h8" />
+    </g>
+  </svg>
+);
+
+export const FavoriteIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5.93424 18.5442L15.3153 27.3567C15.6398 27.6615 15.802 27.8139 16 27.8139C16.198 27.8139 16.3602 27.6615 16.6847 27.3567L26.0658 18.5442C28.674 16.094 28.9907 12.0621 26.7971 9.23467L26.3846 8.70304C23.7604 5.32069 18.4928 5.88794 16.6489 9.75145C16.3884 10.2972 15.6116 10.2972 15.3511 9.75145C13.5072 5.88794 8.23964 5.32069 5.6154 8.70304L5.20293 9.23467C3.00927 12.0621 3.32601 16.094 5.93424 18.5442Z"
+      stroke="#33363F"
+      strokeWidth="2"
+    />
+  </svg>
+);
+
+export const LogoutIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M3 5c0-1.1.9-2 2-2h8v2H5v14h8v2H5c-1.1 0-2-.9-2-2V5Zm14.176 6L14.64 8.464l1.414-1.414l4.95 4.95l-4.95 4.95l-1.414-1.414L17.176 13H10.59v-2h6.586Z"
     />
   </svg>
 );
@@ -199,20 +460,6 @@ export const KeyboardArrowIcon = ({ width = '11', height = '16', className }) =>
       fill="black"
       fillOpacity="0.2"
     />
-  </svg>
-);
-
-export const DoubleArrowLeftIcon = ({ width = '11', height = '16', className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    className={className}
-    preserveAspectRatio="xMidYMid meet"
-    viewBox="0 0 11 16"
-  >
-    <path fill="currentColor" d="M17.59 18L19 16.59L14.42 12L19 7.41L17.59 6l-6 6z" />
-    <path fill="currentColor" d="m11 18l1.41-1.41L7.83 12l4.58-4.59L11 6l-6 6z" />
   </svg>
 );
 
@@ -567,23 +814,6 @@ export const PlusIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const Ba = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    role="img"
-    width="1em"
-    height="1em"
-    preserveAspectRatio="xMidYMid meet"
-    viewBox="0 0 16 16"
-  >
-    <path
-      fill="currentColor"
-      d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7c0-2.42-1.72-4.44-4.005-4.901z"
-    />
-  </svg>
-);
-
 export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, className }) => (
   <svg
     width={width}
@@ -595,50 +825,5 @@ export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, classNam
   >
     {cx1 && <circle cx={cx1} cy={cy1} r={r1} fill="#B78D71" fillOpacity="0.15" />}
     {cx2 && <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />}
-  </svg>
-);
-
-export const CircleDashIcon = ({
-  width,
-  height,
-  cx1,
-  cy1,
-  r1,
-  d,
-  cx2,
-  cy2,
-  r2,
-  className,
-  ...other
-}) => (
-  <svg
-    width={width}
-    height={height}
-    viewBox={`0 0 ${width} ${height}`}
-    className={className}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {cx1 && (
-      <circle
-        cx={cx1}
-        cy={cy1}
-        r={r1}
-        stroke="#B78D71"
-        strokeOpacity="0.5"
-        strokeDasharray="25 25"
-        {...other}
-      />
-    )}
-    <path d={d} stroke="#B78D71" strokeOpacity="0.5" strokeDasharray="25 25" {...other} />
-    <circle
-      cx={cx2}
-      cy={cy2}
-      r={r2}
-      stroke="#B78D71"
-      strokeOpacity="0.5"
-      strokeDasharray="25 25"
-      {...other}
-    />
   </svg>
 );

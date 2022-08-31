@@ -31,6 +31,9 @@ module.exports = {
         'caption-1': '#D2311B',
         'caption-2': '#58C27D',
         discount: '#A18A68',
+        'icon-rgba': 'rgba(22, 24, 35, 0.34)',
+        'icon-search-rgba-hover': 'rgba(22, 24, 35, 0.03)',
+        'icon-search-rgba-active': 'rgba(22, 24, 35, 0.06)',
       },
       maxWidth: {
         '218-px': '218px',

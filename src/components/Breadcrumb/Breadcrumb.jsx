@@ -1,6 +1,6 @@
 import BreadcrumbItem from 'src/components/Breadcrumb/BreadcrumbItem';
 import BreadcrumbWrapper from 'src/components/Breadcrumb/BreadcrumbWrapper';
-import useRouter from 'src/hooks/useRouter';
+import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 
 export default function Breadcrumb({ breadcrumbs }) {

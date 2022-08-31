@@ -1,4 +1,14 @@
-import { BasketIcon, FavoriteIcon, UserIcon } from 'src/components/Icons';
+import {
+  EnglishIcon,
+  FavoriteIcon,
+  FeedbackIcon,
+  HistoryIcon,
+  LanguagesIcon,
+  LogoutIcon,
+  UserIcon,
+  UserPlusIcon,
+  VietnameseIcon,
+} from 'src/components/Icons';
 import { PATH } from 'src/routes';
 
 export const NAVIGATION_LINKS = [
@@ -13,17 +23,6 @@ export const NAVIGATION_LINKS = [
   {
     title: 'Về chúng tôi',
     path: PATH.brandHistory,
-  },
-];
-
-export const navCta = [
-  {
-    icon: <BasketIcon />,
-    path: PATH.home,
-  },
-  {
-    icon: <UserIcon />,
-    path: PATH.login,
   },
 ];
 
@@ -103,5 +102,66 @@ export const PRODUCTS_CATEGORY_LINKS = [
         path: 'large-ring3',
       },
     ],
+  },
+];
+
+export const MENU_ITEMS = [
+  {
+    title: 'Đăng ký',
+    icon: <UserPlusIcon />,
+    path: './profile',
+  },
+  {
+    title: 'Góp ý và hỗ trợ',
+    icon: <FeedbackIcon />,
+    path: './profile',
+  },
+  {
+    title: 'Tiếng việt',
+    icon: <LanguagesIcon />,
+    children: {
+      title: 'Languages',
+      data: [
+        {
+          type: 'languages',
+          code: 'en',
+          title: 'English',
+          icon: <EnglishIcon />,
+        },
+        {
+          type: 'languages',
+          code: 'vi',
+          title: 'Tiếng việt',
+          icon: <VietnameseIcon />,
+        },
+      ],
+    },
+  },
+];
+
+const [, ...rest] = MENU_ITEMS;
+
+export const USER_MENU_ITEMS = [
+  {
+    title: 'Tài khoản của tôi',
+    icon: <UserIcon />,
+    path: './profile',
+  },
+  {
+    title: 'Lịch sử mua hàng',
+    icon: <HistoryIcon />,
+    path: './profile',
+  },
+  {
+    title: 'Sản phẩm yêu thích',
+    icon: <FavoriteIcon />,
+    path: './profile',
+  },
+  ...rest,
+  {
+    title: 'Đăng xuất',
+    icon: <LogoutIcon />,
+    path: './profile',
+    separate: true,
   },
 ];

@@ -2,7 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import useSWR from 'swr';
 
-export function useProducts(query, options) {
+export default function useProducts(query, options) {
   const queryString = qs.stringify(query);
 
   const url = `/api/products?${queryString}`;

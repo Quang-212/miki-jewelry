@@ -1,5 +1,5 @@
 import { CardProduct } from 'src/components/Card';
-import useRouter from 'src/hooks/useRouter';
+import { useRouter } from 'src/hooks';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function ProductsList({ products }) {

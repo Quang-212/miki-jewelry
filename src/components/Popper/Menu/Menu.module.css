@@ -1,0 +1,24 @@
+.menu-item {
+  @apply justify-start w-full py-2 px-4 hover:bg-red-100 rounded-none;
+}
+
+.menu-item.separate {
+  @apply border-t-2 border-solid border-red-500;
+}
+
+/* Header */
+.header {
+  @apply relative flex -mt-2 h-12;
+}
+
+.back-btn {
+  @apply w-12 h-full bg-transparent;
+}
+
+.icon {
+  @apply rotate-180;
+}
+
+.header-title {
+  @apply absolute top-2/4 left-2/4 font-bold translate-x-[-50%] translate-y-[-50%];
+}
