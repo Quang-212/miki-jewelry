@@ -1,23 +1,18 @@
-import Product from 'src/models/Product';
+import Cart from 'src/models/Order';
 import dbConnect from 'src/utils/dbConnect';
 
-async function handlerSearch(req, res) {
+async function handleCreateOrder(req, res) {
   await dbConnect();
   const { method } = req;
-  const { data } = req.body;
-  console.log(data);
+  const { userId } = req.query;
   try {
     switch (method) {
       case 'POST':
-        const search = await Product.aggregate([
-          { $match: { $text: { $search: data } } },
-          { $project: { name: 1, 'stocks.price': 1, 'images.src': 1, slug: 1 } },
-          { $sort: { score: { $meta: 'textScore' } } },
-        ]);
+        const cart = await Cart.find({ userId });
         return res.status(200).json({
-          message: 'Thành công ',
+          message: 'tìm kiếm giỏ hàng thành công',
           code: 200,
-          search,
+          cart,
         });
       default:
         return res.status(404).json({
@@ -33,4 +28,4 @@ async function handlerSearch(req, res) {
   }
 }
 
-export default handlerSearch;
+export default handleCreateOrder;

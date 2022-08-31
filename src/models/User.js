@@ -2,6 +2,7 @@ import { model, models, Schema } from 'mongoose';
 
 const UserSchema = new Schema(
   {
+    image: { type: String },
     userName: {
       type: String,
       required: true,
@@ -11,6 +12,7 @@ const UserSchema = new Schema(
       unique: true,
       required: true,
     },
+    birthday: { type: String },
     password: {
       type: String,
       required: true,

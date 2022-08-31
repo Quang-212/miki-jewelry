@@ -1,18 +1,17 @@
 import Cart from 'src/models/Order';
 import dbConnect from 'src/utils/dbConnect';
 
-async function handleGetUserCart(req, res) {
+async function handleDeleteCart(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId } = req.query;
+  const { id } = req.query;
   try {
     switch (method) {
-      case 'GET':
-        const cart = await Cart.find({ userId });
+      case 'DELETE':
+        await Cart.findByIdAndDelete({ id });
         return res.status(200).json({
-          message: 'tìm kiếm giỏ hàng thành công',
+          message: 'Đã xóa sản phẩm khỏi giỏ hàng',
           code: 200,
-          cart,
         });
       default:
         return res.status(404).json({
@@ -28,4 +27,4 @@ async function handleGetUserCart(req, res) {
   }
 }
 
-export default handleGetUserCart;
+export default handleDeleteCart;
