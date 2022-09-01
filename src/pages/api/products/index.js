@@ -16,6 +16,7 @@ async function getProductList(req, res) {
           category = '',
           sortBy = 'createdAt',
           order = -1,
+          search = '',
         } = qs.parse(req.query);
 
         const generateSort = (sortBy, order) => {
@@ -31,7 +32,10 @@ async function getProductList(req, res) {
         }, {});
         //tìm kiếm sản phẩm trong data
 
-        const productList = await Product.find({ ...(category && { category }) })
+        const productList = await Product.find({
+          ...(category && { category }),
+          ...(search && { name: { $regex: search } }),
+        })
           .sort(generateSort(sortBy, order))
           .limit(+limit)
           .skip(page * +limit)
