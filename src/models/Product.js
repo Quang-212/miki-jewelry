@@ -18,13 +18,14 @@ const Product = new Schema(
         },
       },
     ],
-    category: [
-      {
-        type: String,
-        required: true,
-        lowercase: true,
-      },
-    ],
+
+    // category: [
+    //   {
+    //     type: String,
+    //     required: true,
+    //     lowercase: true,
+    //   },
+    // ],
 
     visibilityStatus: {
       type: String,
