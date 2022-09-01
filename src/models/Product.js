@@ -18,12 +18,6 @@ const Product = new Schema(
         },
       },
     ],
-    // category: {
-    //   type: String,
-    //   enum: ['bracelet', 'earring', 'necklace', 'ring'],
-    //   required: true,
-    //   lowercase: true,
-    // },
     category: [
       {
         type: String,

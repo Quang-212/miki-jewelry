@@ -1,18 +1,18 @@
 import Order from 'src/models/Order';
 import dbConnect from 'src/utils/dbConnect';
 
-async function handleCreateOrder(req, res) {
+async function handleGetUserCart(req, res) {
   await dbConnect();
   const { method } = req;
-  //const { user, cart, city, district, wards, strees, phone, payment } = req.body;
+  const { user } = req.query;
   try {
     switch (method) {
-      case 'POST':
-        const updateReceipt = await Order.create({ ...req.body, isPaid: true });
+      case 'GET':
+        const receipt = await Order.find({ user });
         return res.status(200).json({
-          message: 'thanh toán thành công',
+          message: 'tìm kiếm order thành công',
           code: 200,
-          updateReceipt,
+          receipt,
         });
       default:
         return res.status(404).json({
@@ -28,4 +28,4 @@ async function handleCreateOrder(req, res) {
   }
 }
 
-export default handleCreateOrder;
+export default handleGetUserCart;

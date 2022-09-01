@@ -2,8 +2,9 @@ import { Schema, model, models } from 'mongoose';
 
 const Order = new Schema(
   {
+    _id: false,
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    cartId: { type: Schema.Types.ObjectId, ref: 'Cart' },
+    cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
     city: { type: String },
     district: { type: String },
     wards: { type: String },

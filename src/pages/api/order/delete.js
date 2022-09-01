@@ -4,15 +4,15 @@ import dbConnect from 'src/utils/dbConnect';
 async function handleCreateOrder(req, res) {
   await dbConnect();
   const { method } = req;
-  //const { user, cart, city, district, wards, strees, phone, payment } = req.body;
+  const { userId } = req.body;
   try {
     switch (method) {
-      case 'POST':
-        const updateReceipt = await Order.create({ ...req.body, isPaid: true });
+      case 'DELETE':
+        await Order.findByIdAndDelete(userId);
         return res.status(200).json({
-          message: 'thanh toán thành công',
+          message: 'đã xóa order thành công',
           code: 200,
-          updateReceipt,
+          receipt,
         });
       default:
         return res.status(404).json({
