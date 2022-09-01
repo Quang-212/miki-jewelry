@@ -6,35 +6,47 @@ import { MinusIcon, PlusIcon } from 'src/components/Icons';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ name, discount, stocks }) {
-  // console.log(stocks);
   const [sizeChecked, setSizeChecked] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const handleClickSize = (index) => {
-    console.log(index);
     setSizeChecked(index);
   };
 
   const generatePrice = (sizeChecked) => {
     return stocks.find((_, index) => index === sizeChecked).price;
   };
-  console.log(generatePrice(sizeChecked));
+
+  const generateStock = (sizeChecked) => {
+    return stocks.find((_, index) => index === sizeChecked).quantity;
+  };
 
   return (
-    <section className="flex flex-col gap-4 max-w-[539px]">
+    <section className="flex flex-col gap-4 max-w-[539px] max-h-[465px]">
       <h2 className="heading-2">{name}</h2>
 
-      <div className="flex gap-24">
+      <div className="flex gap-8">
         <div className="flex items-center gap-4">
           <div>5.0 *****</div>
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
           <p>10 đã bán</p>
         </div>
-        <span className="subtitle-1 text-caption-2">Còn hàng</span>
+        {!generateStock(sizeChecked) ? (
+          <span className="subtitle-1 text-caption-1">Hết hàng</span>
+        ) : generateStock(sizeChecked) < 10 ? (
+          <span className="subtitle-1 text-caption-1">
+            Sắp hết hàng (Còn {generateStock(sizeChecked)} sản phẩm)
+          </span>
+        ) : (
+          <span className="subtitle-1 text-caption-2">Còn hàng</span>
+        )}
       </div>
       {discount ? (
         <>
           <div className="flex items-center gap-4 mt-5">
-            <span className="heading-3">{formatVndCurrency(generatePrice(sizeChecked))}</span>
+            <span className="heading-3 line-through">
+              {formatVndCurrency(generatePrice(sizeChecked))}
+            </span>
             <NormalDivider vertical="border-2 h-5 border-l-[1px] border-neutral-2" />
             <span className="py-1 px-2 rounded-tag bg-discount text-neutral-5">- {discount}%</span>
           </div>

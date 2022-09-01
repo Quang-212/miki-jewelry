@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import qs from 'qs';
 
 export const createProduct = (data, options) => {
@@ -28,11 +29,13 @@ export const deleteProduct = (data, options) => {
   });
 };
 
-export const getProducts = (query, options) => {
+export const getProducts = (params = [], query, options) => {
   const queryString = qs.stringify(query);
   return axios({
     method: 'GET',
-    url: `http://localhost:3000/api/products?${queryString}`,
+    url: isEmpty(params)
+      ? `http://localhost:3000/api/products?${queryString}`
+      : `http://localhost:3000/api/products/${params.join('/')}?${queryString}`,
     ...options,
   });
 };

@@ -38,7 +38,7 @@ export default function Search() {
   return (
     <div>
       <HeadlessTippy
-        visible={showResult && searchResult.length > 0}
+        // visible={showResult && searchResult.length > 0}
         interactive
         placement="bottom-start"
         delay={[200, 400]}

@@ -13,7 +13,12 @@ import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 import MenuCategory from '../MenuCategory';
 import styles from './Header.module.css';
-import { MENU_ITEMS, NAVIGATION_LINKS, USER_MENU_ITEMS } from './nav-config';
+import {
+  MENU_ITEMS,
+  NAVIGATION_LINKS,
+  PRODUCTS_CATEGORY_LINKS,
+  USER_MENU_ITEMS,
+} from './nav-config';
 import Search from '../Search';
 
 const mk = classNames.bind(styles);
@@ -38,23 +43,19 @@ export function Header() {
     <header className={mk('header', 'container')}>
       <nav className={mk('nav')}>
         <ul className="flex gap-10 mb-2">
-          {NAVIGATION_LINKS.map((item, index) => {
-            const NavLinkItemWrapper = index === 1 ? MenuCategory : Fragment;
-
-            return (
-              <li key={index} className="flex items-center gap-14-px">
-                <NavLinkItemWrapper>
-                  <Button
-                    text
-                    internalLink={item.path}
-                    title={mk({ active: pathname === item.path })}
-                  >
-                    {item.title}
-                  </Button>
-                </NavLinkItemWrapper>
-              </li>
-            );
-          })}
+          {NAVIGATION_LINKS.map((item, index) => (
+            <li key={index} className="flex items-center gap-14-px">
+              <MenuCategory isCate={index === 1}>
+                <Button
+                  text
+                  internalLink={item.path}
+                  title={mk({ active: pathname === item.path })}
+                >
+                  {item.title}
+                </Button>
+              </MenuCategory>
+            </li>
+          ))}
         </ul>
         <BrandLogo vertical />
         <div className="flex items-center">

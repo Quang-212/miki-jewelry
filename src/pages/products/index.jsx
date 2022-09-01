@@ -34,8 +34,8 @@ export default function ProductsAll({ products, pageCount }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  console.log(query);
-  const products = await getProducts({
+  // console.log(query);
+  const products = await getProducts([], {
     limit: 2,
     page: query.page,
     category: query.category,

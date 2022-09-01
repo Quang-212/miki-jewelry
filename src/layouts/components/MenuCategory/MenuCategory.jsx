@@ -9,7 +9,12 @@ import Button from 'src/components/Button';
 
 const mk = classNames.bind(styles);
 
-export default function MenuCategory({ children }) {
+export default function MenuCategory({ isCate, children }) {
+  // console.log(isCate);
+  if (!isCate) {
+    return <>{children}</>;
+  }
+
   return (
     <Tippy
       // visible
