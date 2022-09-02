@@ -74,7 +74,7 @@ export function Header() {
                     alt=""
                     width="32"
                     height="32"
-                    className="rounded-full"
+                    className="rounded-full cursor-pointer"
                   />
                 </div>
               ) : (

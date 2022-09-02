@@ -7,7 +7,7 @@
 }
 
 .normal {
-  @apply h-10 py-2 px-46-px rounded-primary bg-neutral-5 hover:shadow-btn-normal hover:scale-95 ease-in-out duration-400;
+  @apply justify-center h-10 py-2 px-46-px rounded-primary bg-neutral-5 hover:shadow-btn-normal hover:scale-95 ease-in-out duration-400;
 }
 
 .primary {

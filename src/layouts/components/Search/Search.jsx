@@ -8,22 +8,54 @@ import { CloseIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
 import styles from './Search.module.css';
-import { useDebounce } from 'src/hooks';
+import { useDebounce, useProducts } from 'src/hooks';
 
 const mk = classNames.bind(styles);
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
 
   const inputRef = useRef();
 
+  const debouncedValue = useDebounce(searchValue, 600);
+
+  const { productsState, isLoading, isError } = useProducts({
+    search: encodeURIComponent(debouncedValue),
+    select: {
+      _id: 1,
+      images: 1,
+      name: 1,
+      slug: 1,
+      stocks: 1,
+    },
+  });
+  const products = productsState?.productList;
+
   useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1, 2, 3, 4]);
-    }, 0);
-  }, []);
+    if (!debouncedValue.trim()) {
+      setSearchResult([]);
+      return;
+    }
+
+    setSearchResult(products);
+  }, [debouncedValue, products]);
+
+  const renderResult = (attrs) => {
+    return (
+      <div className="w-[430px]" tabIndex="-1" {...attrs}>
+        <PopperWrapper className="gap-1">
+          <h4 className="py-1 px-3">Sản phẩm: {searchResult?.length}</h4>
+          <ul className="flex flex-col gap-2">
+            {searchResult?.map((result) => (
+              <ProductItem key={result._id} data={result} />
+            ))}
+          </ul>
+        </PopperWrapper>
+      </div>
+    );
+  };
 
   const handleClear = () => {
     setSearchValue('');
@@ -35,27 +67,26 @@ export default function Search() {
     setShowResult(false);
   };
 
+  const handleChangeInput = (event) => {
+    const searchValue = event.target.value;
+    if (!searchValue.startsWith(' ')) {
+      setSearchValue(searchValue);
+    }
+  };
+
+  if (isError) return <h2>{isError}</h2>;
+
   return (
+    // Using a wrapper <div> tag around the reference element
+    // solves this by creating a new parentNode context.
     <div>
       <HeadlessTippy
-        // visible={showResult && searchResult.length > 0}
+        visible={showResult && searchResult?.length > 0}
         interactive
         placement="bottom-start"
         delay={[200, 400]}
         offset={[-12, 12]}
-        render={(attrs) => (
-          <div className="w-[400px]" tabIndex="-1" {...attrs}>
-            <PopperWrapper>
-              <h4 className="py-1 px-3">Sản phẩm: 4</h4>
-              <div className="flex flex-col divide-y-2">
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-              </div>
-            </PopperWrapper>
-          </div>
-        )}
+        render={renderResult}
         onClickOutside={handleHideResult}
       >
         <div className={mk('search')}>
@@ -64,20 +95,22 @@ export default function Search() {
             value={searchValue}
             placeholder="Tìm kiếm"
             spellCheck="false"
-            onChange={(event) => setSearchValue(event.target.value)}
+            onChange={handleChangeInput}
             onFocus={() => setShowResult(true)}
             className={mk('input-search')}
           />
 
-          {!!searchValue && (
+          {!!searchValue && !isLoading && (
             <Button icon wrapper={mk('clear')} onClick={handleClear}>
               <CloseIcon />
             </Button>
           )}
 
-          {/* <Button icon wrapper={mk('loading')}>
-            <LoadingIcon />
-          </Button> */}
+          {isLoading && (
+            <Button icon wrapper={mk('loading')}>
+              <LoadingIcon />
+            </Button>
+          )}
 
           <Button icon wrapper={mk('search-btn')}>
             <SearchIcon />

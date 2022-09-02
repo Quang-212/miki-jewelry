@@ -1,3 +1,8 @@
+import aboutBrandHistoryHappyStories from 'public/static/images/about-brand-history-happy-stories.png';
+import aboutBrandHistoryHero from 'public/static/images/about-brand-history-hero.png';
+import aboutBrandHistoryKoreaStyle from 'public/static/images/about-brand-history-korea-style.png';
+import aboutBrandHistoryManufacturing from 'public/static/images/about-brand-history-manufacturing.png';
+import aboutRecruitment from 'public/static/images/about-recruitment.png';
 import adminAvatar from 'public/static/images/avatar-admin.jpg';
 import homeAbout from 'public/static/images/home-about.png';
 import homeCategoryBracelet from 'public/static/images/home-category-bracelet.png';
@@ -29,6 +34,11 @@ export default {
   homeCategoryBracelet,
   homeCategoryNecklace,
   homeCategoryEarring,
+  aboutBrandHistoryHero,
+  aboutBrandHistoryHappyStories,
+  aboutBrandHistoryKoreaStyle,
+  aboutBrandHistoryManufacturing,
+  aboutRecruitment,
   productsHeroEarring,
   registerForm,
   loginForm,

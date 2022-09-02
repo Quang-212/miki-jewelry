@@ -3,5 +3,5 @@
 }
 
 .item-highlight {
-  @apply flex;
+  @apply flex text-neutral-2;
 }

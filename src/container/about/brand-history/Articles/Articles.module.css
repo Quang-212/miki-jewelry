@@ -1,0 +1,23 @@
+.articles {
+  @apply container mt-[88px];
+}
+
+.article-list {
+  @apply flex flex-col gap-[120px];
+}
+
+.article-wrapper {
+  @apply flex gap-11;
+}
+
+.article-text {
+  @apply flex flex-col gap-8 w-2/4;
+}
+
+.article-title {
+  @apply heading-2;
+}
+
+.article-image {
+  @apply rounded-primary;
+}

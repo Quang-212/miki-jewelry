@@ -10,15 +10,15 @@ const mk = classNames.bind(styles);
 
 export function About() {
   return (
-    <section className={mk('about', 'container')}>
-      <article className={mk('col-1')}>
-        <h2 className="heading-2">Về chúng tôi</h2>
-        <q className="heading">Ngày mai phải tốt hơn ngày hôm nay</q>
+    <section className={mk('about')}>
+      <article className={mk('article')}>
+        <h2 className={mk('title')}>Về chúng tôi</h2>
+        <q className={mk('heading')}>Ngày mai phải tốt hơn ngày hôm nay</q>
         <p>
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
         </p>
-        <Button primary internalLink={PATH.brandHistory} wrapper="mt-66-px max-w-218-px">
+        <Button primary internalLink={PATH.brandHistory} wrapper={mk('btn')}>
           Tìm hiểu thêm
         </Button>
       </article>

@@ -7,7 +7,7 @@ const mk = classNames.bind(styles);
 const BreadcrumbNavigation = 'nav';
 const BreadcrumbOrderList = 'ol';
 
-export default function BreadcrumbWrapper({ children }) {
+export default function BreadcrumbWrapper({ children, className }) {
   const childrenArray = Children.toArray(children);
   // console.log(childrenArray);
 
@@ -20,7 +20,7 @@ export default function BreadcrumbWrapper({ children }) {
   // console.log(childrenWithSeparators);
 
   return (
-    <BreadcrumbNavigation aria-label="breadcrumb">
+    <BreadcrumbNavigation aria-label="breadcrumb" className={className}>
       <BreadcrumbOrderList className={mk('order-list')}>
         {childrenWithSeparators}
       </BreadcrumbOrderList>

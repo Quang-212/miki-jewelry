@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 
+import { isEven } from 'src/utils/isEven';
 import Button from '../../Button';
 import { Checkbox } from '../../Checkbox';
 import { MenuVerticalIcon } from '../../Icons';
@@ -70,8 +71,6 @@ export default function DynamicTable({
       },
     ]);
   };
-
-  const isEven = (element) => element % 2 === 0;
 
   const tableInstance = useTable(
     {

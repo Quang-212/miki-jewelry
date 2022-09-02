@@ -7,7 +7,7 @@ import styles from './Menu.module.css';
 import MenuItem from './MenuItem';
 import Header from './Header';
 
-export default function Menu({ items = [], onChange, children }) {
+export default function Menu({ items = [], onChange, hideOnClick = false, children }) {
   const [history, setHistory] = useState([{ data: items }]);
   // console.log(history);
 
@@ -38,6 +38,7 @@ export default function Menu({ items = [], onChange, children }) {
     <Tippy
       // visible
       interactive
+      hideOnClick={hideOnClick}
       placement="bottom-end"
       delay={[200, 400]}
       offset={[12, 16]}
@@ -52,7 +53,7 @@ export default function Menu({ items = [], onChange, children }) {
                 }}
               />
             )}
-            <ul className="flex flex-col pb-2">{renderItems()}</ul>
+            <ul className="overflow-y-scroll">{renderItems()}</ul>
           </PopperWrapper>
         </div>
       )}

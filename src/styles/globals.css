@@ -56,7 +56,7 @@
 
 @layer components {
   .wrapper {
-    @apply max-w-1440-px m-auto body bg-wrapper;
+    @apply max-w-1440-px m-auto body bg-wrapper overflow-y-clip;
   }
   .sub-wrapper {
     @apply m-auto px-16 body bg-wrapper;

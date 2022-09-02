@@ -10,7 +10,7 @@ import { PATH } from 'src/routes';
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product, relatedProducts }) {
-  console.log(product);
+  // console.log(product);
   // console.log('relatedProducts: ' + JSON.parse(relatedProducts));
   const { name, category, description, slug, images, discount, stocks } = product;
 
@@ -74,30 +74,30 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
 export const getStaticProps = async ({ params }) => {
   try {
-    console.log(params);
+    // console.log(params);
     const slug = params.slug;
 
     const product = await getProducts([slug]);
-    console.log('product: ' + product.data.product);
+    // console.log('product: ' + product.data.product);
 
-    const { category } = await product.data.product;
-    console.log('category: ' + category);
+    // const { category } = await product.data.product;
+    // console.log('category: ' + category);
 
-    const relatedProducts = await getProducts([], { category: category });
+    // const relatedProducts = await getProducts([], { category: category });
 
-    const qwe = JSON.stringify(relatedProducts.data.productList);
-    console.log('relatedProducts: ' + qwe);
+    // const qwe = JSON.stringify(relatedProducts.data.productList);
+    // console.log('relatedProducts: ' + qwe);
 
     return {
       props: {
         product: product.data.product,
-        relatedProducts: qwe,
+        // relatedProducts: qwe,
       },
       // revalidate: 10,
     };

@@ -141,6 +141,10 @@ module.exports = {
         'product-category-necklace-rgba':
           'linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 28.54%)',
 
+        'about-brand-history-hero': "url('/static/images/about-brand-history-hero.png')",
+        'about-brand-history-hero-rgba':
+          'linear-gradient(0deg, rgba(247, 194, 194, 0.17), rgba(247, 194, 194, 0.17))',
+
         //* Register Form
         'register-form-rgba': 'rgba(255, 249, 246, 0.8)',
       },

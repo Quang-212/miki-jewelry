@@ -14,7 +14,7 @@
 
 .input-search {
   @apply h-10 w-[279px] py-2 px-4 rounded-primary border border-neutral-1 bg-white caret-primary-1
-  focus-within:border-primary-1 focus-within:border-2 outline-none;
+  focus-within:border-primary-1 focus-within:border-2 outline-none font-primary;
 }
 
 input:not(:placeholder-shown) ~ .search-btn {
