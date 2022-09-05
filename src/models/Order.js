@@ -8,7 +8,7 @@ const Order = new Schema(
     city: { type: String },
     district: { type: String },
     wards: { type: String },
-    strees: { type: String },
+    streets: { type: String },
     phone: { type: Number },
     payment: {
       method: { type: String, enum: ['cash', 'card'] },

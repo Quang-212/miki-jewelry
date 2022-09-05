@@ -1,0 +1,31 @@
+.cart {
+  @apply flex flex-col gap-10 w-[548px];
+}
+
+.cart-list {
+  @apply flex flex-col gap-12;
+}
+
+.cart-item {
+  @apply grid grid-cols-3 content-between;
+}
+
+.image {
+  @apply rounded-primary;
+}
+
+.col-2 {
+  @apply flex flex-col justify-between;
+}
+
+.size {
+  @apply caption -mt-12 text-[#707070];
+}
+
+.col-3 {
+  @apply flex flex-col justify-between items-end;
+}
+
+.price {
+  @apply heading-4 text-primary-2;
+}

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
 
 import Button from 'src/components/Button';
-import { CloseIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
+import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
 import styles from './Search.module.css';
@@ -102,7 +102,7 @@ export default function Search() {
 
           {!!searchValue && !isLoading && (
             <Button icon wrapper={mk('clear')} onClick={handleClear}>
-              <CloseIcon />
+              <CloseCircleIcon />
             </Button>
           )}
 

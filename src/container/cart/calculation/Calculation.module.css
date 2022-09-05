@@ -1,0 +1,31 @@
+.calculation {
+  @apply flex flex-col gap-10 w-[451px];
+}
+
+.coupon {
+  @apply flex justify-between items-center mt-3;
+}
+
+.input {
+  @apply w-[351px] h-12 py-3 px-4 rounded-primary border border-primary-1;
+}
+
+.detail {
+  @apply grid grid-cols-2;
+}
+
+.titles {
+  @apply flex flex-col justify-center gap-7;
+}
+
+.prices {
+  @apply flex flex-col items-end gap-6;
+}
+
+.total {
+  @apply flex justify-between;
+}
+
+.btn {
+  @apply w-48 ml-[258px];
+}

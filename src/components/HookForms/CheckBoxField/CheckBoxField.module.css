@@ -10,8 +10,7 @@
   /* @apply appearance-none flex font-primary text-primary w-6 h-6 border-[3px] border-primary rounded-[2.4px]
   place-items-center before:contents before:w-4 before:h-4 before:scale-0 before:duration-150 before:transition-transform before:ease-in-out
   before:checked:scale-100; */
-  @apply font-primary text-primary w-6 h-6 border-[3px] border-primary rounded-[2.4px]
-   checked:bg-black;
+  @apply font-primary text-primary w-6 h-6 border-[3px] border-primary rounded-[2.4px];
 }
 
 .caption {

@@ -56,7 +56,7 @@ export function Footer() {
           </p>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col relative">
-              <TextField name="email" placeholder="Email" input="max-w-412-px xs:min-w-343-px" />
+              <TextField name="email" placeholder="Email" wrapper="w-412-px xs:w-343-px" />
               <Button icon wrapper="absolute mt-4 ml-96 xs:ml-312-px">
                 <ArrowForwardIcon />
               </Button>

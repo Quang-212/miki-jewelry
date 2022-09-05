@@ -15,11 +15,12 @@ export function CheckBoxField({
   label,
   caption,
   highlight,
+  inputValue,
+  onChange,
   ...other
 }) {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext();
 
@@ -58,10 +59,12 @@ export function CheckBoxField({
       <input
         id={value.id}
         type="checkbox"
-        checked={watch(name)}
+        value={inputValue}
         className={classInput}
         {...other}
-        {...register(name)}
+        {...register(name, {
+          ...(onChange && { onChange }),
+        })}
       />
       <label htmlFor={value.id} className={classLabel}>
         {value.highlight

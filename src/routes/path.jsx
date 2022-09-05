@@ -9,6 +9,9 @@ export const PATH = {
   forgotPassword: '/auth/forgot-password',
   resetPassword: '/auth/reset-password',
 
+  cart: '/checkout/cart',
+  order: '/checkout/order',
+
   facebook: '/',
   twitter: '/',
   instagram: '/',
@@ -17,7 +20,6 @@ export const PATH = {
 
   recruitment: '/',
   purchasedHistory: '/',
-  cart: '/',
   informations: '/',
   payment: '/',
   handbook: '/',

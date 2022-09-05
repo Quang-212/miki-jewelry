@@ -1,0 +1,103 @@
+.form {
+  @apply flex flex-col w-[548px];
+}
+
+.form-provider {
+  @apply flex-col gap-2;
+}
+
+/* Address */
+.address {
+  @apply flex flex-col gap-4;
+}
+
+.address-title,
+.payment-title {
+  @apply subtitle-1 text-neutral-2;
+}
+
+.address-form {
+  @apply grid grid-cols-6;
+}
+
+.first-name-wrapper {
+  @apply col-span-3 mr-3;
+}
+
+.last-name-wrapper {
+  @apply col-span-3 ml-3;
+}
+
+.city-wrapper {
+  @apply col-span-2 mr-2;
+}
+
+.district-wrapper {
+  @apply col-span-2 mx-3;
+}
+
+.wards-wrapper {
+  @apply col-span-2 ml-3;
+}
+
+.address-number-wrapper {
+  @apply col-span-6;
+}
+
+.phone-number-wrapper {
+  @apply col-span-6;
+}
+
+/* Payment method */
+.payment {
+  @apply flex flex-col gap-9;
+}
+
+.payment-form {
+  @apply grid grid-cols-2 gap-4 border border-primary rounded-primary;
+}
+
+.cash-wrapper {
+  @apply col-span-2 p-4 border-b-[1px] border-primary;
+}
+
+.saved-card {
+  @apply col-span-2 flex items-center justify-between px-4 pb-4 border-b-[1px] border-primary;
+}
+
+.visa-number {
+  @apply flex justify-end gap-4;
+}
+
+.card-wrapper {
+  @apply col-span-2 flex items-center justify-between px-4;
+}
+
+.card-list {
+  @apply flex justify-end gap-8;
+}
+
+.card-number-wrapper {
+  @apply col-span-2 px-4;
+}
+
+.date-wrapper {
+  @apply col-span-1 -mt-4  px-4;
+}
+
+.code-wrapper {
+  @apply col-span-1 -mt-4  px-4;
+}
+
+/* Buttons */
+.btn-list {
+  @apply flex justify-between mt-8;
+}
+
+.btn-back-title {
+  @apply subtitle-1;
+}
+
+.btn-submit-wrapper {
+  @apply w-[189px];
+}

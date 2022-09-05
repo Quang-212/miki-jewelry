@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useFormContext } from 'react-hook-form';
+import accessNestedObject from 'src/utils/accessNestedObject';
 
 import styles from './TextField.module.css';
 
@@ -51,9 +52,8 @@ export function TextField({
         }}
         {...other}
         {...register(name)}
-        // onChange={onChange}
       />
-      <span className={classCaption}>{errors[name]?.message}</span>
+      <span className={classCaption}>{accessNestedObject(errors, name)?.message}</span>
     </div>
   );
 }
