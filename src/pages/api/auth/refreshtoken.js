@@ -7,6 +7,8 @@ import { REFRESH_TOKEN_KEY } from 'src/pages/api/constant';
 async function handlerRefreshToken(req, res) {
   await dbConnect();
   const { method } = req;
+  console.log('method: ' + method);
+
   try {
     switch (method) {
       case 'POST':
@@ -32,6 +34,7 @@ async function handlerRefreshToken(req, res) {
             });
           });
         }
+        break;
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',

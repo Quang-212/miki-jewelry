@@ -27,8 +27,6 @@ export const PATH = {
 
   terms: 'https://www.google.com',
 
-  dashboard: '/admin/dashboard',
-  listProducts: '/admin/products',
-  createProduct: '/admin/products/new',
-  editProduct: '/admin/products/edit',
+  adminDashboard: '/admin/dashboard',
+  adminProducts: '/admin/products',
 };

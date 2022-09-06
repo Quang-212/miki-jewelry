@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axiosInstance from 'src/utils/axios';
 
 export const deleteImage = (data, options) => {
-  return axios({
+  return axiosInstance({
     method: 'POST',
     url: '/api/image/delete',
     data,

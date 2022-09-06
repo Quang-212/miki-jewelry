@@ -1,5 +1,4 @@
 import Page from 'src/components/Page';
-import MainLayout from 'src/layouts/MainLayout';
 import {
   About,
   CircleIcon1,
@@ -10,6 +9,7 @@ import {
   LatestCollection,
   ProductCategory,
 } from 'src/container/home';
+import MainLayout from 'src/layouts/MainLayout';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 

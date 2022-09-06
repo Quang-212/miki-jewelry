@@ -21,14 +21,15 @@ export default function Menu({ items = [], onChange, hideOnClick = false, childr
         <MenuItem
           key={index}
           data={item}
-          onClick={() => {
-            if (isParent) {
-              // console.log(item.children);
-              setHistory((prev) => [...prev, item.children]);
-            } else {
-              onChange(item);
-            }
-          }}
+          // onClick={() => {
+          //   if (isParent) {
+          //     // console.log(item.children);
+          //     setHistory((prev) => [...prev, item.children]);
+          //   } else {
+          //     onChange(item);
+          //   }
+          // }}
+          onClick={item.onClick}
         />
       );
     });

@@ -115,7 +115,7 @@ export default function RegisterFormSection() {
         />
         <div className={mk('form')}>
           <BrandLogo vertical wrapper="mt-14" />
-          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="flex-col">
             <h5 className="mt-14 heading-5">Đăng ký tài khoản</h5>
             <div className="flex gap-3 mt-8">
               <TextField name="firstName" placeholder="Họ" input="w-full" />

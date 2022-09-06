@@ -1,19 +1,28 @@
-import axios from 'axios';
 import qs from 'qs';
 import useSWR from 'swr';
 
-export default function useProducts(query, options) {
+import axiosInstance from 'src/utils/axios';
+
+export default function useProducts(query, options, isSearch) {
   const queryString = qs.stringify(query);
 
   const url = `/api/products?${queryString}`;
 
-  const { data, error } = useSWR(url, (url) => axios.get(url), options);
+  const generateSearchUrl = (query, url) => {
+    return query.hasOwnProperty('search') && query.search ? url : null;
+  };
+
+  const { data, error } = useSWR(
+    isSearch ? generateSearchUrl(query, url) : url,
+    (url) => axiosInstance.get(url),
+    options,
+  );
   //* if error => console not on screen
-  // console.log(error);
+  // console.log(data, error);
 
   return {
     productsState: data?.data || null,
-    isLoading: !error && !data,
+    isLoading: !error && !data && (query.search || !isSearch),
     isError: error,
   };
 }

@@ -48,6 +48,11 @@ const Product = new Schema(
         sku: String,
       },
     ],
+
+    search: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

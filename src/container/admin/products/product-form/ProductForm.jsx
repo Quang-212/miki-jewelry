@@ -13,6 +13,7 @@ import { deleteImage } from 'src/fetching/deleteImage';
 import { createProduct, updateProduct } from 'src/fetching/products';
 import { uploadFile } from 'src/fetching/uploadFile';
 import { productVisibilityStatus } from '../products-config';
+import { formatSearchString } from 'src/utils/formatString';
 
 const stocksSchema = yup.object().shape({
   size: yup.string().required('Size is required'),
@@ -101,6 +102,14 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
 
   const onSubmit = async (data) => {
     try {
+      data = {
+        ...data,
+        search: formatSearchString([
+          data.name,
+          data.description,
+          ...data.stocks.map((stock) => stock.price.toString()),
+        ]),
+      };
       console.log(data);
       setFocus('name');
 

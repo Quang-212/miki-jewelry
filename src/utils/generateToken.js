@@ -9,7 +9,7 @@ export function generateAccessToken(user) {
     },
     ACCESS_TOKEN_KEY,
     {
-      expiresIn: '1d',
+      expiresIn: '10s',
     },
   );
 }

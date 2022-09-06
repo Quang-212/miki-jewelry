@@ -34,7 +34,7 @@ async function getProductList(req, res) {
 
         const productList = await Product.find({
           ...(category && { category }),
-          ...(search && { name: { $regex: search } }),
+          ...(search && { search: new RegExp(search) }),
         })
           .sort(generateSort(sortBy, order))
           .limit(+limit)

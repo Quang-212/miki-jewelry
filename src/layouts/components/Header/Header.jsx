@@ -20,6 +20,9 @@ import {
   USER_MENU_ITEMS,
 } from './nav-config';
 import Search from '../Search';
+import { useRecoilState } from 'recoil';
+import { userState } from 'src/recoils';
+import { getLocalStorage } from 'src/utils/handleLocalStorage';
 
 const mk = classNames.bind(styles);
 
@@ -27,6 +30,13 @@ export function Header() {
   const { data: session } = useSession();
 
   const { pathname, push } = useRouter();
+
+  const [userValue, setUserValue] = useRecoilState(userState);
+  console.log(userValue);
+
+  const recoilPersist = getLocalStorage('recoil-persist');
+  const user = recoilPersist?.authentication.user;
+  console.log(user);
 
   const currentUser = true;
 
@@ -36,6 +46,7 @@ export function Header() {
       case 'language':
       // handle change language
       default:
+        console.log('hello ', menuItem);
     }
   };
 

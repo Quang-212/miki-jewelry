@@ -9,6 +9,7 @@ import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
 import styles from './Search.module.css';
 import { useDebounce, useProducts } from 'src/hooks';
+import { formatReplaceString } from 'src/utils/formatString';
 
 const mk = classNames.bind(styles);
 
@@ -19,27 +20,30 @@ export default function Search() {
 
   const inputRef = useRef();
 
-  const debouncedValue = useDebounce(searchValue, 600);
+  const debouncedValue = useDebounce(formatReplaceString(searchValue), 600);
 
-  const { productsState, isLoading, isError } = useProducts({
-    search: encodeURIComponent(debouncedValue),
-    select: {
-      _id: 1,
-      images: 1,
-      name: 1,
-      slug: 1,
-      stocks: 1,
+  const { productsState, isLoading, isError } = useProducts(
+    {
+      search: debouncedValue,
+      select: {
+        _id: 1,
+        images: 1,
+        name: 1,
+        slug: 1,
+        stocks: 1,
+      },
     },
-  });
+    {},
+    true,
+  );
   const products = productsState?.productList;
 
   useEffect(() => {
     if (!debouncedValue.trim()) {
       setSearchResult([]);
-      return;
+    } else {
+      setSearchResult(products);
     }
-
-    setSearchResult(products);
   }, [debouncedValue, products]);
 
   const renderResult = (attrs) => {
@@ -69,6 +73,7 @@ export default function Search() {
 
   const handleChangeInput = (event) => {
     const searchValue = event.target.value;
+
     if (!searchValue.startsWith(' ')) {
       setSearchValue(searchValue);
     }

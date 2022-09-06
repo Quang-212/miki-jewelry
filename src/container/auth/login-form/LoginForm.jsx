@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import { useSetRecoilState } from 'recoil';
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/HookForms';
@@ -13,8 +13,11 @@ import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { images } from 'src/constants';
 import { loginForm } from 'src/fetching/auth';
+import { useRouter } from 'src/hooks';
+import { userState } from 'src/recoils';
 import { PATH } from 'src/routes';
 import styles from './LoginForm.module.css';
+import { useEffect } from 'react';
 
 const mk = classNames.bind(styles);
 
@@ -37,7 +40,9 @@ const schema = yup.object().shape({
 });
 
 export default function LoginFormSection() {
-  const { replace } = useRouter();
+  const setUser = useSetRecoilState(userState);
+
+  const { replace, prefetch } = useRouter();
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -52,8 +57,6 @@ export default function LoginFormSection() {
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      setFocus('email');
-      reset();
 
       const res = await toast.promise(
         loginForm(data),
@@ -80,10 +83,32 @@ export default function LoginFormSection() {
         },
         { autoClose: 10000 },
       );
-      replace(PATH.home);
       console.log(res);
+
+      const user = res.data.user;
+
+      setUser({
+        user,
+        access_token: res.data.accessToken,
+        isAuthenticated: true,
+      });
+
+      if (user.role === 'admin') {
+        useEffect(() => {
+          prefetch('/admin/dashboard');
+        }, []);
+        replace(PATH.adminDashboard);
+      }
+
+      useEffect(() => {
+        prefetch(PATH.home);
+      }, []);
+      replace(PATH.home);
     } catch (error) {
       console.log(error);
+
+      setFocus('email');
+      reset();
     }
   };
 
@@ -103,7 +128,7 @@ export default function LoginFormSection() {
         </div>
         <div className={mk('form')}>
           <BrandLogo vertical wrapper="mt-14 xs:mt-10" />
-          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="flex-col">
             <h5 className="mt-72-px heading-5 xs:mt-7 xs:subtitle-1">Đăng nhập</h5>
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
@@ -121,10 +146,10 @@ export default function LoginFormSection() {
                 Facebook
               </Button>
               <Button
-                onClick={() => signIn()}
                 rounded
                 leftIcon={<GoogleColorIcon />}
                 wrapper="w-[200px] xs:w-[168px]"
+                onClick={() => signIn()}
               >
                 Google
               </Button>

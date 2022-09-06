@@ -1,7 +1,16 @@
-import axios from 'axios';
+import axiosInstance from 'src/utils/axios';
+
+export const registerForm = (data, options) => {
+  return axiosInstance({
+    method: 'POST',
+    url: '/api/auth/register',
+    data,
+    ...options,
+  });
+};
 
 export const loginForm = (data, options) => {
-  return axios({
+  return axiosInstance({
     method: 'POST',
     url: '/api/auth/login',
     data,
@@ -9,10 +18,10 @@ export const loginForm = (data, options) => {
   });
 };
 
-export const registerForm = (data, options) => {
-  return axios({
+export const logoutForm = (data, options) => {
+  return axiosInstance({
     method: 'POST',
-    url: '/api/auth/register',
+    url: '/api/auth/logout',
     data,
     ...options,
   });

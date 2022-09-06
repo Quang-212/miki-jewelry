@@ -27,11 +27,10 @@ async function loginUser(req, res) {
           });
         // user đăng nhập thành công
         if (emailUser && validateUser) {
-          const accessToken = await generateAccessToken(emailUser);
-          const refreshToken = await generateRefreshToken(emailUser);
+          const accessToken = generateAccessToken(emailUser);
+          const refreshToken = generateRefreshToken(emailUser);
           //tạo refresh token mới trong data
           await RefreshToken.create({
-            _id: emailUser._id,
             refreshToken,
           });
 
@@ -50,7 +49,7 @@ async function loginUser(req, res) {
             message: 'Chào mừng bạn đến với Miki Jewelry',
             code: 200,
             accessToken,
-            ...other,
+            user: other,
           });
         }
       default:
