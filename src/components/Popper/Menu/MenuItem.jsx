@@ -12,12 +12,7 @@ export default function MenuItem({ data, onClick }) {
 
   return (
     <li>
-      <Button
-        leftIcon={data.icon}
-        // internalLink={data.path}
-        wrapper={classWrapper}
-        onClick={onClick}
-      >
+      <Button leftIcon={data.icon} wrapper={classWrapper} onClick={onClick}>
         {data.title}
       </Button>
     </li>

@@ -1,7 +1,6 @@
 import qs from 'qs';
 import useSWR from 'swr';
-
-import axiosInstance from 'src/utils/axios';
+import axios from 'axios';
 
 export default function useProducts(query, options, isSearch) {
   const queryString = qs.stringify(query);
@@ -14,7 +13,7 @@ export default function useProducts(query, options, isSearch) {
 
   const { data, error } = useSWR(
     isSearch ? generateSearchUrl(query, url) : url,
-    (url) => axiosInstance.get(url),
+    (url) => axios.get(url),
     options,
   );
   //* if error => console not on screen

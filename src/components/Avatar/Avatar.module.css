@@ -1,0 +1,7 @@
+.image {
+  @apply rounded-full cursor-pointer;
+}
+
+.text {
+  @apply flex justify-center items-center w-9 h-9 rounded-full uppercase text-neutral-5 bg-primary-1;
+}

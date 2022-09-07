@@ -5,7 +5,12 @@ import { getLocalStorage, setLocalStorage } from './handleLocalStorage';
 
 const recoilPersist = getLocalStorage('recoil-persist');
 
-const getToken = () => recoilPersist?.authentication.access_token ?? '';
+const getToken = () => {
+  if (typeof window !== 'undefined') {
+    return getLocalStorage('recoil-persist')?.authentication.access_token;
+  }
+  return '';
+};
 
 const setToken = (token) => {
   setLocalStorage('recoil-persist', {
@@ -25,9 +30,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config) => {
-    config.headers = {
-      ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
-    };
+    // config.headers = {
+    //   ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
+    // };
 
     const now = new Date();
 
@@ -48,15 +53,16 @@ axiosInstance.interceptors.request.use(
         });
 
         const newToken = res.data.accessToken;
+        console.log(newToken);
         setToken(newToken);
-
-        config.headers = {
-          ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
-        };
       } catch (error) {
         console.log(error);
       }
     }
+    console.log(getToken());
+    config.headers = {
+      ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
+    };
     return config;
   },
   (error) => {

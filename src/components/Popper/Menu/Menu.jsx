@@ -7,9 +7,8 @@ import styles from './Menu.module.css';
 import MenuItem from './MenuItem';
 import Header from './Header';
 
-export default function Menu({ items = [], onChange, hideOnClick = false, children }) {
+export default function Menu({ items = [], hideOnClick = false, children }) {
   const [history, setHistory] = useState([{ data: items }]);
-  // console.log(history);
 
   const current = history[history.length - 1];
 
@@ -21,15 +20,13 @@ export default function Menu({ items = [], onChange, hideOnClick = false, childr
         <MenuItem
           key={index}
           data={item}
-          // onClick={() => {
-          //   if (isParent) {
-          //     // console.log(item.children);
-          //     setHistory((prev) => [...prev, item.children]);
-          //   } else {
-          //     onChange(item);
-          //   }
-          // }}
-          onClick={item.onClick}
+          onClick={
+            isParent
+              ? () => {
+                  setHistory((prev) => [...prev, item.children]);
+                }
+              : item.onClick
+          }
         />
       );
     });

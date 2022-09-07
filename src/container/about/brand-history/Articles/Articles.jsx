@@ -11,7 +11,7 @@ export default function Articles() {
     <section className={mk('articles')}>
       <ul className={mk('article-list')}>
         {articles.map((article, index) => (
-          <li>
+          <li key={index}>
             <ArticleItem article={article} index={index} />
           </li>
         ))}

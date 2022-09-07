@@ -12,7 +12,7 @@ async function loginUser(req, res) {
     switch (method) {
       case 'POST':
         //tìm kiếm email user có tồn tại trong data
-        const emailUser = await User.findOne({ email: req.body.email });
+        const emailUser = await User.findOne({ email: req.body.email }).lean();
         if (!emailUser)
           return res.status(404).json({
             message: 'Email không tồn tại',
@@ -31,6 +31,7 @@ async function loginUser(req, res) {
           const refreshToken = generateRefreshToken(emailUser);
           //tạo refresh token mới trong data
           await RefreshToken.create({
+            userId: emailUser._id,
             refreshToken,
           });
 
@@ -44,7 +45,7 @@ async function loginUser(req, res) {
               Secure: false,
             }),
           );
-          const { password, ...other } = emailUser._doc;
+          const { password, ...other } = emailUser;
           return res.status(200).json({
             message: 'Chào mừng bạn đến với Miki Jewelry',
             code: 200,

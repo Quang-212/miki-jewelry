@@ -18,15 +18,16 @@ async function handlerRefreshToken(req, res) {
         const isRefreshToken = await RefreshToken.findOne({
           refreshToken: refreshTokenCookie,
         });
+        console.log('isRefreshToken ', isRefreshToken);
         if (isRefreshToken) {
           //kiểm tra refresh token và tạo mới access token
-          jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, async (err, payload) => {
+          jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, (err, payload) => {
             if (err)
               return res.status(401).json({
                 message: ' Mã token không còn hiệu lực ',
                 code: 401,
               });
-            const newAccessToken = await generateAccessToken(payload);
+            const newAccessToken = generateAccessToken(payload);
             return res.status(201).json({
               message: ' Tạo mới token thành công ',
               code: 201,

@@ -54,6 +54,11 @@ export default function LoginFormSection() {
 
   const { handleSubmit, reset, setFocus } = methods;
 
+  useEffect(() => {
+    prefetch('/admin/dashboard');
+    prefetch(PATH.home);
+  }, []);
+
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -76,8 +81,9 @@ export default function LoginFormSection() {
           },
           error: {
             render({ data }) {
+              console.log(data);
               // When the promise reject, data will contains the error
-              return data.response.data.message;
+              return data.response?.data.message;
             },
           },
         },
@@ -94,15 +100,9 @@ export default function LoginFormSection() {
       });
 
       if (user.role === 'admin') {
-        useEffect(() => {
-          prefetch('/admin/dashboard');
-        }, []);
         replace(PATH.adminDashboard);
       }
 
-      useEffect(() => {
-        prefetch(PATH.home);
-      }, []);
       replace(PATH.home);
     } catch (error) {
       console.log(error);

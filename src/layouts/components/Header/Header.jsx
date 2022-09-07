@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useSession } from 'next-auth/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
 
 import BrandLogo from 'src/components/BrandLogo';
@@ -14,39 +14,45 @@ import { PATH } from 'src/routes';
 import MenuCategory from '../MenuCategory';
 import styles from './Header.module.css';
 import {
+  handleMenuItems,
+  handleMenuUserItems,
   MENU_ITEMS,
   NAVIGATION_LINKS,
   PRODUCTS_CATEGORY_LINKS,
   USER_MENU_ITEMS,
 } from './nav-config';
 import Search from '../Search';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { userState } from 'src/recoils';
 import { getLocalStorage } from 'src/utils/handleLocalStorage';
+import { logoutForm } from 'src/fetching/auth';
+import Avatar from 'src/components/Avatar';
 
 const mk = classNames.bind(styles);
 
 export function Header() {
+  const [isSSR, setIsSSR] = useState(false);
+
   const { data: session } = useSession();
+  const { pathname, push, replace } = useRouter();
 
-  const { pathname, push } = useRouter();
+  const { user, isAuthenticated } = useRecoilValue(userState);
 
-  const [userValue, setUserValue] = useRecoilState(userState);
-  console.log(userValue);
+  const resetUserValue = useResetRecoilState(userState);
 
-  const recoilPersist = getLocalStorage('recoil-persist');
-  const user = recoilPersist?.authentication.user;
-  console.log(user);
+  useEffect(() => {
+    setIsSSR(true);
+  }, [user, isAuthenticated]);
 
-  const currentUser = true;
+  const handleClickLogin = () => push(PATH.login);
 
-  const handleMenuChange = (menuItem) => {
-    // console.log(menuItem);
-    switch (menuItem.type) {
-      case 'language':
-      // handle change language
-      default:
-        console.log('hello ', menuItem);
+  const handleClickLogout = async () => {
+    if (user?._id) {
+      const res = await logoutForm({ params: { userId: user?._id } });
+      console.log(res);
+
+      resetUserValue();
+      replace(PATH.home);
     }
   };
 
@@ -77,20 +83,20 @@ export function Header() {
               <BasketIcon />
             </Button>
 
-            <Menu items={currentUser ? USER_MENU_ITEMS : MENU_ITEMS} onChange={handleMenuChange}>
-              {currentUser ? (
+            <Menu
+              items={
+                isAuthenticated
+                  ? handleMenuUserItems({ handleClickLogout })
+                  : handleMenuItems(handleClickLogin)
+              }
+            >
+              {isSSR && isAuthenticated ? (
                 <div className="flex items-center">
-                  <Image
-                    src={images.adminAvatar}
-                    alt=""
-                    width="32"
-                    height="32"
-                    className="rounded-full cursor-pointer"
-                  />
+                  <Avatar name={user?.userName} imageUrl="" />
                 </div>
               ) : (
-                <div className="">
-                  <Button icon internalLink={PATH.login}>
+                <div>
+                  <Button icon>
                     <UserIcon />
                   </Button>
                 </div>

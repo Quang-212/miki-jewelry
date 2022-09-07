@@ -1,7 +1,8 @@
+import axios from 'axios';
 import axiosInstance from 'src/utils/axios';
 
 export const registerForm = (data, options) => {
-  return axiosInstance({
+  return axios({
     method: 'POST',
     url: '/api/auth/register',
     data,
@@ -10,19 +11,19 @@ export const registerForm = (data, options) => {
 };
 
 export const loginForm = (data, options) => {
-  return axiosInstance({
+  return axios({
     method: 'POST',
     url: '/api/auth/login',
     data,
+    withCredentials: true,
     ...options,
   });
 };
 
-export const logoutForm = (data, options) => {
+export const logoutForm = (options) => {
   return axiosInstance({
-    method: 'POST',
+    method: 'DELETE',
     url: '/api/auth/logout',
-    data,
     ...options,
   });
 };

@@ -1,17 +1,27 @@
 import verifyToken from 'src/middlewares/verifyToken';
 import RefreshToken from 'src/models/RefreshToken';
+import { serialize } from 'cookie';
+
 import dbConnect from 'src/utils/dbConnect';
 
 async function logout(req, res) {
   await dbConnect();
   const { method } = req;
+  const { userId } = req.query;
+
   try {
     switch (method) {
-      case 'POST':
+      case 'DELETE':
         //xóa refresh trên cookie
-        res.setHeader('Set-Cookie', 'refreshToken = delete; path=/');
+        res.setHeader(
+          'Set-Cookie',
+          serialize('refreshToken', '', {
+            expires: new Date(0),
+            path: '/',
+          }),
+        );
         //tìm kiếm ID user và xóa refresh trong data
-        await RefreshToken.findByIdAndDelete(userId);
+        await RefreshToken.findOneAndDelete({ userId });
         return res.status(200).json({
           message: 'Bạn đã đăng xuất',
           code: 200,
@@ -23,6 +33,7 @@ async function logout(req, res) {
         });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,

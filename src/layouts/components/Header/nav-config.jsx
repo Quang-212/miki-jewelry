@@ -1,10 +1,16 @@
+import { useRouter } from 'next/router';
 import {
+  BellRingIcon,
+  CommentIcon,
   EnglishIcon,
   FavoriteIcon,
   FeedbackIcon,
   HistoryIcon,
   LanguagesIcon,
+  LoginIcon,
   LogoutIcon,
+  NotificationIcon,
+  OrdersIcon,
   UserIcon,
   UserPlusIcon,
   VietnameseIcon,
@@ -106,66 +112,101 @@ export const PRODUCTS_CATEGORY_LINKS = [
   },
 ];
 
-export const MENU_ITEMS = [
-  {
-    title: 'Đăng ký',
-    icon: <UserPlusIcon />,
-    path: './profile',
-  },
-  {
-    title: 'Góp ý và hỗ trợ',
-    icon: <FeedbackIcon />,
-    path: './profile',
-  },
-  {
-    title: 'Tiếng việt',
-    icon: <LanguagesIcon />,
-    children: {
-      title: 'Languages',
-      data: [
-        {
-          type: 'languages',
-          code: 'en',
-          title: 'English',
-          icon: <EnglishIcon />,
-        },
-        {
-          type: 'languages',
-          code: 'vi',
-          title: 'Tiếng việt',
-          icon: <VietnameseIcon />,
-        },
-      ],
+export const handleMenuItems = (fn) => {
+  return [
+    {
+      title: 'Đăng nhập',
+      icon: <LoginIcon />,
+      path: PATH.login,
+      onClick() {
+        fn();
+        console.log('login2');
+      },
     },
-  },
-];
-
-const [, ...rest] = MENU_ITEMS;
-
-export const USER_MENU_ITEMS = [
-  {
-    title: 'Tài khoản của tôi',
-    icon: <UserIcon />,
-    path: './profile',
-  },
-  {
-    title: 'Lịch sử mua hàng',
-    icon: <HistoryIcon />,
-    path: './profile',
-  },
-  {
-    title: 'Sản phẩm yêu thích',
-    icon: <FavoriteIcon />,
-    path: './profile',
-  },
-  ...rest,
-  {
-    title: 'Đăng xuất',
-    icon: <LogoutIcon />,
-    path: PATH.home,
-    separate: true,
-    onClick() {
-      console.log('logout');
+    {
+      title: 'Đăng ký',
+      icon: <UserPlusIcon />,
+      path: PATH.register,
+      onClick() {
+        fn();
+      },
     },
-  },
-];
+    {
+      title: 'Góp ý và hỗ trợ',
+      icon: <FeedbackIcon />,
+      path: './profile',
+    },
+    {
+      title: 'Tiếng việt',
+      icon: <LanguagesIcon />,
+      children: {
+        title: 'Languages',
+        data: [
+          {
+            type: 'languages',
+            code: 'en',
+            title: 'English',
+            icon: <EnglishIcon />,
+          },
+          {
+            type: 'languages',
+            code: 'vi',
+            title: 'Tiếng việt',
+            icon: <VietnameseIcon />,
+          },
+        ],
+      },
+    },
+  ];
+};
+
+const [, ...rest] = handleMenuItems();
+
+export const handleMenuUserItems = ({ handleClickLogout }) => {
+  return [
+    {
+      title: 'Tài khoản của tôi',
+      icon: <UserIcon />,
+      path: './profile',
+      onClick() {
+        push(PATH.profile);
+      },
+    },
+    {
+      title: 'Thông báo của tôi',
+      icon: <NotificationIcon />,
+      path: './profile',
+    },
+    {
+      title: 'Đơn hàng của tôi',
+      icon: <OrdersIcon />,
+      path: './profile',
+    },
+    {
+      title: 'Lịch sử mua hàng',
+      icon: <HistoryIcon />,
+      path: './profile',
+    },
+    {
+      title: 'Sản phẩm yêu thích',
+      icon: <FavoriteIcon />,
+      path: './favorite',
+    },
+    {
+      title: 'Nhận xét sản phẩm',
+      icon: <CommentIcon />,
+      path: './favorite',
+    },
+    ...rest,
+    {
+      title: 'Thoát tài khoản',
+      icon: <LogoutIcon />,
+      path: PATH.home,
+      separate: true,
+      onClick() {
+        console.log('logout');
+        handleClickLogout();
+      },
+    },
+  ];
+};

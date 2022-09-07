@@ -23,3 +23,10 @@ export const formatSearchString = (targetArray) => {
   }, []);
   return searchString.join(' ');
 };
+
+export const formatStringTextAvatar = (text) => {
+  const textSplit = text.split(' ');
+  const initials = textSplit[0].charAt(0).toUpperCase() + textSplit[1].charAt(0).toUpperCase();
+
+  return initials;
+};

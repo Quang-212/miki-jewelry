@@ -225,10 +225,11 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
   </svg>
 );
 
-export const UserIcon = ({ width = '32', height = '32' }) => (
+export const UserIcon = ({ width = '28', height = '28', className }) => (
   <svg
     width={width}
     height={height}
+    className={className}
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +251,23 @@ export const UserIcon = ({ width = '32', height = '32' }) => (
   </svg>
 );
 
-export const UserPlusIcon = ({ width = '32', height = '32', className }) => (
+export const LoginIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5l-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"
+    />
+  </svg>
+);
+
+export const UserPlusIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -266,7 +283,7 @@ export const UserPlusIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const FeedbackIcon = ({ width = '32', height = '32', className }) => (
+export const FeedbackIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -286,7 +303,7 @@ export const FeedbackIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const LanguagesIcon = ({ width = '32', height = '32', className }) => (
+export const LanguagesIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -314,7 +331,7 @@ export const LanguagesIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const EnglishIcon = ({ width = '32', height = '32', className }) => (
+export const EnglishIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -336,7 +353,7 @@ export const EnglishIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const VietnameseIcon = ({ width = '32', height = '32', className }) => (
+export const VietnameseIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -356,7 +373,43 @@ export const VietnameseIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const HistoryIcon = ({ width = '32', height = '32', className }) => (
+export const NotificationIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M28.707 19.293L26 16.586V13a10.014 10.014 0 0 0-9-9.95V1h-2v2.05A10.014 10.014 0 0 0 6 13v3.586l-2.707 2.707A1 1 0 0 0 3 20v3a1 1 0 0 0 1 1h7v.777a5.152 5.152 0 0 0 4.5 5.199A5.006 5.006 0 0 0 21 25v-1h7a1 1 0 0 0 1-1v-3a1 1 0 0 0-.293-.707ZM19 25a3 3 0 0 1-6 0v-1h6Zm8-3H5v-1.586l2.707-2.707A1 1 0 0 0 8 17v-4a8 8 0 0 1 16 0v4a1 1 0 0 0 .293.707L27 20.414Z"
+    />
+  </svg>
+);
+
+export const OrdersIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M19 21h-6a3 3 0 0 0-3 3v2h2v-2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2h2v-2a3 3 0 0 0-3-3zm-3-1a4 4 0 1 0-4-4a4 4 0 0 0 4 4zm0-6a2 2 0 1 1-2 2a2 2 0 0 1 2-2z"
+    />
+    <path
+      fill="currentColor"
+      d="M25 5h-3V4a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v1H7a2 2 0 0 0-2 2v21a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2ZM12 4h8v4h-8Zm13 24H7V7h3v3h12V7h3Z"
+    />
+  </svg>
+);
+
+export const HistoryIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -377,7 +430,7 @@ export const HistoryIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const FavoriteIcon = ({ width = '32', height = '32', className }) => (
+export const FavoriteIcon = ({ width = '28', height = '28', className }) => (
   <svg
     width={width}
     height={height}
@@ -394,7 +447,31 @@ export const FavoriteIcon = ({ width = '32', height = '32', className }) => (
   </svg>
 );
 
-export const LogoutIcon = ({ width = '32', height = '32', className }) => (
+export const CommentIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 1024 1024"
+  >
+    <path
+      fill="currentColor"
+      d="M573 421c-23.1 0-41 17.9-41 40s17.9 40 41 40c21.1 0 39-17.9 39-40s-17.9-40-39-40zm-280 0c-23.1 0-41 17.9-41 40s17.9 40 41 40c21.1 0 39-17.9 39-40s-17.9-40-39-40z"
+    />
+    <path
+      fill="currentColor"
+      d="M894 345c-48.1-66-115.3-110.1-189-130v.1c-17.1-19-36.4-36.5-58-52.1c-163.7-119-393.5-82.7-513 81c-96.3 133-92.2 311.9 6 439l.8 132.6c0 3.2.5 6.4 1.5 9.4c5.3 16.9 23.3 26.2 40.1 20.9L309 806c33.5 11.9 68.1 18.7 102.5 20.6l-.5.4c89.1 64.9 205.9 84.4 313 49l127.1 41.4c3.2 1 6.5 1.6 9.9 1.6c17.7 0 32-14.3 32-32V753c88.1-119.6 90.4-284.9 1-408zM323 735l-12-5l-99 31l-1-104l-8-9c-84.6-103.2-90.2-251.9-11-361c96.4-132.2 281.2-161.4 413-66c132.2 96.1 161.5 280.6 66 412c-80.1 109.9-223.5 150.5-348 102zm505-17l-8 10l1 104l-98-33l-12 5c-56 20.8-115.7 22.5-171 7l-.2-.1C613.7 788.2 680.7 742.2 729 676c76.4-105.3 88.8-237.6 44.4-350.4l.6.4c23 16.5 44.1 37.1 62 62c72.6 99.6 68.5 235.2-8 330z"
+    />
+    <path
+      fill="currentColor"
+      d="M433 421c-23.1 0-41 17.9-41 40s17.9 40 41 40c21.1 0 39-17.9 39-40s-17.9-40-39-40z"
+    />
+  </svg>
+);
+
+export const LogoutIcon = ({ width = '28', height = '28', className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
