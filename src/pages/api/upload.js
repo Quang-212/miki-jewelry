@@ -3,16 +3,18 @@ import { unlink } from 'fs';
 import multer from 'multer';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME, //need to change before use
-  api_key: process.env.API_KEY, //need to change before use
-  api_secret: process.env.API_SECRET, //need to change before use
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
+
 // disable next.js' default body parser
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
 async function handlerUploadImage(req, res) {
   const { method } = req;
   try {
@@ -36,11 +38,19 @@ async function handlerUploadImage(req, res) {
             if (err) console.log(`failed to deleted file ${err}`);
           });
         });
-        // example response
+
         return res.status(201, response).json({
           message: 'Tạo mới ảnh thành công',
           code: 201,
           response,
+        });
+
+      case 'DELETE':
+        const files = req.body.images;
+        await Promise.all(files.map((file) => cloudinary.uploader.destroy(file.public_id)));
+        return res.status(200).json({
+          message: 'Xóa ảnh thành công',
+          code: 200,
         });
       default:
         return res.status(400).json({
@@ -55,4 +65,5 @@ async function handlerUploadImage(req, res) {
     });
   }
 }
+
 export default handlerUploadImage;

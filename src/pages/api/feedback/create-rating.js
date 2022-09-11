@@ -5,6 +5,7 @@ const ratingProduct = async (req, res) => {
   await dbConnect();
   const { method } = req;
   const { user_id, product_id, count, comment } = req.body;
+
   switch (method) {
     case 'POST':
       const feedbacks = await Rating.find({ product_id, user_id });

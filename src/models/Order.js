@@ -2,21 +2,26 @@ import { Schema, model, models } from 'mongoose';
 
 const Order = new Schema(
   {
-    _id: false,
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
-    city: { type: String },
-    district: { type: String },
-    wards: { type: String },
-    streets: { type: String },
-    phone: { type: Number },
-    payment: {
-      method: { type: String, enum: ['cash', 'card'] },
-      number: { type: Number },
-      provider: { type: String },
-      expireTime: { type: Date },
-      cvv: { type: Number },
+    products: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: { type: Number, default: 1 },
+      },
+    ],
+    status: {
+      type: String,
+      enum: ['confirm', 'delivery', 'completed'],
+      required: true,
+      default: 'confirm',
     },
+    city: { type: String, required: true },
+    district: { type: String, required: true },
+    ward: { type: String, required: true },
+    street: { type: String, required: true },
+    phone: { type: Number, required: true },
+    paymentMethod: { type: String, enum: ['cash', 'card'], required: true },
+    paymentCard: { type: Schema.Types.ObjectId, ref: 'PaymentCard' },
     isPaid: { type: Boolean, default: false },
   },
   {

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { REFRESH_TOKEN_KEY, ACCESS_TOKEN_KEY } from 'src/pages/api/constant';
 
-export function generateAccessToken(user) {
+export function generateAccessToken(user = {}) {
   return jwt.sign(
     {
       _id: user._id,
@@ -14,7 +14,7 @@ export function generateAccessToken(user) {
   );
 }
 
-export function generateRefreshToken(user) {
+export function generateRefreshToken(user = {}) {
   return jwt.sign(
     {
       _id: user._id,
@@ -22,7 +22,7 @@ export function generateRefreshToken(user) {
     },
     REFRESH_TOKEN_KEY,
     {
-      expiresIn: '365d',
+      expiresIn: '1y',
     },
   );
 }

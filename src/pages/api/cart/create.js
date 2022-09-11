@@ -8,18 +8,25 @@ async function handlerAddCart(req, res) {
   try {
     switch (method) {
       case 'POST':
-        const existCart = await Cart.findOne({ userId, product });
+        const existCart = await Cart.findOne({ userId });
+
         if (existCart) {
-          await Cart.findByIdAndUpdate(existCart._id, { $inc: { quantity: 1 } }, { new: true });
+          await Cart.findByIdAndUpdate(
+            existCart._id,
+            { $inc: { 'products.$[elem].quantity': 1 } },
+            { arrayFilters: [{ 'elem.product': product }], new: true },
+          );
           return res.status(200).json({
             message: 'cập nhập số lượng thành công',
             code: 200,
           });
         }
+
         await Cart.create({
           userId,
-          product,
+          products: [{ product }],
         });
+
         return res.status(200).json({
           message: 'Thêm thành công sản phẩm vào giỏ hàng',
           code: 200,

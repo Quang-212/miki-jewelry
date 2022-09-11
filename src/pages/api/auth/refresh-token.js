@@ -7,24 +7,21 @@ import { REFRESH_TOKEN_KEY } from 'src/pages/api/constant';
 async function handlerRefreshToken(req, res) {
   await dbConnect();
   const { method } = req;
-  console.log('method: ' + method);
 
   try {
     switch (method) {
       case 'POST':
-        //lấy refresh token trên cookie
         const refreshTokenCookie = req.cookies.refreshToken;
-        // tìm kiếm refresh token đó trong data
+
         const isRefreshToken = await RefreshToken.findOne({
           refreshToken: refreshTokenCookie,
         });
-        console.log('isRefreshToken ', isRefreshToken);
+
         if (isRefreshToken) {
-          //kiểm tra refresh token và tạo mới access token
           jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, (err, payload) => {
             if (err)
               return res.status(401).json({
-                message: ' Mã token không còn hiệu lực ',
+                message: 'Mã token không còn hiệu lực',
                 code: 401,
               });
             const newAccessToken = generateAccessToken(payload);

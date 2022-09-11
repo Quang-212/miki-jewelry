@@ -7,14 +7,16 @@ const Product = new Schema(
   {
     name: { type: String, required: true, unique: true },
     slug: { type: String, slug: 'name', unique: true },
-    description: String,
+    description: { type: String, required: true },
     images: [
       {
-        url: String,
-        public_id: String,
+        url: { type: String, required: true },
+        public_id: { type: String, required: true },
         type: {
           type: String,
           enum: ['primary', 'secondary'],
+          default: 'secondary',
+          required: true,
         },
       },
     ],
@@ -24,38 +26,28 @@ const Product = new Schema(
       required: true,
       lowercase: true,
     },
-    // category: [
-    //   {
-    //     type: String,
-    //     required: true,
-    //     lowercase: true,
-    //   },
-    // ],
-
+    sold: { type: Number, required: true, default: 0 },
     visibilityStatus: {
       type: String,
       enum: ['published', 'hidden'],
       required: true,
     },
-    discount: Number,
-    coupon: String,
+    discount: { type: Number, required: true, default: 0 },
+    coupon: { type: String },
     stocks: [
       {
-        size: String,
-        price: Number,
-        color: String,
-        quantity: Number,
-        sku: String,
+        size: { type: String, required: true },
+        price: { type: Number, required: true, min: 0 },
+        color: { type: String, required: true },
+        quantity: { type: Number, required: true, default: 0 },
+        sku: { type: String },
       },
     ],
-
-    search: {
-      type: String,
-      required: true,
-    },
+    search: { type: String, required: true },
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

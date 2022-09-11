@@ -19,6 +19,16 @@ const setToken = (token) => {
   });
 };
 
+axios.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    if (error?.response?.status === 401) {
+      console.log('401 error');
+    }
+    return Promise.reject(error);
+  },
+);
+
 const axiosInstance = axios.create({
   baseURL: process.env.NEXTJS_APP_BASE_URL,
   timeout: 16000,
@@ -66,16 +76,6 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
-  },
-);
-
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error?.response?.status === 401) {
-      console.log('401 error');
-    }
     return Promise.reject(error);
   },
 );
