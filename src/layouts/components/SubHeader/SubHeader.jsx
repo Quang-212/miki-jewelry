@@ -2,14 +2,24 @@ import classNames from 'classnames/bind';
 
 import { BellRingIcon, SearchIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
+import { NAVBAR } from 'src/config';
 import { images } from 'src/constants';
+import { useCollapseDrawer } from 'src/hooks';
 import styles from './SubHeader.module.css';
 
 const mk = classNames.bind(styles);
 
 export function SubHeader() {
+  const { isCollapseClick } = useCollapseDrawer();
+
+  const headerStyle = {
+    width: isCollapseClick
+      ? `calc(100% - ${NAVBAR.WIDTH_COLLAPSE_DRAWER}px)`
+      : `calc(100% - ${NAVBAR.WIDTH_DRAWER}px)`,
+  };
+
   return (
-    <header className="relative z-50">
+    <header className={mk('root')} style={headerStyle}>
       <nav className="flex justify-between items-center pt-6 pb-4">
         <div className="flex relative">
           <input

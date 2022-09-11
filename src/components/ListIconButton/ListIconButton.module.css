@@ -1,0 +1,3 @@
+.root {
+  @apply mr-4 min-w-[18px] flex justify-center items-center;
+}
