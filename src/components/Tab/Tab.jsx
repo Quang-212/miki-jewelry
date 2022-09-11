@@ -7,6 +7,7 @@ const mk = classNames.bind(styles);
 export default function Tab({
   tabTitle,
   tabContent,
+  children,
   wrapper,
   tabList,
   tab,
@@ -57,6 +58,7 @@ export default function Tab({
           </HeadlessTab>
         ))}
       </HeadlessTab.List>
+      {children}
       <HeadlessTab.Panels className={classTabPanels}>
         {tabContent.map((content, index) => (
           <HeadlessTab.Panel key={index} className={classPanel}>

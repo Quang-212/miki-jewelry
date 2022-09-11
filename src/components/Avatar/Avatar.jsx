@@ -6,9 +6,9 @@ import styles from './Avatar.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function Avatar({ name, imageUrl, text, image }) {
+export default function Avatar({ name, imageUrl, text, image, width, height }) {
   const classAvatarImage = mk('image', {
-    [image]: image,
+    // [image]: image,
   });
 
   const classAvatarText = mk('text', {
@@ -21,9 +21,9 @@ export default function Avatar({ name, imageUrl, text, image }) {
         <Image
           src={imageUrl}
           alt="Ảnh đại diện"
-          width={32}
-          height={32}
-          className={classAvatarImage}
+          width={width ?? 32}
+          height={height ?? 32}
+          className={image ?? classAvatarImage}
         />
       ) : (
         <span className={classAvatarText}>{formatStringTextAvatar(name)}</span>

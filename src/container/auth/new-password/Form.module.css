@@ -1,0 +1,64 @@
+.new-password {
+  @apply container pt-120-px xs:pt-0;
+}
+
+.image-wrapper {
+  @apply xs:hidden;
+}
+
+.image {
+  @apply rounded-l-secondary;
+}
+
+.form-wrapper {
+  @apply flex h-852-px rounded-secondary bg-register-form-rgba shadow-register-form xs:shadow-none xs:h-auto;
+}
+
+.form {
+  @apply flex flex-col w-490-px px-10
+  xs:px-0 xs:max-w-[343px];
+}
+
+.brand-logo {
+  @apply mt-14 xs:mt-10;
+}
+
+.form-provider {
+  @apply flex-col;
+}
+
+.title {
+  @apply mt-72-px heading-5 xs:mt-7 xs:subtitle-1;
+}
+
+.password-wrapper {
+  @apply mt-8;
+}
+
+.btn-login {
+  @apply w-full;
+}
+
+.btn-fb-gg {
+  @apply flex justify-between gap-2 mt-6 xs:mt-4;
+}
+
+.btn-facebook {
+  @apply xs:w-[168px];
+}
+
+.btn-google {
+  @apply w-[200px] xs:w-[168px];
+}
+
+.register-wrapper {
+  @apply flex items-center gap-1 mt-6;
+}
+
+.btn-register-wrapper {
+  @apply ml-2;
+}
+
+.btn-register-title {
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
+}

@@ -1,0 +1,23 @@
+.reset-password {
+  @apply flex h-screen;
+}
+
+.form-provider {
+  @apply flex flex-col gap-6 max-w-[640px] m-auto pt-6 pb-14 px-28 rounded-primary bg-neutral-5 shadow-lg;
+}
+
+.title {
+  @apply m-auto mt-4 heading-5;
+}
+
+.description {
+  @apply mt-4 text-center;
+}
+
+.email-input {
+  @apply bg-neutral-5;
+}
+
+.btn-submit {
+  @apply -mt-4;
+}

@@ -160,7 +160,7 @@ export const handleMenuItems = (fn) => {
   ];
 };
 
-const [, ...rest] = handleMenuItems();
+const [, , ...rest] = handleMenuItems();
 
 export const handleMenuUserItems = ({ handleClickLogout }) => {
   return [

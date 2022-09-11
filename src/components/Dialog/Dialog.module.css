@@ -1,0 +1,19 @@
+.dialog-wrapper {
+  @apply relative z-40;
+}
+
+.backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-40;
+}
+
+.scrollable-wrapper {
+  @apply fixed inset-0 overflow-y-auto;
+}
+
+.content-wrapper {
+  @apply flex min-h-full items-center justify-center p-4 text-center;
+}
+
+.content {
+  @apply w-full max-w-[1136px] transform overflow-hidden rounded-secondary bg-wrapper py-12 text-left align-middle shadow-xl transition-all;
+}

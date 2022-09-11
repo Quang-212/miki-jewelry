@@ -1,0 +1,35 @@
+.profile {
+  @apply flex flex-col gap-10;
+}
+
+.info-wrapper {
+  @apply flex justify-between;
+}
+
+.info-personal {
+  @apply flex flex-col gap-11;
+}
+
+.info-personal-wrapper {
+  @apply flex justify-between gap-10 ml-20;
+}
+
+.avatar-wrapper {
+  @apply flex flex-col justify-center items-center gap-2;
+}
+
+.info-personal-list-title {
+  @apply flex flex-col items-end gap-12;
+}
+
+.info-personal-list-item {
+  @apply flex flex-col gap-12;
+}
+
+.btn-container {
+  @apply flex justify-end;
+}
+
+.btn-update {
+  @apply w-44;
+}

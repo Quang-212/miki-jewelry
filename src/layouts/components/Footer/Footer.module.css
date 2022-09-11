@@ -1,5 +1,5 @@
 .footer {
-  @apply relative z-50 mt-120-px xs:mt-16;
+  @apply relative z-30 mt-120-px xs:mt-16;
 }
 
 .connect {

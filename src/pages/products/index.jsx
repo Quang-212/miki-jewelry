@@ -3,6 +3,7 @@ import Breadcrumb from 'src/components/Breadcrumb';
 import { Hero, Pagination, ProductsList, Sorting } from 'src/container/products';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
+import { PATH } from 'src/routes';
 
 ProductsAll.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
@@ -15,7 +16,7 @@ export default function ProductsAll({ products, pageCount }) {
         data={{
           title: 'Tất cả sản phẩm',
           description: 'Tất cả sản phẩm',
-          url: '',
+          url: PATH.products,
           thumbnailUrl: '',
         }}
       />

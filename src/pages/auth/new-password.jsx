@@ -1,28 +1,28 @@
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import LoginFormSection, {
+import Form, {
   CircleIcon1,
   CircleIcon1Mobile,
   CircleIcon2,
   CircleIcon3,
-} from 'src/container/auth/login-form';
+} from 'src/container/auth/new-password';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
-LoginPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
+NewPassword.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 
-export default function LoginPage() {
+export default function NewPassword() {
   return (
     <>
       <Page
         data={{
-          title: 'Đăng nhập tài khoản',
+          title: 'Thay đổi mật khẩu',
           description: '',
-          url: PATH.login,
+          url: PATH.newPassword,
           thumbnailUrl: images.loginForm,
         }}
       />
-      <LoginFormSection />
+      <Form />
       <CircleIcon1 />
       <CircleIcon1Mobile />
       <CircleIcon2 />

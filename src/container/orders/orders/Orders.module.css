@@ -1,0 +1,31 @@
+.search {
+  @apply flex relative mr-8;
+}
+
+.search::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  width: 1px;
+  height: 24px;
+  background-color: rgba(22, 24, 35, 0.12);
+}
+
+.input-search {
+  @apply h-10 w-[279px] py-2 px-4 rounded-primary border border-neutral-1 bg-white caret-primary-1
+  focus-within:border-primary-1 focus-within:border-2 outline-none font-primary;
+}
+
+input:not(:placeholder-shown) ~ .search-btn {
+  color: rgba(22, 24, 35, 0.75);
+}
+
+.search-btn {
+  @apply absolute h-full w-8 left-[246px] hover:bg-icon-search-rgba-hover active:bg-icon-search-rgba-active;
+}
+
+.clear,
+.loading {
+  @apply absolute right-12 translate-y-2/4 text-icon-rgba;
+}
