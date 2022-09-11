@@ -1,0 +1,19 @@
+.images {
+  @apply flex gap-10 max-w-[597px];
+}
+
+.images-list {
+  @apply flex flex-col justify-between gap-3;
+}
+
+.image-item {
+  @apply flex justify-center items-center;
+}
+
+.image {
+  @apply rounded-primary;
+}
+
+.image-primary {
+  @apply rounded-secondary;
+}

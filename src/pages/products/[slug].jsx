@@ -55,7 +55,7 @@ export default function ProductDetail({ product, relatedProducts }) {
       <div className="container flex flex-col gap-8 mt-6">
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div className="flex justify-between gap-10">
-          <Images images={images} />
+          <Images images={images} name={name} />
           <MainInformation name={name} discount={discount} stocks={stocks} />
         </div>
         <MoreInformation />
