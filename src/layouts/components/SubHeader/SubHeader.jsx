@@ -20,7 +20,7 @@ export function SubHeader() {
 
   return (
     <header className={mk('root')} style={headerStyle}>
-      <nav className="flex justify-between items-center pt-6 pb-4">
+      <nav className="flex justify-between items-center ">
         <div className="flex relative">
           <input
             placeholder="Tìm kiếm"

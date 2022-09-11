@@ -1,0 +1,19 @@
+.input {
+  @apply w-full h-12 py-3 px-4 rounded-primary border border-primary-1;
+}
+
+.input.disable {
+  @apply pointer-events-none border-gray-300;
+}
+
+.option {
+  @apply w-fit max-h-[340px] bg-slate-50 shadow-md  absolute top-14 left-0 overflow-y-scroll z-50 rounded-lg;
+}
+
+.caption {
+  @apply block h-6 ml-1 text-caption-1 text-sm leading-5;
+}
+
+.root {
+  @apply relative;
+}
