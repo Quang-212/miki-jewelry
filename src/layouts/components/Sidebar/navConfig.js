@@ -6,12 +6,17 @@ export const navConfig = [
     items: [
       {
         title: 'App',
-        icon: 'icon',
+        icon: 'ant-design:bell-filled',
         path: PATH.adminDashboard,
       },
       {
         title: 'Products',
-        icon: 'icon',
+        icon: 'ant-design:bell-filled',
+        path: PATH.adminProducts,
+      },
+      {
+        title: 'Products1',
+        icon: 'ant-design:bell-filled',
         path: PATH.adminProducts,
       },
     ],
@@ -22,7 +27,7 @@ export const navConfig = [
     items: [
       {
         title: 'User',
-        icon: 'icon',
+        icon: 'ant-design:bell-filled',
         children: [
           {
             title: 'profile',
@@ -44,7 +49,7 @@ export const navConfig = [
       },
       {
         title: 'Blog',
-        icon: 'icon',
+        icon: 'ant-design:bell-filled',
         path: PATH.adminProducts,
         children: [
           {

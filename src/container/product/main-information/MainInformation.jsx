@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import axiosInstance from 'src/utils/axios';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ name, discount, stocks }) {
@@ -12,6 +13,8 @@ export function MainInformation({ name, discount, stocks }) {
     quantity: 1,
     fallback: 1,
   });
+
+  // const {}
 
   const handleClickSize = (index) => {
     setSizeChecked(index);
@@ -43,6 +46,16 @@ export function MainInformation({ name, discount, stocks }) {
           : { ...prev, quantity: prev.fallback },
       );
     }
+  };
+
+  const getProductsCart = async () => {
+    const data = await axiosInstance({
+      method: 'POST',
+      url: '/api/cart',
+      // data: {
+      //   userId:
+      // }
+    });
   };
 
   return (

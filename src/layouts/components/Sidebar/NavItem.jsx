@@ -6,6 +6,7 @@ import { ArrowForwardIcon, BellRingIcon } from 'src/components/Icons';
 import ListIconButton from 'src/components/ListIconButton';
 import ListItemButton from 'src/components/ListItemButton';
 import { useCollapseDrawer } from 'src/hooks';
+import { Icon } from '@iconify/react';
 
 const renderText = (title, active) => {
   return <p className={`${active && 'text-primary-1'} font-semibold capitalize`}>{title}</p>;
@@ -28,13 +29,14 @@ export default function NavItemRoot({ list }) {
     setOpen((prev) => !prev);
   };
 
+  const active = getActive(list.path, pathname, asPath);
+
   if (!hashChildren) {
-    const active = getActive(list.path, pathname, asPath);
     return (
       <NextLink href={list.path} passHref>
         <ListItemButton className={active && 'bg-primary-5'}>
           <ListIconButton>
-            <BellRingIcon className="fill-primary-1" width="18" height="18" />
+            <Icon icon={list.icon} width={24} className={active && 'text-primary-1'} />
           </ListIconButton>
           {!isCollapse && renderText(list.title, active)}
         </ListItemButton>
@@ -46,7 +48,7 @@ export default function NavItemRoot({ list }) {
     <>
       <ListItemButton onClick={handleClickCollapse}>
         <ListIconButton>
-          <BellRingIcon className="fill-primary-1" width="18" height="18" />
+          <Icon icon={list.icon} width={24} className={active && 'text-primary-1'} />
         </ListIconButton>
         {!isCollapse && renderText(list.title)}
         {!isCollapse && (

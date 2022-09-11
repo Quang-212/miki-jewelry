@@ -8,11 +8,6 @@ export const cartState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-// export const shippingState = atom({
-//   key: 'shipping',
-//   default: [],
-// })
-
 // export const addToCartState = selector({
 //   key: 'addToCart',
 //   get: ({ get }) => get(cartState),
@@ -50,8 +45,8 @@ export const cartState = atom({
 //   },
 // });
 
-export const addToCartState1 = selector({
-  key: 'addToCart1',
+export const addToCartState = selector({
+  key: 'addToCart',
   get: ({ get }) => get(cartState),
   set: ({ set, get }, currentProduct, type, quantity) => {
     const prevCart = get(cartState);
