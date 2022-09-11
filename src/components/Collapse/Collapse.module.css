@@ -1,0 +1,3 @@
+.root {
+  @apply transition-all duration-1000;
+}

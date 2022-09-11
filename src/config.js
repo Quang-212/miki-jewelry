@@ -1,0 +1,4 @@
+export const NAVBAR = {
+  WIDTH_DRAWER: 280,
+  WIDTH_COLLAPSE_DRAWER: 88,
+};

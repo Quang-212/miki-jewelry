@@ -1,0 +1,15 @@
+.root {
+  @apply fixed w-fit bg-gray-200 z-drawer  border-gray-400 border-dashed overflow-y-auto;
+}
+.left {
+  @apply left-0 bottom-0 top-0;
+}
+.right {
+  @apply right-0 bottom-0 top-0;
+}
+.bottom {
+  @apply bottom-0 right-0 left-0;
+}
+.top {
+  @apply top-0 right-0 left-0;
+}
