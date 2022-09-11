@@ -1,0 +1,6 @@
+.root {
+  @apply px-4 flex-col gap-1;
+}
+.sub-header {
+  @apply flex  text-gray-500 font-bold text-base capitalize pt-6 pl-4 pb-2;
+}

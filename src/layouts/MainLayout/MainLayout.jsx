@@ -2,12 +2,22 @@ import classNames from 'classnames/bind';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Copyright from 'src/components/Copyright';
+import { NAVBAR } from 'src/config';
+import { useCollapseDrawer } from 'src/hooks';
 import { Footer, Header, Sidebar, SubHeader } from '../components';
 import styles from './MainLayout.module.css';
 
 const mk = classNames.bind(styles);
 
 export default function MainLayout({ variant, children }) {
+  const { isCollapseClick } = useCollapseDrawer();
+
+  const mainStyle = {
+    width: isCollapseClick
+      ? `calc(100% - ${NAVBAR.WIDTH_COLLAPSE_DRAWER}px)`
+      : `calc(100% - ${NAVBAR.WIDTH_DRAWER}px)`,
+  };
+
   switch (variant) {
     case 'footer':
       return (
@@ -19,12 +29,14 @@ export default function MainLayout({ variant, children }) {
 
     case 'admin':
       return (
-        <div className={mk('sub-wrapper', 'admin')}>
-          <Sidebar />
-          <div className="flex flex-col gap-8 w-5/6">
-            <SubHeader />
-            <main>{children}</main>
+        <div className={mk('admin')}>
+          <SubHeader />
+          <div className="flex-1">
+            <Sidebar />
           </div>
+          <main className={mk('main-admin')} style={mainStyle}>
+            {children}
+          </main>
         </div>
       );
 

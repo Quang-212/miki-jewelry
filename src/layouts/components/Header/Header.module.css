@@ -1,5 +1,5 @@
 .header {
-  @apply relative z-50;
+  @apply relative z-header;
 }
 
 .nav {
