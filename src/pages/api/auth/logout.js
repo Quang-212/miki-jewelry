@@ -1,7 +1,6 @@
 import verifyToken from 'src/middlewares/verifyToken';
 import RefreshToken from 'src/models/RefreshToken';
 import { serialize } from 'cookie';
-
 import dbConnect from 'src/utils/dbConnect';
 
 async function logout(req, res) {

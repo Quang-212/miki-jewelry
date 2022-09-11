@@ -8,6 +8,10 @@ import { FormProvider } from 'src/components/HookForms';
 import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
+import useProvince from 'src/hooks/useProvince';
+import useDistrict from 'src/hooks/useDistrict';
+import useWard from 'src/hooks/useWard';
+import { useEffect } from 'react';
 
 const mk = classNames.bind(styles);
 
@@ -54,6 +58,15 @@ export default function Form() {
   });
 
   const { handleSubmit, setValue } = methods;
+
+  const { provinces } = useProvince(); // tự động call lượt đầu để lấy danh sách tỉnh
+  // const { districts } = useDistrict(1); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
+  // const { wards } = useWard(1); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
+  console.log(provinces);
+
+  useEffect(() => {}, [provinces]);
+  // useEffect(() => {}, [districts]);
+  // useEffect(() => {}, [wards]);
 
   const onSubmit = async (data) => {
     console.log(data);
