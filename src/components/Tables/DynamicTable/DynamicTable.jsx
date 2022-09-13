@@ -22,6 +22,8 @@ export default function DynamicTable({
   const TableData = 'td';
   const Pagination = 'div';
 
+  console.log(data);
+
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       {

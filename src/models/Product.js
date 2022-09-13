@@ -38,7 +38,7 @@ const Product = new Schema(
       {
         size: { type: String, required: true },
         price: { type: Number, required: true, min: 0 },
-        color: { type: String, required: true },
+        // color: { type: String, required: true },
         quantity: { type: Number, required: true, default: 0 },
         sku: { type: String },
       },

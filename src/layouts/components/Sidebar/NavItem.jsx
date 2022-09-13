@@ -57,8 +57,9 @@ export default function NavItemRoot({ list }) {
       </ListItemButton>
       {!isCollapse && (
         <Collapse open={open}>
-          {list.children.map((item) => (
+          {list.children.map((item, index) => (
             <NavItemSub
+              key={index}
               list={item}
               active={getActive(item.path, pathname, asPath)}
               isCollapse={isCollapse}

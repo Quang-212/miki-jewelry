@@ -14,6 +14,11 @@ export const navConfig = [
         icon: 'icon',
         path: PATH.adminProducts,
       },
+      {
+        title: 'Customer',
+        icon: 'icon',
+        path: PATH.adminProducts,
+      },
     ],
   },
 
