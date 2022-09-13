@@ -9,7 +9,7 @@ import { BasketIcon, UserIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import Menu from 'src/components/Popper/Menu';
 import { images } from 'src/constants';
-import { useRouter } from 'src/hooks';
+import { useClientSide, useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 import MenuCategory from '../MenuCategory';
 import styles from './Header.module.css';
@@ -27,11 +27,12 @@ import { userState } from 'src/recoils';
 import { getLocalStorage } from 'src/utils/handleLocalStorage';
 import { logoutForm } from 'src/fetching/auth';
 import Avatar from 'src/components/Avatar';
+import Cart from '../Cart';
 
 const mk = classNames.bind(styles);
 
 export function Header() {
-  const [isSSR, setIsSSR] = useState(false);
+  const isClient = useClientSide();
 
   const { data: session } = useSession();
   const { pathname, push, replace } = useRouter();
@@ -39,10 +40,6 @@ export function Header() {
   const { user, isAuthenticated } = useRecoilValue(userState);
 
   const resetUserValue = useResetRecoilState(userState);
-
-  useEffect(() => {
-    setIsSSR(true);
-  }, [user, isAuthenticated]);
 
   const handleClickLogin = () => push(PATH.login);
 
@@ -79,9 +76,7 @@ export function Header() {
           <Search />
 
           <div className="flex gap-8">
-            <Button icon internalLink={PATH.home}>
-              <BasketIcon />
-            </Button>
+            <Cart />
 
             <Menu
               items={
@@ -90,7 +85,7 @@ export function Header() {
                   : handleMenuItems(handleClickLogin)
               }
             >
-              {isSSR && isAuthenticated ? (
+              {isClient && isAuthenticated ? (
                 <div className="flex items-center">
                   <Avatar name={user?.userName} imageUrl="" />
                 </div>

@@ -20,7 +20,7 @@ const setToken = (token) => {
 };
 
 axios.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   (error) => {
     if (error?.response?.status === 401) {
       console.log('401 error');
@@ -58,7 +58,7 @@ axiosInstance.interceptors.request.use(
             _id: payload._id,
             role: payload.role,
           },
-          url: `${process.env.NEXTJS_APP_BASE_URL}/api/auth/refreshtoken`,
+          url: `${process.env.NEXTJS_APP_BASE_URL}/api/auth/refresh-token`,
           withCredentials: true,
         });
 

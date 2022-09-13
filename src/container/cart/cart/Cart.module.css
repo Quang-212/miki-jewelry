@@ -19,7 +19,7 @@
 }
 
 .size {
-  @apply caption -mt-12 text-[#707070];
+  @apply caption text-[#707070];
 }
 
 .col-3 {

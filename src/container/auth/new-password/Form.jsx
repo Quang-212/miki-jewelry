@@ -12,6 +12,7 @@ import Image from 'src/components/Image';
 import { images } from 'src/constants';
 import { PATH } from 'src/routes';
 import styles from './Form.module.css';
+import OtpField from 'src/components/OtpField';
 
 const mk = classNames.bind(styles);
 
@@ -75,6 +76,7 @@ export default function Form() {
             className={mk('form-provider')}
           >
             <h5 className={mk('title')}>Thay đổi mật khẩu</h5>
+            <OtpField />
             <TextField
               name="password"
               type="password"
@@ -86,33 +88,6 @@ export default function Form() {
             <Button primary wrapper={mk('btn-login')}>
               Đăng nhập
             </Button>
-
-            <p className="mt-8">Hoặc đăng nhập bằng</p>
-            <div className={mk('btn-fb-gg')}>
-              <Button rounded leftIcon={<FacebookColorIcon />} wrapper={mk('btn-facebook')}>
-                Facebook
-              </Button>
-              <Button
-                rounded
-                leftIcon={<GoogleColorIcon />}
-                wrapper={mk('btn-google')}
-                onClick={() => signIn()}
-              >
-                Google
-              </Button>
-            </div>
-
-            <p className={mk('register-wrapper')}>
-              <span className={mk('caption')}>Bạn chưa có tài khoản?</span>
-              <Button
-                text
-                internalLink={PATH.register}
-                wrapper={mk('btn-register-wrapper')}
-                title={mk('btn-register-title')}
-              >
-                Đăng ký
-              </Button>
-            </p>
           </FormProvider>
         </div>
       </div>

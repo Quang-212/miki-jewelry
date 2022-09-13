@@ -48,30 +48,51 @@ export const cartState = atom({
 export const addToCartState = selector({
   key: 'addToCart',
   get: ({ get }) => get(cartState),
-  set: ({ set, get }, currentProduct, type, quantity) => {
+  set: ({ get, set }, { currentProduct, cartId, size, type, quantity }) => {
     const prevCart = get(cartState);
-    const existedProduct = prevCart.find((product) => product._id === currentProduct._id);
+    const existedProduct = prevCart.find(({ cartId: cartIdRecoil }) => cartIdRecoil === cartId);
 
-    const calculateQuantity = (type, quantity) => {
+    const calculateQuantity = (type, quantity, prevQuantity) => {
       if (type === 'typing') {
         return quantity;
       }
-      return type === 'subtract' ? quantity - 1 : quantity + 1;
+
+      if (type === 'addMultiply') {
+        return prevQuantity + quantity;
+      }
+      //* add from cart
+      return type === 'subtract' ? prevQuantity - 1 : prevQuantity + 1;
     };
 
-    const updateCart = (prevCart, currentProduct, type, quantity) => {
-      return prevCart.map((product) =>
-        product._id === currentProduct._id
-          ? { ...product, quantity: calculateQuantity(type, quantity) }
-          : product,
+    const updateCart = ({ prevCart, cartId, size, type, quantity }) => {
+      return prevCart.map((item) =>
+        item.cartId === cartId
+          ? {
+              ...item,
+              quantity: calculateQuantity(type, quantity, item.quantity),
+              size: type === 'updateSize' ? size : item.size,
+              cartId: type === 'updateSize' ? `${item.product._id}${size}` : item.cartId,
+            }
+          : item,
       );
     };
+
+    console.log('prevCart ', prevCart);
+    console.log('existedProduct ', existedProduct);
 
     return set(
       cartState,
       existedProduct
-        ? updateCart(prevCart, currentProduct, type, quantity)
-        : [...prevCart, { product: currentProduct, quantity }],
+        ? updateCart({ prevCart, cartId, size, type, quantity })
+        : [
+            ...prevCart,
+            {
+              product: currentProduct,
+              cartId,
+              size,
+              quantity,
+            },
+          ],
     );
   },
 });

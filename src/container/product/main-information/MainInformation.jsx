@@ -1,36 +1,54 @@
 import { isNumber } from 'lodash';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { addToCartState, cartState, userState } from 'src/recoils';
 import axiosInstance from 'src/utils/axios';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
-export function MainInformation({ name, discount, stocks }) {
+export function MainInformation({ product }) {
+  const { name, discount, stocks } = product;
+
   const [sizeChecked, setSizeChecked] = useState(0);
   const [{ quantity, fallback }, setQuantity] = useState({
     quantity: 1,
     fallback: 1,
   });
 
-  // const {}
+  const subtractButtonRef = useRef();
+  const addButtonRef = useRef();
+
+  // console.log(subtractButtonRef, addButtonRef);
+
+  const { user } = useRecoilValue(userState);
+
+  const setCart = useSetRecoilState(addToCartState);
+
+  const cart = useRecoilValue(cartState);
+  console.log(cart);
+
+  const isOutOfStock = (inputQuantity) => {
+    return (
+      stocks.find((stock) => stock.size == generateProperty(sizeChecked, 'size')).quantity <=
+      inputQuantity
+    );
+  };
 
   const handleClickSize = (index) => {
     setSizeChecked(index);
   };
 
-  const generatePrice = (sizeChecked) => {
-    return stocks.find((_, index) => index === sizeChecked).price;
-  };
-
-  const generateStock = (sizeChecked) => {
-    return stocks.find((_, index) => index === sizeChecked).quantity;
+  const generateProperty = (sizeChecked, property) => {
+    return stocks.find((_, index) => index === sizeChecked)[property];
   };
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
     const replaceValue = value.replace(/\D|0/g, '');
+    console.log(isOutOfStock(replaceValue));
 
     if (event.type === 'change') {
       return setQuantity((prev) => ({
@@ -40,21 +58,42 @@ export function MainInformation({ name, discount, stocks }) {
     }
 
     if (event.key === 'Enter' || event.type === 'blur') {
-      setQuantity((prev) =>
-        replaceValue
-          ? { quantity: +replaceValue, fallback: +replaceValue }
-          : { ...prev, quantity: prev.fallback },
-      );
+      if (event.target !== (addButtonRef.current.target || subtractButtonRef.current.target)) {
+        setQuantity((prev) =>
+          replaceValue && !isOutOfStock(+replaceValue)
+            ? { quantity: +replaceValue, fallback: +replaceValue }
+            : { ...prev, quantity: prev.fallback },
+        );
+      }
     }
   };
 
-  const getProductsCart = async () => {
-    const data = await axiosInstance({
-      method: 'POST',
-      url: '/api/cart',
-      // data: {
-      //   userId:
-      // }
+  const handleAdd = () => {
+    if (!isOutOfStock(quantity)) {
+      setQuantity(({ quantity, fallback }) => ({
+        quantity: quantity ? quantity + 1 : fallback + 1,
+        fallback: fallback + 1,
+      }));
+    }
+  };
+
+  // console.log(quantity);
+  // console.log(fallback);
+
+  const handleSubtract = () => {
+    setQuantity(({ quantity, fallback }) => ({
+      quantity: quantity ? quantity - 1 : fallback - 1,
+      fallback: fallback - 1,
+    }));
+  };
+  const handleAddToCart = () => {
+    console.log(fallback);
+    setCart({
+      currentProduct: product,
+      cartId: `${product._id}${generateProperty(sizeChecked, 'size')}`,
+      size: generateProperty(sizeChecked, 'size'),
+      type: 'addMultiply',
+      quantity: fallback,
     });
   };
 
@@ -68,11 +107,11 @@ export function MainInformation({ name, discount, stocks }) {
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
           <p>10 đã bán</p>
         </div>
-        {!generateStock(sizeChecked) ? (
+        {!generateProperty(sizeChecked, 'quantity') ? (
           <span className="ml-8 subtitle-1 text-caption-1">Hết hàng</span>
-        ) : generateStock(sizeChecked) < 10 ? (
+        ) : generateProperty(sizeChecked, 'quantity') < 10 ? (
           <span className="ml-8 subtitle-1 text-caption-1">
-            Sắp hết hàng (Còn {generateStock(sizeChecked)} sản phẩm)
+            Sắp hết hàng (Còn {generateProperty(sizeChecked, 'quantity')} sản phẩm)
           </span>
         ) : (
           <span className="ml-8 subtitle-1 text-caption-2">Còn hàng</span>
@@ -82,7 +121,7 @@ export function MainInformation({ name, discount, stocks }) {
         <>
           <div className="flex items-center gap-4 mt-5">
             <span className="heading-3 text-neutral-2 line-through">
-              {formatVndCurrency(generatePrice(sizeChecked))}
+              {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
             </span>
             <NormalDivider vertical="border-2 h-5 border-l-[1px] border-neutral-2" />
             <span className="py-1 px-2 rounded-tag bg-discount text-neutral-5">- {discount}%</span>
@@ -91,12 +130,12 @@ export function MainInformation({ name, discount, stocks }) {
             </Button>
           </div>
           <span className="heading-1 text-primary-2">
-            {formatVndCurrency(generatePrice(sizeChecked), discount)}
+            {formatVndCurrency(generateProperty(sizeChecked, 'price'), discount)}
           </span>
         </>
       ) : (
         <span className="mt-8 mb-4 heading-1 text-primary-2">
-          {formatVndCurrency(generatePrice(sizeChecked))}
+          {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
         </span>
       )}
       <div className="flex flex-col gap-6 mt-4">
@@ -125,7 +164,12 @@ export function MainInformation({ name, discount, stocks }) {
         <div className="flex gap-24">
           <div className="flex min-w-[100px]">Số lượng:</div>
           <div className="flex items-center gap-6">
-            <Button icon wrapper="p-1 active:bg-primary active:rounded-full">
+            <Button
+              ref={subtractButtonRef}
+              icon
+              wrapper="p-1 active:bg-primary active:rounded-full"
+              onClick={handleSubtract}
+            >
               <MinusIcon className="active:text-white h-6 w-6" />
             </Button>
             <span className="heading-5">
@@ -138,7 +182,12 @@ export function MainInformation({ name, discount, stocks }) {
                 className="w-10"
               />
             </span>
-            <Button icon wrapper="active:bg-primary active:rounded-full">
+            <Button
+              ref={addButtonRef}
+              icon
+              wrapper="active:bg-primary active:rounded-full"
+              onClick={handleAdd}
+            >
               <PlusIcon className="active:text-white w-8 h-8" />
             </Button>
           </div>
@@ -146,7 +195,7 @@ export function MainInformation({ name, discount, stocks }) {
       </div>
 
       <div className="flex gap-10 mt-4">
-        <Button outline wrapper="w-254-px">
+        <Button outline wrapper="w-254-px" onClick={handleAddToCart}>
           Thêm vào giỏ hàng
         </Button>
         <Button primary>Mua ngay</Button>
