@@ -6,8 +6,10 @@ const UserSchema = new Schema(
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true, min: 8 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    gender: { type: String },
     image: { type: String },
     birthday: { type: Date },
+    consumerSpending: { type: Number, default: 0 },
   },
   {
     timestamps: true,
