@@ -11,7 +11,8 @@ import FormPayment from './FormPayment';
 import useProvince from 'src/hooks/useProvince';
 import useDistrict from 'src/hooks/useDistrict';
 import useWard from 'src/hooks/useWard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { isEmpty, isPlainObject } from 'lodash';
 
 const mk = classNames.bind(styles);
 
@@ -47,7 +48,7 @@ export default function Form() {
       lastName: '',
       city: '',
       district: '',
-      wards: '',
+      ward: '',
       addressNumber: '',
       phoneNumber: '',
       payment: ['cash'],
@@ -57,19 +58,67 @@ export default function Form() {
     },
   });
 
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit, setValue, watch, reset } = methods;
+  const [address, setAddress] = useState({
+    provinces: null,
+    districts: null,
+    wards: null,
+  });
 
   const { provinces } = useProvince(); // tự động call lượt đầu để lấy danh sách tỉnh
-  // const { districts } = useDistrict(1); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
-  // const { wards } = useWard(1); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
-  console.log(provinces);
+  const { districts } = useDistrict(address.provinces); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
+  const { wards } = useWard(address.districts); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
 
-  useEffect(() => {}, [provinces]);
+  useEffect(() => {
+    reset({
+      district: '',
+      ward: '',
+    });
+  }, [address.provinces]);
+
+  useEffect(() => {
+    reset({
+      ward: '',
+    });
+  }, [address.districts]);
   // useEffect(() => {}, [districts]);
   // useEffect(() => {}, [wards]);
 
   const onSubmit = async (data) => {
     console.log(data);
+  };
+
+  const getName = (name) => {
+    switch (name) {
+      case 'city':
+        return 'provinces';
+      case 'district':
+        return 'districts';
+      case 'ward':
+        return 'wards';
+      default:
+        return '';
+    }
+  };
+
+  const handLeSelect = (name, item) => {
+    if (!isPlainObject(item)) {
+      return setValue(name, item);
+    }
+    setValue(name, item.name);
+    setAddress((prev) => ({ ...prev, [getName(name)]: item.code }));
+  };
+
+  const onSelectCity = async (item) => {
+    handLeSelect('city', item);
+  };
+
+  const onSelectDistrict = async (item) => {
+    handLeSelect('district', item);
+  };
+
+  const onSelectWards = async (item) => {
+    handLeSelect('ward', item);
   };
 
   return (
@@ -79,7 +128,16 @@ export default function Form() {
         onSubmit={handleSubmit(onSubmit)}
         className={mk('form-provider')}
       >
-        <FormAddress />
+        <FormAddress
+          provinces={provinces}
+          districts={districts}
+          wards={wards}
+          disableDistricts={isEmpty(watch('city'))}
+          disableWards={isEmpty(watch('district'))}
+          onSelectCity={onSelectCity}
+          onSelectDistrict={onSelectDistrict}
+          onSelectWards={onSelectWards}
+        />
         <FormPayment setValue={setValue} />
 
         <div className={mk('btn-list')}>
