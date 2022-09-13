@@ -1,6 +1,6 @@
 import { isNumber } from 'lodash';
 import { useRef, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
@@ -10,7 +10,7 @@ import axiosInstance from 'src/utils/axios';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
-  const { name, discount, stocks } = product;
+  const { name, discount, stocks, _id } = product;
 
   const [sizeChecked, setSizeChecked] = useState(0);
   const [{ quantity, fallback }, setQuantity] = useState({
@@ -25,14 +25,13 @@ export function MainInformation({ product }) {
 
   const { user } = useRecoilValue(userState);
 
-  const setCart = useSetRecoilState(addToCartState);
+  const [cart, setCart] = useRecoilState(addToCartState);
 
-  const cart = useRecoilValue(cartState);
   console.log(cart);
 
   const isOutOfStock = (inputQuantity) => {
     return (
-      stocks.find((stock) => stock.size == generateProperty(sizeChecked, 'size')).quantity <=
+      stocks.find((stock) => stock.size == generateProperty(sizeChecked, 'size')).quantity <
       inputQuantity
     );
   };
@@ -47,20 +46,22 @@ export function MainInformation({ product }) {
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
-    const replaceValue = value.replace(/\D|0/g, '');
-    console.log(isOutOfStock(replaceValue));
+    const replaceValue = quantity ? value.replace(/\D/g, '') : value.replace(/\D|0/g, '');
 
     if (event.type === 'change') {
       return setQuantity((prev) => ({
         quantity: replaceValue,
-        fallback: +replaceValue || prev.fallback,
+        fallback:
+          (isOutOfStock(+replaceValue)
+            ? generateProperty(sizeChecked, 'quantity')
+            : +replaceValue) || prev.fallback,
       }));
     }
 
     if (event.key === 'Enter' || event.type === 'blur') {
       if (event.target !== (addButtonRef.current.target || subtractButtonRef.current.target)) {
         setQuantity((prev) =>
-          replaceValue && !isOutOfStock(+replaceValue)
+          replaceValue && !isOutOfStock(+replaceValue + 1)
             ? { quantity: +replaceValue, fallback: +replaceValue }
             : { ...prev, quantity: prev.fallback },
         );
@@ -69,16 +70,13 @@ export function MainInformation({ product }) {
   };
 
   const handleAdd = () => {
-    if (!isOutOfStock(quantity)) {
+    if (!isOutOfStock(quantity + 1)) {
       setQuantity(({ quantity, fallback }) => ({
         quantity: quantity ? quantity + 1 : fallback + 1,
         fallback: fallback + 1,
       }));
     }
   };
-
-  // console.log(quantity);
-  // console.log(fallback);
 
   const handleSubtract = () => {
     setQuantity(({ quantity, fallback }) => ({
@@ -87,7 +85,13 @@ export function MainInformation({ product }) {
     }));
   };
   const handleAddToCart = () => {
-    console.log(fallback);
+    const targetProduct = cart.find(
+      (item) => item.cartId === `${_id}${generateProperty(sizeChecked, 'size')}`,
+    );
+    if (fallback + targetProduct.quantity > generateProperty(sizeChecked, 'quantity')) {
+      return console.log('het hang');
+    }
+
     setCart({
       currentProduct: product,
       cartId: `${product._id}${generateProperty(sizeChecked, 'size')}`,
@@ -161,6 +165,9 @@ export function MainInformation({ product }) {
             ))}
           </ul>
         </div>
+        {isOutOfStock(+quantity) && (
+          <span>Ban chi co the mua toi da {generateProperty(sizeChecked, 'quantity')}</span>
+        )}
         <div className="flex gap-24">
           <div className="flex min-w-[100px]">Số lượng:</div>
           <div className="flex items-center gap-6">

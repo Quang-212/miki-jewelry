@@ -29,7 +29,7 @@ const ratingProduct = async (req, res) => {
         code: 200,
       });
     default:
-      return res.status(403).json({
+      return res.status(400).json({
         message: 'Không thành công',
         code: 400,
       });

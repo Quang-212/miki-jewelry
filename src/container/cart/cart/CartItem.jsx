@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Tippy from '@tippyjs/react/headless';
 
 import Button from 'src/components/Button';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { images } from 'src/constants';
-import { addToCartState } from 'src/recoils';
+import { addToCartState, deleteCartItemState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
@@ -15,21 +15,23 @@ import { Wrapper as PopperWrapper } from 'src/components/Popper';
 const mk = classNames.bind(styles);
 
 export default function CartItem({ data }) {
-  const [sizeChecked, setSizeChecked] = useState(0);
+  const { product, size, quantity, cartId } = data;
 
-  // const [{ quantity, fallback }, setQuantity] = useState({
-  //   quantity,
-  //   fallback: 1,
-  // });
+  const [sizeChecked, setSizeChecked] = useState(
+    product.stocks.findIndex((stock) => stock.size == size),
+  );
 
-  const { product, size, quantity } = data;
+  const [stateQuantity, setQuantity] = useState({
+    type: null,
+    quantity,
+    fallback: quantity,
+  });
+  const { quantity: inputQuantity, fallback } = stateQuantity;
 
   const [cart, setCart] = useRecoilState(addToCartState);
-
-  console.log(data);
-
-  const generateProperty = (sizeChecked, property) => {
-    return product.stocks.find((_, index) => index === sizeChecked)[property];
+  const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);
+  const generateNewSize = (sizeChecked) => {
+    return product.stocks.find((_, index) => index === sizeChecked)['size'];
   };
 
   const generatePrice = () => {
@@ -37,13 +39,26 @@ export default function CartItem({ data }) {
   };
 
   const isOutOfStock = (inputQuantity) => {
-    return product.stocks.find((stock) => stock.size === size).quantity <= inputQuantity;
+    return product.stocks.find((stock) => stock.size === size).quantity < +inputQuantity;
   };
 
+  const isChosenSize = (size) =>
+    cart.find((item) => item.cartId === `${product._id}${size}` && item.cartId !== cartId);
+
   const handleClickSize = (index) => {
-    console.log(index);
     setSizeChecked(index);
   };
+
+  useEffect(() => {
+    if (stateQuantity.type) {
+      setCart({
+        cartId: `${product._id}${size}`,
+        size,
+        type: stateQuantity.type,
+        ...(stateQuantity.type === 'typing' && { quantity: fallback }),
+      });
+    }
+  }, [fallback]);
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
@@ -51,44 +66,50 @@ export default function CartItem({ data }) {
 
     if (event.type === 'change') {
       return setQuantity((prev) => ({
-        quantity1: replaceValue,
-        fallback: +replaceValue || prev.fallback,
+        type: 'typing',
+        quantity: !isOutOfStock(replaceValue) ? replaceValue : prev.quantity,
+        fallback: (!isOutOfStock(replaceValue) && +replaceValue) || prev.fallback,
       }));
     }
 
     if (event.key === 'Enter' || event.type === 'blur') {
       setQuantity((prev) =>
         replaceValue
-          ? { quantity1: +replaceValue, fallback: +replaceValue }
-          : { ...prev, quantity1: prev.fallback },
+          ? { quantity: +replaceValue, fallback: +replaceValue }
+          : { ...prev, quantity: prev.fallback },
       );
     }
   };
 
   const handleAdd = () => {
-    if (!isOutOfStock(quantity))
-      setCart({
-        cartId: `${product._id}${size}`,
-        size,
+    if (!isOutOfStock(quantity + 1))
+      setQuantity(({ quantity, fallback }) => ({
         type: 'plus',
-      });
+        quantity: quantity + 1,
+        fallback: fallback + 1,
+      }));
   };
 
   const handleSubtract = () => {
-    setCart({
-      cartId: `${product._id}${size}`,
-      size,
+    // quantity < 1 => popup confirm => delete
+    setQuantity(({ quantity, fallback }) => ({
       type: 'subtract',
-    });
+      quantity: quantity - 1,
+      fallback: fallback - 1,
+    }));
   };
 
   const handleSubmitDistribution = () => {
-    console.log('handleSubmitDistribution');
+    console.log('change size');
     setCart({
       cartId: `${product._id}${size}`,
-      size: generateProperty(sizeChecked, 'size'),
+      size: generateNewSize(sizeChecked),
       type: 'updateSize',
     });
+  };
+
+  const handleDeleteCartItem = () => {
+    deleteCartItemRecoil(cartId);
   };
 
   return (
@@ -130,7 +151,7 @@ export default function CartItem({ data }) {
                                   : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
                               }
                               onClick={() => handleClickSize(index)}
-                              disabled={isOutOfStock}
+                              disabled={isOutOfStock || isChosenSize(stock.size)}
                             >
                               {stock.size}
                             </Button>
@@ -166,7 +187,7 @@ export default function CartItem({ data }) {
           <span className="heading-5">
             <input
               type="text"
-              value={quantity}
+              value={inputQuantity}
               onChange={handleTypingInput}
               onBlur={handleTypingInput}
               onKeyUp={handleTypingInput}
@@ -176,6 +197,7 @@ export default function CartItem({ data }) {
           <Button
             // ref={addButtonRef}
             icon
+            // disabled={isOutOfStock(quantity)}
             wrapper="active:bg-primary active:rounded-full"
             onClick={handleAdd}
           >
@@ -184,7 +206,7 @@ export default function CartItem({ data }) {
         </div>
       </div>
       <div className={mk('col-3')}>
-        <Button icon>
+        <Button icon onClick={handleDeleteCartItem}>
           <CloseIcon />
         </Button>
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
