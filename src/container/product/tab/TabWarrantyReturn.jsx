@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import BasicTable from 'src/components/Tables/BasicTable';
-import { tableColumns, tableData, notes } from '../more-information-config';
+import { tableColumns, tableData, notes } from './tab-config';
 
 export function TabWarrantyReturn() {
   const warrantyReturnData = useMemo(() => tableData, []);

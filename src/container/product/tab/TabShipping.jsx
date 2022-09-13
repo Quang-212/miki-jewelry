@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import BasicTable from 'src/components/Tables/BasicTable';
-import { tableColumns, tableData } from '../more-information-config';
+import { tableColumns, tableData } from './tab-config';
 
 export function TabShipping() {
   const shippingData = useMemo(() => tableData, []);

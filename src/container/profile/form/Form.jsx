@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import Button from 'src/components/Button';
-import Dialog from 'src/components/Dialog';
 import { FormProvider, RadioField, TextField } from 'src/components/HookForms';
 import { EmailIcon, LockIcon, PhoneIcon } from 'src/components/Icons';
 import { GENDERS } from './form-config';

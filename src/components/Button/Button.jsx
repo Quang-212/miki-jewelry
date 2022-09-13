@@ -1,94 +1,100 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import styles from './Button.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function Button({
-  internalLink,
-  externalLink,
-  normal,
-  primary,
-  outline,
-  rounded,
-  small = false,
-  large = false,
-  text = false,
-  icon = false,
-  disabled,
-  children,
-  wrapper,
-  leftIcon,
-  rightIcon,
-  title,
-  onClick,
-  ...passProps
-}) {
-  let ButtonWrapper = 'button';
-  const ButtonTitle = 'span';
-  const ButtonIcon = 'span';
+const Button = React.forwardRef(
+  (
+    {
+      internalLink,
+      externalLink,
+      normal,
+      primary,
+      outline,
+      rounded,
+      small = false,
+      large = false,
+      text = false,
+      icon = false,
+      disabled,
+      children,
+      wrapper,
+      leftIcon,
+      rightIcon,
+      title,
+      onClick,
+      ...passProps
+    },
+    ref,
+  ) => {
+    let ButtonWrapper = 'button';
+    const ButtonTitle = 'span';
+    const ButtonIcon = 'span';
 
-  const props = {
-    onClick,
-    ...passProps,
-  };
+    const props = {
+      onClick,
+      ...passProps,
+    };
 
-  //* Remove event listener when button is disabled
-  if (disabled) {
-    Object.keys(props).forEach((key) => {
-      if (key.startsWith('on') && typeof props[key] !== 'function') {
-        delete props[key];
-      }
+    //* Remove event listener when button is disabled
+    if (disabled) {
+      Object.keys(props).forEach((key) => {
+        if (key.startsWith('on') && typeof props[key] !== 'function') {
+          delete props[key];
+        }
+      });
+    }
+
+    const classWrapper = mk('root', 'btn', {
+      normal,
+      primary,
+      outline,
+      rounded,
+      small,
+      large,
+      text,
+      icon,
+      disabled,
+      [wrapper]: wrapper,
     });
-  }
 
-  const classWrapper = mk('root', 'btn', {
-    normal,
-    primary,
-    outline,
-    rounded,
-    small,
-    large,
-    text,
-    icon,
-    disabled,
-    [wrapper]: wrapper,
-  });
+    const classTitle = mk('title', {
+      [title]: title,
+    });
 
-  const classTitle = mk('title', {
-    [title]: title,
-  });
+    if (internalLink) {
+      ButtonWrapper = Link;
+      props.href = internalLink;
 
-  if (internalLink) {
-    ButtonWrapper = Link;
-    props.href = internalLink;
+      return (
+        <ButtonWrapper ref={ref} {...props}>
+          <a className={classWrapper}>
+            {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
+            <ButtonTitle className={classTitle}>{children}</ButtonTitle>
+            {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
+          </a>
+        </ButtonWrapper>
+      );
+    }
+
+    if (externalLink) {
+      ButtonWrapper = 'a';
+      props.href = externalLink;
+    }
 
     return (
-      <ButtonWrapper {...props}>
-        <a className={classWrapper}>
-          {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
-          <ButtonTitle className={classTitle}>{children}</ButtonTitle>
-          {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
-        </a>
+      <ButtonWrapper ref={ref} className={classWrapper} {...props}>
+        {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
+        <ButtonTitle className={classTitle}>{children}</ButtonTitle>
+        {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
       </ButtonWrapper>
     );
-  }
-
-  if (externalLink) {
-    ButtonWrapper = 'a';
-    props.href = externalLink;
-  }
-
-  return (
-    <ButtonWrapper className={classWrapper} {...props}>
-      {leftIcon && <ButtonIcon className={mk('icon')}>{leftIcon}</ButtonIcon>}
-      <ButtonTitle className={classTitle}>{children}</ButtonTitle>
-      {rightIcon && <ButtonIcon className={mk('icon')}>{rightIcon}</ButtonIcon>}
-    </ButtonWrapper>
-  );
-}
+  },
+);
 
 Button.propTypes = {
   internalLink: PropTypes.string,
@@ -106,3 +112,5 @@ Button.propTypes = {
   rightIcon: PropTypes.node,
   onClick: PropTypes.func,
 };
+
+export default Button;

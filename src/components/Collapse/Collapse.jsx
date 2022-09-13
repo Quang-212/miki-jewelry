@@ -1,9 +1,10 @@
-import React from 'react';
-import styles from './Collapse.module.css';
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
 
+import styles from './Collapse.module.css';
+
 const mk = classNames.bind(styles);
+
 export default function Collapse({ open, children }) {
   const variants = {
     open: { opacity: 1, display: 'block', x: 0 },

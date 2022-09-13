@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { isEmpty } from 'lodash';
 import qs from 'qs';
 
@@ -33,7 +34,7 @@ export const deleteProduct = (data, options) => {
 export const getProducts = (params = [], query, options) => {
   const queryString = qs.stringify(query);
 
-  return axiosInstance({
+  return axios({
     method: 'GET',
     url: isEmpty(params)
       ? `http://localhost:3000/api/products?${queryString}`

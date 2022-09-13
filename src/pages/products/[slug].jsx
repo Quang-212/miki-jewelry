@@ -9,10 +9,10 @@ import { PATH } from 'src/routes';
 
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function ProductDetail({ product, relatedProducts }) {
+export default function ProductDetail({ product = {}, relatedProducts }) {
   // console.log(product);
   // console.log('relatedProducts: ' + JSON.parse(relatedProducts));
-  const { name, category, description, slug, images, discount, stocks } = product;
+  const { name, category, description, slug, images } = product;
 
   const generateCategory = (category) => {
     switch (category) {
@@ -55,8 +55,8 @@ export default function ProductDetail({ product, relatedProducts }) {
       <div className="container flex flex-col gap-8 mt-6">
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div className="flex justify-between gap-10">
-          <Images images={images} />
-          <MainInformation name={name} discount={discount} stocks={stocks} />
+          <Images images={images} name={name} />
+          <MainInformation product={product} />
         </div>
         <MoreInformation />
         <StarDivider wrapper="mt-8" />
