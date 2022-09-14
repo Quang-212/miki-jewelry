@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export const Checkbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
+export const Checkbox = React.forwardRef(({ indeterminate, className, ...rest }, ref) => {
   const defaultRef = useRef();
   const resolvedRef = ref || defaultRef;
 
@@ -10,7 +10,7 @@ export const Checkbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
 
   return (
     <>
-      <input type="checkbox" ref={resolvedRef} {...rest} />
+      <input type="checkbox" ref={resolvedRef} className={className} {...rest} />
     </>
   );
 });

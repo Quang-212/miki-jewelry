@@ -21,6 +21,7 @@ export function CardProduct({
   image,
   textWrapper,
   onClick,
+  onAddToCart,
   ...passProps
 }) {
   const CardWrapper = 'article';
@@ -60,7 +61,7 @@ export function CardProduct({
         <CardTextTitle className="heading-5">{title}</CardTextTitle>
         <CardTextPrice className="heading-5 text-primary-2">{price}</CardTextPrice>
       </CardTextWrapper>
-      <Button primary internalLink={PATH.products}>
+      <Button primary onClick={onAddToCart}>
         Thêm vào giỏ hàng
       </Button>
     </CardWrapper>

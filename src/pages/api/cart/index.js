@@ -1,4 +1,4 @@
-import Cart from 'src/models/Order';
+import Cart from 'src/models/Cart';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handleGetUserCart(req, res) {
@@ -8,7 +8,7 @@ async function handleGetUserCart(req, res) {
   try {
     switch (method) {
       case 'GET':
-        const cart = await Cart.find({ userId });
+        const cart = await Cart.findOne({ userId }).populate({ path: 'products.product' });
         return res.status(200).json({
           message: 'tìm kiếm giỏ hàng thành công',
           code: 200,

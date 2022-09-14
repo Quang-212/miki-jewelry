@@ -44,7 +44,6 @@ export const getServerSideProps = async ({ query }) => {
     order: query.order,
     select: {
       __v: 0,
-      _id: 0,
       coupon: 0,
       visibilityStatus: 0,
     },
