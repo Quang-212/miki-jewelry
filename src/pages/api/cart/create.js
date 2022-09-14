@@ -4,7 +4,7 @@ import dbConnect from 'src/utils/dbConnect';
 async function handlerAddCart(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId, product } = req.body;
+  const { userId, product, quantity } = req.body;
   try {
     switch (method) {
       case 'POST':
@@ -13,7 +13,7 @@ async function handlerAddCart(req, res) {
         if (existCart) {
           await Cart.findByIdAndUpdate(
             existCart._id,
-            { $inc: { 'products.$[elem].quantity': 1 } },
+            { $inc: { 'products.$[elem].quantity': quantity } },
             { arrayFilters: [{ 'elem.product': product }], new: true },
           );
           return res.status(200).json({
