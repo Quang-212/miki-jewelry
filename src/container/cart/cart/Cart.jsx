@@ -1,14 +1,13 @@
 import classNames from 'classnames/bind';
-
-import { NormalDivider } from 'src/components/Dividers';
-import CartItem from './CartItem';
-import styles from './Cart.module.css';
-import { cartState } from 'src/recoils';
 import { Fragment, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useClientSide } from 'src/hooks';
+
 import { Checkbox } from 'src/components/Checkbox';
-import { isEmpty } from 'lodash';
+import { NormalDivider } from 'src/components/Dividers';
+import { useClientSide } from 'src/hooks';
+import { cartState } from 'src/recoils';
+import styles from './Cart.module.css';
+import CartItem from './CartItem';
 
 const mk = classNames.bind(styles);
 
@@ -69,9 +68,9 @@ export default function Cart() {
           ))}
       </ul>
       <Checkbox
-        className="w-8 h-8"
         checked={checked.orders.length === cart.length}
         onChange={handleCheckAll}
+        className="w-8 h-8"
       />
     </section>
   );

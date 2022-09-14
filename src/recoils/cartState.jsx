@@ -13,6 +13,7 @@ export const addToCartState = selector({
   get: ({ get }) => get(cartState),
   set: ({ get, set }, { currentProduct, cartId, size, type, quantity }) => {
     const prevCart = get(cartState);
+
     const existedProduct = prevCart.find(({ cartId: cartIdRecoil }) => cartIdRecoil === cartId);
 
     const calculateQuantity = (type, quantity, prevQuantity) => {
@@ -60,6 +61,19 @@ export const addToCartState = selector({
   },
 });
 
+export const deleteCartItemState = selector({
+  key: 'deleteCartItem',
+  get: ({ get }) => get(cartState),
+  set: ({ set, get }, cartId) => {
+    const prevCart = get(cartState);
+
+    return set(
+      cartState,
+      prevCart.filter((item) => item.cartId !== cartId),
+    );
+  },
+});
+
 export const totalCartState = selector({
   key: 'totalCart',
   get: ({ get }) => {
@@ -72,18 +86,5 @@ export const totalCartState = selector({
     return cart.reduce((total, item) => {
       return (total += pricePerProduct(item) * item.quantity);
     }, 0);
-  },
-});
-
-export const deleteCartItemState = selector({
-  key: 'deleteCartItem',
-  get: ({ get }) => get(cartState),
-  set: ({ set, get }, cartId) => {
-    const prevCart = get(cartState);
-
-    return set(
-      cartState,
-      prevCart.filter((item) => item.cartId !== cartId),
-    );
   },
 });

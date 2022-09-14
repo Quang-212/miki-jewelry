@@ -10,7 +10,7 @@ export const PATH = {
   newPassword: '/auth/new-password',
 
   cart: '/checkout/cart',
-  order: '/checkout/order',
+  ORDER: '/checkout/order',
 
   profile: '/account/profile',
   orders: '/account/orders',

@@ -145,7 +145,7 @@ export default function Form() {
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>
-            Thanh toán
+            Đặt hàng
           </Button>
         </div>
       </FormProvider>

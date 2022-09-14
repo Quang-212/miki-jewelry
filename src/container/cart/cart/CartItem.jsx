@@ -1,25 +1,22 @@
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import Tippy from '@tippyjs/react/headless';
 
 import Button from 'src/components/Button';
+import { Checkbox } from 'src/components/Checkbox';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
-import { images } from 'src/constants';
+import { Wrapper as PopperWrapper } from 'src/components/Popper';
+import { deleteCartItem, updateCart } from 'src/fetching/cart';
 import { addToCartState, deleteCartItemState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
-import { Wrapper as PopperWrapper } from 'src/components/Popper';
-import { deleteCartItem, updateCart } from 'src/fetching/cart';
-import { Checkbox } from 'src/components/Checkbox';
 
 const mk = classNames.bind(styles);
 
-export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
+export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
   const { product, size, quantity, cartId } = data;
-
-  const { user } = useRecoilValue(userState);
 
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
@@ -31,28 +28,12 @@ export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
     fallback: quantity,
   });
 
-  const { quantity: inputQuantity, fallback } = stateQuantity;
+  const { user } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
   const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);
-  const generateNewSize = (sizeChecked) => {
-    return product.stocks.find((_, index) => index === sizeChecked)['size'];
-  };
 
-  const generatePrice = () => {
-    return product.stocks.find((stock) => stock.size === size).price * quantity;
-  };
-
-  const isOutOfStock = (inputQuantity) => {
-    return product.stocks.find((stock) => stock.size === size).quantity < +inputQuantity;
-  };
-
-  const isChosenSize = (size) =>
-    cart.find((item) => item.cartId === `${product._id}${size}` && item.cartId !== cartId);
-
-  const handleClickSize = (index) => {
-    setSizeChecked(index);
-  };
+  const { quantity: inputQuantity, fallback } = stateQuantity;
 
   useEffect(() => {
     if (stateQuantity.type) {
@@ -74,6 +55,24 @@ export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
         .catch((error) => console.log(error));
     }
   }, [fallback]);
+
+  const handleClickSize = (index) => setSizeChecked(index);
+
+  const generatePrice = () => {
+    return product.stocks.find((stock) => stock.size === size).price * quantity;
+  };
+
+  const generateNewSize = (sizeChecked) => {
+    return product.stocks.find((_, index) => index === sizeChecked)['size'];
+  };
+
+  const isOutOfStock = (inputQuantity) => {
+    return product.stocks.find((stock) => stock.size === size).quantity < +inputQuantity;
+  };
+
+  const isChosenSize = (size) => {
+    return cart.find((item) => item.cartId === `${product._id}${size}` && item.cartId !== cartId);
+  };
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
@@ -143,6 +142,48 @@ export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
     }
   };
 
+  const renderDistribution = (attrs) => {
+    return (
+      <div className="w-fit" tabIndex="-1" {...attrs}>
+        <PopperWrapper className="gap-8 pt-4 pb-6 px-8">
+          <span className="text-[#707070]">Kích thước:</span>
+          <ul className="flex flex-wrap gap-4">
+            {product.stocks.map((stock, index) => {
+              const isOutOfStock = stock.quantity === 0;
+              return (
+                !isOutOfStock && (
+                  <li key={stock._id}>
+                    <Button
+                      wrapper={
+                        stock.quantity
+                          ? index === sizeChecked
+                            ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
+                            : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
+                          : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
+                      }
+                      onClick={() => handleClickSize(index)}
+                      disabled={isOutOfStock || isChosenSize(stock.size)}
+                    >
+                      {stock.size}
+                    </Button>
+                  </li>
+                )
+              );
+            })}
+          </ul>
+          <div className="flex justify-between gap-4">
+            <Button text title="subtitle-1">
+              Trở lại
+            </Button>
+            <Button primary onClick={handleSubmitDistribution}>
+              Xác nhận
+            </Button>
+          </div>
+        </PopperWrapper>
+      </div>
+    );
+  };
+
   return (
     <div className={mk('cart-item')}>
       <div>
@@ -167,44 +208,7 @@ export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
             interactive
             placement="bottom-start"
             delay={[200, 400]}
-            // offset={[-122, 16]}
-            render={(attrs) => (
-              <div className="w-fit" tabIndex="-1" {...attrs}>
-                <PopperWrapper className="gap-8 pt-4 pb-6 px-8">
-                  <span className="text-[#707070]">Kích thước:</span>
-                  <ul className="flex flex-wrap gap-4">
-                    {product.stocks.map((stock, index) => {
-                      const isOutOfStock = stock.quantity === 0;
-                      return (
-                        !isOutOfStock && (
-                          <li key={stock._id}>
-                            <Button
-                              wrapper={
-                                stock.quantity
-                                  ? index === sizeChecked
-                                    ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
-                                    : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
-                                  : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
-                              }
-                              onClick={() => handleClickSize(index)}
-                              disabled={isOutOfStock || isChosenSize(stock.size)}
-                            >
-                              {stock.size}
-                            </Button>
-                          </li>
-                        )
-                      );
-                    })}
-                  </ul>
-                  <div className="flex justify-between gap-4">
-                    <Button text>Trở lại</Button>
-                    <Button primary onClick={handleSubmitDistribution}>
-                      Xác nhận
-                    </Button>
-                  </div>
-                </PopperWrapper>
-              </div>
-            )}
+            render={renderDistribution}
           >
             <p className={mk('size')}>
               Phân loại hàng: <br /> Kích thước: {size}
@@ -217,7 +221,7 @@ export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
             icon
             wrapper="p-1 active:bg-primary active:rounded-full"
             onClick={handleSubtract}
-            disabled={fallback === 1}
+            // disabled={fallback === 1}
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>

@@ -9,7 +9,7 @@ Order.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 export default function Order() {
   const breadcrumbs = [
     { label: 'Giỏ hàng', href: PATH.cart },
-    { label: 'Trang giao hàng', href: PATH.order },
+    { label: 'Trang giao hàng', href: PATH.ORDER },
   ];
 
   return (
@@ -18,7 +18,7 @@ export default function Order() {
         data={{
           title: 'Trang giao hàng',
           description: '',
-          url: PATH.order,
+          url: PATH.ORDER,
           thumbnailUrl: '',
         }}
       />

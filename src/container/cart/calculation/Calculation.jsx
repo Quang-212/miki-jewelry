@@ -3,8 +3,9 @@ import { useRecoilValue } from 'recoil';
 import Button from 'src/components/Button';
 
 import { NormalDivider } from 'src/components/Dividers';
-import { useClientSide } from 'src/hooks';
+import { useClientSide, useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Calculation.module.css';
 
@@ -12,7 +13,10 @@ const mk = classNames.bind(styles);
 
 export default function Calculation() {
   const totalCart = useRecoilValue(totalCartState);
+
   const isClient = useClientSide();
+
+  const { push } = useRouter();
 
   const priceByDiscount = () => {
     return 0;
@@ -47,7 +51,7 @@ export default function Calculation() {
               {formatVndCurrency(totalCart - priceByDiscount())}
             </span>
           </div>
-          <Button primary wrapper={mk('btn')}>
+          <Button primary internalLink={PATH.ORDER} wrapper={mk('btn')}>
             Thanh toán
           </Button>
         </section>
