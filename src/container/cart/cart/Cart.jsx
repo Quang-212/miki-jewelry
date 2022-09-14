@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { Fragment, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import Button from 'src/components/Button';
 
 import { Checkbox } from 'src/components/Checkbox';
 import { NormalDivider } from 'src/components/Dividers';
@@ -12,10 +13,11 @@ import CartItem from './CartItem';
 const mk = classNames.bind(styles);
 
 export default function Cart() {
-  const cart = useRecoilValue(cartState);
-  const isClient = useClientSide();
-
   const [checked, setChecked] = useState({ orders: [], ready: false });
+
+  const cart = useRecoilValue(cartState);
+
+  const isClient = useClientSide();
 
   useEffect(() => {
     setChecked({ orders: JSON.parse(sessionStorage.getItem('orders')) || [], ready: true });
@@ -42,24 +44,27 @@ export default function Cart() {
   };
 
   return (
-    <section className={mk('cart')}>
-      <h3 className={mk('heading-3')}>Giỏ hàng</h3>
-      <ul className={mk('cart-list')}>
-        {isClient &&
-          cart.map((cartItem) => (
-            <Fragment key={cartItem._id}>
-              <li>
-                <CartItem data={cartItem} orders={checked.orders} onCheck={handleCheckBox} />
-              </li>
-              <NormalDivider />
-            </Fragment>
-          ))}
-      </ul>
-      <Checkbox
-        checked={checked.orders.length === cart.length}
-        onChange={handleCheckAll}
-        className="w-8 h-8"
-      />
-    </section>
+    <>
+      {isClient && (
+        <section className={mk('cart')}>
+          <h3 className={mk('heading-3')}>Giỏ hàng</h3>
+          <ul className={mk('cart-list')}>
+            {cart.map((cartItem) => (
+              <Fragment key={cartItem._id}>
+                <li>
+                  <CartItem data={cartItem} orders={checked.orders} onCheck={handleCheckBox} />
+                </li>
+                <NormalDivider />
+              </Fragment>
+            ))}
+          </ul>
+          <Checkbox
+            checked={checked.orders.length === cart.length}
+            onChange={handleCheckAll}
+            className="w-8 h-8"
+          />
+        </section>
+      )}
+    </>
   );
 }

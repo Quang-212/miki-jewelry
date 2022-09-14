@@ -63,13 +63,11 @@ axiosInstance.interceptors.request.use(
         });
 
         const newToken = res.data.accessToken;
-        console.log(newToken);
         setToken(newToken);
       } catch (error) {
         console.log(error);
       }
     }
-    console.log(getToken());
     config.headers = {
       ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
     };

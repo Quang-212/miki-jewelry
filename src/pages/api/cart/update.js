@@ -20,14 +20,13 @@ async function handleUpdateCart(req, res) {
             code: 400,
           });
         };
-
         if (quantityType === 'plus' || quantityType === 'subtract') {
           const cartItem = await Cart.findByIdAndUpdate(
             id,
             { $inc: { quantity: quantityType === 'plus' ? 1 : -1 } },
             { new: true },
           ).lean();
-          console.log(cartItem);
+
           if (!cartItem) {
             return breakUpdate();
           }

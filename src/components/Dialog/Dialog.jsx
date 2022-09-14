@@ -6,10 +6,19 @@ import styles from './Dialog.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function Dialog({ isOpen, closeModal, children }) {
+export default function Dialog({ isOpen, closeModal, children, content, passProps }) {
+  const classContent = mk('content', {
+    [content]: content,
+  });
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <HeadlessDialog as="section" className={mk('dialog-wrapper')} onClose={closeModal}>
+      <HeadlessDialog
+        as="section"
+        className={mk('dialog-wrapper')}
+        onClose={closeModal}
+        {...passProps}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -33,7 +42,7 @@ export default function Dialog({ isOpen, closeModal, children }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <HeadlessDialog.Panel className={mk('content')}>{children}</HeadlessDialog.Panel>
+              <HeadlessDialog.Panel className={classContent}>{children}</HeadlessDialog.Panel>
             </Transition.Child>
           </div>
         </div>

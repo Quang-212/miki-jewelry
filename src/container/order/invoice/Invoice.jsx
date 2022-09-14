@@ -29,15 +29,16 @@ export default function Invoice({ address: { provinces } }) {
   }, 0);
 
   const shippingFee = (provinceCode = 9999) => {
-    const freeShippingPoint = 500000;
-    const defaultShippingFee = 50000;
-    const domesticShippingFee = 20000;
+    const FREE_SHIPPING_POINT = 500000;
+    const DEFAULT_SHIPPING_FEE = 50000;
+    const DOMESTIC_SHIPPING_FEE = 20000;
+
     switch (provinceCode) {
-      case 1:
-      case 79:
-        return totalInvoice >= freeShippingPoint ? 0 : domesticShippingFee;
+      case 1: //Hà nội
+      case 79: //Sài Gòn
+        return totalInvoice >= FREE_SHIPPING_POINT ? 0 : DOMESTIC_SHIPPING_FEE;
       default:
-        return defaultShippingFee;
+        return DEFAULT_SHIPPING_FEE;
     }
   };
 

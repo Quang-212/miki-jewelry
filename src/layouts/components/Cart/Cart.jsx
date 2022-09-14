@@ -16,6 +16,7 @@ export default function Cart() {
   const { user } = useRecoilValue(userState);
 
   const { cart } = useCart(user?._id);
+  console.log(cart);
   const isClient = useClientSide();
 
   useEffect(() => {

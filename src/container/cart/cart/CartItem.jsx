@@ -2,17 +2,19 @@ import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
 import { Checkbox } from 'src/components/Checkbox';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
-import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import { deleteCartItem, updateCart } from 'src/fetching/cart';
-import { addToCartState, deleteCartItemState, userState } from 'src/recoils';
+import { addToCartState, deleteCartItemState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
+import Distribution from './Distribution';
+import ModalDelete from './ModalDelete';
+import ModalQuantity from './ModalQuantity';
 
 const mk = classNames.bind(styles);
 
@@ -22,14 +24,16 @@ export default function CartItem({ data, orders, onCheck }) {
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
   );
-
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [confirm, setConfirm] = useState({
+    delete: false,
+    quantity: false,
+  });
   const [stateQuantity, setQuantity] = useState({
     type: null,
     quantity,
     fallback: quantity,
   });
-
-  const { user } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
   const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);
@@ -65,7 +69,9 @@ export default function CartItem({ data, orders, onCheck }) {
   const generateNewSize = (sizeChecked) => {
     return product.stocks.find((_, index) => index === sizeChecked)['size'];
   };
-
+  const generateAvailableQuantity = (sizeChecked) => {
+    return product.stocks.find((_, index) => index === sizeChecked)['quantity'];
+  };
   const isOutOfStock = (inputQuantity) => {
     return product.stocks.find((stock) => stock.size === size).quantity < +inputQuantity;
   };
@@ -102,21 +108,27 @@ export default function CartItem({ data, orders, onCheck }) {
   };
 
   const handleAdd = () => {
-    if (!isOutOfStock(quantity + 1))
+    if (!isOutOfStock(quantity + 1)) {
       setQuantity(({ quantity, fallback }) => ({
         type: 'plus',
         quantity: quantity + 1,
         fallback: fallback + 1,
       }));
+    } else {
+      setConfirm((prev) => ({ ...prev, quantity: true }));
+    }
   };
 
   const handleSubtract = () => {
-    // quantity < 1 => popup confirm => delete
-    setQuantity(({ quantity, fallback }) => ({
-      type: 'subtract',
-      quantity: quantity - 1,
-      fallback: fallback - 1,
-    }));
+    if (fallback > 1) {
+      setQuantity(({ quantity, fallback }) => ({
+        type: 'subtract',
+        quantity: quantity - 1,
+        fallback: fallback - 1,
+      }));
+    } else {
+      setConfirm((prev) => ({ ...prev, delete: true }));
+    }
   };
 
   const handleSubmitDistribution = () => {
@@ -149,43 +161,14 @@ export default function CartItem({ data, orders, onCheck }) {
 
   const renderDistribution = (attrs) => {
     return (
-      <div className="w-fit" tabIndex="-1" {...attrs}>
-        <PopperWrapper className="gap-8 pt-4 pb-6 px-8">
-          <span className="text-[#707070]">Kích thước:</span>
-          <ul className="flex flex-wrap gap-4">
-            {product.stocks.map((stock, index) => {
-              const isOutOfStock = stock.quantity === 0;
-              return (
-                !isOutOfStock && (
-                  <li key={stock._id}>
-                    <Button
-                      wrapper={
-                        stock.quantity
-                          ? index === sizeChecked
-                            ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
-                            : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
-                          : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
-                      }
-                      onClick={() => handleClickSize(index)}
-                      disabled={isOutOfStock || isChosenSize(stock.size)}
-                    >
-                      {stock.size}
-                    </Button>
-                  </li>
-                )
-              );
-            })}
-          </ul>
-          <div className="flex justify-between gap-4">
-            <Button text title="subtitle-1">
-              Trở lại
-            </Button>
-            <Button primary onClick={handleSubmitDistribution}>
-              Xác nhận
-            </Button>
-          </div>
-        </PopperWrapper>
-      </div>
+      <Distribution
+        attrs={attrs}
+        product={product}
+        handleClickSize={handleClickSize}
+        sizeChecked={sizeChecked}
+        isChosenSize={isChosenSize}
+        handleSubmitDistribution={handleSubmitDistribution}
+      />
     );
   };
 
@@ -220,13 +203,12 @@ export default function CartItem({ data, orders, onCheck }) {
             </p>
           </Tippy>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex justify-center items-center gap-4">
           <Button
             // ref={subtractButtonRef}
             icon
-            wrapper="p-1 active:bg-primary active:rounded-full"
+            wrapper="active:bg-primary active:rounded-full"
             onClick={handleSubtract}
-            // disabled={fallback === 1}
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>
@@ -237,13 +219,12 @@ export default function CartItem({ data, orders, onCheck }) {
               onChange={handleTypingInput}
               onBlur={handleTypingInput}
               onKeyUp={handleTypingInput}
-              className="w-10"
+              className="w-10 text-center"
             />
           </span>
           <Button
             // ref={addButtonRef}
             icon
-            disabled={isOutOfStock(quantity + 1)}
             wrapper="active:bg-primary active:rounded-full"
             onClick={handleAdd}
           >
@@ -257,6 +238,20 @@ export default function CartItem({ data, orders, onCheck }) {
         </Button>
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
+      <ModalQuantity
+        fallback={fallback}
+        availableQuantity={generateAvailableQuantity(sizeChecked)}
+        confirm={confirm}
+        setConfirm={setConfirm}
+        isOutOfStock={isOutOfStock}
+      />
+      <ModalDelete
+        fallback={fallback}
+        confirm={confirm}
+        productName={product.name}
+        setConfirm={setConfirm}
+        handleDeleteCartItem={handleDeleteCartItem}
+      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Cart from 'src/models/Cart';
+import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handleGetUserCart(req, res) {
@@ -9,9 +10,9 @@ async function handleGetUserCart(req, res) {
     switch (method) {
       case 'GET':
         const cart = await Cart.find({ userId, status: { $nin: ['ordered', 'deleted'] } })
-          .populate('product')
           .skip(limit * page)
           .limit(limit)
+          .populate({ path: 'product', model: Product })
           .exec();
 
         return res.status(200).json({
@@ -26,6 +27,7 @@ async function handleGetUserCart(req, res) {
         });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,
