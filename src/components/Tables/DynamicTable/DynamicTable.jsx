@@ -1,5 +1,11 @@
+import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
+import List from 'src/components/List';
+import ListIconButton from 'src/components/ListIconButton';
+import ListItemButton from 'src/components/ListItemButton';
+import Popover from 'src/components/Popover';
+import { Wrapper } from 'src/components/Popper';
 
 import { isEven } from 'src/utils/isEven';
 import Button from '../../Button';
@@ -22,6 +28,8 @@ export default function DynamicTable({
   const TableData = 'td';
   const Pagination = 'div';
 
+  console.log(data);
+
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       {
@@ -40,33 +48,35 @@ export default function DynamicTable({
       {
         id: 'actions',
         Cell: ({ row }) => (
-          <Button onClick={() => alert(`${row.id}`)}>
-            {' '}
-            <MenuVerticalIcon />
-          </Button>
-        ),
-      },
-      {
-        id: 'edit',
-        Header: 'Edit',
-        Cell: ({ row }) => (
-          <Button primary onClick={() => handleEdit(row.original)}>
-            Edit
-          </Button>
-        ),
-      },
-      {
-        id: 'delete',
-        Header: 'Delete',
-        Cell: ({ row }) => (
-          <Button
-            primary
-            onClick={() => {
-              handleDelete(row.original._id);
-            }}
+          <Popover
+            renderContent={
+              <List className="bg-white p-2 rounded-md flex flex-col gap-2">
+                <ListItemButton className="mt-0 mr-2" onClick={() => handleEdit(row.original)}>
+                  <ListIconButton>
+                    <Icon icon="ci:edit" />
+                  </ListIconButton>
+                  <span>Edit</span>
+                </ListItemButton>
+                <ListItemButton
+                  className="mt-0 mr-2"
+                  onClick={() => {
+                    handleDelete(row.original._id);
+                  }}
+                >
+                  <ListIconButton>
+                    <Icon icon="ci:edit" />
+                  </ListIconButton>
+                  <span>Delete</span>
+                </ListItemButton>
+              </List>
+            }
           >
-            Delete
-          </Button>
+            <div className="px-4">
+              <Button className=" hover:bg-gray-300 rounded-full p-2 hover:transition-all hover:scale-110">
+                <MenuVerticalIcon />
+              </Button>
+            </div>
+          </Popover>
         ),
       },
     ]);

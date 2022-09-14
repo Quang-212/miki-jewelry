@@ -10,13 +10,15 @@ export const PATH = {
   newPassword: '/auth/new-password',
 
   cart: '/checkout/cart',
-  order: '/checkout/order',
+  ORDER: '/checkout/order',
 
   profile: '/account/profile',
   orders: '/account/orders',
 
   adminDashboard: '/admin/dashboard',
   adminProducts: '/admin/products',
+  ADMIN_CUSTOMER: '/admin/customer',
+  ADMIN_COUPON: '/admin/coupon',
 
   facebook: '/',
   twitter: '/',

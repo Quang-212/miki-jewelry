@@ -1,5 +1,5 @@
 .dialog-wrapper {
-  @apply relative z-40;
+  @apply relative z-modal;
 }
 
 .backdrop {

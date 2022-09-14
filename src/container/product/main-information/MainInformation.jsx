@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { addToCart } from 'src/fetching/cart';
 import { addToCartState, cartState, userState } from 'src/recoils';
 import axiosInstance from 'src/utils/axios';
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -23,7 +24,7 @@ export function MainInformation({ product }) {
 
   // console.log(subtractButtonRef, addButtonRef);
 
-  const { user } = useRecoilValue(userState);
+  const { user, isAuthenticated } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
 
@@ -84,21 +85,37 @@ export function MainInformation({ product }) {
       fallback: fallback - 1,
     }));
   };
-  const handleAddToCart = () => {
-    const targetProduct = cart.find(
-      (item) => item.cartId === `${_id}${generateProperty(sizeChecked, 'size')}`,
-    );
-    if (fallback + targetProduct.quantity > generateProperty(sizeChecked, 'quantity')) {
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      return push(PATH.login);
+    }
+
+    const targetProductQuantity =
+      cart.find((item) => item.cartId === `${_id}${generateProperty(sizeChecked, 'size')}`)
+        ?.quantity || 0;
+    if (fallback + targetProductQuantity > generateProperty(sizeChecked, 'quantity')) {
       return console.log('het hang');
     }
 
-    setCart({
-      currentProduct: product,
-      cartId: `${product._id}${generateProperty(sizeChecked, 'size')}`,
-      size: generateProperty(sizeChecked, 'size'),
-      type: 'addMultiply',
-      quantity: fallback,
-    });
+    try {
+      const res = await addToCart({
+        userId: user._id,
+        product: product._id,
+        size: generateProperty(sizeChecked, 'size'),
+        quantity: fallback,
+      });
+      console.log(fallback);
+
+      setCart({
+        currentProduct: product,
+        cartId: `${product._id}${generateProperty(sizeChecked, 'size')}`,
+        size: generateProperty(sizeChecked, 'size'),
+        type: 'addMultiply',
+        quantity: fallback,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -176,6 +193,7 @@ export function MainInformation({ product }) {
               icon
               wrapper="p-1 active:bg-primary active:rounded-full"
               onClick={handleSubtract}
+              disabled={fallback === 1}
             >
               <MinusIcon className="active:text-white h-6 w-6" />
             </Button>
@@ -194,6 +212,7 @@ export function MainInformation({ product }) {
               icon
               wrapper="active:bg-primary active:rounded-full"
               onClick={handleAdd}
+              // disabled={}
             >
               <PlusIcon className="active:text-white w-8 h-8" />
             </Button>

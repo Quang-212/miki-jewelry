@@ -40,7 +40,7 @@ const schema = yup.object().shape({
   }),
 });
 
-export default function Form() {
+export default function Form({ address, setAddress }) {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -59,16 +59,12 @@ export default function Form() {
   });
 
   const { handleSubmit, setValue, watch, reset } = methods;
-  const [address, setAddress] = useState({
-    provinces: null,
-    districts: null,
-    wards: null,
-  });
 
-  const { provinces } = useProvince(); // tự động call lượt đầu để lấy danh sách tỉnh
-  const { districts } = useDistrict(address.provinces); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
-  const { wards } = useWard(address.districts); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
+  const { provinces } = useProvince();
+  const { districts } = useDistrict(address.provinces);
+  const { wards } = useWard(address.districts);
 
+  console.log('districts', districts);
   useEffect(() => {
     reset({
       district: '',
@@ -81,8 +77,6 @@ export default function Form() {
       ward: '',
     });
   }, [address.districts]);
-  // useEffect(() => {}, [districts]);
-  // useEffect(() => {}, [wards]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -145,7 +139,7 @@ export default function Form() {
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>
-            Thanh toán
+            Đặt hàng
           </Button>
         </div>
       </FormProvider>
