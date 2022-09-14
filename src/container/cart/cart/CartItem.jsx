@@ -7,15 +7,19 @@ import Button from 'src/components/Button';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { images } from 'src/constants';
-import { addToCartState, deleteCartItemState } from 'src/recoils';
+import { addToCartState, deleteCartItemState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
+import { deleteCartItem, updateCart } from 'src/fetching/cart';
+import { Checkbox } from 'src/components/Checkbox';
 
 const mk = classNames.bind(styles);
 
-export default function CartItem({ data }) {
+export default function CartItem({ data, onCheck, orders, onCheckSizeChange }) {
   const { product, size, quantity, cartId } = data;
+
+  const { user } = useRecoilValue(userState);
 
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
@@ -26,6 +30,7 @@ export default function CartItem({ data }) {
     quantity,
     fallback: quantity,
   });
+
   const { quantity: inputQuantity, fallback } = stateQuantity;
 
   const [cart, setCart] = useRecoilState(addToCartState);
@@ -51,12 +56,22 @@ export default function CartItem({ data }) {
 
   useEffect(() => {
     if (stateQuantity.type) {
-      setCart({
-        cartId: `${product._id}${size}`,
-        size,
-        type: stateQuantity.type,
-        ...(stateQuantity.type === 'typing' && { quantity: fallback }),
-      });
+      updateCart(
+        {
+          ...(stateQuantity.type === 'typing' && { amount: fallback }),
+          size,
+        },
+        { params: { userId: user._id, quantityType: stateQuantity.type, product: product._id } },
+      )
+        .then(() => {
+          setCart({
+            cartId: `${product._id}${size}`,
+            size,
+            type: stateQuantity.type,
+            ...(stateQuantity.type === 'typing' && { quantity: fallback }),
+          });
+        })
+        .catch((error) => console.log(error));
     }
   }, [fallback]);
 
@@ -100,23 +115,44 @@ export default function CartItem({ data }) {
   };
 
   const handleSubmitDistribution = () => {
-    console.log('change size');
-    setCart({
-      cartId: `${product._id}${size}`,
-      size: generateNewSize(sizeChecked),
-      type: 'updateSize',
-    });
+    updateCart(
+      { newSize: generateNewSize(sizeChecked), size },
+      { params: { userId: user._id, quantityType: 'updateSize', product: product._id } },
+    )
+      .then(() => {
+        onCheckSizeChange(`${product._id}${size}`, `${product._id}${generateNewSize(sizeChecked)}`);
+
+        setCart({
+          cartId: `${product._id}${size}`,
+          size: generateNewSize(sizeChecked),
+          type: 'updateSize',
+        });
+      })
+      .catch((error) => console.log(error));
   };
 
-  const handleDeleteCartItem = () => {
-    deleteCartItemRecoil(cartId);
+  const handleDeleteCartItem = async () => {
+    try {
+      deleteCartItem({
+        params: { userId: user._id, size, product: product._id },
+      });
+
+      deleteCartItemRecoil(cartId);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className={mk('cart-item')}>
       <div>
+        <Checkbox
+          checked={orders.includes(cartId)}
+          onChange={() => onCheck(cartId)}
+          className="w-6 h-6"
+        />
         <Image
-          src={images.adminAvatar}
+          src={product.images.find((image) => image.type === 'primary').url}
           alt={product.name}
           width={136}
           height={136}
@@ -181,6 +217,7 @@ export default function CartItem({ data }) {
             icon
             wrapper="p-1 active:bg-primary active:rounded-full"
             onClick={handleSubtract}
+            disabled={fallback === 1}
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>
@@ -197,7 +234,7 @@ export default function CartItem({ data }) {
           <Button
             // ref={addButtonRef}
             icon
-            // disabled={isOutOfStock(quantity)}
+            disabled={isOutOfStock(quantity + 1)}
             wrapper="active:bg-primary active:rounded-full"
             onClick={handleAdd}
           >

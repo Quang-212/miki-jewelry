@@ -42,7 +42,8 @@ async function loginUser(req, res) {
               httpOnly: true,
               sameSite: 'Strict',
               path: '/',
-              Secure: false,
+              secure: false,
+              maxAge: 365 * 24 * 60 * 60,
             }),
           );
           const { password, ...other } = emailUser;
