@@ -47,8 +47,6 @@ export default function Autocomplete({
     return Object.keys(object).find((key) => object[key] === value);
   }
 
-  console.log(options);
-
   const filterLabel = isEmpty(query)
     ? options
     : options.filter((option) => {

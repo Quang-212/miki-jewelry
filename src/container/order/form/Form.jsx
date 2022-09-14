@@ -21,7 +21,7 @@ const schema = yup.object().shape({
   // lastName: yup.string().required('*Vui lòng nhập tên của bạn'),
   // city: yup.string().required('*Trường bắt buộc'),
   // district: yup.string().required('*Trường bắt buộc'),
-  // wards: yup.string().required('*Trường bắt buộc'),
+  // ward: yup.string().required('*Trường bắt buộc'),
   // addressNumber: yup.string().required('*Vui lòng nhập địa chỉ cụ thể của bạn'),
   // phoneNumber: yup
   //   .string()
@@ -64,7 +64,6 @@ export default function Form({ address, setAddress }) {
   const { districts } = useDistrict(address.provinces);
   const { wards } = useWard(address.districts);
 
-  console.log('districts', districts);
   useEffect(() => {
     reset({
       district: '',
@@ -95,7 +94,7 @@ export default function Form({ address, setAddress }) {
     }
   };
 
-  const handLeSelect = (name, item) => {
+  const handleSelect = (name, item) => {
     if (!isPlainObject(item)) {
       return setValue(name, item);
     }
@@ -104,15 +103,15 @@ export default function Form({ address, setAddress }) {
   };
 
   const onSelectCity = async (item) => {
-    handLeSelect('city', item);
+    handleSelect('city', item);
   };
 
   const onSelectDistrict = async (item) => {
-    handLeSelect('district', item);
+    handleSelect('district', item);
   };
 
   const onSelectWards = async (item) => {
-    handLeSelect('ward', item);
+    handleSelect('ward', item);
   };
 
   return (

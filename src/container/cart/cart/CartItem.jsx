@@ -1,6 +1,7 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
@@ -15,8 +16,8 @@ import styles from './Cart.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
-  const { product, size, quantity, cartId } = data;
+export default function CartItem({ data, orders, onCheck }) {
+  const { product, size, quantity, _id } = data;
 
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
@@ -40,19 +41,18 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
       updateCart(
         {
           ...(stateQuantity.type === 'typing' && { amount: fallback }),
-          size,
         },
-        { params: { userId: user._id, quantityType: stateQuantity.type, product: product._id } },
+        { params: { id: _id, quantityType: stateQuantity.type, product: product._id } },
       )
-        .then(() => {
-          setCart({
-            cartId: `${product._id}${size}`,
-            size,
-            type: stateQuantity.type,
-            ...(stateQuantity.type === 'typing' && { quantity: fallback }),
-          });
+        .then((res) => {
+          setCart(res.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          if (error.response?.data?.code === 400) {
+            return toast(error.response.data.message, { type: 'warning' });
+          }
+          console.log(error);
+        });
     }
   }, [fallback]);
 
@@ -71,8 +71,14 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
   };
 
   const isChosenSize = (size) => {
-    return cart.find((item) => item.cartId === `${product._id}${size}` && item.cartId !== cartId);
+    return cart.find((item) => item.product._id === product._id && item.size === size);
   };
+
+  useEffect(() => {
+    if (inputQuantity && isOutOfStock(inputQuantity)) {
+      toast('Số lượng không được vượt quá tồn kho', { type: 'info' });
+    }
+  }, [inputQuantity]);
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
@@ -115,28 +121,27 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
 
   const handleSubmitDistribution = () => {
     updateCart(
-      { newSize: generateNewSize(sizeChecked), size },
-      { params: { userId: user._id, quantityType: 'updateSize', product: product._id } },
+      { newSize: generateNewSize(sizeChecked) },
+      { params: { quantityType: 'updateSize', product: product._id } },
     )
-      .then(() => {
-        onCheckSizeChange(`${product._id}${size}`, `${product._id}${generateNewSize(sizeChecked)}`);
-
-        setCart({
-          cartId: `${product._id}${size}`,
-          size: generateNewSize(sizeChecked),
-          type: 'updateSize',
-        });
+      .then((res) => {
+        setCart(res.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error.response?.data?.code === 400) {
+          return toast(error.response.data.message, { type: 'warning' });
+        }
+        console.log(error);
+      });
   };
 
   const handleDeleteCartItem = async () => {
     try {
       deleteCartItem({
-        params: { userId: user._id, size, product: product._id },
+        params: { id: _id },
       });
 
-      deleteCartItemRecoil(cartId);
+      deleteCartItemRecoil(_id);
     } catch (error) {
       console.log(error);
     }
@@ -188,8 +193,8 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
     <div className={mk('cart-item')}>
       <div>
         <Checkbox
-          checked={orders.includes(cartId)}
-          onChange={() => onCheck(cartId)}
+          checked={orders.includes(_id)}
+          onChange={() => onCheck(_id)}
           className="w-6 h-6"
         />
         <Image

@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-
 import { NormalDivider } from 'src/components/Dividers';
 import { cartState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -19,7 +18,7 @@ export default function Invoice({ address: { provinces } }) {
     setChosenOrderId(JSON.parse(sessionStorage.getItem('orders')));
   }, [cart]);
 
-  const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem.cartId));
+  const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem._id));
 
   const pricePerProduct = (cartItem) => {
     return cartItem.product.stocks.find((stock) => stock.size == cartItem.size).price;
@@ -48,7 +47,7 @@ export default function Invoice({ address: { provinces } }) {
     <section className={mk('invoice')}>
       <ul className={mk('invoice-list')}>
         {chosenOrder.map((order) => (
-          <li key={order.cartId}>
+          <li key={order._id}>
             <InvoiceItem data={order} />
           </li>
         ))}

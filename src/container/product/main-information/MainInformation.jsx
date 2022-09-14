@@ -1,13 +1,12 @@
-import { isNumber } from 'lodash';
 import { useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import { addToCart } from 'src/fetching/cart';
-import { addToCartState, cartState, userState } from 'src/recoils';
-import axiosInstance from 'src/utils/axios';
+import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
@@ -22,13 +21,9 @@ export function MainInformation({ product }) {
   const subtractButtonRef = useRef();
   const addButtonRef = useRef();
 
-  // console.log(subtractButtonRef, addButtonRef);
-
   const { user, isAuthenticated } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
-
-  console.log(cart);
 
   const isOutOfStock = (inputQuantity) => {
     return (
@@ -91,10 +86,15 @@ export function MainInformation({ product }) {
     }
 
     const targetProductQuantity =
-      cart.find((item) => item.cartId === `${_id}${generateProperty(sizeChecked, 'size')}`)
-        ?.quantity || 0;
+      cart.find(
+        ({ product, size }) =>
+          product._id === _id && size === generateProperty(sizeChecked, 'size'),
+      )?.quantity || 0;
+
     if (fallback + targetProductQuantity > generateProperty(sizeChecked, 'quantity')) {
-      return console.log('het hang');
+      return toast('SL quá lớn, kiểm tra giỏ hàng hoặc số lượng còn lại', {
+        type: 'info',
+      });
     }
 
     try {
@@ -104,15 +104,8 @@ export function MainInformation({ product }) {
         size: generateProperty(sizeChecked, 'size'),
         quantity: fallback,
       });
-      console.log(fallback);
 
-      setCart({
-        currentProduct: product,
-        cartId: `${product._id}${generateProperty(sizeChecked, 'size')}`,
-        size: generateProperty(sizeChecked, 'size'),
-        type: 'addMultiply',
-        quantity: fallback,
-      });
+      setCart(res.data);
     } catch (error) {
       console.log(error);
     }

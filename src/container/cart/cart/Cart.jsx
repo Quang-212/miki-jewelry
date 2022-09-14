@@ -25,26 +25,19 @@ export default function Cart() {
     checked.ready && sessionStorage.setItem('orders', JSON.stringify(checked.orders));
   }, [checked]);
 
-  const handleCheckBox = (cartId) => {
+  const handleCheckBox = (_id) => {
     setChecked((prev) => {
       const { orders } = prev;
-      return orders.find((item) => item === cartId)
-        ? { ...prev, orders: orders.filter((item) => item !== cartId) }
-        : { ...prev, orders: [...orders, cartId] };
-    });
-  };
-
-  const handleCheckBoxSize = (staleId, newId) => {
-    setChecked((prev) => {
-      const { orders } = prev;
-      return { ...prev, orders: orders.map((item) => (item === staleId ? newId : item)) };
+      return orders.find((item) => item === _id)
+        ? { ...prev, orders: orders.filter((item) => item !== _id) }
+        : { ...prev, orders: [...orders, _id] };
     });
   };
 
   const handleCheckAll = () => {
     setChecked((prev) => ({
       ...prev,
-      orders: checked.orders.length !== cart.length ? cart.map((item) => item.cartId) : [],
+      orders: checked.orders.length !== cart.length ? cart.map((item) => item._id) : [],
     }));
   };
 
@@ -54,14 +47,9 @@ export default function Cart() {
       <ul className={mk('cart-list')}>
         {isClient &&
           cart.map((cartItem) => (
-            <Fragment key={cartItem.cartId}>
+            <Fragment key={cartItem._id}>
               <li>
-                <CartItem
-                  data={cartItem}
-                  orders={checked.orders}
-                  onCheck={handleCheckBox}
-                  onCheckSizeChange={handleCheckBoxSize}
-                />
+                <CartItem data={cartItem} orders={checked.orders} onCheck={handleCheckBox} />
               </li>
               <NormalDivider />
             </Fragment>

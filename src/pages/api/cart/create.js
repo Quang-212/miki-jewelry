@@ -1,54 +1,46 @@
 import mongoose from 'mongoose';
 import Cart from 'src/models/Cart';
+import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handlerAddCart(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId, product, size, quantity } = req.body;
-  console.log(product);
+  const { userId, product, size, quantity = 1 } = req.body;
 
   try {
     switch (method) {
       case 'POST':
-        const existCart = await Cart.findOne({ userId });
-        const productId = mongoose.Types.ObjectId(product);
+        const [existCart, currentProduct] = await Promise.all([
+          Cart.findOne({ userId, product, size }),
+          Product.findById(product).lean(),
+        ]);
 
         if (existCart) {
-          if (
-            existCart.products.find(
-              (item) => item.size == size && item.product.toString() === product,
-            )
-          ) {
-            await Cart.findByIdAndUpdate(
-              existCart._id,
-              { $inc: { 'products.$[elem].quantity': quantity || 1 } },
-              { arrayFilters: [{ 'elem.product': productId, 'elem.size': size }], new: true },
-            );
-            return res.status(200).json({
-              message: 'Cập nhập số lượng thành công',
-              code: 200,
-            });
-          }
-
-          await Cart.findByIdAndUpdate(existCart._id, {
-            $push: { products: { product, size, quantity } },
-          });
+          const updatedCartItem = await Cart.findByIdAndUpdate(
+            existCart._id,
+            { $inc: { quantity } },
+            { new: true },
+          ).lean();
 
           return res.status(200).json({
-            message: 'Thêm vào giỏ hàng thành công',
+            message: 'Cập nhập số lượng thành công',
             code: 200,
+            data: { ...updatedCartItem, product: currentProduct },
           });
         }
 
-        await Cart.create({
+        const newCartItem = await Cart.create({
           userId,
-          products: [{ product, size, quantity }],
+          product,
+          size,
+          quantity,
         });
 
         return res.status(200).json({
-          message: 'Tạo mới giỏ hàng thành công',
+          message: 'Thêm vào giỏ hàng thành công',
           code: 200,
+          data: { ...newCartItem._doc, product: currentProduct },
         });
       default:
         return res.status(404).json({

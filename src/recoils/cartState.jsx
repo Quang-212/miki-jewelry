@@ -11,52 +11,18 @@ export const cartState = atom({
 export const addToCartState = selector({
   key: 'addToCart',
   get: ({ get }) => get(cartState),
-  set: ({ get, set }, { currentProduct, cartId, size, type, quantity }) => {
+  set: ({ get, set }, { data: currentCartItem }) => {
     const prevCart = get(cartState);
 
-    const existedProduct = prevCart.find(({ cartId: cartIdRecoil }) => cartIdRecoil === cartId);
+    const existedProduct = prevCart.find((cartItem) => cartItem._id === currentCartItem._id);
 
-    const calculateQuantity = (type, quantity, prevQuantity) => {
-      if (type === 'typing') {
-        return quantity;
-      }
-
-      if (type === 'addMultiply') {
-        return prevQuantity + quantity;
-      }
-      //* add from cart
-      return type === 'subtract' ? prevQuantity - 1 : prevQuantity + 1;
-    };
-
-    const updateCart = ({ prevCart, cartId, size, type, quantity }) => {
-      return prevCart.map((item) =>
-        item.cartId === cartId
-          ? {
-              ...item,
-              quantity:
-                type === 'updateSize'
-                  ? item.quantity
-                  : calculateQuantity(type, quantity, item.quantity),
-              size: type === 'updateSize' ? size : item.size,
-              cartId: type === 'updateSize' ? `${item.product._id}${size}` : item.cartId,
-            }
-          : item,
-      );
+    const updateCart = (currentCartItem) => {
+      return prevCart.map((item) => (item._id === currentCartItem._id ? currentCartItem : item));
     };
 
     return set(
       cartState,
-      existedProduct
-        ? updateCart({ prevCart, cartId, size, type, quantity })
-        : [
-            ...prevCart,
-            {
-              product: currentProduct,
-              cartId,
-              size,
-              quantity,
-            },
-          ],
+      existedProduct ? updateCart(currentCartItem) : [...prevCart, currentCartItem],
     );
   },
 });
@@ -69,7 +35,7 @@ export const deleteCartItemState = selector({
 
     return set(
       cartState,
-      prevCart.filter((item) => item.cartId !== cartId),
+      prevCart.filter((item) => item._id !== cartId),
     );
   },
 });

@@ -3,15 +3,12 @@ import { Schema, model, models } from 'mongoose';
 const Order = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    products: [
-      {
-        product: { type: Schema.Types.ObjectId, ref: 'Product' },
-        quantity: { type: Number, default: 1 },
-      },
-    ],
+    product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    quantity: { type: Number, default: 1, required: true },
+    size: { type: String, required: true },
     status: {
       type: String,
-      enum: ['confirm', 'delivery', 'completed'],
+      enum: ['confirm', 'delivery', 'completed', 'canceled'],
       required: true,
       default: 'confirm',
     },
@@ -26,6 +23,7 @@ const Order = new Schema(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 export default models.Order || model('Order', Order);

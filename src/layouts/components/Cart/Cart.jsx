@@ -16,20 +16,10 @@ export default function Cart() {
   const { user } = useRecoilValue(userState);
 
   const { cart } = useCart(user?._id);
-
   const isClient = useClientSide();
 
-  const formatCart = (cartServer) => {
-    return cartServer.products.map((item) => ({
-      cartId: `${item.product._id}${item.size}`,
-      quantity: item.quantity,
-      size: item.size,
-      product: item.product,
-    }));
-  };
-
   useEffect(() => {
-    setCart(!isEmpty(cart) ? formatCart(cart) : []);
+    setCart(!isEmpty(cart) ? cart : []);
   }, [cart]);
 
   return (

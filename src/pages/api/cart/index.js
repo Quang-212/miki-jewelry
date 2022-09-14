@@ -4,19 +4,24 @@ import dbConnect from 'src/utils/dbConnect';
 async function handleGetUserCart(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId } = req.query;
+  const { userId, limit = 10, page = 0 } = req.query;
   try {
     switch (method) {
       case 'GET':
-        const cart = await Cart.findOne({ userId }).populate({ path: 'products.product' });
+        const cart = await Cart.find({ userId, status: { $nin: ['ordered', 'deleted'] } })
+          .populate('product')
+          .skip(limit * page)
+          .limit(limit)
+          .exec();
+
         return res.status(200).json({
-          message: 'tìm kiếm giỏ hàng thành công',
+          message: 'Tìm giỏ hàng: OK',
           code: 200,
-          cart,
+          data: cart,
         });
       default:
         return res.status(404).json({
-          message: 'Không tìm thấy yêu cầu hợp lệ',
+          message: 'Yêu cầu không hợp lệ',
           code: 404,
         });
     }
