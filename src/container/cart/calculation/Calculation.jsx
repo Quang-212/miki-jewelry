@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import { useRecoilValue } from 'recoil';
-import Button from 'src/components/Button';
 
+import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { useClientSide, useRouter } from 'src/hooks';
+import { useClientSide } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
 import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -16,8 +16,6 @@ export default function Calculation() {
 
   const isClient = useClientSide();
 
-  const { push } = useRouter();
-
   const priceByDiscount = () => {
     return 0;
   };
@@ -28,8 +26,11 @@ export default function Calculation() {
         <section className={mk('calculation')}>
           <h3 className={mk('heading-3')}>Tạm tính</h3>
           <div className={mk('coupon')}>
-            <h5 className="heading-5">Ưu đãi</h5>
-            <input type="text" placeholder="Nhập ưu đãi" className={mk('input')} />
+            <h5 className="col-span-3 heading-5">Ưu đãi</h5>
+            <input type="text" placeholder="Nhập mã ưu đãi" className={mk('input')} />
+            <Button primary wrapper="h-12 px-2">
+              Áp dụng
+            </Button>
           </div>
           <NormalDivider wrapper="my-2" />
           <div className={mk('detail')}>

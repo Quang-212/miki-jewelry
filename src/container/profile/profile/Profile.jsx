@@ -14,13 +14,9 @@ const mk = classNames.bind(styles);
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
+  const handleOpenModal = () => setIsOpen(true);
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const handleCloseModal = () => setIsOpen(false);
 
   return (
     <section className={mk('profile')}>
@@ -74,11 +70,11 @@ export default function Profile() {
         </div>
       </div>
       <div className={mk('btn-container')}>
-        <Button primary onClick={openModal} wrapper={mk('btn-update')}>
+        <Button primary onClick={handleOpenModal} wrapper={mk('btn-update')}>
           Cập nhật
         </Button>
       </div>
-      <Dialog isOpen={isOpen} closeModal={closeModal}>
+      <Dialog isOpen={isOpen} closeModal={handleCloseModal}>
         <Form />
       </Dialog>
     </section>

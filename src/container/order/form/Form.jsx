@@ -13,6 +13,7 @@ import useDistrict from 'src/hooks/useDistrict';
 import useWard from 'src/hooks/useWard';
 import { useEffect, useState } from 'react';
 import { isEmpty, isPlainObject } from 'lodash';
+import { useRouter } from 'src/hooks';
 
 const mk = classNames.bind(styles);
 
@@ -41,6 +42,8 @@ const schema = yup.object().shape({
 });
 
 export default function Form({ address, setAddress }) {
+  const { back } = useRouter();
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -64,7 +67,6 @@ export default function Form({ address, setAddress }) {
   const { districts } = useDistrict(address.provinces);
   const { wards } = useWard(address.districts);
 
-  console.log('districts', districts);
   useEffect(() => {
     reset({
       district: '',
@@ -135,7 +137,7 @@ export default function Form({ address, setAddress }) {
         <FormPayment setValue={setValue} />
 
         <div className={mk('btn-list')}>
-          <Button text title={mk('btn-back-title')}>
+          <Button text title={mk('btn-back-title')} onClick={() => back()}>
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>

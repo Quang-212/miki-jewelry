@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
 import { Checkbox } from 'src/components/Checkbox';
+import Dialog from 'src/components/Dialog';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
@@ -17,6 +18,9 @@ const mk = classNames.bind(styles);
 
 export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
   const { product, size, quantity, cartId } = data;
+
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(true);
+  const [isOpenModalQuantity, setIsOpenModalQuantity] = useState(true);
 
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
@@ -56,6 +60,10 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
     }
   }, [fallback]);
 
+  useEffect(() => {
+    fallback < 1 && setIsOpen(true);
+  }, [fallback]);
+
   const handleClickSize = (index) => setSizeChecked(index);
 
   const generatePrice = () => {
@@ -73,6 +81,10 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
   const isChosenSize = (size) => {
     return cart.find((item) => item.cartId === `${product._id}${size}` && item.cartId !== cartId);
   };
+
+  useEffect(() => {
+    isOutOfStock(fallback) && setIsOpen(true);
+  }, [fallback]);
 
   const handleTypingInput = (event) => {
     const value = event.target.value;
@@ -184,6 +196,10 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
     );
   };
 
+  const handleCloseModalDelete = () => setIsOpenModalDelete(false);
+
+  const handleCloseModalQuantity = () => setIsOpenModalQuantity(false);
+
   return (
     <div className={mk('cart-item')}>
       <div>
@@ -215,13 +231,12 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
             </p>
           </Tippy>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex justify-center items-center gap-4">
           <Button
             // ref={subtractButtonRef}
             icon
-            wrapper="p-1 active:bg-primary active:rounded-full"
+            wrapper="active:bg-primary active:rounded-full"
             onClick={handleSubtract}
-            // disabled={fallback === 1}
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>
@@ -232,7 +247,7 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
               onChange={handleTypingInput}
               onBlur={handleTypingInput}
               onKeyUp={handleTypingInput}
-              className="w-10"
+              className="w-10 text-center"
             />
           </span>
           <Button
@@ -247,11 +262,44 @@ export default function CartItem({ data, orders, onCheck, onCheckSizeChange }) {
         </div>
       </div>
       <div className={mk('col-3')}>
-        <Button icon onClick={handleDeleteCartItem}>
+        <Button icon onClick={setIsOpenModalDelete}>
           <CloseIcon />
         </Button>
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
+
+      <Dialog isOpen={isOpenModalDelete} onClose={handleCloseModalDelete} content="w-[600px] px-12">
+        <div className="flex flex-col gap-10">
+          <p className="heading-5">Bạn chắc chắn muốn bỏ sản phẩm này?</p>
+          <p>
+            Ram laptop 4gb DDR3L hoặc DDR3 bus 1600, 1333 và 1066 dùng cho laptop, và các loại khác,
+            bảo hành 3 năm (2GB DDR3 BUS 1066,SAMSUNG).
+          </p>
+          <div className="flex justify-between gap-8 mt-10">
+            <Button primary onClick={handleDeleteCartItem} wrapper="w-full">
+              Đồng ý
+            </Button>
+            <Button outline onClick={handleCloseModalDelete} wrapper="w-full">
+              Không
+            </Button>
+          </div>
+        </div>
+      </Dialog>
+
+      <Dialog
+        isOpen={isOpenModalQuantity}
+        onClose={handleCloseModalQuantity}
+        content="w-[600px] px-12"
+      >
+        <div className="flex flex-col gap-10">
+          <p>Chỉ còn xxx sản phẩm cho mặt hàng này</p>
+          <div className="flex justify-between gap-8 mt-10">
+            <Button primary onClick={handleCloseModalQuantity} wrapper="w-full">
+              Đồng ý
+            </Button>
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

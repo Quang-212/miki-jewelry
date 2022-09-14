@@ -3,11 +3,11 @@
 }
 
 .coupon {
-  @apply flex justify-between items-center mt-3;
+  @apply grid grid-cols-3 gap-y-6 gap-x-4 mt-3;
 }
 
 .input {
-  @apply w-[351px] h-12 py-3 px-4 rounded-primary border border-primary-1;
+  @apply col-span-2 w-full h-12 py-3 px-4 rounded-primary border border-primary-1;
 }
 
 .detail {
