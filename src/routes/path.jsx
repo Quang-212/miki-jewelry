@@ -17,6 +17,8 @@ export const PATH = {
 
   adminDashboard: '/admin/dashboard',
   adminProducts: '/admin/products',
+  ADMIN_CUSTOMER: '/admin/customer',
+  ADMIN_COUPON: '/admin/coupon',
 
   facebook: '/',
   twitter: '/',

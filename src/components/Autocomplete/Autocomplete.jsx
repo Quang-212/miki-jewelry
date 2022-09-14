@@ -39,13 +39,15 @@ export default function Autocomplete({
   };
 
   function getKeyByValue() {
-    if (!isPlainObject(options[0]) && !isEmpty(getOption)) {
+    if (!isPlainObject(options[0]) || !isEmpty(getOption)) {
       return '';
     }
     const value = getOption(options[0]);
     const object = options[0];
     return Object.keys(object).find((key) => object[key] === value);
   }
+
+  console.log(options);
 
   const filterLabel = isEmpty(query)
     ? options
@@ -59,11 +61,13 @@ export default function Autocomplete({
   const {
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useFormContext();
 
   const handleSelect = (item) => {
-    console.log(item);
+    const key = getKeyByValue();
+    setValue(name, key ? item[key] : item);
   };
 
   useEffect(() => {
@@ -78,7 +82,7 @@ export default function Autocomplete({
   });
 
   const handleClick = (item) => {
-    isEmpty(onSelectValue) ? onSelectValue(item) : handleSelect(item);
+    onSelectValue ? onSelectValue(item) : handleSelect(item);
     setOpen(false);
   };
 
@@ -108,7 +112,7 @@ export default function Autocomplete({
       {open && (
         <div className={mk('option')}>
           <List className="px-0 pb-2 w-fit">
-            {filterLabel.map((item, index) => {
+            {filterLabel?.map((item, index) => {
               const key = getKeyByValue();
               return (
                 <ListItemButton

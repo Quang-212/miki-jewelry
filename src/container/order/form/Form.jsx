@@ -69,6 +69,7 @@ export default function Form() {
   const { districts } = useDistrict(address.provinces); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
   const { wards } = useWard(address.districts); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
 
+  console.log('districts', districts);
   useEffect(() => {
     reset({
       district: '',
