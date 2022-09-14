@@ -183,6 +183,7 @@ module.exports = {
       zIndex: {
         header: 120,
         drawer: 240,
+        modal: 250,
       },
     },
   },

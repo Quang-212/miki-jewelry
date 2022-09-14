@@ -1,17 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import Button from 'src/components/Button';
+import Dialog from 'src/components/Dialog';
 import { LoadingRotatingLines } from 'src/components/Loadings';
 import DynamicTable from 'src/components/Tables/DynamicTable';
 import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks';
-import { ProductForm } from '../product-form';
+import useCoupon from 'src/hooks/useCoupon';
+import { CouponForm } from '../coupon-form';
 import { columnProducts } from './columns-config';
 
-export function ProductsList() {
+export function CouponList() {
   const [products, setProducts] = useState([]);
   const [showProductsList, setShowProductsList] = useState(true);
-  const [currentProduct, setCurrentProduct] = useState({
+  const [currentCoupon, setCurrentCoupon] = useState({
     data: {},
     isEdit: false,
     formOpen: false,
@@ -31,10 +33,17 @@ export function ProductsList() {
     },
   });
 
+  const { couponState } = useCoupon({
+    limit,
+    pageIndex,
+  });
+
+  console.log(couponState);
+
   const _products = productsState?.productList;
 
   const handleCreateProduct = () => {
-    setCurrentProduct({
+    setCurrentCoupon({
       data: {},
       isEdit: false,
       formOpen: true,
@@ -43,12 +52,12 @@ export function ProductsList() {
   };
 
   const handleEditProduct = (product) => {
-    setCurrentProduct({
+    setCurrentCoupon({
       data: product,
       isEdit: true,
       formOpen: true,
     });
-    setShowProductsList((prev) => !prev);
+    // setShowProductsList((prev) => !prev);
   };
 
   const handleDeleteProduct = async (id) => {
@@ -66,7 +75,6 @@ export function ProductsList() {
   const productsColumn = useMemo(() => columnProducts, [products]);
   const productsData = useMemo(() => [...products], [products]);
 
-  console.log(productsData);
   if (isError) return <h2>{isError}</h2>;
   //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
   //! FUCK WHEN LOADING => Table is unmount (the same)
@@ -74,7 +82,7 @@ export function ProductsList() {
 
   return (
     <section>
-      {showProductsList && (
+      {!currentCoupon.formOpen && (
         <>
           <div className="flex justify-between">
             <div className="flex flex-col">
@@ -97,13 +105,7 @@ export function ProductsList() {
           </div>
         </>
       )}
-      {currentProduct.formOpen && (
-        <ProductForm
-          setShowProductsList={setShowProductsList}
-          currentProduct={currentProduct}
-          setCurrentProduct={setCurrentProduct}
-        />
-      )}
+      {currentCoupon.formOpen && <CouponForm currentCoupon={currentCoupon} />}
     </section>
   );
 }

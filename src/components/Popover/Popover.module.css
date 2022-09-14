@@ -1,0 +1,7 @@
+.root {
+  @apply relative w-fit;
+}
+
+.content {
+  @apply absolute top-10 right-0 w-fit z-drawer;
+}
