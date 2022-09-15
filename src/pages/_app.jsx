@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { motion, useScroll } from 'framer-motion';
 import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +14,8 @@ import '../styles/nprogres.css';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  const { scrollYProgress } = useScroll();
+
   return (
     <SessionProvider session={session}>
       <RecoilRoot>
@@ -24,6 +27,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               revalidateOnFocus: false,
             }}
           >
+            <motion.div
+              style={{ scaleX: scrollYProgress }}
+              className="fixed h-1 inset-0 bg-pink-600 origin-[0%] z-drawer"
+            ></motion.div>
             <ProgressBar />
             {getLayout(<Component {...pageProps} />)}
 

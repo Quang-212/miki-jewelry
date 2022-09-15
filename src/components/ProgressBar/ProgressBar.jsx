@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
+import NProgress from 'nprogress';
 
 export const ProgressBar = () => {
   const router = useRouter();
