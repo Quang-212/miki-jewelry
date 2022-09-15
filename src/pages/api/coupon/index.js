@@ -1,5 +1,6 @@
 import Coupon from 'src/models/Coupon';
 import dbConnect from 'src/utils/dbConnect';
+import qs from 'qs';
 
 async function handleGetUserCart(req, res) {
   await dbConnect();
@@ -45,6 +46,7 @@ async function handleGetUserCart(req, res) {
         });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,

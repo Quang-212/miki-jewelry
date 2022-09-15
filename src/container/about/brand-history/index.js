@@ -1,3 +1,3 @@
 export * from './Articles';
-export * from './Hero';
+export * from './hero';
 export * from './CircleBackground';

@@ -1,28 +1,43 @@
-import Image from '../../../../components/Image';
-
-export const columnProducts = [
+export const columnCoupon = [
   {
-    Header: 'Image',
-    accessor: 'images',
+    Header: 'Coupons code',
+    accessor: 'code',
+  },
+  {
+    Header: 'Type',
+    accessor: 'type',
+  },
+  {
+    Header: 'Discount',
+    accessor: 'discount',
+  },
+  {
+    Header: 'Start date',
+    accessor: 'startDate',
+  },
+  {
+    Header: 'End date',
+    accessor: 'endDate',
+  },
+  {
+    Header: 'Status',
+    accessor: 'status',
     Cell: ({ row, value }) => (
-      <Image
-        src={value.find((image) => image.type === 'primary').url}
-        alt={row.original.name}
-        width={80}
-        height={80}
-      />
+      <div
+        className={`${
+          value === 'active'
+            ? 'bg-green-600'
+            : value === 'in-active'
+            ? 'bg-red-600'
+            : 'bg-yellow-500'
+        } text-white font-semibold rounded-md py-1 flex items-center justify-center`}
+      >
+        {value}
+      </div>
     ),
   },
   {
-    Header: 'Name',
-    accessor: 'name',
-  },
-  {
-    Header: 'Category',
-    accessor: 'category',
-  },
-  {
-    Header: 'Visibility Status',
-    accessor: 'visibilityStatus',
+    Header: 'Discount Category',
+    accessor: 'discountCategory',
   },
 ];

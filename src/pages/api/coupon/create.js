@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Coupon from 'src/models/Coupon';
+import User from 'src/models/User';
 import UserCoupon from 'src/models/UserCoupon';
 import dbConnect from 'src/utils/dbConnect';
 
@@ -12,11 +13,11 @@ async function createCouponHandler(req, res) {
     return targetUser.map((condition) => {
       switch (condition.compare) {
         case 'equal':
-          return { [condition.key]: condition.key };
+          return { [condition.key]: condition.value };
         case 'lte':
-          return { [condition.key]: { $lte: condition.key } };
+          return { [condition.key]: { $lte: condition.value } };
         case 'gte':
-          return { [condition.key]: { $gte: condition.key } };
+          return { [condition.key]: { $gte: condition.value } };
         default:
           return {};
       }
@@ -35,6 +36,7 @@ async function createCouponHandler(req, res) {
         }
         const now = new Date().getTime();
 
+        console.log(convertCompare(targetUser));
         const couponUsers = await User.find({ $and: convertCompare(targetUser) }).select('_id');
 
         const userCouponData = couponUsers.map((user) => ({
@@ -59,6 +61,7 @@ async function createCouponHandler(req, res) {
         });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,

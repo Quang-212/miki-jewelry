@@ -7,12 +7,12 @@ import DynamicTable from 'src/components/Tables/DynamicTable';
 import { deleteProduct } from 'src/fetching/products';
 import { useProducts } from 'src/hooks';
 import useCoupon from 'src/hooks/useCoupon';
+import { fDate } from 'src/utils/formartTime';
 import { CouponForm } from '../coupon-form';
-import { columnProducts } from './columns-config';
+import { columnCoupon } from './columns-config';
 
 export function CouponList() {
-  const [products, setProducts] = useState([]);
-  const [showProductsList, setShowProductsList] = useState(true);
+  const [coupons, setCoupons] = useState([]);
   const [currentCoupon, setCurrentCoupon] = useState({
     data: {},
     isEdit: false,
@@ -40,7 +40,7 @@ export function CouponList() {
 
   console.log(couponState);
 
-  const _products = productsState?.productList;
+  const _coupons = couponState;
 
   const handleCreateProduct = () => {
     setCurrentCoupon({
@@ -48,7 +48,6 @@ export function CouponList() {
       isEdit: false,
       formOpen: true,
     });
-    setShowProductsList((prev) => !prev);
   };
 
   const handleEditProduct = (product) => {
@@ -63,17 +62,27 @@ export function CouponList() {
   const handleDeleteProduct = async (id) => {
     await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
     id = [id].flat(Infinity);
-    setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
+    setCoupons((prev) => prev.filter((product) => !id.includes(product._id)));
   };
 
   useEffect(() => {
-    _products && setProducts(_products);
-    _products &&
-      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(productsState.total / limit) }));
-  }, [_products, limit]);
+    _coupons && setCoupons(_coupons);
+    _coupons &&
+      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(couponState.total / limit) }));
+  }, [_coupons, limit]);
 
-  const productsColumn = useMemo(() => columnProducts, [products]);
-  const productsData = useMemo(() => [...products], [products]);
+  console.log(coupons);
+
+  const productsColumn = useMemo(() => columnCoupon, [coupons]);
+  const productsData = useMemo(
+    () =>
+      coupons.map((item) => ({
+        ...item,
+        startDate: fDate(item.startDate),
+        endDate: fDate(item.startDate),
+      })),
+    [coupons],
+  );
 
   if (isError) return <h2>{isError}</h2>;
   //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
@@ -105,7 +114,9 @@ export function CouponList() {
           </div>
         </>
       )}
-      {currentCoupon.formOpen && <CouponForm currentCoupon={currentCoupon} />}
+      {currentCoupon.formOpen && (
+        <CouponForm currentCoupon={currentCoupon} setCurrentCoupon={setCurrentCoupon} />
+      )}
     </section>
   );
 }

@@ -2,7 +2,7 @@ import qs from 'qs';
 import useSWR from 'swr';
 import axios from 'axios';
 
-export default function useCoupon(query, options, isSearch) {
+export default function useCoupon(query, options, isSearch = false) {
   const queryString = qs.stringify(query);
 
   const url = `/api/coupon?${queryString}`;
@@ -11,7 +11,7 @@ export default function useCoupon(query, options, isSearch) {
     return query.hasOwnProperty('search') && query.search ? url : null;
   };
 
-  const { data, error } = useSWR(
+  const { data = {}, error } = useSWR(
     isSearch ? generateSearchUrl(query, url) : url,
     (url) => axios.get(url),
     options,
@@ -20,7 +20,7 @@ export default function useCoupon(query, options, isSearch) {
   // console.log(data, error);
 
   return {
-    couponState: data?.data || null,
+    couponState: data.data?.data || null,
     isLoading: !error && !data && (query.search || !isSearch),
     isError: error,
   };
