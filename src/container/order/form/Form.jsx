@@ -13,6 +13,7 @@ import useDistrict from 'src/hooks/useDistrict';
 import useWard from 'src/hooks/useWard';
 import { useEffect, useState } from 'react';
 import { isEmpty, isPlainObject } from 'lodash';
+import { useRouter } from 'src/hooks';
 
 const mk = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ const schema = yup.object().shape({
   // lastName: yup.string().required('*Vui lòng nhập tên của bạn'),
   // city: yup.string().required('*Trường bắt buộc'),
   // district: yup.string().required('*Trường bắt buộc'),
-  // wards: yup.string().required('*Trường bắt buộc'),
+  // ward: yup.string().required('*Trường bắt buộc'),
   // addressNumber: yup.string().required('*Vui lòng nhập địa chỉ cụ thể của bạn'),
   // phoneNumber: yup
   //   .string()
@@ -40,7 +41,9 @@ const schema = yup.object().shape({
   }),
 });
 
-export default function Form() {
+export default function Form({ address, setAddress }) {
+  const { back } = useRouter();
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -59,17 +62,11 @@ export default function Form() {
   });
 
   const { handleSubmit, setValue, watch, reset } = methods;
-  const [address, setAddress] = useState({
-    provinces: null,
-    districts: null,
-    wards: null,
-  });
 
-  const { provinces } = useProvince(); // tự động call lượt đầu để lấy danh sách tỉnh
-  const { districts } = useDistrict(address.provinces); //sẽ đợi cho tới khi có province được chọn mới call => cần truyền province code
-  const { wards } = useWard(address.districts); //sẽ đợi cho tới khi có district được chọn mới call => cần truyền district code
+  const { provinces } = useProvince();
+  const { districts } = useDistrict(address.provinces);
+  const { wards } = useWard(address.districts);
 
-  console.log('districts', districts);
   useEffect(() => {
     reset({
       district: '',
@@ -82,8 +79,6 @@ export default function Form() {
       ward: '',
     });
   }, [address.districts]);
-  // useEffect(() => {}, [districts]);
-  // useEffect(() => {}, [wards]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -102,7 +97,7 @@ export default function Form() {
     }
   };
 
-  const handLeSelect = (name, item) => {
+  const handleSelect = (name, item) => {
     if (!isPlainObject(item)) {
       return setValue(name, item);
     }
@@ -111,15 +106,15 @@ export default function Form() {
   };
 
   const onSelectCity = async (item) => {
-    handLeSelect('city', item);
+    handleSelect('city', item);
   };
 
   const onSelectDistrict = async (item) => {
-    handLeSelect('district', item);
+    handleSelect('district', item);
   };
 
   const onSelectWards = async (item) => {
-    handLeSelect('ward', item);
+    handleSelect('ward', item);
   };
 
   return (
@@ -142,11 +137,11 @@ export default function Form() {
         <FormPayment setValue={setValue} />
 
         <div className={mk('btn-list')}>
-          <Button text title={mk('btn-back-title')}>
+          <Button text title={mk('btn-back-title')} onClick={() => back()}>
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>
-            Thanh toán
+            Đặt hàng
           </Button>
         </div>
       </FormProvider>

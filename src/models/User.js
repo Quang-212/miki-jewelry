@@ -4,6 +4,7 @@ const UserSchema = new Schema(
   {
     userName: { type: String, required: true },
     email: { type: String, unique: true, required: true },
+    search: { type: String, required: true },
     password: { type: String, required: true, min: 8 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     gender: { type: String },

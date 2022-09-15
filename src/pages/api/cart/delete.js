@@ -5,18 +5,12 @@ import dbConnect from 'src/utils/dbConnect';
 async function handleDeleteCart(req, res) {
   await dbConnect();
   const { method } = req;
-  const { product, userId, size } = req.query;
-  const productId = mongoose.Types.ObjectId(product);
-  console.log(req.query);
+  const { id } = req.query;
 
   try {
     switch (method) {
       case 'DELETE':
-        await Cart.findOneAndUpdate(
-          { userId },
-          { $pull: { products: { size, product: productId } } },
-        );
-
+        await Cart.findByIdAndUpdate(id, { status: 'deleted' });
         return res.status(200).json({
           message: 'Đã xóa sản phẩm khỏi giỏ hàng',
           code: 200,

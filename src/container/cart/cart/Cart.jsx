@@ -1,22 +1,23 @@
 import classNames from 'classnames/bind';
-
-import { NormalDivider } from 'src/components/Dividers';
-import CartItem from './CartItem';
-import styles from './Cart.module.css';
-import { cartState } from 'src/recoils';
 import { Fragment, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useClientSide } from 'src/hooks';
+import Button from 'src/components/Button';
+
 import { Checkbox } from 'src/components/Checkbox';
-import { isEmpty } from 'lodash';
+import { NormalDivider } from 'src/components/Dividers';
+import { useClientSide } from 'src/hooks';
+import { cartState } from 'src/recoils';
+import styles from './Cart.module.css';
+import CartItem from './CartItem';
 
 const mk = classNames.bind(styles);
 
 export default function Cart() {
-  const cart = useRecoilValue(cartState);
-  const isClient = useClientSide();
-
   const [checked, setChecked] = useState({ orders: [], ready: false });
+
+  const cart = useRecoilValue(cartState);
+
+  const isClient = useClientSide();
 
   useEffect(() => {
     setChecked({ orders: JSON.parse(sessionStorage.getItem('orders')) || [], ready: true });
@@ -26,53 +27,44 @@ export default function Cart() {
     checked.ready && sessionStorage.setItem('orders', JSON.stringify(checked.orders));
   }, [checked]);
 
-  const handleCheckBox = (cartId) => {
+  const handleCheckBox = (_id) => {
     setChecked((prev) => {
       const { orders } = prev;
-      return orders.find((item) => item === cartId)
-        ? { ...prev, orders: orders.filter((item) => item !== cartId) }
-        : { ...prev, orders: [...orders, cartId] };
-    });
-  };
-
-  const handleCheckBoxSize = (staleId, newId) => {
-    setChecked((prev) => {
-      const { orders } = prev;
-      return { ...prev, orders: orders.map((item) => (item === staleId ? newId : item)) };
+      return orders.find((item) => item === _id)
+        ? { ...prev, orders: orders.filter((item) => item !== _id) }
+        : { ...prev, orders: [...orders, _id] };
     });
   };
 
   const handleCheckAll = () => {
     setChecked((prev) => ({
       ...prev,
-      orders: checked.orders.length !== cart.length ? cart.map((item) => item.cartId) : [],
+      orders: checked.orders.length !== cart.length ? cart.map((item) => item._id) : [],
     }));
   };
 
   return (
-    <section className={mk('cart')}>
-      <h3 className={mk('heading-3')}>Giỏ hàng</h3>
-      <ul className={mk('cart-list')}>
-        {isClient &&
-          cart.map((cartItem) => (
-            <Fragment key={cartItem.cartId}>
-              <li>
-                <CartItem
-                  data={cartItem}
-                  orders={checked.orders}
-                  onCheck={handleCheckBox}
-                  onCheckSizeChange={handleCheckBoxSize}
-                />
-              </li>
-              <NormalDivider />
-            </Fragment>
-          ))}
-      </ul>
-      <Checkbox
-        className="w-8 h-8"
-        checked={checked.orders.length === cart.length}
-        onChange={handleCheckAll}
-      />
-    </section>
+    <>
+      {isClient && (
+        <section className={mk('cart')}>
+          <h3 className={mk('heading-3')}>Giỏ hàng</h3>
+          <ul className={mk('cart-list')}>
+            {cart.map((cartItem) => (
+              <Fragment key={cartItem._id}>
+                <li>
+                  <CartItem data={cartItem} orders={checked.orders} onCheck={handleCheckBox} />
+                </li>
+                <NormalDivider />
+              </Fragment>
+            ))}
+          </ul>
+          <Checkbox
+            checked={checked.orders.length === cart.length}
+            onChange={handleCheckAll}
+            className="w-8 h-8"
+          />
+        </section>
+      )}
+    </>
   );
 }

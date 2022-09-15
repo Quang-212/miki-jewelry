@@ -22,7 +22,7 @@ export default function FormAddress({
       <div className={mk('address-form')}>
         <TextField name="firstName" placeholder="Họ" wrapper={mk('first-name-wrapper')} />
         <TextField name="lastName" placeholder="Tên" wrapper={mk('last-name-wrapper')} />
-        {/* <TextField name="city" placeholder="Tỉnh/Thành phố" wrapper={mk('city-wrapper')} /> */}
+
         <Autocomplete
           name="city"
           options={provinces}
@@ -52,8 +52,6 @@ export default function FormAddress({
           className={mk('wards-wrapper')}
         />
 
-        {/* <TextField name="district" placeholder="Quận/Huyện" wrapper={mk('district-wrapper')} />
-        <TextField name="ward" placeholder="Phường/Xã" wrapper={mk('wards-wrapper')} /> */}
         <TextField
           name="addressNumber"
           placeholder="Địa chỉ cụ thể"

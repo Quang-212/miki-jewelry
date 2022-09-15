@@ -3,11 +3,11 @@
 }
 
 .cart-list {
-  @apply flex flex-col gap-12;
+  @apply flex flex-col gap-12 max-h-[900px] overflow-y-scroll;
 }
 
 .cart-item {
-  @apply grid grid-cols-3 content-between;
+  @apply grid grid-cols-3 content-between px-4;
 }
 
 .image {

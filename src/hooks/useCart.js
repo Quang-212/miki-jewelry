@@ -7,7 +7,7 @@ export default function useCart(userId) {
 
   const { data = {}, error } = useSWR(userId ? url : null, (url) => axiosInstance(url));
   return {
-    cart: data.data?.cart,
+    cart: data.data?.data,
     error,
   };
 }

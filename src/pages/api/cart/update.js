@@ -1,58 +1,75 @@
 import Cart from 'src/models/Cart';
+import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handleUpdateCart(req, res) {
   await dbConnect();
   const { method } = req;
 
-  const { quantityType, userId, product } = req.query;
-  const { amount, size, newSize } = req.body;
-  console.log(req.query);
-  console.log(req.body);
+  const { quantityType, id, product } = req.query;
+  const { amount, newSize } = req.body;
 
   try {
     switch (method) {
       case 'PATCH':
-        if (quantityType === 'plus' || quantityType === 'subtract') {
-          await Cart.findOneAndUpdate(
-            { userId, products: { $elemMatch: { size, product } } },
-            { $inc: { 'products.$.quantity': quantityType === 'plus' ? 1 : -1 } },
-          );
+        const currentProduct = await Product.findById(product).lean();
 
+        const breakUpdate = () => {
+          return res.status(400).json({
+            message: 'Cập nhập giỏ hàng không thành công',
+            code: 400,
+          });
+        };
+        if (quantityType === 'plus' || quantityType === 'subtract') {
+          const cartItem = await Cart.findByIdAndUpdate(
+            id,
+            { $inc: { quantity: quantityType === 'plus' ? 1 : -1 } },
+            { new: true },
+          ).lean();
+
+          if (!cartItem) {
+            return breakUpdate();
+          }
           return res.status(200).json({
             message: 'Cập nhập số lượng press thành công',
             code: 200,
+            data: { ...cartItem, product: currentProduct },
           });
         }
 
         if (quantityType == 'typing') {
-          await Cart.findOneAndUpdate(
-            { userId, products: { $elemMatch: { size, product } } },
-            { $set: { 'products.$.quantity': +amount } },
-          );
-
+          const cartItem = await Cart.findByIdAndUpdate(
+            id,
+            { quantity: +amount },
+            { new: true },
+          ).lean();
+          if (!cartItem) {
+            return breakUpdate();
+          }
           return res.status(200).json({
             message: 'Cập nhập số lượng typing thành công',
             code: 200,
+            data: { ...cartItem, product: currentProduct },
           });
         }
 
         if (quantityType == 'updateSize') {
-          await Cart.findOneAndUpdate(
-            { userId, products: { $elemMatch: { size, product } } },
-            { $set: { 'products.$.size': newSize } },
-          );
-
+          const cartItem = await Cart.findByIdAndUpdate(
+            id,
+            { size: newSize },
+            { new: true },
+          ).lean();
+          if (!cartItem) {
+            return breakUpdate();
+          }
           return res.status(200).json({
             message: 'Cập nhập kích thước thành công',
             code: 200,
+            data: { ...cartItem, product: currentProduct },
           });
         }
 
-        return res.status(400).json({
-          message: 'Cập nhập giỏ hàng không thành công',
-          code: 400,
-        });
+        return breakUpdate();
 
       default:
         return res.status(404).json({

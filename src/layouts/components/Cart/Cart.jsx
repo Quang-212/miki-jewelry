@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
 import Badge from 'src/components/Badge';
 import Button from 'src/components/Button';
 import { BasketIcon } from 'src/components/Icons';
@@ -10,25 +11,16 @@ import { cartState, userState } from 'src/recoils';
 import { PATH } from 'src/routes';
 
 export default function Cart() {
-  const { user } = useRecoilValue(userState);
-
-  const formatCart = (cartServer) => {
-    return cartServer.products.map((item) => ({
-      cartId: `${item.product._id}${item.size}`,
-      quantity: item.quantity,
-      size: item.size,
-      product: item.product,
-    }));
-  };
-
-  const { cart } = useCart(user?._id);
-
   const [cartRecoil, setCart] = useRecoilState(cartState);
 
+  const { user } = useRecoilValue(userState);
+
+  const { cart } = useCart(user?._id);
+  console.log(cart);
   const isClient = useClientSide();
 
   useEffect(() => {
-    setCart(!isEmpty(cart) ? formatCart(cart) : []);
+    setCart(!isEmpty(cart) ? cart : []);
   }, [cart]);
 
   return (

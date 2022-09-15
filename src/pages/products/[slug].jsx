@@ -10,8 +10,6 @@ import { PATH } from 'src/routes';
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product = {}, relatedProducts }) {
-  // console.log(product);
-  // console.log('relatedProducts: ' + JSON.parse(relatedProducts));
   const { name, category, description, slug, images } = product;
 
   const generateCategory = (category) => {
