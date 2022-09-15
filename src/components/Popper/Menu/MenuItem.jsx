@@ -6,15 +6,15 @@ import Button from 'src/components/Button';
 const mk = classNames.bind(styles);
 
 export default function MenuItem({ data, onClick }) {
-  const classWrapper = mk('menu-item', {
+  const classWrapper = mk('menu-item', 'group', {
     separate: data.separate,
   });
 
+  const classTitle = mk('btn-title', 'group-hover:text-primary-1 group-hover:font-semibold', {});
+
   return (
-    <li>
-      <Button leftIcon={data.icon} wrapper={classWrapper} onClick={onClick}>
-        {data.title}
-      </Button>
-    </li>
+    <Button leftIcon={data.icon} onClick={onClick} wrapper={classWrapper} title={classTitle}>
+      {data.title}
+    </Button>
   );
 }

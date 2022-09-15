@@ -26,10 +26,12 @@ export const NAVIGATION_LINKS = [
   {
     title: 'Sản phẩm',
     path: PATH.products,
+    link: 'category',
   },
   {
     title: 'Về chúng tôi',
     path: PATH.brandHistory,
+    link: 'about',
   },
 ];
 
@@ -109,6 +111,17 @@ export const PRODUCTS_CATEGORY_LINKS = [
         path: 'large-ring3',
       },
     ],
+  },
+];
+
+export const ABOUT_LINKS = [
+  {
+    title: 'Thương hiệu và lịch sử',
+    path: PATH.BRAND_HISTORY,
+  },
+  {
+    title: 'Tuyển dụng',
+    path: PATH.RECRUITMENT,
   },
 ];
 

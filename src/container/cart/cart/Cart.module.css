@@ -11,7 +11,7 @@
 }
 
 .image {
-  @apply rounded-primary;
+  @apply rounded-primary cursor-pointer;
 }
 
 .col-2 {

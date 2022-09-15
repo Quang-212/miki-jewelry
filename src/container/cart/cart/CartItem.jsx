@@ -9,6 +9,7 @@ import { Checkbox } from 'src/components/Checkbox';
 import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { deleteCartItem, updateCart } from 'src/fetching/cart';
+import { useRouter } from 'src/hooks';
 import { addToCartState, deleteCartItemState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
@@ -21,14 +22,17 @@ const mk = classNames.bind(styles);
 export default function CartItem({ data, orders, onCheck }) {
   const { product, size, quantity, _id } = data;
 
+  const { push } = useRouter();
+
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
   );
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
+
   const [confirm, setConfirm] = useState({
     delete: false,
     quantity: false,
   });
+
   const [stateQuantity, setQuantity] = useState({
     type: null,
     quantity,
@@ -172,6 +176,8 @@ export default function CartItem({ data, orders, onCheck }) {
     );
   };
 
+  const handleGoToDetail = () => push(`/products/${product.slug}`);
+
   return (
     <div className={mk('cart-item')}>
       <div>
@@ -186,10 +192,13 @@ export default function CartItem({ data, orders, onCheck }) {
           width={136}
           height={136}
           className={mk('image')}
+          onClick={handleGoToDetail}
         />
       </div>
       <div className={mk('col-2')}>
-        <h5 className={mk('heading-5')}>{product.name}</h5>
+        <h5 className={mk('heading-5 cursor-pointer')} onClick={handleGoToDetail}>
+          {product.name}
+        </h5>
         <div>
           <Tippy
             // visible

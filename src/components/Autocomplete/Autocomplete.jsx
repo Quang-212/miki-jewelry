@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { isEmpty, isPlainObject } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+
 import accessNestedObject from 'src/utils/accessNestedObject';
 import { formatSearchString } from 'src/utils/formatString';
 import List from '../List';

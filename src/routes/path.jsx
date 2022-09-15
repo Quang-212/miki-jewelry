@@ -1,8 +1,8 @@
 export const PATH = {
   home: '/',
   products: '/products',
-  brandHistory: '/about/brand-history',
-  recruitment: '/about/recruitment',
+  BRAND_HISTORY: '/about/brand-history',
+  RECRUITMENT: '/about/recruitment',
 
   register: '/auth/register',
   login: '/auth/login',

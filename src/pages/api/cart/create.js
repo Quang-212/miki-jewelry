@@ -12,7 +12,7 @@ async function handlerAddCart(req, res) {
     switch (method) {
       case 'POST':
         const [existCart, currentProduct] = await Promise.all([
-          Cart.findOne({ userId, product, size }),
+          Cart.findOne({ userId, product, size, status: { $nin: ['ordered', 'deleted'] } }),
           Product.findById(product).lean(),
         ]);
 

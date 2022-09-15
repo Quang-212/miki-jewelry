@@ -9,23 +9,19 @@ export default function ModalDelete({
   confirm,
   setConfirm,
 }) {
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleCloseModalDelete = () => {
+  const handleCloseModal = () => {
     setConfirm((prev) => ({ ...prev, delete: false }));
-    setIsOpenModalDelete(false);
+    setIsOpen(false);
   };
 
   useEffect(() => {
-    (fallback < 1 || confirm.delete) && setIsOpenModalDelete(true);
+    (fallback < 1 || confirm.delete) && setIsOpen(true);
   }, [fallback, confirm.delete]);
 
   return (
-    <Dialog
-      isOpen={isOpenModalDelete}
-      closeModal={handleCloseModalDelete}
-      content="w-[600px] px-12"
-    >
+    <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="w-[600px] px-12">
       <div className="flex flex-col gap-10">
         <p className="heading-5">Bạn chắc chắn muốn bỏ sản phẩm này?</p>
         <p>{productName}</p>
@@ -33,7 +29,7 @@ export default function ModalDelete({
           <Button primary onClick={handleDeleteCartItem} wrapper="w-full">
             Đồng ý
           </Button>
-          <Button outline onClick={handleCloseModalDelete} wrapper="w-full">
+          <Button outline onClick={handleCloseModal} wrapper="w-full">
             Không
           </Button>
         </div>

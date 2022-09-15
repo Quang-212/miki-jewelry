@@ -1,9 +1,14 @@
 .menu-item {
-  @apply justify-start w-full py-2 px-4 hover:bg-red-100 rounded-none;
+  @apply justify-start w-full py-2 px-4 rounded-none 
+  hover:text-primary-1 transition-all duration-200 ease-in-out;
 }
 
 .menu-item.separate {
   @apply border-t-2 border-solid border-red-500;
+}
+
+.btn-title {
+  @apply body transition-all duration-200 ease-in-out;
 }
 
 /* Header */

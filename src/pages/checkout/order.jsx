@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -29,7 +30,7 @@ export default function Order() {
   const cart = useRecoilValue(cartState);
 
   useEffect(() => {
-    cart.length === 0 && setIsOpen(true); //lodash isEmpty && !sessionStorage
+    (isEmpty(cart) || isEmpty(JSON.parse(sessionStorage.getItem('orders')))) && setIsOpen(true);
   }, []);
 
   return (

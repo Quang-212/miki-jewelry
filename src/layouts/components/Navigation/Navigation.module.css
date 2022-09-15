@@ -1,0 +1,11 @@
+.navigation {
+  @apply flex gap-10 mb-2;
+}
+
+.navigation-item {
+  @apply flex items-center gap-14-px;
+}
+
+.active {
+  @apply font-bold;
+}

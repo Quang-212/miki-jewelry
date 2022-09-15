@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { NormalDivider } from 'src/components/Dividers';
@@ -15,7 +16,9 @@ export default function Invoice({ address: { provinces } }) {
   const cart = useRecoilValue(cartState);
 
   useEffect(() => {
-    setChosenOrderId(JSON.parse(sessionStorage.getItem('orders')));
+    const orders = JSON.parse(sessionStorage.getItem('orders'));
+
+    !isEmpty(orders) && setChosenOrderId(orders);
   }, [cart]);
 
   const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem._id));
@@ -28,7 +31,7 @@ export default function Invoice({ address: { provinces } }) {
     return (total += pricePerProduct(item) * item.quantity);
   }, 0);
 
-  const shippingFee = (provinceCode = 9999) => {
+  const generateShippingFee = (provinceCode = 9999) => {
     const FREE_SHIPPING_POINT = 500000;
     const DEFAULT_SHIPPING_FEE = 50000;
     const DOMESTIC_SHIPPING_FEE = 20000;
@@ -62,7 +65,7 @@ export default function Invoice({ address: { provinces } }) {
         </ul>
         <ul className={mk('prices')}>
           <li className="heading-5">{formatVndCurrency(totalInvoice)}</li>
-          <li className="heading-5">{formatVndCurrency(shippingFee(provinces))}</li>
+          <li className="heading-5">{formatVndCurrency(generateShippingFee(provinces))}</li>
           <li className="heading-5">{formatVndCurrency(discountByCoupon)}</li>
         </ul>
       </div>
@@ -70,7 +73,7 @@ export default function Invoice({ address: { provinces } }) {
       <div className={mk('total')}>
         <h5 className="heading-5">Tổng</h5>
         <span className="heading-5">
-          {formatVndCurrency(totalInvoice - (discountByCoupon + shippingFee(provinces)))}
+          {formatVndCurrency(totalInvoice - (discountByCoupon + generateShippingFee(provinces)))}
         </span>
       </div>
     </section>
