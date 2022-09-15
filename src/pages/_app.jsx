@@ -3,10 +3,12 @@ import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from 'recoil';
+import { ProgressBar } from 'src/components/ProgressBar/ProgressBar';
 import { CollapseDrawerProvider } from 'src/context/CollapseDrawer';
 import { SWRConfig } from 'swr';
 
 import '../styles/globals.css';
+import '../styles/nprogres.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -22,6 +24,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               revalidateOnFocus: false,
             }}
           >
+            <ProgressBar />
             {getLayout(<Component {...pageProps} />)}
 
             <ToastContainer

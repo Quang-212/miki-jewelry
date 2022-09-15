@@ -98,4 +98,11 @@
   .caption {
     @apply font-primary font-medium text-sm leading-5 text-primary;
   }
+  #nprogress .bar {
+    @apply bg-red-700 fixed z-modal top-0 left-0 w-full h-full;
+  }
+
+  #nprogress .peg {
+    @apply block absolute right-0 w-[100px] h-full shadow-2xl opacity-100;
+  }
 }
