@@ -3,85 +3,103 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { isEmpty, isPlainObject } from 'lodash';
+import { useEffect } from 'react';
 import Button from 'src/components/Button';
 import { FormProvider } from 'src/components/HookForms';
+import { createOrder } from 'src/fetching/order';
+import { useRouter } from 'src/hooks';
+import useDistrict from 'src/hooks/useDistrict';
+import useProvince from 'src/hooks/useProvince';
+import useWard from 'src/hooks/useWard';
+import { formatSearchString } from 'src/utils/formatString';
 import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
-import useProvince from 'src/hooks/useProvince';
-import useDistrict from 'src/hooks/useDistrict';
-import useWard from 'src/hooks/useWard';
-import { useEffect, useState } from 'react';
-import { isEmpty, isPlainObject } from 'lodash';
-import { useRouter } from 'src/hooks';
 
 const mk = classNames.bind(styles);
-
 const schema = yup.object().shape({
-  // firstName: yup.string().required('*Vui lòng nhập họ của bạn'),
-  // lastName: yup.string().required('*Vui lòng nhập tên của bạn'),
-  // city: yup.string().required('*Trường bắt buộc'),
-  // district: yup.string().required('*Trường bắt buộc'),
-  // ward: yup.string().required('*Trường bắt buộc'),
-  // addressNumber: yup.string().required('*Vui lòng nhập địa chỉ cụ thể của bạn'),
-  // phoneNumber: yup
-  //   .string()
-  //   .required('*Vui lòng nhập số điện thoại của bạn')
-  //   .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, '*Vui lòng nhập CHÍNH XÁC số điện thoại của bạn'),
+  firstName: yup.string().required('*Vui lòng nhập họ của bạn'),
+  lastName: yup.string().required('*Vui lòng nhập tên của bạn'),
+  city: yup.string().required('*Trường bắt buộc'),
+  district: yup.string().required('*Trường bắt buộc'),
+  ward: yup.string().required('*Trường bắt buộc'),
+  detailAddress: yup.string().required('*Vui lòng nhập địa chỉ cụ thể của bạn'),
+  phone: yup
+    .string()
+    .required('*Vui lòng nhập số điện thoại của bạn')
+    .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, '*Vui lòng nhập CHÍNH XÁC số điện thoại của bạn'),
   payment: yup.array().typeError('*Vui lòng chọn phương thức thanh toán'),
   newCard: yup.object().when('payment', {
     is: (value) => value.includes('newCard'),
     then: (schema) =>
       schema.shape({
-        cardNumber: yup.string().required('*Vui lòng nhập số thẻ'),
-        date: yup.string().required('*Vui lòng nhập ngày hết hạn'),
-        code: yup.string().required('*Vui lòng nhập mã CVV'),
+        number: yup.string().required('*Vui lòng nhập số thẻ'),
+        expireTime: yup.date().required('*Vui lòng nhập ngày hết hạn'),
+        cvv: yup.string().required('*Vui lòng nhập mã CVV'),
       }),
     otherwise: (schema) => schema,
   }),
 });
 
-export default function Form({ address, setAddress }) {
+export default function Form({ address, setAddress, chosenOrder }) {
   const { back } = useRouter();
 
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstName: 'asdf',
+      lastName: 'sdf',
       city: '',
       district: '',
       ward: '',
-      addressNumber: '',
-      phoneNumber: '',
+      detailAddress: 'so 1',
+      phone: '0987234756',
       payment: ['cash'],
-      cardNumber: '',
-      date: '',
-      code: '',
+      number: '',
+      expireTime: new Date(),
+      cvv: '',
     },
   });
 
-  const { handleSubmit, setValue, watch, reset } = methods;
+  const { handleSubmit, setValue, watch } = methods;
 
   const { provinces } = useProvince();
   const { districts } = useDistrict(address.provinces);
   const { wards } = useWard(address.districts);
 
   useEffect(() => {
-    reset({
-      district: '',
-      ward: '',
-    });
+    setValue('district', '');
+    setValue('ward', '');
   }, [address.provinces]);
 
   useEffect(() => {
-    reset({
-      ward: '',
-    });
+    setValue('ward', '');
   }, [address.districts]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    //cartInfo =>> existedCard !important
+    const { newCard, savedCard, payment, cardNumber, date, cvv, ...rest } = data;
+    const res = await createOrder({
+      orders: chosenOrder.map((orderItem) => {
+        const { createdAt, updatedAt, _id, __v, userId, status, ...needCartIfo } = orderItem;
+
+        return {
+          ...needCartIfo,
+          ...rest,
+          paymentMethod: data.payment.join(''),
+          ...(data.payment.includes('newCard') && { newCard: data.newCard }),
+          ...(data.payment.includes('savedCard') && { savedCard: 'cardId' }),
+          isPaid: !data.payment.includes('cash'),
+          user: userId,
+          search: formatSearchString([data.firstName, data.lastName, data.phone]),
+          product: orderItem.product._id,
+        };
+      }),
+      cartIds: chosenOrder.map((orderItem) => orderItem._id),
+    });
+    console.log('res');
+    //continue handle after order success
   };
 
   const getName = (name) => {
@@ -137,7 +155,7 @@ export default function Form({ address, setAddress }) {
         <FormPayment setValue={setValue} />
 
         <div className={mk('btn-list')}>
-          <Button text title={mk('btn-back-title')} onClick={() => back()}>
+          <Button text title={mk('btn-back-title')} type="button" onClick={() => back()}>
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>

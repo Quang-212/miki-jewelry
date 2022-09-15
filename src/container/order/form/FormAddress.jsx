@@ -53,15 +53,11 @@ export default function FormAddress({
         />
 
         <TextField
-          name="addressNumber"
+          name="detailAddress"
           placeholder="Địa chỉ cụ thể"
           wrapper={mk('address-number-wrapper')}
         />
-        <TextField
-          name="phoneNumber"
-          placeholder="Số điện thoại"
-          wrapper={mk('phone-number-wrapper')}
-        />
+        <TextField name="phone" placeholder="Số điện thoại" wrapper={mk('phone-number-wrapper')} />
       </div>
     </div>
   );

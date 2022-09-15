@@ -6,6 +6,7 @@ import Menu from 'src/components/Popper/Menu';
 import { logoutForm } from 'src/fetching/auth';
 import { useClientSide, useRouter } from 'src/hooks';
 import { userState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { handleMenuItems, handleMenuUserItems } from '../Header/nav-config';
 
 export default function User() {

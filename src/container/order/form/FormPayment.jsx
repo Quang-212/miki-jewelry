@@ -61,16 +61,17 @@ export default function FormPayment({ setValue }) {
           </div>
         </div>
         <TextField
-          name="newCard.cardNumber"
+          name="newCard.number"
           placeholder="Nhập số thẻ"
           wrapper={mk('card-number-wrapper')}
         />
         <TextField
-          name="newCard.date"
+          name="newCard.expireTime"
+          type="date"
           placeholder="Ngày hết hạn (MM/YY)"
           wrapper={mk('date-wrapper')}
         />
-        <TextField name="newCard.code" placeholder="Mã CVV" wrapper={mk('code-wrapper')} />
+        <TextField name="newCard.cvv" placeholder="Mã CVV" wrapper={mk('code-wrapper')} />
       </div>
     </div>
   );

@@ -4,6 +4,9 @@ const Order = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    search: { type: String, required: true },
     quantity: { type: Number, default: 1, required: true },
     size: { type: String, required: true },
     status: {
@@ -15,11 +18,11 @@ const Order = new Schema(
     city: { type: String, required: true },
     district: { type: String, required: true },
     ward: { type: String, required: true },
-    street: { type: String, required: true },
-    phone: { type: Number, required: true },
-    paymentMethod: { type: String, enum: ['cash', 'card'], required: true },
-    paymentCard: { type: Schema.Types.ObjectId, ref: 'PaymentCard' },
-    isPaid: { type: Boolean, default: false },
+    detailAddress: { type: String, required: true },
+    phone: { type: String, required: true },
+    paymentMethod: { type: String, enum: ['cash', 'savedCard', 'newCard'], required: true },
+    cardInfo: { type: Schema.Types.ObjectId, ref: 'PaymentCard' },
+    isPaid: { type: Boolean, default: false, required: true },
   },
   {
     timestamps: true,

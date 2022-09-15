@@ -15,9 +15,8 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
       const isParent = !!item.children;
 
       return (
-        <li>
+        <li key={index}>
           <MenuItem
-            key={index}
             data={item}
             onClick={
               isParent

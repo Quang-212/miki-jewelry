@@ -10,7 +10,11 @@ export default function MenuItem({ data, onClick }) {
     separate: data.separate,
   });
 
-  const classTitle = mk('btn-title', 'group-hover:text-primary-1 group-hover:font-semibold', {});
+  const classTitle = mk(
+    'btn-title body',
+    'group-hover:text-primary-1 group-hover:font-semibold',
+    {},
+  );
 
   return (
     <Button leftIcon={data.icon} onClick={onClick} wrapper={classWrapper} title={classTitle}>
