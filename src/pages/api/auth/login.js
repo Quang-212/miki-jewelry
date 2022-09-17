@@ -20,22 +20,21 @@ async function loginUser(req, res) {
           });
         //so sánh mật khẩu user nhập
         const validateUser = await bcrypt.compare(req.body.password, emailUser.password);
+
         if (!validateUser)
           return res.status(401).json({
             message: 'Mật khẩu không đúng',
             code: 401,
           });
-        // user đăng nhập thành công
+
         if (emailUser && validateUser) {
           const accessToken = generateAccessToken(emailUser);
           const refreshToken = generateRefreshToken(emailUser);
-          //tạo refresh token mới trong data
+
           await RefreshToken.create({
             userId: emailUser._id,
             refreshToken,
           });
-
-          // lưu refresh trên cookie
           res.setHeader(
             'Set-Cookie',
             serialize('refreshToken', refreshToken, {
