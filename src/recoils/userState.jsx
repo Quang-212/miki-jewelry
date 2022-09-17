@@ -4,7 +4,7 @@ import persistAtom from 'src/utils/recoilPersist';
 export const userState = atom({
   key: 'authentication',
   default: {
-    user: null,
+    user: {},
     access_token: '',
     isAuthenticated: false,
   },

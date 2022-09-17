@@ -61,7 +61,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
       phone: '0987234756',
       payment: ['cash'],
       number: '',
-      expireTime: new Date(),
+      expireTime: new Date().getTime(),
       cvv: '',
     },
   });

@@ -54,7 +54,7 @@ export default function Profile() {
               <ul className={mk('info-personal-list-item')}>
                 <li>{user.userName}</li>
                 <li>{user.gender}</li>
-                <li>{user.date}</li>
+                <li>{user.birthday}</li>
               </ul>
             </div>
           </div>

@@ -42,24 +42,25 @@ export function CouponForm({ currentCoupon, setCurrentCoupon }) {
   };
 
   const onSubmit = async (data) => {
-    try {
-      console.log(data.value);
-      const res = await createCoupon({
-        targetUser: [
-          {
-            key: data.key,
-            value: data.value,
-            compare: data.compare,
-          },
-        ],
-        search: formatSearchString([data.code, data.discount]),
-        ...data,
-      });
+    console.log(data);
+    // try {
+    //   console.log(data.value);
+    //   const res = await createCoupon({
+    //     targetUser: [
+    //       {
+    //         key: data.key,
+    //         value: data.value,
+    //         compare: data.compare,
+    //       },
+    //     ],
+    //     search: formatSearchString([data.code, data.discount]),
+    //     ...data,
+    //   });
 
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
