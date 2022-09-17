@@ -23,15 +23,19 @@ async function updateInfoHandler(req, res) {
           if (isValidPassword) {
             const salt = await genSalt(10);
             const hashPassword = await hash(newPassword, salt);
-            const newData = await User.findByIdAndUpdate(userId, {
-              ...rest,
-              password: hashPassword,
-            });
-            const { password, ...rest } = newData;
+            const newData = await User.findByIdAndUpdate(
+              userId,
+              {
+                ...rest,
+                password: hashPassword,
+              },
+              { new: true },
+            ).lean();
+            const { password: _, ...restData } = newData;
             return res.status(200).json({
               message: 'Cập nhật thông tin OK*',
               code: 200,
-              data: rest,
+              data: restData,
             });
           } else {
             return res.status(403).json({
@@ -40,12 +44,12 @@ async function updateInfoHandler(req, res) {
             });
           }
         }
-        const newData = await User.findByIdAndUpdate(userId, { ...rest });
-        const { password, ...rest } = newData;
+        const newData = await User.findByIdAndUpdate(userId, { ...rest }, { new: true }).lean();
+        const { password: _, ...restData } = newData;
         return res.status(200).json({
           message: 'Cập nhật thông tin OK',
           code: 200,
-          data: rest,
+          data: restData,
         });
 
       default:
