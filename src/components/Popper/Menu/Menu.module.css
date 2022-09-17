@@ -8,7 +8,7 @@
 }
 
 .btn-title {
-  @apply body transition-all duration-200 ease-in-out;
+  @apply transition-all duration-200 ease-in-out;
 }
 
 /* Header */

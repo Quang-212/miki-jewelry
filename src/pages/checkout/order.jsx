@@ -19,7 +19,9 @@ const breadcrumbs = [
 ];
 
 export default function Order() {
+  const cart = useRecoilValue(cartState);
   const [isOpen, setIsOpen] = useState(false);
+  const [chosenOrderId, setChosenOrderId] = useState([]);
 
   const [address, setAddress] = useState({
     provinces: null,
@@ -27,10 +29,12 @@ export default function Order() {
     wards: null,
   });
 
-  const cart = useRecoilValue(cartState);
+  const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem._id));
 
   useEffect(() => {
-    (isEmpty(cart) || isEmpty(JSON.parse(sessionStorage.getItem('orders')))) && setIsOpen(true);
+    const orders = JSON.parse(sessionStorage.getItem('orders'));
+    (isEmpty(cart) || isEmpty(orders)) && setIsOpen(true);
+    !isEmpty(orders) && setChosenOrderId(orders);
   }, []);
 
   return (
@@ -47,8 +51,8 @@ export default function Order() {
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <h2 className="heading-2">Trang giao hàng</h2>
         <div className="flex justify-between gap-10">
-          <Form address={address} setAddress={setAddress} />
-          <Invoice address={address} />
+          <Form address={address} setAddress={setAddress} chosenOrder={chosenOrder} />
+          <Invoice address={address} chosenOrder={chosenOrder} />
         </div>
       </div>
       <Dialog isOpen={isOpen} closeModal={() => {}} content="w-[600px] px-12">

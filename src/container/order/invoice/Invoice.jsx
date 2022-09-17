@@ -10,19 +10,7 @@ import InvoiceItem from './InvoiceItem';
 
 const mk = classNames.bind(styles);
 
-export default function Invoice({ address: { provinces } }) {
-  const [chosenOrderId, setChosenOrderId] = useState([]);
-
-  const cart = useRecoilValue(cartState);
-
-  useEffect(() => {
-    const orders = JSON.parse(sessionStorage.getItem('orders'));
-
-    !isEmpty(orders) && setChosenOrderId(orders);
-  }, [cart]);
-
-  const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem._id));
-
+export default function Invoice({ address: { provinces }, chosenOrder }) {
   const pricePerProduct = (cartItem) => {
     return cartItem.product.stocks.find((stock) => stock.size == cartItem.size).price;
   };
