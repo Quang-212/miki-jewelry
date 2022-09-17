@@ -70,17 +70,12 @@ export default function Form() {
       const res = await updateUser(data, {
         params: { userId: user._id },
       });
-      console.log(res);
-      console.log(data);
+      console.log(res.data);
 
       setUser((prev) => ({
         //! REMEMBER RETURN STALE DATA BEFORE UPDATE NEW
         ...prev,
-        user: {
-          ...prev.user,
-          ...data,
-          birthday: fTimestamp(data.birthday),
-        },
+        user: res.data.data,
       }));
     } catch (error) {
       console.log(error);
