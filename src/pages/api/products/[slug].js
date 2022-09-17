@@ -9,10 +9,7 @@ const getOneProductHandler = async (req, res) => {
   try {
     switch (method) {
       case 'GET':
-        const [product, likedCount] = await Promise.all([
-          Product.findOne({ slug }).lean(),
-          FavoriteProduct.find({ productId, status: 1 }).countDocuments(),
-        ]);
+        const product = await Product.findOne({ slug }).lean();
         const favorite = userId
           ? (await FavoriteProduct.findOne({ productId: product._id, userId }))?.status || 0
           : 0;
@@ -22,7 +19,10 @@ const getOneProductHandler = async (req, res) => {
           product: {
             ...product,
             favorite,
-            likedCount,
+            likedCount: await FavoriteProduct.find({
+              productId: product._id,
+              status: 1,
+            }).countDocuments(),
           },
         });
       default:
