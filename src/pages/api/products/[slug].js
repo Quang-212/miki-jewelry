@@ -1,5 +1,6 @@
 import dbConnect from 'src/utils/dbConnect';
 import Product from 'src/models/Product';
+import FavoriteProduct from 'src/models/FavoriteProduct';
 
 const getOneProductHandler = async (req, res) => {
   await dbConnect();
@@ -27,6 +28,7 @@ const getOneProductHandler = async (req, res) => {
         });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,

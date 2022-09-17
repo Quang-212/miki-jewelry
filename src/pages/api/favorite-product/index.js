@@ -19,7 +19,7 @@ async function favoriteProductHandler(req, res) {
             { new: true },
           ).lean();
           return res.status(200).json({
-            message: ` Cập nhật sản phẩm yêu thích(status-${newData.status} )`,
+            message: ` Cập nhật sản phẩm yêu thích(status-${newData.status})`,
             code: 200,
           });
         }
