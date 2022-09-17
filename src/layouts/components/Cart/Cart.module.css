@@ -47,5 +47,5 @@
 }
 
 .cart-item-price {
-  @apply col-span-5 mt-2 subtitle-1 text-sm;
+  @apply col-span-5 mt-2 subtitle-1;
 }

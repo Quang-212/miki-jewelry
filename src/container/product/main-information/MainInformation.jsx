@@ -6,6 +6,7 @@ import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import { addToCart } from 'src/fetching/cart';
+import { createFavorite } from 'src/fetching/favorite';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
@@ -19,16 +20,23 @@ export function MainInformation({ product }) {
   });
   const [favorite, setFavorite] = useState(false);
 
-  const handleClickFavorite = () => {
-    setFavorite((prev) => !prev);
-  };
-
   const { user, isAuthenticated } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
 
   const subtractButtonRef = useRef();
   const addButtonRef = useRef();
+
+  const handleClickFavorite = async () => {
+    setFavorite((prev) => !prev);
+
+    // const res = await createFavorite({
+    //   params: {
+    //     userId: user._id,
+    //     productId: product._id,
+    //   },
+    // });
+  };
 
   const isOutOfStock = (inputQuantity) => {
     return (

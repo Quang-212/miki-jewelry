@@ -47,10 +47,14 @@ export default function Form() {
     // },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
     console.log(data);
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

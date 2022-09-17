@@ -19,15 +19,15 @@ const breadcrumbs = [
 ];
 
 export default function Order() {
-  const cart = useRecoilValue(cartState);
   const [isOpen, setIsOpen] = useState(false);
   const [chosenOrderId, setChosenOrderId] = useState([]);
-
   const [address, setAddress] = useState({
     provinces: null,
     districts: null,
     wards: null,
   });
+
+  const cart = useRecoilValue(cartState);
 
   const chosenOrder = cart.filter((cartItem) => chosenOrderId.includes(cartItem._id));
 

@@ -24,8 +24,6 @@ const mk = classNames.bind(styles);
 export default function CartItem({ data, orders, onCheck }) {
   const { product, size, quantity, _id } = data;
 
-  const { push } = useRouter();
-
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
   );
@@ -45,6 +43,8 @@ export default function CartItem({ data, orders, onCheck }) {
   const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);
 
   const { quantity: inputQuantity, fallback } = stateQuantity;
+
+  const { push } = useRouter();
 
   useEffect(() => {
     if (stateQuantity.type) {
@@ -179,6 +179,10 @@ export default function CartItem({ data, orders, onCheck }) {
   };
 
   const handleGoToDetail = () => push(`/products/${product.slug}`);
+
+  const asd = data.product.stocks.find((stock) => stock.size === data.size);
+
+  console.log('hello ', data.quantity < asd?.quantity);
 
   return (
     <div className={mk('cart-item')}>
