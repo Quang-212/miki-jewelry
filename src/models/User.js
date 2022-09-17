@@ -7,9 +7,10 @@ const UserSchema = new Schema(
     search: { type: String, required: true },
     password: { type: String, required: true, min: 8 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    gender: { type: String, enum: ['male', 'female', 'other'], default: 'other' },
+    gender: { type: String, enum: ['male', 'female', 'others'], default: 'others' },
     image: { type: String },
     birthday: { type: Date },
+    phone: { type: String, default: null },
     consumerSpending: { type: Number, default: 0 },
   },
   {
