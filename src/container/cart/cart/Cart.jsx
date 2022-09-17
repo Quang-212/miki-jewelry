@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import { Fragment, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import Button from 'src/components/Button';
 
 import { Checkbox } from 'src/components/Checkbox';
 import { NormalDivider } from 'src/components/Dividers';

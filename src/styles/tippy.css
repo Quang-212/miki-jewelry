@@ -1,0 +1,21 @@
+/* Custom tippy tooltip */
+.tippy-box {
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: 'Montserrat', serif;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  background-color: rgba(146, 113, 90, 0.8);
+}
+
+.tippy-arrow {
+  color: rgba(146, 113, 90, 0.8);
+}
+
+.tippy-content {
+  padding: 8px 12px;
+}
+
+.tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
+  top: -8px;
+}

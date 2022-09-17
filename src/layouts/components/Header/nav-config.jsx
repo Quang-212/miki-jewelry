@@ -192,14 +192,14 @@ export const handleMenuUserItems = ({ handleClickLogout }) => {
     },
     {
       title: 'Đơn hàng của tôi',
-      icon: <OrdersIcon />,
-      path: './profile',
-    },
-    {
-      title: 'Lịch sử mua hàng',
       icon: <HistoryIcon />,
       path: './profile',
     },
+    // {
+    //   title: 'Lịch sử mua hàng',
+    //   icon: <HistoryIcon />,
+    //   path: './profile',
+    // },
     {
       title: 'Sản phẩm yêu thích',
       icon: <FavoriteIcon />,
