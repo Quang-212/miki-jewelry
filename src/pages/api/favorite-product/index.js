@@ -1,7 +1,7 @@
 import FavoriteProduct from 'src/models/FavoriteProduct';
 import dbConnect from 'src/utils/dbConnect';
 
-async function handleGetOrder(req, res) {
+async function favoriteProductHandler(req, res) {
   await dbConnect();
   const { method } = req;
   const { userId, productId } = req.query;
@@ -45,4 +45,4 @@ async function handleGetOrder(req, res) {
   }
 }
 
-export default handleGetOrder;
+export default favoriteProductHandler;
