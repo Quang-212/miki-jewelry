@@ -11,14 +11,15 @@ import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
-  const { _id, name, discount, stocks, sold } = product;
+  console.log(product);
+  const { _id, name, discount, stocks, sold, favorite: favoriteServer } = product;
 
   const [sizeChecked, setSizeChecked] = useState(0);
   const [{ quantity, fallback }, setQuantity] = useState({
     quantity: 1,
     fallback: 1,
   });
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(Boolean(favoriteServer));
 
   const { user, isAuthenticated } = useRecoilValue(userState);
 
@@ -28,14 +29,17 @@ export function MainInformation({ product }) {
   const addButtonRef = useRef();
 
   const handleClickFavorite = async () => {
-    setFavorite((prev) => !prev);
+    try {
+      setFavorite((prev) => !prev);
 
-    // const res = await createFavorite({
-    //   params: {
-    //     userId: user._id,
-    //     productId: product._id,
-    //   },
-    // });
+      const res = await createFavorite({
+        userId: user._id,
+        productId: product._id,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const isOutOfStock = (inputQuantity) => {

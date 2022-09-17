@@ -4,7 +4,7 @@ import dbConnect from 'src/utils/dbConnect';
 async function favoriteProductHandler(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId, productId } = req.query;
+  const { userId, productId } = req.body;
 
   try {
     switch (method) {

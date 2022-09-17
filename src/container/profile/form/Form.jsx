@@ -8,6 +8,8 @@ import { FormProvider, RadioField, TextField } from 'src/components/HookForms';
 import { EmailIcon, LockIcon, PhoneIcon } from 'src/components/Icons';
 import { GENDERS } from './form-config';
 import styles from './Form.module.css';
+import Image from 'src/components/Image';
+import { images } from 'src/constants';
 
 const mk = classNames.bind(styles);
 
@@ -67,7 +69,16 @@ export default function Form() {
       >
         <div className={mk('info-personal')}>
           <h5 className={mk('info-personal-title')}>Thông tin cá nhân</h5>
-          <div className="row-span-2">Avatar</div>
+          <div className="row-span-2 flex items-start">
+            <Image
+              src={images.adminAvatar}
+              alt=""
+              width={110}
+              height={110}
+              className="rounded-full"
+            />
+          </div>
+          {/* <TextField name="avatar" type="file" /> */}
           <strong>Họ và tên</strong>
           <TextField name="name" wrapper="col-span-2" />
           <strong>Nickname</strong>

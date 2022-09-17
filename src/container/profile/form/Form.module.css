@@ -7,7 +7,7 @@
 }
 
 .info-personal {
-  @apply grid grid-cols-4 grid-rows-5 items-baseline gap-y-4 px-10 
+  @apply grid grid-cols-4 grid-rows-5  gap-y-4 px-10 
   after:contents after:absolute after:left-[50%] after:w-[1px] after:h-[400px] after:bg-neutral-4;
 }
 
