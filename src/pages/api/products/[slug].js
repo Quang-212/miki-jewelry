@@ -1,20 +1,24 @@
 import dbConnect from 'src/utils/dbConnect';
 import Product from 'src/models/Product';
-import verifyToken from 'src/middlewares/verifyToken';
-import withAuthorization from 'src/middlewares/withAuthorization';
 
-const deleteProduct = async (req, res) => {
+const getOneProductHandler = async (req, res) => {
   await dbConnect();
   const { method } = req;
-  const { slug } = req.query;
+  const { slug, userId = null } = req.query;
   try {
     switch (method) {
       case 'GET':
-        const product = await Product.findOne({ slug });
+        const product = await Product.findOne({ slug }).lean();
+        const favorite = userId
+          ? (await FavoriteProduct.findOne({ productId: product._id, userId }))?.status || 0
+          : 0;
         return res.status(200).json({
           message: 'Tìm kiếm thành công sản phẩm',
           code: 200,
-          product,
+          product: {
+            ...product,
+            favorite,
+          },
         });
       default:
         return res.status(404).json({
@@ -30,4 +34,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export default deleteProduct;
+export default getOneProductHandler;
