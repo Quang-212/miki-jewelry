@@ -7,6 +7,7 @@ import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import { addToCart } from 'src/fetching/cart';
 import { createFavorite } from 'src/fetching/favorite';
+import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
@@ -21,6 +22,8 @@ export function MainInformation({ product }) {
   });
   const [favorite, setFavorite] = useState(Boolean(favoriteServer));
 
+  const { push } = useRouter();
+
   const { user, isAuthenticated } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
@@ -29,6 +32,10 @@ export function MainInformation({ product }) {
   const addButtonRef = useRef();
 
   const handleClickFavorite = async () => {
+    if (!isAuthenticated) {
+      return push(PATH.login);
+    }
+
     try {
       setFavorite((prev) => !prev);
 
