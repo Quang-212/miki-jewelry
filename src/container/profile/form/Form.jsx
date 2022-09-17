@@ -22,13 +22,13 @@ const schema = yup.object().shape({
     .string()
     .required('*Vui lòng nhập số điện thoại')
     .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, '*Vui lòng nhập CHÍNH XÁC số điện thoại'),
-  email: yup
-    .string()
-    .required('*Vui lòng nhập địa chỉ email của bạn')
-    .matches(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      '*Vui lòng nhập CHÍNH XÁC địa chỉ email',
-    ),
+  // email: yup
+  //   .string()
+  //   .required('*Vui lòng nhập địa chỉ email của bạn')
+  //   .matches(
+  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  //     '*Vui lòng nhập CHÍNH XÁC địa chỉ email',
+  //   ),
   password: yup
     .string()
     .trim()
@@ -39,14 +39,16 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function Form() {
+export default function Form({ data }) {
+  console.log(data);
   const methods = useForm({
     resolver: yupResolver(schema),
-    // defaultValues: {
-    //   firstName: '',
-    //   lastName: '',
-    //   phoneNumber: '',
-    // },
+    defaultValues: {
+      userName: '',
+      date: '',
+      gender: '',
+      phoneNumber: '',
+    },
   });
 
   const { handleSubmit, reset, setFocus } = methods;
@@ -105,7 +107,7 @@ export default function Form() {
             <EmailIcon />
             <strong>Địa chỉ email</strong>
           </span>
-          <TextField name="email" wrapper="col-span-3" />
+          <TextField name="email" disabled wrapper="col-span-3" />
           <h5 className={mk('info-security-title')}>Bảo mật</h5>
           <span className={mk('info-icon')}>
             <LockIcon />

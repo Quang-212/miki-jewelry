@@ -13,7 +13,15 @@ import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
   console.log(product);
-  const { _id, name, discount, stocks, sold, favorite: favoriteServer } = product;
+  const {
+    _id,
+    name,
+    discount,
+    stocks,
+    sold,
+    favorite: favoriteServer,
+    likedCount: likedCountServer,
+  } = product;
 
   const [sizeChecked, setSizeChecked] = useState(0);
   const [{ quantity, fallback }, setQuantity] = useState({
@@ -21,6 +29,7 @@ export function MainInformation({ product }) {
     fallback: 1,
   });
   const [favorite, setFavorite] = useState(Boolean(favoriteServer));
+  const [likedCount, setLikedCount] = useState(likedCountServer);
 
   const { push } = useRouter();
 
@@ -38,6 +47,7 @@ export function MainInformation({ product }) {
 
     try {
       setFavorite((prev) => !prev);
+      setLikedCount((prev) => (favorite ? prev - 1 : prev + 1));
 
       const res = await createFavorite({
         userId: user._id,
@@ -173,7 +183,7 @@ export function MainInformation({ product }) {
               wrapper="ml-8"
               title="font-medium"
             >
-              Đã thích (1,6k)
+              Đã thích ({likedCount})
             </Button>
           </div>
           <span className="heading-1 text-primary-2">

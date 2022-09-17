@@ -202,7 +202,7 @@ export const handleMenuUserItems = ({ handleClickLogout }) => {
     // },
     {
       title: 'Sản phẩm yêu thích',
-      icon: <FavoriteIcon />,
+      icon: <FavoriteIcon header />,
       path: './favorite',
     },
     {

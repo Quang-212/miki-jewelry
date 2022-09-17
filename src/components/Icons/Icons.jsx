@@ -430,7 +430,7 @@ export const HistoryIcon = ({ width = '28', height = '28', className }) => (
   </svg>
 );
 
-export const FavoriteIcon = ({ width = '28', height = '28', className }) => (
+export const FavoriteIcon = ({ width = '28', height = '28', header, className }) => (
   <svg
     width={width}
     height={height}
@@ -441,7 +441,7 @@ export const FavoriteIcon = ({ width = '28', height = '28', className }) => (
   >
     <path
       d="M5.93424 18.5442L15.3153 27.3567C15.6398 27.6615 15.802 27.8139 16 27.8139C16.198 27.8139 16.3602 27.6615 16.6847 27.3567L26.0658 18.5442C28.674 16.094 28.9907 12.0621 26.7971 9.23467L26.3846 8.70304C23.7604 5.32069 18.4928 5.88794 16.6489 9.75145C16.3884 10.2972 15.6116 10.2972 15.3511 9.75145C13.5072 5.88794 8.23964 5.32069 5.6154 8.70304L5.20293 9.23467C3.00927 12.0621 3.32601 16.094 5.93424 18.5442Z"
-      stroke="currentColor"
+      stroke={header ? 'currentColor' : ''}
       strokeWidth="2"
     />
   </svg>
