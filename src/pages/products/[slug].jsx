@@ -1,4 +1,5 @@
 import axios from 'axios';
+import decode from 'jwt-decode';
 import { StarDivider } from 'src/components/Dividers';
 import Page from 'src/components/Page';
 import Breadcrumb from 'src/components/Breadcrumb';
@@ -11,7 +12,7 @@ ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product = {}, relatedProducts }) {
   const { name, category, description, slug, images } = product;
-
+  console.log(product);
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':
@@ -65,23 +66,23 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
   );
 }
 
-export const getStaticPaths = async () => {
-  const res = await getProducts();
-  const products = await res.data.productList;
-  const paths = products.map((product) => ({ params: { slug: product.slug } }));
+// export const getStaticPaths = async () => {
+//   const res = await getProducts();
+//   const products = await res.data.productList;
+//   const paths = products.map((product) => ({ params: { slug: product.slug } }));
 
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// };
 
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req }) => {
   try {
-    // console.log(params);
     const slug = params.slug;
-
-    const product = await getProducts([slug]);
+    const token = req.cookies.refreshToken;
+    const payload = token && decode(token);
+    const product = await getProducts([slug], { ...(payload && { userId: payload._id }) });
     // console.log('product: ' + product.data.product);
 
     // const { category } = await product.data.product;
@@ -94,10 +95,9 @@ export const getStaticProps = async ({ params }) => {
 
     return {
       props: {
-        product: product.data.product,
+        product: product.data.product || {},
         // relatedProducts: qwe,
       },
-      // revalidate: 10,
     };
   } catch (error) {
     console.log(error);

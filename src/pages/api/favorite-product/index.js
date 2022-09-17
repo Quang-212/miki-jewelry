@@ -4,7 +4,7 @@ import dbConnect from 'src/utils/dbConnect';
 async function favoriteProductHandler(req, res) {
   await dbConnect();
   const { method } = req;
-  const { userId, productId } = req.query;
+  const { userId, productId } = req.body;
 
   try {
     switch (method) {
@@ -19,7 +19,7 @@ async function favoriteProductHandler(req, res) {
             { new: true },
           ).lean();
           return res.status(200).json({
-            message: ` Cập nhật sản phẩm yêu thích(status-${newData.status} )`,
+            message: ` Cập nhật sản phẩm yêu thích(status-${newData.status})`,
             code: 200,
           });
         }

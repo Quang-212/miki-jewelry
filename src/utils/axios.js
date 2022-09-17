@@ -40,15 +40,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config) => {
-    // config.headers = {
-    //   ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
-    // };
-
     const now = new Date();
 
     const payload = getToken() && decode(getToken());
     if (payload && payload.exp * 1000 < now.getTime() && !config._retry) {
-      // console.log('get token');
       config._retry = true;
 
       try {
