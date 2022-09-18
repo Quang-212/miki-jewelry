@@ -166,9 +166,9 @@ export default function CartItem({ data, orders, onCheck }) {
       <Distribution
         attrs={attrs}
         product={product}
-        handleClickSize={handleClickSize}
         sizeChecked={sizeChecked}
         isChosenSize={isChosenSize}
+        handleClickSize={handleClickSize}
         handleSubmitDistribution={handleSubmitDistribution}
       />
     );
@@ -222,11 +222,11 @@ export default function CartItem({ data, orders, onCheck }) {
           <span className="heading-5">
             <input
               type="text"
+              className="w-10 text-center"
               value={inputQuantity}
-              onChange={handleTypingInput}
               onBlur={handleTypingInput}
               onKeyUp={handleTypingInput}
-              className="w-10 text-center"
+              onChange={handleTypingInput}
             />
           </span>
           <Button
