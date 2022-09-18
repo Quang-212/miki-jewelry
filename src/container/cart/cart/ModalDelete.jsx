@@ -2,13 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 
-export default function ModalDelete({
-  fallback,
-  handleDeleteCartItem,
-  productName,
-  confirm,
-  setConfirm,
-}) {
+export default function ModalDelete({ handleDeleteCartItem, productName, confirm, setConfirm }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseModal = () => {
@@ -17,8 +11,8 @@ export default function ModalDelete({
   };
 
   useEffect(() => {
-    (fallback < 1 || confirm.delete) && setIsOpen(true);
-  }, [fallback, confirm.delete]);
+    confirm.delete && setIsOpen(true);
+  }, [confirm.delete]);
 
   return (
     <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="w-[600px] px-12">

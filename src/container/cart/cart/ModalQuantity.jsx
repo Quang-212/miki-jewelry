@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 
-export default function ModalQuantity({
-  fallback,
-  isOutOfStock,
-  availableQuantity,
-  confirm,
-  setConfirm,
-}) {
+export default function ModalQuantity({ availableQuantity, confirm, setConfirm }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
@@ -17,8 +11,8 @@ export default function ModalQuantity({
   };
 
   useEffect(() => {
-    (isOutOfStock(fallback) || confirm.quantity) && setIsOpen(true);
-  }, [fallback, confirm.quantity]);
+    confirm.quantity && setIsOpen(true);
+  }, [confirm.quantity]);
   return (
     <Dialog isOpen={isOpen} closeModal={handleClose} content="w-[600px] px-12">
       <div className="flex flex-col gap-10">

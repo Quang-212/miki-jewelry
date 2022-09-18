@@ -86,12 +86,6 @@ export default function CartItem({ data, orders, onCheck }) {
     return cart.find((item) => item.product._id === product._id && item.size === size);
   };
 
-  useEffect(() => {
-    if (inputQuantity && isOutOfStock(inputQuantity)) {
-      toast('Số lượng không được vượt quá tồn kho', { type: 'info' });
-    }
-  }, [inputQuantity]);
-
   const handleTypingInput = (event) => {
     const value = event.target.value;
     const replaceValue = value.replace(/\D|0/g, '');
@@ -155,7 +149,7 @@ export default function CartItem({ data, orders, onCheck }) {
 
   const handleDeleteCartItem = async () => {
     try {
-      deleteCartItem({
+      await deleteCartItem({
         params: { id: _id },
       });
 
@@ -163,6 +157,10 @@ export default function CartItem({ data, orders, onCheck }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const isOutOfStockServerTracking = (stocks) => {
+    return stocks.find((stock) => stock.size === data.size).quantity < data.quantity;
   };
 
   const renderDistribution = (attrs) => {
@@ -203,7 +201,7 @@ export default function CartItem({ data, orders, onCheck }) {
       </div>
       <div className={mk('col-2')}>
         <h5 className={mk('heading-5 cursor-pointer')} onClick={handleGoToDetail}>
-          {product.name}
+          {isOutOfStockServerTracking(product.stocks) ? 'disabled' : product.name}
         </h5>
         <div>
           <HeadlessTippy
@@ -256,14 +254,11 @@ export default function CartItem({ data, orders, onCheck }) {
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
       <ModalQuantity
-        fallback={fallback}
         availableQuantity={generateAvailableQuantity(sizeChecked)}
         confirm={confirm}
         setConfirm={setConfirm}
-        isOutOfStock={isOutOfStock}
       />
       <ModalDelete
-        fallback={fallback}
         confirm={confirm}
         productName={product.name}
         setConfirm={setConfirm}
