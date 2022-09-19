@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { useClientSide } from 'src/hooks';
+import { useClientSide, useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
 import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -17,21 +17,31 @@ export default function Calculation() {
 
   const isClient = useClientSide();
 
+  const { push } = useRouter();
+
   const priceByDiscount = () => {
     return 0;
   };
 
-  // const handleSubmit = () => {
-  //   if (!isEmpty(checked))
-  // }
+  const handleSubmit = () => {
+    const orderId = JSON.parse(sessionStorage.getItem('orders'));
+    if (isEmpty(orderId)) {
+      return console.log('chon di ong');
+    }
+    push(PATH.ORDER);
+  };
 
   return (
     <>
       {isClient && (
         <section className={mk('calculation')}>
-          <h3 className={mk('heading-3')}>Tạm tính</h3>
+          <h3 className={mk('font-primary font-semibold text-2xl leading-8 text-primary')}>
+            Tạm tính
+          </h3>
           <div className={mk('coupon')}>
-            <h5 className="col-span-3 heading-5">Ưu đãi</h5>
+            <h5 className="col-span-3 font-primary font-bold text-xl leading-7 text-primary">
+              Ưu đãi
+            </h5>
             <input type="text" placeholder="Nhập mã ưu đãi" className={mk('input')} />
             <Button primary wrapper="h-12 px-2">
               Áp dụng
@@ -45,19 +55,23 @@ export default function Calculation() {
               <li>Giảm giá</li>
             </ul>
             <ul className={mk('prices')}>
-              <li className="heading-5">{formatVndCurrency(totalCart)}</li>
-              <li className="heading-5">50.000đ</li>
-              <li className="heading-5">{formatVndCurrency(priceByDiscount())}</li>
+              <li className="font-primary font-bold text-xl leading-7 text-primary">
+                {formatVndCurrency(totalCart)}
+              </li>
+              <li className="font-primary font-bold text-xl leading-7 text-primary">50.000đ</li>
+              <li className="font-primary font-bold text-xl leading-7 text-primary">
+                {formatVndCurrency(priceByDiscount())}
+              </li>
             </ul>
           </div>
           <NormalDivider wrapper="my-2" />
           <div className={mk('total')}>
-            <h5 className="heading-5">Tổng</h5>
-            <span className="heading-5 text-primary-1">
+            <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
+            <span className="font-primary font-bold text-xl leading-7 text-primary text-primary-1">
               {formatVndCurrency(totalCart - priceByDiscount())}
             </span>
           </div>
-          <Button primary internalLink={PATH.ORDER} wrapper={mk('btn')}>
+          <Button primary onClick={handleSubmit} wrapper={mk('btn')}>
             Thanh toán
           </Button>
         </section>

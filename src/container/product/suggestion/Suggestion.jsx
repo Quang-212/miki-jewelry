@@ -6,7 +6,9 @@ export function Suggestion({ relatedProducts = [] }) {
   return (
     <section className="flex flex-col gap-72-px">
       <div className="relative z-10 flex justify-between">
-        <h2 className="heading-2">Có thể bạn cũng thích</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          Có thể bạn cũng thích
+        </h2>
       </div>
       <ul className="flex justify-between">
         {relatedProducts.map((product, index) => (

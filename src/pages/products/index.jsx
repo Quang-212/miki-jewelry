@@ -24,7 +24,9 @@ export default function ProductsAll({ products, pageCount }) {
       <div className="container mt-10 flex flex-col gap-8">
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div className="flex justify-between mt-4">
-          <span className="heading-2">Danh mục sản phẩm</span>
+          <span className="font-primary font-bold text-32-px leading-10 text-primary">
+            Danh mục sản phẩm
+          </span>
           <Sorting />
         </div>
         <ProductsList products={products} />

@@ -196,7 +196,10 @@ export default function CartItem({ data, orders, onCheck }) {
         />
       </div>
       <div className={mk('col-2')}>
-        <h5 className={mk('heading-5 cursor-pointer')} onClick={handleGoToDetail}>
+        <h5
+          className={mk('font-primary font-bold text-xl leading-7 text-primary cursor-pointer')}
+          onClick={handleGoToDetail}
+        >
           {isOutOfStockServerTracking(product.stocks) ? 'disabled' : product.name}
         </h5>
         <div>
@@ -207,7 +210,7 @@ export default function CartItem({ data, orders, onCheck }) {
             delay={[200, 400]}
             render={renderDistribution}
           >
-            <p className={mk('size')}>
+            <p className={mk('size caption text-[#707070]')}>
               Phân loại hàng: <br /> Kích thước: {size}
             </p>
           </HeadlessTippy>
@@ -221,7 +224,7 @@ export default function CartItem({ data, orders, onCheck }) {
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>
-          <span className="heading-5">
+          <span className="font-primary font-bold text-xl leading-7 text-primary">
             <input
               type="text"
               className="w-10 text-center"

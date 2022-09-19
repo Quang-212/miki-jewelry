@@ -51,7 +51,7 @@ export function Footer() {
     <footer className={mk('footer', 'container')}>
       <div className={mk('connect')}>
         <div className={mk('promotions')}>
-          <p className="heading-2 xs:heading-3 xs:text-[23.5px] xs:tracking-tight">
+          <p className="font-primary font-bold text-32-px leading-10 text-primary xs:font-primary font-semibold text-2xl leading-8 text-primary xs:text-[23.5px] xs:tracking-tight">
             Đăng ký để nhận khuyến mãi
           </p>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -64,7 +64,9 @@ export function Footer() {
           </FormProvider>
         </div>
         <div className={mk('social')}>
-          <p className="heading-2 xs:heading-3">Kết nối với chúng tôi tại</p>
+          <p className="font-primary font-bold text-32-px leading-10 text-primary xs:font-primary font-semibold text-2xl leading-8 text-primary">
+            Kết nối với chúng tôi tại
+          </p>
           <ul className="flex gap-9 xs:gap-6">
             {socialLink.map((item, index) => (
               <li key={index}>
@@ -81,7 +83,9 @@ export function Footer() {
 
       <div className={mk('credit')}>
         <div className="flex flex-col gap-4">
-          <span className="heading xs:text-2xl xs:leading-8">Miki Jewelry</span>
+          <span className="font-secondary font-bold text-5xl leading-58-px text-primary uppercase xs:text-2xl xs:leading-8">
+            Miki Jewelry
+          </span>
           <ul className="w-351-px">
             {businessLicense.map((item, index) => (
               <li key={index}>{item}</li>
@@ -91,7 +95,9 @@ export function Footer() {
         <div className={mk('information')}>
           {publicInformation.map((item, index) => (
             <ul key={index} className={mk('information-links')}>
-              <li className="heading-5 xs:subtitle-1">{item.heading}</li>
+              <li className="font-primary font-bold text-xl leading-7 text-primary xs:subtitle-1">
+                {item.heading}
+              </li>
               {item.content.map((value, index) => (
                 <li key={index}>
                   <Button text externalLink={value.path}>

@@ -13,7 +13,7 @@
 
 .address-title,
 .payment-title {
-  @apply subtitle-1 text-neutral-2;
+  @apply font-primary font-bold text-base leading-6 text-primary text-neutral-2;
 }
 
 .address-form {
@@ -95,7 +95,7 @@
 }
 
 .btn-back-title {
-  @apply subtitle-1;
+  @apply font-primary font-bold text-base leading-6 text-primary;
 }
 
 .btn-submit-wrapper {

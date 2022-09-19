@@ -27,7 +27,9 @@ export default function Profile() {
       <Banner />
       <div className="container mt-10 flex flex-col gap-10">
         <Breadcrumb breadcrumbs={breadcrumbs} />
-        <h2 className="heading-2">Thông tin khách hàng</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          Thông tin khách hàng
+        </h2>
         <ProfileInformation />
         <RecommendedProducts />
       </div>

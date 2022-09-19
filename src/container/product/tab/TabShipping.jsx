@@ -10,7 +10,9 @@ export function TabShipping() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h5 className="heading-5">Chính sách vận chuyển</h5>
+      <h5 className="font-primary font-bold text-xl leading-7 text-primary">
+        Chính sách vận chuyển
+      </h5>
       <p>
         Với đối tác giao hàng uy tín, có mua bảo hiểm hàng hóa, thời gian giao hàng nhanh và đúng
         hẹn:

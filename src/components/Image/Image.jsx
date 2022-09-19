@@ -14,7 +14,6 @@ const Image = React.forwardRef(
       width,
       height,
       objectFit = 'cover',
-      placeholder = 'placeholder',
       className,
       fallback = images.noImage,
       ...passProps
@@ -28,7 +27,6 @@ const Image = React.forwardRef(
       width={width}
       height={height}
       objectFit={objectFit}
-      placeholder={placeholder}
       blurDataURL
       onError={() => console.log('error image')}
       className={classNames(styles.root, className)}
@@ -43,7 +41,6 @@ Image.propTypes = {
   src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   alt: PropTypes.string,
   objectFit: PropTypes.string,
-  placeholder: PropTypes.string,
   className: PropTypes.string,
   fallback: PropTypes.string,
 };

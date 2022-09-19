@@ -32,7 +32,9 @@ export function SubHeader() {
           <li>{<BellRingIcon className="fill-primary-1" />}</li>
           <li>
             <div className="flex flex-col">
-              <span className="subtitle-1">ngockhoi96</span>
+              <span className="font-primary font-bold text-base leading-6 text-primary">
+                ngockhoi96
+              </span>
               <span className="caption">Admin Profile</span>
             </div>
           </li>

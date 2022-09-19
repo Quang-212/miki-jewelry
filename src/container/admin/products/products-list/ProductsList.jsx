@@ -79,7 +79,9 @@ export function ProductsList() {
           <div className="flex justify-between">
             <div className="flex flex-col">
               <span>Admin/Products</span>
-              <h2 className="heading-2">Products List</h2>
+              <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+                Products List
+              </h2>
             </div>
             <Button primary onClick={handleCreateProduct}>
               New Product

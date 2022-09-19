@@ -233,7 +233,9 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
   return (
     <section className="flex flex-col gap-8">
       <div className="flex justify-between">
-        <h2 className="heading-2">{currentProduct.isEdit ? 'Edit Product' : 'Create Product'}</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          {currentProduct.isEdit ? 'Edit Product' : 'Create Product'}
+        </h2>
         <Button primary onClick={handleGoToProductsList}>
           Products List
         </Button>
@@ -246,13 +248,15 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
       >
         <div className="flex flex-col gap-4 w-3/6">
           <div className="bg-white pt-6 px-6">
-            <h5 className="heading-5">Basic information</h5>
+            <h5 className="font-primary font-bold text-xl leading-7 text-primary">
+              Basic information
+            </h5>
             <TextField name="name" label="Name" input="mt-2" />
             <TextField name="description" label="Description" />
           </div>
 
           <div className="bg-white pt-6 px-6">
-            <h5 className="heading-5">Images</h5>
+            <h5 className="font-primary font-bold text-xl leading-7 text-primary">Images</h5>
             <Button primary type="button" onClick={() => addImage()}>
               Add image
             </Button>
@@ -288,7 +292,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
         <div className="flex flex-col gap-4 w-3/4">
           <div className="flex justify-between">
             <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="heading-5">Categories</h5>
+              <h5 className="font-primary font-bold text-xl leading-7 text-primary">Categories</h5>
               <SelectField
                 name="category"
                 options={['ring', 'necklace', 'earring', 'bracelet']}
@@ -296,7 +300,9 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
               />
             </div>
             <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="heading-5">Visibility Status</h5>
+              <h5 className="font-primary font-bold text-xl leading-7 text-primary">
+                Visibility Status
+              </h5>
               <RadioField
                 name="visibilityStatus"
                 options={productVisibilityStatus}
@@ -308,11 +314,11 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
 
           <div className="flex justify-between">
             <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="heading-5">Discount</h5>
+              <h5 className="font-primary font-bold text-xl leading-7 text-primary">Discount</h5>
               <TextField name="discount" wrapper="mt-5" />
             </div>
             <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="heading-5">Coupon</h5>
+              <h5 className="font-primary font-bold text-xl leading-7 text-primary">Coupon</h5>
               <TextField name="coupon" wrapper="mt-5" />
             </div>
           </div>

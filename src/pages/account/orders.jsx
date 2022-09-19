@@ -27,7 +27,9 @@ export default function Orders() {
       <Banner />
       <div className="container mt-10 flex flex-col gap-10">
         <Breadcrumb breadcrumbs={breadcrumbs} />
-        <h2 className="heading-2">Quản lý đơn hàng</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          Quản lý đơn hàng
+        </h2>
       </div>
       <OrdersManagement />
     </AuthGuard>

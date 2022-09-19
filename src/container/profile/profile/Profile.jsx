@@ -30,7 +30,9 @@ export default function Profile() {
       {isClient && (
         <div className={mk('info-wrapper')}>
           <div className={mk('info-personal')}>
-            <h5 className={mk('heading-5')}>Thông tin cá nhân:</h5>
+            <h5 className={mk('font-primary font-bold text-xl leading-7 text-primary')}>
+              Thông tin cá nhân:
+            </h5>
             <div className={mk('info-personal-wrapper')}>
               <figure className={mk('avatar-wrapper')}>
                 <Avatar
@@ -60,7 +62,9 @@ export default function Profile() {
           </div>
 
           <div className={mk('info-personal')}>
-            <h5 className={mk('heading-5')}>Điện thoại và bảo mật:</h5>
+            <h5 className={mk('font-primary font-bold text-xl leading-7 text-primary')}>
+              Điện thoại và bảo mật:
+            </h5>
             <div className={mk('info-personal-wrapper')}>
               <ul className={mk('info-personal-list-title')}>
                 {PHONE_SECURITY.map((info, index) => (

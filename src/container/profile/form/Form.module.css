@@ -1,5 +1,5 @@
 .title {
-  @apply px-10 heading-2;
+  @apply px-10 font-primary font-bold text-32-px leading-10 text-primary;
 }
 
 .form-provider {
@@ -12,7 +12,7 @@
 }
 
 .info-personal-title {
-  @apply col-span-4 self-center heading-5;
+  @apply col-span-4 self-center font-primary font-bold text-xl leading-7 text-primary;
 }
 
 .info-contact-security {
@@ -24,11 +24,11 @@
 }
 
 .info-contact-title {
-  @apply col-span-5 self-center heading-5;
+  @apply col-span-5 self-center font-primary font-bold text-xl leading-7 text-primary;
 }
 
 .info-security-title {
-  @apply col-span-5 heading-5;
+  @apply col-span-5 font-primary font-bold text-xl leading-7 text-primary;
 }
 
 .btn-save {

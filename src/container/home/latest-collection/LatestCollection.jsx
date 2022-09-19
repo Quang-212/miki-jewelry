@@ -20,7 +20,11 @@ export function LatestCollection() {
       />
       <div className={mk('framer')}></div>
       <article className={mk('article')}>
-        <h6 className={mk('heading')}>Bộ sưu tập mới nhất</h6>
+        <h6
+          className={mk('font-secondary font-bold text-5xl leading-58-px text-primary uppercase')}
+        >
+          Bộ sưu tập mới nhất
+        </h6>
         <h6 className={mk('title')}>Ánh trăng người tình</h6>
         <p className={mk('body')}>
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia

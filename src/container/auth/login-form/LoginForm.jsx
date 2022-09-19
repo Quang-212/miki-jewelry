@@ -100,7 +100,7 @@ export default function LoginFormSection() {
       });
 
       if (user.role === 'admin') {
-        replace(PATH.adminDashboard);
+        return replace(PATH.adminDashboard);
       }
 
       replace(PATH.home);
@@ -129,7 +129,9 @@ export default function LoginFormSection() {
         <div className={mk('form')}>
           <BrandLogo vertical wrapper="mt-14 xs:mt-10" />
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="flex-col">
-            <h5 className="mt-72-px heading-5 xs:mt-7 xs:subtitle-1">Đăng nhập</h5>
+            <h5 className="mt-72-px font-primary font-bold text-xl leading-7 text-primary xs:mt-7 xs:subtitle-1">
+              Đăng nhập
+            </h5>
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
 

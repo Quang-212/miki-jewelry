@@ -50,7 +50,11 @@ export default function Form() {
         onSubmit={handleSubmit(onSubmit)}
         className={mk('form-provider')}
       >
-        <h5 className={mk('title')}>Xác thực tài khoản</h5>
+        <h5
+          className={mk('title m-auto mt-4 font-primary font-bold text-xl leading-7 text-primary')}
+        >
+          Xác thực tài khoản
+        </h5>
         <p className={mk('description')}>
           Vui lòng nhập địa chỉ email được liên kết với tài khoản của bạn, chúng tôi sẽ gửi đường
           link khôi phục mật khẩu

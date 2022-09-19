@@ -75,7 +75,13 @@ export default function Form() {
             onSubmit={handleSubmit(onSubmit)}
             className={mk('form-provider')}
           >
-            <h5 className={mk('title')}>Thay đổi mật khẩu</h5>
+            <h5
+              className={mk(
+                'title mt-72-px font-primary font-bold text-xl leading-7 text-primary xs:mt-7 xs:subtitle-1',
+              )}
+            >
+              Thay đổi mật khẩu
+            </h5>
             <OtpField />
             <TextField
               name="password"

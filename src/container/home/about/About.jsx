@@ -13,7 +13,9 @@ export function About() {
     <section className={mk('about')}>
       <article className={mk('article')}>
         <h2 className={mk('title')}>Về chúng tôi</h2>
-        <q className={mk('heading')}>Ngày mai phải tốt hơn ngày hôm nay</q>
+        <q className={mk('font-secondary font-bold text-5xl leading-58-px text-primary uppercase')}>
+          Ngày mai phải tốt hơn ngày hôm nay
+        </q>
         <p>
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.

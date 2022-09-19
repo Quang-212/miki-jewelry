@@ -15,7 +15,7 @@
 }
 
 .article-title {
-  @apply heading-2;
+  /* @apply font-primary font-bold text-32-px leading-10 text-primary; */
 }
 
 .article-image {

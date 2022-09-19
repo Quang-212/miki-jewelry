@@ -50,7 +50,9 @@ export default function Order() {
       />
       <div className="flex flex-col gap-11 mt-10 container">
         <Breadcrumb breadcrumbs={breadcrumbs} />
-        <h2 className="heading-2">Trang giao hàng</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          Trang giao hàng
+        </h2>
         <div className="flex justify-between gap-10">
           <Form address={address} setAddress={setAddress} chosenOrder={chosenOrder} />
           <Invoice address={address} chosenOrder={chosenOrder} />
@@ -58,7 +60,9 @@ export default function Order() {
       </div>
       <Dialog isOpen={isOpen} closeModal={() => {}} content="w-[600px] px-12">
         <div className="flex flex-col gap-4">
-          <p className="heading-5">Giỏ hàng của bạn đang trống.</p>
+          <p className="font-primary font-bold text-xl leading-7 text-primary">
+            Giỏ hàng của bạn đang trống.
+          </p>
           <p className="">
             Một số sản phẩm trong giỏ hàng vừa được cập nhật, bạn vui lòng kiểm tra giỏ hàng và thử
             lại.

@@ -8,7 +8,7 @@
 }
 
 /* .label {
-  @apply subtitle-2;
+  @apply font-primary font-medium text-base leading-6 text-primary;
 } */
 
 .select {

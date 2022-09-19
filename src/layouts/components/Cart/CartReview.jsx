@@ -13,6 +13,7 @@ import { formatVndCurrency } from 'src/utils/formatNumber';
 import CartReviewItem from './CartReviewItem';
 import styles from './Cart.module.css';
 import { PATH } from 'src/routes';
+import { useRouter } from 'src/hooks';
 
 const mk = classNames.bind(styles);
 
@@ -20,13 +21,22 @@ export default function CartReview({ cart, cartRecoil, children }) {
   const totalCart = useRecoilValue(totalCartState);
   const totalPrice = formatVndCurrency(totalCart);
 
+  const { push } = useRouter();
+
+  const handleCheckout = async () => {
+    sessionStorage.setItem('orders', JSON.stringify(cartRecoil.map((cartItem) => cartItem._id)));
+    push('/checkout/order');
+  };
+
   const renderCartReview = (attrs) => {
     return (
       <div className="w-[480px]" tabIndex="-1" {...attrs}>
         <PopperWrapper className={mk('popper-wrapper')}>
           {!isEmpty(cart) ? (
             <>
-              <h5 className="mt-4 heading-5">Giỏ hàng</h5>
+              <h5 className="mt-4 font-primary font-bold text-xl leading-7 text-primary">
+                Giỏ hàng
+              </h5>
               <NormalDivider />
               <ul className={mk('cart-review-list')}>
                 {cartRecoil.map((cartItem) => (
@@ -42,7 +52,7 @@ export default function CartReview({ cart, cartRecoil, children }) {
                 <Button outline internalLink="/checkout/cart">
                   Xem giỏ hàng
                 </Button>
-                <Button primary internalLink={PATH.ORDER}>
+                <Button primary onClick={handleCheckout}>
                   Thanh toán
                 </Button>
               </div>

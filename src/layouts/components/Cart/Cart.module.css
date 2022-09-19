@@ -15,7 +15,7 @@
 }
 
 .cart-review-price {
-  @apply justify-self-end heading-5 text-primary-2;
+  @apply justify-self-end font-primary font-bold text-xl leading-7 text-primary text-primary-2;
 }
 
 .cart-review-empty {
@@ -31,7 +31,7 @@
 }
 
 .cart-item-name {
-  @apply col-span-5 subtitle-1 cursor-pointer;
+  @apply col-span-5 font-primary font-bold text-base leading-6 text-primary cursor-pointer;
 }
 
 .btn-delete {
@@ -47,5 +47,5 @@
 }
 
 .cart-item-price {
-  @apply col-span-5 mt-2 subtitle-1;
+  @apply col-span-5 mt-2 font-primary font-bold text-base leading-6 text-primary;
 }

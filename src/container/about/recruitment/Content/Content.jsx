@@ -11,7 +11,9 @@ const mk = classNames.bind(styles);
 export default function Content() {
   return (
     <section className={mk('content')}>
-      <h2 className={mk('title')}>Cơ hội việc làm tại Miki</h2>
+      <h2 className={mk('title font-primary font-bold text-32-px leading-10 text-primary')}>
+        Cơ hội việc làm tại Miki
+      </h2>
       <Image
         src={images.aboutRecruitment}
         alt="Ảnh cơ hội việc làm tại Miki"

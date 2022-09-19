@@ -53,15 +53,21 @@ export default function Invoice({ address: { provinces }, chosenOrder }) {
           <li>Giảm giá</li>
         </ul>
         <ul className={mk('prices')}>
-          <li className="heading-5">{formatVndCurrency(totalInvoice)}</li>
-          <li className="heading-5">{formatVndCurrency(generateShippingFee(provinces))}</li>
-          <li className="heading-5">{formatVndCurrency(discountByCoupon)}</li>
+          <li className="font-primary font-bold text-xl leading-7 text-primary">
+            {formatVndCurrency(totalInvoice)}
+          </li>
+          <li className="font-primary font-bold text-xl leading-7 text-primary">
+            {formatVndCurrency(generateShippingFee(provinces))}
+          </li>
+          <li className="font-primary font-bold text-xl leading-7 text-primary">
+            {formatVndCurrency(discountByCoupon)}
+          </li>
         </ul>
       </div>
       <NormalDivider wrapper={mk('divider-2')} />
       <div className={mk('total')}>
-        <h5 className="heading-5">Tổng</h5>
-        <span className="heading-5">{totalPrice}</span>
+        <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
+        <span className="font-primary font-bold text-xl leading-7 text-primary">{totalPrice}</span>
       </div>
     </section>
   );

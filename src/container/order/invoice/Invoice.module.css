@@ -20,11 +20,11 @@
 }
 
 .info {
-  @apply col-span-3 flex flex-col caption;
+  @apply col-span-3 flex flex-col font-primary font-medium text-sm leading-5 text-primary;
 }
 
 .item-price {
-  @apply col-span-2 justify-self-end flex flex-col gap-1 heading-5;
+  @apply col-span-2 justify-self-end flex flex-col gap-1 font-primary font-bold text-xl leading-7 text-primary;
 }
 
 .divider-1 {

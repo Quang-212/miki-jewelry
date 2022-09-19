@@ -66,7 +66,9 @@ export function CouponForm({ currentCoupon, setCurrentCoupon }) {
   return (
     <section className="flex flex-col gap-8 px-4">
       <div className="flex justify-between">
-        <h2 className="heading-2">{currentCoupon.isEdit ? 'Edit Product' : 'Create Product'}</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          {currentCoupon.isEdit ? 'Edit Product' : 'Create Product'}
+        </h2>
         <Button primary onClick={handleGoToProductsList}>
           Products List
         </Button>

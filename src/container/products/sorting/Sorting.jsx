@@ -9,7 +9,6 @@ import { sorting } from './sorting-config';
 
 export function Sorting() {
   const [selected, setSelected] = useState(sorting[0]);
-  // console.log(selected);
 
   const router = useRouter();
 

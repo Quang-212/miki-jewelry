@@ -37,7 +37,7 @@ export default function HomePage({ products }) {
     </>
   );
 }
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const featuredProducts = await getProducts([], {
       limit: 4,
@@ -47,9 +47,9 @@ export const getStaticProps = async () => {
 
     return {
       props: {
-        products: featuredProducts.data.data.products || {},
+        products: featuredProducts.data.data.products || [],
       },
-      revalidate: 10 * 60, // 10 minutes
+      // revalidate: 10 * 60, // 10 minutes
     };
   } catch (error) {
     console.log(error);

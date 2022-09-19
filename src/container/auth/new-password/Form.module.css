@@ -28,7 +28,7 @@
 }
 
 .title {
-  @apply mt-72-px heading-5 xs:mt-7 xs:subtitle-1;
+  /* @apply mt-72-px font-primary font-bold text-xl leading-7 text-primary xs:mt-7 xs:subtitle-1; */
 }
 
 .password-wrapper {

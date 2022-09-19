@@ -9,8 +9,12 @@ const mk = className.bind(styles);
 export default function Page404Section() {
   return (
     <section className={mk('page-not-found')}>
-      <h2 className={mk('text-404', 'heading-1')}>404</h2>
-      <h1 className="mt-8 heading-1 font-black">Không tìm thấy nội dung</h1>
+      <h2 className={mk('text-404', 'font-primary font-bold text-5xl leading-58-px text-primary')}>
+        404
+      </h2>
+      <h1 className="mt-8 font-primary font-bold text-5xl leading-58-px text-primary font-black">
+        Không tìm thấy nội dung
+      </h1>
       <ul className="mt-4 flex flex-col items-center gap-2">
         <li>
           URL của nội dung này đã <strong>bị thay đổi</strong> hoặc{' '}

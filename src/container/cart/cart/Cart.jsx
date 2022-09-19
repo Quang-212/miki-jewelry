@@ -48,7 +48,9 @@ export default function Cart() {
     <>
       {isClient && (
         <section className={mk('cart')}>
-          <h3 className={mk('heading-3')}>Giỏ hàng</h3>
+          <h3 className={mk('font-primary font-semibold text-2xl leading-8 text-primary')}>
+            Giỏ hàng
+          </h3>
           <ul className={mk('cart-list')}>
             {cart.map((cartItem) => (
               <Fragment key={cartItem._id}>

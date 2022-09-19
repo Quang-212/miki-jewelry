@@ -146,7 +146,7 @@ export function MainInformation({ product }) {
 
   return (
     <section className="flex flex-col gap-4 max-w-[539px] max-h-[465px]">
-      <h2 className="heading-2">{name}</h2>
+      <h2 className="font-primary font-bold text-32-px leading-10 text-primary">{name}</h2>
 
       <div className="flex gap-8">
         <div className="flex items-center gap-4">
@@ -167,7 +167,7 @@ export function MainInformation({ product }) {
       {discount ? (
         <>
           <div className="flex items-center gap-4 mt-5">
-            <span className="heading-3 text-neutral-2 line-through">
+            <span className="font-primary font-semibold text-2xl leading-8 text-primary text-neutral-2 line-through">
               {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
             </span>
             <NormalDivider vertical="border-2 h-5 border-l-[1px] border-neutral-2" />
@@ -185,13 +185,13 @@ export function MainInformation({ product }) {
               Đã thích ({likedCount})
             </Button>
           </div>
-          <span className="heading-1 text-primary-2">
+          <span className="font-primary font-bold text-5xl leading-58-px text-primary text-primary-2">
             {formatVndCurrency(generateProperty(sizeChecked, 'price'), discount)}
           </span>
         </>
       ) : (
         <div>
-          <span className="mt-8 mb-4 heading-1 text-primary-2">
+          <span className="mt-8 mb-4 font-primary font-bold text-5xl leading-58-px text-primary text-primary-2">
             {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
           </span>
           <Button
@@ -240,7 +240,7 @@ export function MainInformation({ product }) {
           >
             <MinusIcon className="active:text-white h-6 w-6" />
           </Button>
-          <span className="heading-5">
+          <span className="font-primary font-bold text-xl leading-7 text-primary">
             <input
               type="text"
               value={quantity}

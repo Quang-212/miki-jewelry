@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { toast } from 'react-toastify';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Image from 'src/components/Image';
@@ -17,7 +18,6 @@ export function CardProduct({
   width,
   height,
   objectFit = 'cover',
-  placeholder = 'blur',
   styleWrapper = {},
   textWrapper,
   onClick,
@@ -115,16 +115,16 @@ export function CardProduct({
           width={width}
           height={height}
           objectFit={objectFit}
-          placeholder={placeholder}
           className={classImage}
           onClick={onClick}
+          {...passProps}
         />
       </CardImage>
       <CardTextWrapper className={classTextWrapper} onClick={onClick}>
-        <CardTextTitle className="w-[272px] heading-5 text-center overflow-hidden text-ellipsis whitespace-nowrap">
+        <CardTextTitle className="w-[272px] font-primary font-bold text-xl leading-7 text-primary text-center overflow-hidden text-ellipsis whitespace-nowrap">
           {name}
         </CardTextTitle>
-        <CardTextPrice className="heading-5 text-primary-2">
+        <CardTextPrice className="font-primary font-bold text-xl leading-7 text-primary text-primary-2">
           {formatVndCurrency(price)}
         </CardTextPrice>
       </CardTextWrapper>

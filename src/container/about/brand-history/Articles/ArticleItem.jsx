@@ -12,7 +12,11 @@ export default function ArticleItem({ article, index }) {
   const ArticleText = ({ article }) => {
     return (
       <div className={mk('article-text')}>
-        <h2 className={mk('article-title')}>{article.title}</h2>
+        <h2
+          className={mk('article-title font-primary font-bold text-32-px leading-10 text-primary')}
+        >
+          {article.title}
+        </h2>
         <p>{article.content}</p>
       </div>
     );

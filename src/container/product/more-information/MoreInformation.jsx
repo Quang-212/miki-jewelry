@@ -27,8 +27,8 @@ export function MoreInformation() {
         tabs={TABS}
         wrapper="flex flex-col gap-12"
         tabList="flex justify-between"
-        tab="heading-5 text-neutral-3"
-        tabSelected="heading-5 text-primary-1 underline decoration-[1.2px] underline-offset-8 decoration-primary-1 cursor-not-allowed"
+        tab="font-primary font-bold text-xl leading-7 text-primary text-neutral-3"
+        tabSelected="font-primary font-bold text-xl leading-7 text-primary text-primary-1 underline decoration-[1.2px] underline-offset-8 decoration-primary-1 cursor-not-allowed"
       />
     </section>
   );

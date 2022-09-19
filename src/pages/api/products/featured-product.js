@@ -2,7 +2,7 @@ import qs from 'qs';
 import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
-async function getProductList(req, res) {
+async function featuredProduct(req, res) {
   await dbConnect();
   const { method } = req;
 
@@ -51,4 +51,4 @@ async function getProductList(req, res) {
     });
   }
 }
-export default getProductList;
+export default featuredProduct;

@@ -16,7 +16,9 @@ export function FeaturedProducts({ products }) {
   return (
     <section className={mk('featured-products', 'container')}>
       <div className={mk('row-1')}>
-        <h2 className="heading-2">Sản phẩm nổi bật</h2>
+        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+          Sản phẩm nổi bật
+        </h2>
         <Button primary internalLink={PATH.products}>
           Xem tất cả
         </Button>
