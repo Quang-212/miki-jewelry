@@ -1,3 +1,5 @@
-export default function TabShipping() {
+export default function TabShipping({ orders }) {
+  console.log(orders);
+
   return <div>TabShipping</div>;
 }

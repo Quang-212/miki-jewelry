@@ -54,8 +54,10 @@ module.exports = {
         tertiary: '12px',
       },
       borderWidth: {
+        1: '1px',
         '1/2-px': '0.5px',
         '1.5-px': '1.5px',
+        1.5: '1.5px',
       },
       divideWidth: {
         1: '1px',

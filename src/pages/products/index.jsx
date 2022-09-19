@@ -37,7 +37,7 @@ export default function ProductsAll({ products, pageCount }) {
 export const getServerSideProps = async ({ query }) => {
   // console.log(query);
   const products = await getProducts([], {
-    limit: 2,
+    limit: 8,
     page: query.page,
     category: query.category,
     sortBy: query.sortBy,
@@ -53,7 +53,7 @@ export const getServerSideProps = async ({ query }) => {
   return {
     props: {
       products: products.data.productList,
-      pageCount: Math.ceil(products.data.total) / 2,
+      pageCount: Math.ceil(products.data.total) / 8,
     },
   };
 };

@@ -58,7 +58,9 @@ export function CardProduct({
         />
       </CardImage>
       <CardTextWrapper className={classTextWrapper} onClick={onClick}>
-        <CardTextTitle className="heading-5">{title}</CardTextTitle>
+        <CardTextTitle className="w-[272px] heading-5 text-center overflow-hidden text-ellipsis whitespace-nowrap">
+          {title}
+        </CardTextTitle>
         <CardTextPrice className="heading-5 text-primary-2">{price}</CardTextPrice>
       </CardTextWrapper>
       <Button primary onClick={onAddToCart}>

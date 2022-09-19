@@ -4,4 +4,5 @@ export { default as useRouter } from './useRouter';
 export { default as useCollapseDrawer } from './useCollapse';
 export { default as useClientSide } from './useClientSide';
 export { default as useOrders } from './useOrders';
+export { default as useInfiniteLoading } from './useInfiniteLoading';
 export * from './useStorage';

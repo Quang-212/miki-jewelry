@@ -17,6 +17,8 @@ import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
 import Dialog from 'src/components/Dialog';
+import { useSetRecoilState } from 'recoil';
+import { cartState } from 'src/recoils';
 
 const mk = classNames.bind(styles);
 
@@ -46,6 +48,8 @@ const schema = yup.object().shape({
 
 export default function Form({ address, setAddress, chosenOrder }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const setCart = useSetRecoilState(cartState);
 
   const { back } = useRouter();
 
@@ -108,14 +112,14 @@ export default function Form({ address, setAddress, chosenOrder }) {
 
   const handleCloseModal = () => setIsOpen(false);
 
-  const handleAfterOrdered = () => {
+  const handleAfterOrdered = (cartIds) => {
     sessionStorage.removeItem('orders');
+    setCart((prev) => prev.filter((cartItem) => !cartIds.includes(cartItem._id)));
     setIsOpen(true);
-    setFocus('firstName');
-    reset();
   };
 
   const onSubmit = async (data) => {
+    const cartIds = chosenOrder.map((orderItem) => orderItem._id);
     try {
       //cartInfo =>> existedCard !important
       const { newCard, savedCard, payment, cardNumber, date, cvv, ...rest } = data;
@@ -135,10 +139,10 @@ export default function Form({ address, setAddress, chosenOrder }) {
             product: orderItem.product._id,
           };
         }),
-        cartIds: chosenOrder.map((orderItem) => orderItem._id),
+        cartIds,
       });
       console.log(res);
-      handleAfterOrdered();
+      handleAfterOrdered(cartIds);
     } catch (error) {
       console.log(error);
     }

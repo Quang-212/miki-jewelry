@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { isEmpty } from 'lodash';
 import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
@@ -19,6 +20,10 @@ export default function Calculation() {
   const priceByDiscount = () => {
     return 0;
   };
+
+  // const handleSubmit = () => {
+  //   if (!isEmpty(checked))
+  // }
 
   return (
     <>

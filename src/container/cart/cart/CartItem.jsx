@@ -178,10 +178,6 @@ export default function CartItem({ data, orders, onCheck }) {
 
   const handleGoToDetail = () => push(`/products/${product.slug}`);
 
-  const asd = data.product.stocks.find((stock) => stock.size === data.size);
-
-  console.log('hello ', data.quantity < asd?.quantity);
-
   return (
     <div className={mk('cart-item')}>
       <div>

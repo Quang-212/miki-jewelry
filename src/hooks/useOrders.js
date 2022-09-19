@@ -20,7 +20,7 @@ export default function useOrders(params = [], query = {}, options, isSearch) {
   // console.log(data, error);
 
   return {
-    ordersState: data?.data || null,
+    orders: data?.data.data || null,
     isLoading: !error && !data && (query.search || !isSearch),
     isError: error,
   };
