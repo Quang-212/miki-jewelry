@@ -6,24 +6,58 @@ import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import { addToCart } from 'src/fetching/cart';
+import { createFavorite } from 'src/fetching/favorite';
+import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
-  const { name, discount, stocks, _id } = product;
+  console.log(product);
+  const {
+    _id,
+    name,
+    discount,
+    stocks,
+    sold,
+    favorite: favoriteServer,
+    likedCount: likedCountServer,
+  } = product;
 
   const [sizeChecked, setSizeChecked] = useState(0);
   const [{ quantity, fallback }, setQuantity] = useState({
     quantity: 1,
     fallback: 1,
   });
+  const [favorite, setFavorite] = useState(Boolean(favoriteServer));
+  const [likedCount, setLikedCount] = useState(likedCountServer);
 
-  const subtractButtonRef = useRef();
-  const addButtonRef = useRef();
+  const { push } = useRouter();
 
   const { user, isAuthenticated } = useRecoilValue(userState);
 
   const [cart, setCart] = useRecoilState(addToCartState);
+
+  const subtractButtonRef = useRef();
+  const addButtonRef = useRef();
+
+  const handleClickFavorite = async () => {
+    if (!isAuthenticated) {
+      return push(PATH.login);
+    }
+
+    try {
+      setFavorite((prev) => !prev);
+      setLikedCount((prev) => (favorite ? prev - 1 : prev + 1));
+
+      const res = await createFavorite({
+        userId: user._id,
+        productId: product._id,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const isOutOfStock = (inputQuantity) => {
     return (
@@ -119,7 +153,7 @@ export function MainInformation({ product }) {
         <div className="flex items-center gap-4">
           <div>5.0 *****</div>
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
-          <p>10 đã bán</p>
+          <p>{sold} đã bán</p>
         </div>
         {!generateProperty(sizeChecked, 'quantity') ? (
           <span className="ml-8 subtitle-1 text-caption-1">Hết hàng</span>
@@ -139,8 +173,17 @@ export function MainInformation({ product }) {
             </span>
             <NormalDivider vertical="border-2 h-5 border-l-[1px] border-neutral-2" />
             <span className="py-1 px-2 rounded-tag bg-discount text-neutral-5">- {discount}%</span>
-            <Button leftIcon={<FavoriteIcon />} wrapper="ml-4">
-              Yêu thích
+            <Button
+              leftIcon={
+                <FavoriteIcon
+                  className={favorite ? 'fill-red-500 stroke-red-500' : 'stroke-red-500'}
+                />
+              }
+              onClick={handleClickFavorite}
+              wrapper="ml-8"
+              title="font-medium"
+            >
+              Đã thích ({likedCount})
             </Button>
           </div>
           <span className="heading-1 text-primary-2">
@@ -148,76 +191,91 @@ export function MainInformation({ product }) {
           </span>
         </>
       ) : (
-        <span className="mt-8 mb-4 heading-1 text-primary-2">
-          {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
-        </span>
-      )}
-      <div className="flex flex-col gap-6 mt-4">
-        <div className="flex items-center gap-24">
-          <span className="flex min-w-[100px]">Kích thước:</span>
-          <ul className="flex gap-8 flex-wrap">
-            {stocks.map((stock, index) => (
-              <li key={stock._id}>
-                <Button
-                  wrapper={
-                    stock.quantity
-                      ? index === sizeChecked
-                        ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
-                        : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
-                      : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
-                  }
-                  onClick={() => handleClickSize(index)}
-                  disabled={stock.quantity === 0}
-                >
-                  {stock.size}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {isOutOfStock(+quantity) && (
-          <span>Ban chi co the mua toi da {generateProperty(sizeChecked, 'quantity')}</span>
-        )}
-        <div className="flex gap-24">
-          <div className="flex min-w-[100px]">Số lượng:</div>
-          <div className="flex items-center gap-6">
-            <Button
-              ref={subtractButtonRef}
-              icon
-              wrapper="p-1 active:bg-primary active:rounded-full"
-              onClick={handleSubtract}
-              disabled={fallback === 1}
-            >
-              <MinusIcon className="active:text-white h-6 w-6" />
-            </Button>
-            <span className="heading-5">
-              <input
-                type="text"
-                value={quantity}
-                onChange={handleTypingInput}
-                onBlur={handleTypingInput}
-                onKeyUp={handleTypingInput}
-                className="w-10"
+        <div>
+          <span className="mt-8 mb-4 heading-1 text-primary-2">
+            {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
+          </span>
+          <Button
+            leftIcon={
+              <FavoriteIcon
+                className={favorite ? 'fill-red-500 stroke-red-500' : 'stroke-red-500'}
               />
-            </span>
-            <Button
-              ref={addButtonRef}
-              icon
-              wrapper="active:bg-primary active:rounded-full"
-              onClick={handleAdd}
-              // disabled={}
-            >
-              <PlusIcon className="active:text-white w-8 h-8" />
-            </Button>
-          </div>
+            }
+            onClick={handleClickFavorite}
+            wrapper="ml-4"
+          >
+            Đã thích (1,6k)
+          </Button>
         </div>
-      </div>
+      )}
+      <div className="grid grid-cols-12 grid-rows-2 items-center gap-y-6 mt-4">
+        <span className="col-span-4 min-w-[100px]">Kích thước:</span>
+        <ul className="col-span-8 flex justify-between gap-6 flex-wrap">
+          {stocks.map((stock, index) => (
+            <li key={stock._id}>
+              <Button
+                wrapper={
+                  stock.quantity
+                    ? index === sizeChecked
+                      ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
+                      : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
+                    : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
+                }
+                onClick={() => handleClickSize(index)}
+                disabled={stock.quantity === 0}
+              >
+                {stock.size}
+              </Button>
+            </li>
+          ))}
+        </ul>
 
-      <div className="flex gap-10 mt-4">
-        <Button outline wrapper="w-254-px" onClick={handleAddToCart}>
+        <div className="col-span-4 flex min-w-[100px]">Số lượng:</div>
+        <div className="col-span-4 flex items-center gap-4">
+          <Button
+            ref={subtractButtonRef}
+            icon
+            wrapper="p-1 active:bg-primary active:rounded-full"
+            onClick={handleSubtract}
+            disabled={fallback === 1}
+          >
+            <MinusIcon className="active:text-white h-6 w-6" />
+          </Button>
+          <span className="heading-5">
+            <input
+              type="text"
+              value={quantity}
+              onChange={handleTypingInput}
+              onBlur={handleTypingInput}
+              onKeyUp={handleTypingInput}
+              className="w-10 text-center bg-wrapper outline-none focus-within:border-primary-1 focus-within:rounded-tag focus-within:border-2"
+            />
+          </span>
+          <Button
+            ref={addButtonRef}
+            icon
+            wrapper="active:bg-primary active:rounded-full"
+            onClick={handleAdd}
+            // disabled={}
+          >
+            <PlusIcon className="active:text-white w-8 h-8" />
+          </Button>
+        </div>
+        <span className="col-span-4 justify-self-end caption text-neutral-2">
+          {generateProperty(sizeChecked, 'quantity')} sản phẩm có sẵn
+        </span>
+      </div>
+      {isOutOfStock(+quantity) && (
+        <span>Bạn chỉ có thể mua tối đa {generateProperty(sizeChecked, 'quantity')} sản phẩm</span>
+      )}
+
+      <div className="flex justify-between gap-10 mt-4">
+        <Button outline wrapper="w-2/4" onClick={handleAddToCart}>
           Thêm vào giỏ hàng
         </Button>
-        <Button primary>Mua ngay</Button>
+        <Button primary wrapper="w-2/4">
+          Mua ngay
+        </Button>
       </div>
     </section>
   );

@@ -54,6 +54,12 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
+@layer base {
+  input {
+    @apply caret-primary-1 focus-within:border-primary-1 focus-within:border-2 outline-none;
+  }
+}
+
 @layer components {
   .wrapper {
     @apply max-w-1440-px m-auto body bg-wrapper overflow-y-clip;

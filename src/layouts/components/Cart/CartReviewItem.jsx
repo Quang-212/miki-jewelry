@@ -1,4 +1,8 @@
+import Tippy from '@tippyjs/react';
+import classNames from 'classnames/bind';
 import { useSetRecoilState } from 'recoil';
+import 'tippy.js/dist/tippy.css';
+
 import Button from 'src/components/Button';
 import { CloseIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
@@ -6,6 +10,9 @@ import { deleteCartItem } from 'src/fetching/cart';
 import { useRouter } from 'src/hooks';
 import { deleteCartItemState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
+import styles from './Cart.module.css';
+
+const mk = classNames.bind(styles);
 
 export default function CartReviewItem({ data }) {
   const { _id, product, size, quantity } = data;
@@ -18,7 +25,7 @@ export default function CartReviewItem({ data }) {
     return product.stocks.find((stock) => stock.size === size).price * quantity;
   };
 
-  const pricePerProduct = formatVndCurrency(generatePrice());
+  const price = formatVndCurrency(generatePrice());
 
   const handleDelete = async () => {
     try {
@@ -35,11 +42,8 @@ export default function CartReviewItem({ data }) {
   const handleGoToDetail = () => push(`/products/${product.slug}`);
 
   return (
-    <div className="grid grid-cols-8 mt-2">
-      <div
-        className="col-span-2 row-span-3 flex items-center cursor-pointer"
-        onClick={handleGoToDetail}
-      >
+    <div className={mk('cart-review-item')}>
+      <div className={mk('cart-item-image')} onClick={handleGoToDetail}>
         <Image
           src={product.images.find((image) => image.type === 'primary').url}
           alt={product.name}
@@ -48,15 +52,17 @@ export default function CartReviewItem({ data }) {
           className="rounded-primary"
         />
       </div>
-      <h5 className="col-span-5 subtitle-1 cursor-pointer" onClick={handleGoToDetail}>
+      <h5 className={mk('cart-item-name')} onClick={handleGoToDetail}>
         {product.name}
       </h5>
-      <Button icon onClick={handleDelete} wrapper="col-span-1 justify-self-end">
-        <CloseIcon />
-      </Button>
-      <p className="col-span-6">Kích thước {size}</p>
-      <p className="col-span-1 w-6 mt-2 py-[0.5px] px-2 text-sm bg-primary-5">{quantity}</p>
-      <span className="col-span-5 mt-2 subtitle-1 text-sm">{pricePerProduct}</span>
+      <Tippy content={<span>Xóa sản phẩm</span>}>
+        <Button icon onClick={handleDelete} wrapper={mk('btn-delete')}>
+          <CloseIcon />
+        </Button>
+      </Tippy>
+      <p className={mk('cart-item-size')}>Kích thước {size}</p>
+      <p className={mk('cart-item-quantity')}>{quantity}</p>
+      <span className={mk('cart-item-price')}>{price}</span>
     </div>
   );
 }

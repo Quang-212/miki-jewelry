@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import { useSession } from 'next-auth/react';
-import 'tippy.js/dist/tippy.css';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Cart from '../Cart';

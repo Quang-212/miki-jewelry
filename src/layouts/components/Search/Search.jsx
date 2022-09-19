@@ -2,6 +2,7 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
+import Tippy from '@tippyjs/react';
 
 import Button from 'src/components/Button';
 import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
@@ -116,10 +117,11 @@ export default function Search() {
               <LoadingIcon />
             </Button>
           )}
-
-          <Button icon wrapper={mk('search-btn')}>
-            <SearchIcon />
-          </Button>
+          <Tippy content={<span>Tìm kiếm</span>}>
+            <Button icon wrapper={mk('search-btn')}>
+              <SearchIcon />
+            </Button>
+          </Tippy>
         </div>
       </HeadlessTippy>
     </div>

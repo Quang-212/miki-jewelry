@@ -6,11 +6,29 @@ export function MoreInformation() {
 
   const tabContent = [<TabDescription />, <TabWarrantyReturn />, <TabShipping />, <TabComments />];
 
+  const tabs = [
+    {
+      title: 'Mô tả',
+      component: <TabDescription />,
+    },
+    {
+      title: 'Bảo hành và Hoàn trả',
+      component: <TabWarrantyReturn />,
+    },
+    {
+      title: 'Vận chuyển',
+      component: <TabShipping />,
+    },
+    {
+      title: 'Đánh giá(02)',
+      component: <TabComments />,
+    },
+  ];
+
   return (
     <section className="mt-9">
       <Tab
-        tabTitle={tabTitle}
-        tabContent={tabContent}
+        tabs={tabs}
         wrapper="flex flex-col gap-12"
         tabList="flex justify-between"
         tab="heading-5 text-neutral-3"

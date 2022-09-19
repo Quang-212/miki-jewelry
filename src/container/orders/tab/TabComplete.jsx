@@ -1,3 +1,5 @@
-export default function TabComplete() {
+export default function TabComplete({ orders }) {
+  console.log(orders);
+
   return <div>TabComplete</div>;
 }

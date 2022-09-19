@@ -9,12 +9,12 @@ async function favoriteProductHandler(req, res) {
   try {
     switch (method) {
       case 'POST':
-        const existFav = await FavoriteProduct.findOne({ userId, productId }).lean();
-        if (existFav) {
+        const existFavorite = await FavoriteProduct.findOne({ userId, productId }).lean();
+        if (existFavorite) {
           const newData = await FavoriteProduct.findByIdAndUpdate(
-            existFav,
+            existFavorite,
             {
-              status: existFav.status === 0 ? 1 : 0,
+              status: existFavorite.status === 0 ? 1 : 0,
             },
             { new: true },
           ).lean();

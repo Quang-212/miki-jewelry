@@ -9,17 +9,20 @@ async function updateInfoHandler(req, res) {
     const { method } = req;
     const { password, currentPassword, newPassword, ...rest } = req.body;
     const { userId } = req.query;
+
     switch (method) {
       case 'PATCH':
-        if (req.user.id !== userId) {
+        if (req.user._id !== userId) {
           return res.status(401).json({
             message: 'Bạn không thể sửa thông tin của người khác',
             code: 401,
           });
         }
+
         if (password || currentPassword || newPassword) {
           const targetUser = await User.findById(userId).lean();
           const isValidPassword = await compare(currentPassword, targetUser.password);
+
           if (isValidPassword) {
             const salt = await genSalt(10);
             const hashPassword = await hash(newPassword, salt);

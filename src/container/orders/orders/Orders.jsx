@@ -1,44 +1,76 @@
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+
 import Tab from 'src/components/Tab';
+import { useInfiniteLoading } from 'src/hooks';
+import { userState } from 'src/recoils';
 import { Search } from '../search';
-import {
-  TabAll,
-  TabCancel,
-  TabComplete,
-  TabPendingPayment,
-  TabProcessing,
-  TabShipping,
-} from '../tab';
+import { TabAll, TabCancel, TabComplete, TabProcessing, TabShipping } from '../tab';
+
+const TABS = [
+  {
+    title: 'Tất cả đơn',
+    value: 'all',
+    component: (props) => <TabAll {...props} />,
+  },
+  {
+    title: 'Đang xử lý',
+    value: 'confirm',
+    component: (props) => <TabProcessing {...props} />,
+  },
+  {
+    title: 'Đang vận chuyển',
+    value: 'delivery',
+    component: (props) => <TabShipping {...props} />,
+  },
+  {
+    title: 'Đã hoàn thành',
+    value: 'completed',
+    component: (props) => <TabComplete {...props} />,
+  },
+  {
+    title: 'Đã hủy',
+    value: 'canceled',
+    component: (props) => <TabCancel {...props} />,
+  },
+];
 
 export default function Orders() {
-  const tabTitle = [
-    'Tất cả đơn',
-    'Chờ thanh toán',
-    'Đang xử lý',
-    'Đang vận chuyển',
-    'Đã hoàn thành',
-    'Đã hủy',
-  ];
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const tabContent = [
-    <TabAll />,
-    <TabPendingPayment />,
-    <TabProcessing />,
-    <TabShipping />,
-    <TabComplete />,
-    <TabCancel />,
-  ];
+  const { user } = useRecoilValue(userState);
+
+  const tabValue = TABS.find((_, index) => index === selectedIndex).value;
+
+  const { data, error, size, setSize, isLoadingMore, isReachingEnd } = useInfiniteLoading(
+    [user._id],
+    { status: tabValue },
+  );
+  const orders = data?.flat(Infinity);
+  console.log({ orders, error, size, setSize, isLoadingMore, isReachingEnd });
+
+  const classNames = {
+    wrapper: 'flex flex-col gap-8',
+    tabList: 'flex mx-152-px bg-neutral-5',
+    tab: 'flex justify-center w-[189px] py-2',
+    tabSelected: 'subtitle-1 w-[189px] py-2 bg-primary-4 cursor-not-allowed',
+  };
 
   return (
     <section className="mt-12">
       <Tab
-        tabTitle={tabTitle}
-        tabContent={tabContent}
+        selectedIndex={selectedIndex}
+        onTabChange={setSelectedIndex}
+        tabs={TABS}
+        orders={orders}
         wrapper="flex flex-col gap-8"
         tabList="flex mx-152-px bg-neutral-5"
         tab="flex justify-center w-[189px] py-2"
         tabSelected="subtitle-1 w-[189px] py-2 bg-primary-4 cursor-not-allowed"
+        className={classNames}
       >
         <Search />
+        <button onClick={() => setSize(size + 1)}>more</button>
       </Tab>
     </section>
   );

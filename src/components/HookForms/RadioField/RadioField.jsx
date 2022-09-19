@@ -19,6 +19,8 @@ export function RadioField({
   const {
     register,
     formState: { errors },
+    watch,
+    setValue,
   } = useFormContext();
 
   const classWrapper = mk('root', {
@@ -46,12 +48,14 @@ export function RadioField({
       {options.map((value, index) => (
         <div key={index} className={classSubWrapper}>
           <input
-            id={value.id}
+            // id={value.id}
             type="radio"
             value={value.id}
+            checked={value.id === watch(name)}
+            onChange={(event) => setValue(name, event.target.value)}
             className={classInput}
             {...other}
-            {...register(name)}
+            // {...register(name)}
           />
           <label htmlFor={value.id} className={classLabel}>
             {value.content}

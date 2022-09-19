@@ -4,7 +4,7 @@
 }
 
 .menu-item.separate {
-  @apply border-t-2 border-solid border-red-500;
+  @apply border-t-2 border-solid border-primary-2;
 }
 
 .btn-title {

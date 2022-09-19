@@ -52,17 +52,17 @@ export function ProductsList({ products }) {
 
   return (
     <section>
-      <ul className="flex justify-between flex-wrap gap-10">
+      <ul className="grid grid-cols-4 gap-4">
         {products?.map((product) => (
           <li key={product.slug}>
             <CardProduct
               src={product.images.find((image) => image.type === 'primary').url}
               alt={product.name}
-              width={254}
-              height={300}
+              width={272}
+              height={272}
               title={product.name}
               price={formatVndCurrency(product.stocks[0].price)}
-              wrapper="max-w-254-px"
+              wrapper="w-[272px]"
               onClick={() => handleClick(product)}
               onAddToCart={() => handleAddToCart(product)}
             />

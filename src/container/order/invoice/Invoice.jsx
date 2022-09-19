@@ -1,9 +1,6 @@
 import classNames from 'classnames/bind';
-import { isEmpty } from 'lodash';
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+
 import { NormalDivider } from 'src/components/Dividers';
-import { cartState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Invoice.module.css';
 import InvoiceItem from './InvoiceItem';
@@ -35,6 +32,10 @@ export default function Invoice({ address: { provinces }, chosenOrder }) {
 
   const discountByCoupon = 200000;
 
+  const totalPrice = formatVndCurrency(
+    totalInvoice - (discountByCoupon + generateShippingFee(provinces)),
+  );
+
   return (
     <section className={mk('invoice')}>
       <ul className={mk('invoice-list')}>
@@ -60,9 +61,7 @@ export default function Invoice({ address: { provinces }, chosenOrder }) {
       <NormalDivider wrapper={mk('divider-2')} />
       <div className={mk('total')}>
         <h5 className="heading-5">Tổng</h5>
-        <span className="heading-5">
-          {formatVndCurrency(totalInvoice - (discountByCoupon + generateShippingFee(provinces)))}
-        </span>
+        <span className="heading-5">{totalPrice}</span>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@
 }
 
 .invoice-list {
-  @apply flex flex-col gap-7;
+  @apply flex flex-col gap-7 max-h-[360px] overflow-y-scroll;
 }
 
 /* Invoice item */
@@ -28,7 +28,7 @@
 }
 
 .divider-1 {
-  @apply mt-10 mb-8 border border-neutral-1;
+  @apply my-6 border border-neutral-1;
 }
 
 .detail {

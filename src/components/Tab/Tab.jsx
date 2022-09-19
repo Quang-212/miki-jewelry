@@ -1,12 +1,15 @@
 import { Tab as HeadlessTab } from '@headlessui/react';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import styles from './Tab.module.css';
 
 const mk = classNames.bind(styles);
 
 export default function Tab({
-  tabTitle,
-  tabContent,
+  tabs,
+  selectedIndex,
+  onTabChange,
+  orders,
   children,
   wrapper,
   tabList,
@@ -14,27 +17,23 @@ export default function Tab({
   tabSelected,
   tabPanels,
   panel,
+  className,
 }) {
   const classWrapper = mk('root', {
     [wrapper]: wrapper,
   });
-
   const classTabList = mk('tabList', {
     [tabList]: tabList,
   });
-
   const classTab = mk('tab', {
     [tab]: tab,
   });
-
   const classTabSelected = mk('tabSelected', {
     [tabSelected]: tabSelected,
   });
-
   const classTabPanels = mk('tabPanels', {
     [tabPanels]: tabPanels,
   });
-
   const classPanel = mk('panel', {
     [panel]: panel,
   });
@@ -42,14 +41,12 @@ export default function Tab({
   return (
     <HeadlessTab.Group
       as="div"
-      defaultIndex={1}
-      onChange={(index) => {
-        console.log('Changed selected tab to:', index);
-      }}
+      selectedIndex={selectedIndex}
+      onChange={onTabChange}
       className={classWrapper}
     >
       <HeadlessTab.List className={classTabList}>
-        {tabTitle.map((title, index) => (
+        {tabs.map(({ title }, index) => (
           <HeadlessTab
             key={index}
             className={({ selected }) => (selected ? classTabSelected : classTab)}
@@ -60,9 +57,9 @@ export default function Tab({
       </HeadlessTab.List>
       {children}
       <HeadlessTab.Panels className={classTabPanels}>
-        {tabContent.map((content, index) => (
+        {tabs.map(({ component }, index) => (
           <HeadlessTab.Panel key={index} className={classPanel}>
-            {content}
+            {component({ orders })}
           </HeadlessTab.Panel>
         ))}
       </HeadlessTab.Panels>

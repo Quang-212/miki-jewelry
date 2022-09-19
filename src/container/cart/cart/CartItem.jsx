@@ -1,8 +1,10 @@
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import 'tippy.js/dist/tippy.css';
 
 import Button from 'src/components/Button';
 import { Checkbox } from 'src/components/Checkbox';
@@ -21,8 +23,6 @@ const mk = classNames.bind(styles);
 
 export default function CartItem({ data, orders, onCheck }) {
   const { product, size, quantity, _id } = data;
-
-  const { push } = useRouter();
 
   const [sizeChecked, setSizeChecked] = useState(
     product.stocks.findIndex((stock) => stock.size == size),
@@ -43,6 +43,8 @@ export default function CartItem({ data, orders, onCheck }) {
   const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);
 
   const { quantity: inputQuantity, fallback } = stateQuantity;
+
+  const { push } = useRouter();
 
   useEffect(() => {
     if (stateQuantity.type) {
@@ -198,7 +200,7 @@ export default function CartItem({ data, orders, onCheck }) {
           {isOutOfStockServerTracking(product.stocks) ? 'disabled' : product.name}
         </h5>
         <div>
-          <Tippy
+          <HeadlessTippy
             // visible
             interactive
             placement="bottom-start"
@@ -208,7 +210,7 @@ export default function CartItem({ data, orders, onCheck }) {
             <p className={mk('size')}>
               Phân loại hàng: <br /> Kích thước: {size}
             </p>
-          </Tippy>
+          </HeadlessTippy>
         </div>
         <div className="flex justify-center items-center gap-4">
           <Button
@@ -240,9 +242,11 @@ export default function CartItem({ data, orders, onCheck }) {
         </div>
       </div>
       <div className={mk('col-3')}>
-        <Button icon onClick={handleDeleteCartItem}>
-          <CloseIcon />
-        </Button>
+        <Tippy content={<span>Xóa sản phẩm</span>}>
+          <Button icon onClick={handleDeleteCartItem}>
+            <CloseIcon />
+          </Button>
+        </Tippy>
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
       <ModalQuantity
