@@ -12,7 +12,7 @@ export default function RecruitmentPage() {
   const breadcrumbs = [
     {
       label: 'Về chúng tôi',
-      href: PATH.brandHistory,
+      href: PATH.BRAND_HISTORY,
     },
     {
       label: 'Tuyển dụng',

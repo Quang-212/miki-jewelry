@@ -12,7 +12,6 @@ import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export function MainInformation({ product }) {
-  console.log(product);
   const {
     _id,
     name,

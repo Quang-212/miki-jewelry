@@ -2,11 +2,13 @@ import Tippy from '@tippyjs/react/headless';
 import { useState } from 'react';
 
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
+import { useRouter } from 'src/hooks';
 import Header from './Header';
 import MenuItem from './MenuItem';
 
 export default function Menu({ items = [], hideOnClick = false, children }) {
   const [history, setHistory] = useState([{ data: items }]);
+  const { push } = useRouter();
 
   const current = history[history.length - 1];
 
@@ -23,7 +25,9 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
                 ? () => {
                     setHistory((prev) => [...prev, item.children]);
                   }
-                : item.onClick
+                : () => {
+                    push(item.path);
+                  }
             }
           />
         </li>

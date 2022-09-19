@@ -2,6 +2,7 @@ import Breadcrumb from 'src/components/Breadcrumb';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Banner, OrdersManagement } from 'src/container/orders';
+import { AuthGuard } from 'src/Guard';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
@@ -14,7 +15,7 @@ export default function Orders() {
   ];
 
   return (
-    <>
+    <AuthGuard>
       <Page
         data={{
           title: 'Quản lý đơn hàng',
@@ -29,6 +30,6 @@ export default function Orders() {
         <h2 className="heading-2">Quản lý đơn hàng</h2>
       </div>
       <OrdersManagement />
-    </>
+    </AuthGuard>
   );
 }

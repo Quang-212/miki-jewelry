@@ -15,7 +15,7 @@ export default function Navigation() {
     <ul className={mk('navigation')}>
       {NAVIGATION_LINKS.map((item, index) => (
         <li key={index} className={mk('navigation-item')}>
-          <MenuNavigation link={item?.link}>
+          <MenuNavigation link={item.link}>
             <Button text internalLink={item.path} title={mk({ active: pathname === item.path })}>
               {item.title}
             </Button>

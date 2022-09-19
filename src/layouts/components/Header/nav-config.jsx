@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import {
-  BellRingIcon,
   CommentIcon,
   EnglishIcon,
   FavoriteIcon,
@@ -10,12 +9,10 @@ import {
   LoginIcon,
   LogoutIcon,
   NotificationIcon,
-  OrdersIcon,
   UserIcon,
   UserPlusIcon,
   VietnameseIcon,
 } from 'src/components/Icons';
-import { logoutForm, registerForm } from 'src/fetching/auth';
 import { PATH } from 'src/routes';
 
 export const NAVIGATION_LINKS = [
@@ -30,7 +27,7 @@ export const NAVIGATION_LINKS = [
   },
   {
     title: 'Về chúng tôi',
-    path: PATH.brandHistory,
+    path: PATH.BRAND_HISTORY,
     link: 'about',
   },
 ];
@@ -38,81 +35,160 @@ export const NAVIGATION_LINKS = [
 export const PRODUCTS_CATEGORY_LINKS = [
   {
     heading: 'Nhẫn',
-    path: 'ring',
+    path: '/products',
     content: [
       {
         title: 'Nhẫn cỡ lớn',
-        path: 'large-ring',
+        path: '/products',
       },
       {
         title: 'Nhẫn ngón út',
-        path: 'large-ring',
+        path: '/products',
       },
       {
         title: 'Nhẫn xoay',
-        path: 'large-ring',
+        path: '/products',
       },
       {
         title: 'Nhẫn cưới',
-        path: 'large-ring',
+        path: '/products',
       },
     ],
   },
   {
     heading: 'Dây chuyền',
-    path: 'necklace',
+    path: '/products',
     content: [
       {
         title: 'Dây chuyền trơn',
-        path: 'large-ring1',
+        path: '/products',
       },
       {
         title: 'Dây chuyền có mặt',
-        path: 'large-ring2',
+        path: '/products',
       },
       {
         title: 'Mặt dây chuyền',
-        path: 'large-ring3',
+        path: '/products',
       },
     ],
   },
   {
     heading: 'Bông tai',
-    path: 'earring',
+    path: '/products',
     content: [
       {
         title: 'Bông tai xỏ lỗ',
-        path: 'large-ring1',
+        path: '/products',
       },
       {
         title: 'Bông tai treo',
-        path: 'large-ring2',
+        path: '/products',
       },
       {
         title: 'Khuyên vành tai',
-        path: 'large-ring3',
+        path: '/products',
       },
     ],
   },
   {
     heading: 'Lắc',
-    path: 'bracelet',
+    path: '/products',
     content: [
       {
         title: 'Lắc tay',
-        path: 'large-ring1',
+        path: '/products',
       },
       {
         title: 'Lắc tay',
-        path: 'large-ring2',
+        path: '/products',
       },
       {
         title: 'Charm',
-        path: 'large-ring3',
+        path: '/products',
       },
     ],
   },
 ];
+
+// export const PRODUCTS_CATEGORY_LINKS = [
+//   {
+//     heading: 'Nhẫn',
+//     path: 'ring',
+//     content: [
+//       {
+//         title: 'Nhẫn cỡ lớn',
+//         path: 'large-ring',
+//       },
+//       {
+//         title: 'Nhẫn ngón út',
+//         path: 'large-ring',
+//       },
+//       {
+//         title: 'Nhẫn xoay',
+//         path: 'large-ring',
+//       },
+//       {
+//         title: 'Nhẫn cưới',
+//         path: 'large-ring',
+//       },
+//     ],
+//   },
+//   {
+//     heading: 'Dây chuyền',
+//     path: 'necklace',
+//     content: [
+//       {
+//         title: 'Dây chuyền trơn',
+//         path: 'large-ring1',
+//       },
+//       {
+//         title: 'Dây chuyền có mặt',
+//         path: 'large-ring2',
+//       },
+//       {
+//         title: 'Mặt dây chuyền',
+//         path: 'large-ring3',
+//       },
+//     ],
+//   },
+//   {
+//     heading: 'Bông tai',
+//     path: 'earring',
+//     content: [
+//       {
+//         title: 'Bông tai xỏ lỗ',
+//         path: 'large-ring1',
+//       },
+//       {
+//         title: 'Bông tai treo',
+//         path: 'large-ring2',
+//       },
+//       {
+//         title: 'Khuyên vành tai',
+//         path: 'large-ring3',
+//       },
+//     ],
+//   },
+//   {
+//     heading: 'Lắc',
+//     path: 'bracelet',
+//     content: [
+//       {
+//         title: 'Lắc tay',
+//         path: 'large-ring1',
+//       },
+//       {
+//         title: 'Lắc tay',
+//         path: 'large-ring2',
+//       },
+//       {
+//         title: 'Charm',
+//         path: 'large-ring3',
+//       },
+//     ],
+//   },
+// ];
 
 export const ABOUT_LINKS = [
   {
@@ -147,7 +223,7 @@ export const handleMenuItems = (fn) => {
     {
       title: 'Góp ý và hỗ trợ',
       icon: <FeedbackIcon />,
-      path: './profile',
+      path: '/account/profile',
     },
     {
       title: 'Tiếng việt',
@@ -181,7 +257,7 @@ export const handleMenuUserItems = ({ handleClickLogout }) => {
     {
       title: 'Tài khoản của tôi',
       icon: <UserIcon />,
-      path: './profile',
+      path: '/account/profile',
       onClick() {
         push(PATH.profile);
       },
@@ -189,27 +265,27 @@ export const handleMenuUserItems = ({ handleClickLogout }) => {
     {
       title: 'Thông báo của tôi',
       icon: <NotificationIcon />,
-      path: './profile',
+      path: '/account/profile',
     },
     {
       title: 'Đơn hàng của tôi',
       icon: <HistoryIcon />,
-      path: './profile',
+      path: '/account/profile',
     },
     // {
     //   title: 'Lịch sử mua hàng',
     //   icon: <HistoryIcon />,
-    //   path: './profile',
+    //   path: '/account/profile',
     // },
     {
       title: 'Sản phẩm yêu thích',
       icon: <FavoriteIcon header />,
-      path: './favorite',
+      path: '/favorite',
     },
     {
       title: 'Nhận xét sản phẩm',
       icon: <CommentIcon />,
-      path: './favorite',
+      path: '/favorite',
     },
     ...rest,
     {

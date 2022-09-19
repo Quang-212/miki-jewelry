@@ -8,6 +8,7 @@ import Image from 'src/components/Image';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Calculation, CartDetail } from 'src/container/cart';
+import { AuthGuard } from 'src/Guard';
 import { useClientSide } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
@@ -22,7 +23,7 @@ export default function Cart() {
   const isClient = useClientSide();
 
   return (
-    <>
+    <AuthGuard>
       {isClient && (
         <>
           <Page
@@ -49,6 +50,6 @@ export default function Cart() {
           </div>
         </>
       )}
-    </>
+    </AuthGuard>
   );
 }

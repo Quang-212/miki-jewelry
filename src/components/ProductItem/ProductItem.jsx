@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 
-import { images } from 'src/constants';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import Image from '../Image';
 import styles from './ProductItem.module.css';
@@ -9,7 +8,6 @@ import styles from './ProductItem.module.css';
 const mk = classNames.bind(styles);
 
 export default function ProductItem({ data }) {
-  // console.log(data);
   return (
     <li>
       <Link href={`/products/${data.slug}`}>

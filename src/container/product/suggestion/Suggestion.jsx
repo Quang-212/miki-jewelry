@@ -1,31 +1,26 @@
-import Button from 'src/components/Button';
+import { CardProduct } from 'src/components/Card';
 
-export function Suggestion({ relatedProducts }) {
+export function Suggestion({ relatedProducts = [] }) {
+  const handleClick = (slug) => push(PATH.PRODUCT_DETAIL(slug));
+
   return (
     <section className="flex flex-col gap-72-px">
       <div className="relative z-10 flex justify-between">
         <h2 className="heading-2">Có thể bạn cũng thích</h2>
       </div>
       <ul className="flex justify-between">
-        {/* {relatedProducts.map((product, index) => (
+        {relatedProducts.map((product, index) => (
           <li key={index}>
             <CardProduct
-              src={product.image}
-              alt={product.title}
+              product={product}
               width={254}
               height={307}
               placeholder="blur"
-              title={product.title}
-              price={product.price}
-              wrapper="max-w-254-px"
-              // onClick={handleClick}
+              styleWrapper={{ wrapper: 'max-w-254-px' }}
+              onClick={() => handleClick(product.slug)}
             />
           </li>
-        ))} */}
-        <li>qwerty</li>
-        <li>qwerty</li>
-        <li>qwerty</li>
-        <li>qwerty</li>
+        ))}
       </ul>
     </section>
   );

@@ -17,11 +17,11 @@ export default function BrandHistoryPage() {
   const breadcrumbs = [
     {
       label: 'Về chúng tôi',
-      href: PATH.brandHistory,
+      href: PATH.BRAND_HISTORY,
     },
     {
       label: 'Thương hiệu lịch sử',
-      href: PATH.brandHistory,
+      href: PATH.BRAND_HISTORY,
     },
   ];
 
@@ -31,7 +31,7 @@ export default function BrandHistoryPage() {
         data={{
           title: 'Thương hiệu và lịch sử',
           description: '',
-          url: PATH.brandHistory,
+          url: PATH.BRAND_HISTORY,
           thumbnailUrl: images.aboutBrandHistoryHero,
         }}
       />

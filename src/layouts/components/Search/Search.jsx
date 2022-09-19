@@ -27,7 +27,6 @@ export default function Search() {
     {
       search: debouncedValue,
       select: {
-        _id: 1,
         images: 1,
         name: 1,
         slug: 1,
@@ -37,15 +36,14 @@ export default function Search() {
     {},
     true,
   );
-  const products = productsState?.productList;
 
   useEffect(() => {
     if (!debouncedValue.trim()) {
       setSearchResult([]);
     } else {
-      setSearchResult(products);
+      setSearchResult(productsState);
     }
-  }, [debouncedValue, products]);
+  }, [debouncedValue, productsState]);
 
   const renderResult = (attrs) => {
     return (

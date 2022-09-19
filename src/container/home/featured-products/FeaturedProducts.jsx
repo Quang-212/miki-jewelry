@@ -1,41 +1,17 @@
 import classNames from 'classnames/bind';
+import { isEmpty } from 'lodash';
 import { useRouter } from 'next/router';
-
 import Button from 'src/components/Button';
 import { CardProduct } from 'src/components/Card';
-import { images } from 'src/constants';
 import { PATH } from 'src/routes';
 import styles from './FeaturedProducts.module.css';
 
 const mk = classNames.bind(styles);
 
-export function FeaturedProducts({}) {
-  const featuredProducts = [
-    {
-      image: images.homeFeaturedProduct,
-      title: 'Lira Earings',
-      price: '355.000',
-    },
-    {
-      image: images.homeFeaturedProduct,
-      title: 'Lira Earings',
-      price: '355.000',
-    },
-    {
-      image: images.homeFeaturedProduct,
-      title: 'Lira Earings',
-      price: '355.000',
-    },
-    {
-      image: images.homeFeaturedProduct,
-      title: 'Lira Earings',
-      price: '355.000',
-    },
-  ];
-
+export function FeaturedProducts({ products }) {
   const { push } = useRouter();
-
-  const handleClick = () => push(PATH.products);
+  const featuredProducts = isEmpty(products) ? [] : products.slice(0, 4);
+  const handleClick = (slug) => push(PATH.PRODUCT_DETAIL(slug));
 
   return (
     <section className={mk('featured-products', 'container')}>
@@ -49,15 +25,12 @@ export function FeaturedProducts({}) {
         {featuredProducts.map((product, index) => (
           <li key={index}>
             <CardProduct
-              src={product.image}
-              alt={product.title}
+              product={product}
               width={254}
               height={307}
               placeholder="blur"
-              title={product.title}
-              price={product.price}
-              wrapper="max-w-254-px"
-              onClick={handleClick}
+              styleWrapper={{ wrapper: 'max-w-254-px' }}
+              onClick={() => handleClick(product.slug)}
             />
           </li>
         ))}

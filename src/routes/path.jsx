@@ -1,6 +1,9 @@
 export const PATH = {
   home: '/',
   products: '/products',
+  PRODUCT_DETAIL(slug) {
+    return `/products/${slug}`;
+  },
   BRAND_HISTORY: '/about/brand-history',
   RECRUITMENT: '/about/recruitment',
 

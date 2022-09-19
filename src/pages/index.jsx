@@ -9,11 +9,12 @@ import {
   LatestCollection,
   ProductCategory,
 } from 'src/container/home';
+import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
 
 HomePage.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function HomePage() {
+export default function HomePage({ products }) {
   return (
     <>
       <Page
@@ -27,7 +28,7 @@ export default function HomePage() {
 
       <Hero />
       <About />
-      <FeaturedProducts />
+      <FeaturedProducts products={products} />
       <LatestCollection />
       <ProductCategory />
       <CircleIcon1 />
@@ -36,3 +37,21 @@ export default function HomePage() {
     </>
   );
 }
+export const getStaticProps = async () => {
+  try {
+    const featuredProducts = await getProducts([], {
+      limit: 4,
+      sortBy: 'sold',
+      order: -1,
+    });
+
+    return {
+      props: {
+        products: featuredProducts.data.data.products || {},
+      },
+      revalidate: 10 * 60, // 10 minutes
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};

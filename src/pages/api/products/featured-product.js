@@ -9,22 +9,35 @@ async function getProductList(req, res) {
   try {
     switch (method) {
       case 'GET':
-        let { limit = 4, category = [] } = qs.parse(req.query);
+        let { limit = 4, page = 0 } = qs.parse(req.query);
 
         select = Object.entries(select).reduce((select, [field, value]) => {
           select[field] = +value;
           return select;
         }, {});
 
-        const productList = await Product.find({
+        const featuredProducts = await Product.find({
           ...(category && { category }),
           ...(search && { search: new RegExp(search) }),
         })
+          .select({ image })
           .sort({ sold: -1 })
+          .skip(+limit * +page)
           .limit(+limit)
           .exec();
 
-        return res.status(200).json({ productList, total, perPage: +limit });
+        return res.status(200).json({
+          message: 'OK',
+          code: 200,
+          data: {
+            products: featuredProducts,
+            total,
+            page,
+            pageSize: +limit,
+            pageCount: Math.ceil(total / +limit),
+          },
+        });
+
       default:
         return res.status(404).json({
           message: 'Không tìm thấy yêu cầu hợp lệ',

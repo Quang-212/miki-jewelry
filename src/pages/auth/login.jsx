@@ -6,6 +6,7 @@ import LoginFormSection, {
   CircleIcon2,
   CircleIcon3,
 } from 'src/container/auth/login-form';
+import { GuestGuard } from 'src/Guard';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
@@ -13,7 +14,7 @@ LoginPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>
 
 export default function LoginPage() {
   return (
-    <>
+    <GuestGuard>
       <Page
         data={{
           title: 'Đăng nhập tài khoản',
@@ -27,6 +28,6 @@ export default function LoginPage() {
       <CircleIcon1Mobile />
       <CircleIcon2 />
       <CircleIcon3 />
-    </>
+    </GuestGuard>
   );
 }

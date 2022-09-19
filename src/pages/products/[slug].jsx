@@ -1,8 +1,7 @@
-import axios from 'axios';
 import decode from 'jwt-decode';
+import Breadcrumb from 'src/components/Breadcrumb';
 import { StarDivider } from 'src/components/Dividers';
 import Page from 'src/components/Page';
-import Breadcrumb from 'src/components/Breadcrumb';
 import { Images, MainInformation, MoreInformation, Suggestion } from 'src/container/product';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
@@ -60,7 +59,7 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
         <MoreInformation />
         <StarDivider wrapper="mt-8" />
         <div>Sản phẩm đã xem</div>
-        <Suggestion />
+        <Suggestion relatedProducts={relatedProducts} />
       </div>
     </>
   );
@@ -78,7 +77,7 @@ export const getServerSideProps = async ({ params, req }) => {
 
     const relatedProducts = await getProducts([], {
       category,
-      limit: 8,
+      limit: 4,
       sortBy: 'sold',
       order: -1,
     });

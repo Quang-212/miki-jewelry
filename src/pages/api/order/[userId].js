@@ -17,12 +17,23 @@ async function handleGetOrderByAccount(req, res) {
             ...(search && { search: new RegExp(search) }),
           });
         };
-
+        // {
+        //   path: 'message',
+        //   populate: {
+        //     path: "creator"
+        //   }
+        // }
         const [orders, total] = await Promise.all([
           baseQuery()
             .skip(limit * page)
             .limit(limit)
-            .populate({ path: 'products.product', model: Product })
+            // .populate({ path: 'products.product', model: Product })
+            .populate({
+              path: 'products',
+              populate: {
+                path: 'product',
+              },
+            })
             .exec(),
           baseQuery().countDocuments(),
         ]);

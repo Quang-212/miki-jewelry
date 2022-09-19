@@ -2,33 +2,29 @@ import Tab from 'src/components/Tab';
 import { TabComments, TabDescription, TabShipping, TabWarrantyReturn } from '../tab';
 
 export function MoreInformation() {
-  const tabTitle = ['Mô tả', 'Bảo hành và Hoàn trả', 'Vận chuyển', 'Đánh giá(02)'];
-
-  const tabContent = [<TabDescription />, <TabWarrantyReturn />, <TabShipping />, <TabComments />];
-
-  const tabs = [
+  const TABS = [
     {
       title: 'Mô tả',
-      component: <TabDescription />,
+      component: (props) => <TabDescription {...props} />,
     },
     {
       title: 'Bảo hành và Hoàn trả',
-      component: <TabWarrantyReturn />,
+      component: (props) => <TabWarrantyReturn {...props} />,
     },
     {
       title: 'Vận chuyển',
-      component: <TabShipping />,
+      component: (props) => <TabShipping {...props} />,
     },
     {
       title: 'Đánh giá(02)',
-      component: <TabComments />,
+      component: (props) => <TabComments {...props} />,
     },
   ];
 
   return (
     <section className="mt-9">
       <Tab
-        tabs={tabs}
+        tabs={TABS}
         wrapper="flex flex-col gap-12"
         tabList="flex justify-between"
         tab="heading-5 text-neutral-3"

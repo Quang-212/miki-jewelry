@@ -52,19 +52,16 @@ export function ProductsList({ products }) {
 
   return (
     <section>
-      <ul className="grid grid-cols-4 gap-4">
+      <ul className="grid grid-cols-4 gap-y-8 gap-x-4">
         {products?.map((product) => (
           <li key={product.slug}>
             <CardProduct
-              src={product.images.find((image) => image.type === 'primary').url}
-              alt={product.name}
+              product={product}
               width={272}
               height={272}
-              title={product.name}
-              price={formatVndCurrency(product.stocks[0].price)}
-              wrapper="w-[272px]"
+              styleWrapper={{ wrapper: 'w-[272px]' }}
+              placeholder="blur"
               onClick={() => handleClick(product)}
-              onAddToCart={() => handleAddToCart(product)}
             />
           </li>
         ))}

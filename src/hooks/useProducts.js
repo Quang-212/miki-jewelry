@@ -2,7 +2,7 @@ import qs from 'qs';
 import useSWR from 'swr';
 import axios from 'axios';
 
-export default function useProducts(query, options, isSearch = false) {
+export default function useProducts(query = {}, options, isSearch = false) {
   const queryString = qs.stringify(query);
 
   const url = `/api/products?${queryString}`;
@@ -20,7 +20,7 @@ export default function useProducts(query, options, isSearch = false) {
   // console.log(data, error);
 
   return {
-    productsState: data?.data || null,
+    productsState: data?.data?.data?.products || null,
     isLoading: !error && !data && (query.search || !isSearch),
     isError: error,
   };

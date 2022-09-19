@@ -1,11 +1,8 @@
-import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import { useState } from 'react';
+import classNames from 'classnames/bind';
 
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import styles from './MenuCategory.module.css';
-import { PRODUCTS_CATEGORY_LINKS } from '../Header/nav-config';
-import Button from 'src/components/Button';
 import MenuCategoryItem from './MenuCategoryItem';
 
 const mk = classNames.bind(styles);

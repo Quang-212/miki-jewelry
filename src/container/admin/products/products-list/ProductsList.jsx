@@ -31,7 +31,7 @@ export function ProductsList() {
     },
   });
 
-  const _products = productsState?.productList;
+  const _products = productsState;
 
   const handleCreateProduct = () => {
     setCurrentProduct({
