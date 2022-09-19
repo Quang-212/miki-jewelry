@@ -44,10 +44,12 @@ export default function Orders() {
 
   const { data, error, size, setSize, isLoadingMore, isReachingEnd } = useInfiniteLoading(
     [user._id],
-    { status: tabValue, limit: 1 },
+    { status: tabValue, limit: 2 },
   );
 
-  console.log({ data, error, size, setSize, isLoadingMore, isReachingEnd });
+  // console.log({ data, error, size, setSize, isLoadingMore, isReachingEnd });
+  // console.log(data.orders?.map((order) => order.products).flat(1));
+  const orders = data.orders?.map((order) => order.products).flat(1);
 
   return (
     <section className="mt-12">

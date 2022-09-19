@@ -52,7 +52,7 @@ export function ProductsList({ products }) {
 
   return (
     <section>
-      <ul className="grid grid-cols-4 gap-4">
+      <ul className="grid grid-cols-4 gap-y-8 gap-x-4">
         {products?.map((product) => (
           <li key={product.slug}>
             <CardProduct
