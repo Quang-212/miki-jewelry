@@ -36,7 +36,7 @@ export const getProducts = (params = [], query, options) => {
 
   return axios({
     method: 'GET',
-    url: `http://localhost:9600/api/products/${params.join('/')}?${queryString}`,
+    url: `/api/products/${params.join('/')}?${queryString}`,
     ...options,
   });
 };
