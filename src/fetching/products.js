@@ -36,9 +36,7 @@ export const getProducts = (params = [], query, options) => {
 
   return axios({
     method: 'GET',
-    url: isEmpty(params)
-      ? `http://localhost:9600/api/products?${queryString}`
-      : `http://localhost:9600/api/products/${params.join('/')}?${queryString}`,
+    url: `http://localhost:9600/api/products/${params.join('/')}?${queryString}`,
     ...options,
   });
 };

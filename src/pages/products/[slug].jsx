@@ -11,8 +11,8 @@ import { PATH } from 'src/routes';
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product = {}, relatedProducts }) {
+  console.log(relatedProducts);
   const { name, category, description, slug, images } = product;
-  console.log(product);
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':
@@ -66,37 +66,26 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
   );
 }
 
-// export const getStaticPaths = async () => {
-//   const res = await getProducts();
-//   const products = await res.data.productList;
-//   const paths = products.map((product) => ({ params: { slug: product.slug } }));
-
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   };
-// };
-
 export const getServerSideProps = async ({ params, req }) => {
   try {
     const slug = params.slug;
     const token = req.cookies.refreshToken;
     const payload = token && decode(token);
-    const product = await getProducts([slug], { ...(payload && { userId: payload._id }) });
-    // console.log('product: ' + product.data.product);
+    const product = await getProducts([slug], {
+      ...(payload && { userId: payload._id }),
+    });
+    const { category } = product.data.data;
 
-    // const { category } = await product.data.product;
-    // console.log('category: ' + category);
-
-    // const relatedProducts = await getProducts([], { category: category });
-
-    // const qwe = JSON.stringify(relatedProducts.data.productList);
-    // console.log('relatedProducts: ' + qwe);
-
+    const relatedProducts = await getProducts([], {
+      category,
+      limit: 8,
+      sortBy: 'sold',
+      order: -1,
+    });
     return {
       props: {
-        product: product.data.product || {},
-        // relatedProducts: qwe,
+        product: product.data.data || {},
+        relatedProducts: relatedProducts.data.data.products || [],
       },
     };
   } catch (error) {

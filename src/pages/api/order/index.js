@@ -16,7 +16,7 @@ async function handleGetOrder(req, res) {
         })
           .skip(limit * page)
           .limit(limit)
-          .populate({ path: 'product', model: Product })
+          .populate({ path: 'products.product', model: Product })
           .exec();
 
         return res.status(200).json({

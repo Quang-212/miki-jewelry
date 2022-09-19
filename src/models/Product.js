@@ -33,7 +33,6 @@ const Product = new Schema(
       required: true,
     },
     discount: { type: Number, required: true, default: 0 },
-    coupon: { type: String },
     stocks: [
       {
         size: { type: String, required: true },

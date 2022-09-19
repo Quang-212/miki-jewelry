@@ -16,6 +16,8 @@ import { formatSearchString } from 'src/utils/formatString';
 import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
+import { userState } from 'src/recoils';
+import { useRecoilValue } from 'recoil';
 
 const mk = classNames.bind(styles);
 const schema = yup.object().shape({
@@ -48,12 +50,12 @@ export default function Form({ address, setAddress, chosenOrder }) {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: 'asdf',
-      lastName: 'sdf',
+      firstName: 'Quang',
+      lastName: 'Nguyen',
       city: '',
       district: '',
       ward: '',
-      detailAddress: 'so 1',
+      detailAddress: 'so 1 KN',
       phone: '0987234756',
       payment: ['cash'],
       number: '',
@@ -67,6 +69,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
   const { provinces } = useProvince();
   const { districts } = useDistrict(address.provinces);
   const { wards } = useWard(address.districts);
+  const { user } = useRecoilValue(userState);
 
   useEffect(() => {
     setValue('district', '');
@@ -79,26 +82,47 @@ export default function Form({ address, setAddress, chosenOrder }) {
 
   const onSubmit = async (data) => {
     //cartInfo =>> existedCard !important
-    const { newCard, savedCard, payment, cardNumber, date, cvv, ...rest } = data;
+    const { newCard, savedCard, payment, number, expireTime, cvv, ...rest } = data;
     const res = await createOrder({
-      orders: chosenOrder.map((orderItem) => {
-        const { createdAt, updatedAt, _id, __v, userId, status, ...needCartIfo } = orderItem;
-
-        return {
-          ...needCartIfo,
-          ...rest,
-          paymentMethod: data.payment.join(''),
-          ...(data.payment.includes('newCard') && { newCard: data.newCard }),
-          ...(data.payment.includes('savedCard') && { savedCard: 'cardId' }),
-          isPaid: !data.payment.includes('cash'),
-          user: userId,
-          search: formatSearchString([data.firstName, data.lastName, data.phone]),
-          product: orderItem.product._id,
-        };
-      }),
+      order: {
+        ...rest,
+        paymentMethod: data.payment.join(''),
+        ...(data.payment.includes('newCard') && { newCard: data.newCard }),
+        ...(data.payment.includes('savedCard') && { cardInfo: 'cardId' }),
+        isPaid: !data.payment.includes('cash'),
+        user: user._id,
+        search: formatSearchString([data.firstName, data.lastName, data.phone]),
+        products: chosenOrder.map((orderItem) => {
+          const { createdAt, updatedAt, _id, __v, userId, status, product, ...needCartIfo } =
+            orderItem;
+          return {
+            ...needCartIfo,
+            product: product._id,
+          };
+        }),
+      },
       cartIds: chosenOrder.map((orderItem) => orderItem._id),
     });
-    console.log('res');
+    // console.log({
+    //   orders: {
+    //     ...rest,
+    //     paymentMethod: data.payment.join(''),
+    //     ...(data.payment.includes('newCard') && { newCard: data.newCard }),
+    //     ...(data.payment.includes('savedCard') && { savedCard: 'cardId' }),
+    //     isPaid: !data.payment.includes('cash'),
+    //     user: user._id,
+    //     search: formatSearchString([data.firstName, data.lastName, data.phone]),
+    //     products: chosenOrder.map((orderItem) => {
+    //       const { createdAt, updatedAt, _id, __v, userId, status, product, ...needCartIfo } =
+    //         orderItem;
+    //       return {
+    //         ...needCartIfo,
+    //         product: product._id,
+    //       };
+    //     }),
+    //   },
+    //   cartIds: chosenOrder.map((orderItem) => orderItem._id),
+    // });
     //continue handle after order success
   };
 

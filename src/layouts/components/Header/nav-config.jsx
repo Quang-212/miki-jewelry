@@ -176,6 +176,7 @@ export const handleMenuItems = (fn) => {
 const [, , ...rest] = handleMenuItems();
 
 export const handleMenuUserItems = ({ handleClickLogout }) => {
+  const { push } = useRouter();
   return [
     {
       title: 'Tài khoản của tôi',

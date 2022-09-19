@@ -30,20 +30,32 @@ async function getProductList(req, res) {
           select[field] = +value;
           return select;
         }, {});
-        //tìm kiếm sản phẩm trong data
 
-        const productList = await Product.find({
-          ...(category && { category }),
-          ...(search && { search: new RegExp(search) }),
-        })
-          .sort(generateSort(sortBy, order))
-          .limit(+limit)
-          .skip(page * +limit)
-          .select(select)
-          .exec();
+        const [productList, total] = await Promise.all([
+          Product.find({
+            ...(category && { category }),
+            ...(search && { search: new RegExp(search) }),
+          })
+            .sort(generateSort(sortBy, order))
+            .limit(+limit)
+            .skip(page * +limit)
+            .select(select)
+            .exec(),
+          Product.countDocuments(),
+        ]);
 
-        const total = await Product.countDocuments();
-        return res.status(200).json({ productList, total, perPage: +limit });
+        return res.status(200).json({
+          message: 'OK',
+          code: 200,
+          data: {
+            products: productList,
+            total,
+            page,
+            pageSize: +limit,
+            pageCount: Math.ceil(total / +limit),
+          },
+        });
+
       default:
         return res.status(404).json({
           message: 'Không tìm thấy yêu cầu hợp lệ',

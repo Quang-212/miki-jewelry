@@ -3,12 +3,16 @@ import { Schema, model, models } from 'mongoose';
 const Order = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    products: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: { type: Number, required: true },
+        size: { type: String, required: true },
+      },
+    ],
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     search: { type: String, required: true },
-    quantity: { type: Number, default: 1, required: true },
-    size: { type: String, required: true },
     status: {
       type: String,
       enum: ['confirm', 'delivery', 'completed', 'canceled'],

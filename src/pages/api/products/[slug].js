@@ -16,7 +16,7 @@ const getOneProductHandler = async (req, res) => {
         return res.status(200).json({
           message: 'Tìm kiếm thành công sản phẩm',
           code: 200,
-          product: {
+          data: {
             ...product,
             favorite,
             likedCount: await FavoriteProduct.find({
@@ -25,6 +25,7 @@ const getOneProductHandler = async (req, res) => {
             }).countDocuments(),
           },
         });
+
       default:
         return res.status(404).json({
           message: 'Không tìm thấy yêu cầu hợp lệ',

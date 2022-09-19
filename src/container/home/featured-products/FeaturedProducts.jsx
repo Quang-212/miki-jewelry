@@ -9,7 +9,7 @@ import styles from './FeaturedProducts.module.css';
 
 const mk = classNames.bind(styles);
 
-export function FeaturedProducts() {
+export function FeaturedProducts({}) {
   const featuredProducts = [
     {
       image: images.homeFeaturedProduct,

@@ -10,21 +10,29 @@ async function handleGetOrderByAccount(req, res) {
   try {
     switch (method) {
       case 'GET':
-        const orders = await Order.find({
-          userId,
-          ...(status && status !== 'all' && { status }),
-          ...(search && { search: new RegExp(search) }),
-        })
-          .skip(limit * page)
-          .limit(limit)
-          .populate({ path: 'product', model: Product })
-          .exec();
+        const baseQuery = () => {
+          return Order.find({
+            userId,
+            ...(status && status !== 'all' && { status }),
+            ...(search && { search: new RegExp(search) }),
+          });
+        };
+
+        const [orders, total] = await Promise.all([
+          baseQuery()
+            .skip(limit * page)
+            .limit(limit)
+            .populate({ path: 'products.product', model: Product })
+            .exec(),
+          baseQuery().countDocuments(),
+        ]);
 
         return res.status(200).json({
           message: 'Tìm order by account: OK',
           code: 200,
-          data: orders,
+          data: { orders, total, page, pageSize: limit, pageCount: Math.ceil(total / limit) },
         });
+
       default:
         return res.status(404).json({
           message: 'Yêu cầu không hợp lệ',
