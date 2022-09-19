@@ -30,7 +30,6 @@ axios.interceptors.response.use(
 );
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXTJS_APP_BASE_URL,
   timeout: 16000,
   withCredentials: true,
   headers: {
@@ -53,7 +52,7 @@ axiosInstance.interceptors.request.use(
             _id: payload._id,
             role: payload.role,
           },
-          url: `${process.env.NEXTJS_APP_BASE_URL}/api/auth/refresh-token`,
+          url: `/api/auth/refresh-token`,
           withCredentials: true,
         });
 
