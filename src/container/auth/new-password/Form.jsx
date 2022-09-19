@@ -1,18 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/HookForms';
-import { FacebookColorIcon, GoogleColorIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
-import { images } from 'src/constants';
-import { PATH } from 'src/routes';
-import styles from './Form.module.css';
 import OtpField from 'src/components/OtpField';
+import { images } from 'src/constants';
+import styles from './Form.module.css';
 
 const mk = classNames.bind(styles);
 

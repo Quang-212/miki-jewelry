@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Cart from '../Cart';
@@ -11,7 +11,7 @@ import styles from './Header.module.css';
 const mk = classNames.bind(styles);
 
 export function Header() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   return (
     <header className={mk('header')}>

@@ -30,7 +30,7 @@ export default function Cart() {
   return (
     <>
       {isClient && (
-        <CartReview cart={cart} cartRecoil={cartRecoil}>
+        <CartReview cartRecoil={cartRecoil}>
           <Badge badgeContent={cartRecoil?.length || 0}>
             <Button icon internalLink="/checkout/cart" wrapper={mk('cart-icon')}>
               <BasketIcon />

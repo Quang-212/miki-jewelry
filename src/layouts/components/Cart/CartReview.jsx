@@ -17,7 +17,7 @@ import { useRouter } from 'src/hooks';
 
 const mk = classNames.bind(styles);
 
-export default function CartReview({ cart, cartRecoil, children }) {
+export default function CartReview({ cartRecoil, children }) {
   const totalCart = useRecoilValue(totalCartState);
   const totalPrice = formatVndCurrency(totalCart);
 
@@ -32,7 +32,7 @@ export default function CartReview({ cart, cartRecoil, children }) {
     return (
       <div className="w-[480px]" tabIndex="-1" {...attrs}>
         <PopperWrapper className={mk('popper-wrapper')}>
-          {!isEmpty(cart) ? (
+          {!isEmpty(cartRecoil) ? (
             <>
               <h5 className="mt-4 font-primary font-bold text-xl leading-7 text-primary">
                 Giỏ hàng

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { signIn } from 'next-auth/react';
+// import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
@@ -151,7 +151,7 @@ export default function LoginFormSection() {
                 rounded
                 leftIcon={<GoogleColorIcon />}
                 wrapper="w-[200px] xs:w-[168px]"
-                onClick={() => signIn()}
+                // onClick={() => signIn()}
               >
                 Google
               </Button>
