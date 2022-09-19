@@ -100,7 +100,7 @@ export default function LoginFormSection() {
       });
 
       if (user.role === 'admin') {
-        replace(PATH.adminDashboard);
+        return replace(PATH.adminDashboard);
       }
 
       replace(PATH.home);

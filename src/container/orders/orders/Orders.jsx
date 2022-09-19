@@ -44,17 +44,10 @@ export default function Orders() {
 
   const { data, error, size, setSize, isLoadingMore, isReachingEnd } = useInfiniteLoading(
     [user._id],
-    { status: tabValue },
+    { status: tabValue, limit: 1 },
   );
-  const orders = data?.flat(Infinity);
-  console.log({ orders, error, size, setSize, isLoadingMore, isReachingEnd });
 
-  const classNames = {
-    wrapper: 'flex flex-col gap-8',
-    tabList: 'flex mx-152-px bg-neutral-5',
-    tab: 'flex justify-center w-[189px] py-2',
-    tabSelected: 'subtitle-1 w-[189px] py-2 bg-primary-4 cursor-not-allowed',
-  };
+  console.log({ data, error, size, setSize, isLoadingMore, isReachingEnd });
 
   return (
     <section className="mt-12">
@@ -62,12 +55,11 @@ export default function Orders() {
         selectedIndex={selectedIndex}
         onTabChange={setSelectedIndex}
         tabs={TABS}
-        orders={orders}
+        orders={data.orders}
         wrapper="flex flex-col gap-8"
         tabList="flex mx-152-px bg-neutral-5"
         tab="flex justify-center w-[189px] py-2"
         tabSelected="subtitle-1 w-[189px] py-2 bg-primary-4 cursor-not-allowed"
-        className={classNames}
       >
         <Search />
         <button onClick={() => setSize(size + 1)}>more</button>

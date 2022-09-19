@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { useClientSide } from 'src/hooks';
+import { useClientSide, useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
 import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -17,13 +17,19 @@ export default function Calculation() {
 
   const isClient = useClientSide();
 
+  const { push } = useRouter();
+
   const priceByDiscount = () => {
     return 0;
   };
 
-  // const handleSubmit = () => {
-  //   if (!isEmpty(checked))
-  // }
+  const handleSubmit = () => {
+    const orderId = JSON.parse(sessionStorage.getItem('orders'));
+    if (isEmpty(orderId)) {
+      return console.log('chon di ong');
+    }
+    push(PATH.ORDER);
+  };
 
   return (
     <>
@@ -57,7 +63,7 @@ export default function Calculation() {
               {formatVndCurrency(totalCart - priceByDiscount())}
             </span>
           </div>
-          <Button primary internalLink={PATH.ORDER} wrapper={mk('btn')}>
+          <Button primary onClick={handleSubmit} wrapper={mk('btn')}>
             Thanh toán
           </Button>
         </section>

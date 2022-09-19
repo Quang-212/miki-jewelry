@@ -2,8 +2,7 @@ import Image from 'src/components/Image';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export default function OrderItem({ data }) {
-  const { product, size, quantity } = data;
-  console.log(product);
+  console.log(data);
 
   const generatePrice = () => {
     return product?.stocks.find((stock) => stock.size === size).price * quantity;

@@ -20,9 +20,9 @@ async function handleGetOrderByAccount(req, res) {
 
         const [orders, total] = await Promise.all([
           baseQuery()
-            .skip(limit * page)
-            .limit(limit)
-            .populate({ path: 'products.product', model: Product })
+            .skip(+limit * +page)
+            .limit(+limit)
+            .populate({ path: 'product', model: 'Product' })
             .exec(),
           baseQuery().countDocuments(),
         ]);
@@ -30,7 +30,13 @@ async function handleGetOrderByAccount(req, res) {
         return res.status(200).json({
           message: 'Tìm order by account: OK',
           code: 200,
-          data: { orders, total, page, pageSize: limit, pageCount: Math.ceil(total / limit) },
+          data: {
+            orders,
+            total,
+            page: +page,
+            pageSize: +limit,
+            pageCount: Math.ceil(total / limit),
+          },
         });
 
       default:
