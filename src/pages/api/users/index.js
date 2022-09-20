@@ -1,4 +1,5 @@
 import verifyToken from 'src/middlewares/verifyToken';
+import withAuthorization from 'src/middlewares/withAuthorization';
 import User from 'src/models/User';
 import dbConnect from 'src/utils/dbConnect';
 
@@ -9,23 +10,28 @@ async function getAllUsersHandler(req, res) {
     const { limit = 10, page = 0, sortBy = 'createdAt', order = -1, search = '' } = req.query;
     switch (method) {
       case 'GET':
-        //find => status!== "deleted"
-        //  pagination(skip, limit)
-
-        // ...(search && { search: new RegExp(search) }),
+        const [userList, total] = await Promise.all([
+          User.find({
+            status: { $ne: 'deleted' },
+            ...(search && { search: new RegExp(search) }),
+          })
+            .limit(+limit)
+            .skip(page * +limit),
+          User.countDocuments(),
+        ]);
 
         return res.status(200).json({
           message: 'Get all users OK',
           code: 200,
-          // response structure
-          // data: {
-          //   users: userList,
-          //   total,
-          //   page,
-          //   pageSize: +limit,
-          //   pageCount: Math.ceil(total / +limit),
-          // },
+          data: {
+            users: userList,
+            total,
+            page,
+            pageSize: +limit,
+            pageCount: Math.ceil(total / +limit),
+          },
         });
+
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
@@ -40,4 +46,4 @@ async function getAllUsersHandler(req, res) {
   }
 }
 
-export default verifyToken(getAllUsersHandler); //authorization middlewares
+export default verifyToken(withAuthorization(getAllUsersHandler, 'admin'));
