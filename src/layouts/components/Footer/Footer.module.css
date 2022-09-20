@@ -10,8 +10,20 @@
   @apply flex flex-col gap-8 xs:gap-4;
 }
 
+.promotions-title {
+  @apply xs:text-[23.5px] xs:tracking-tight;
+}
+
+.btn-arrow {
+  @apply absolute mt-4 ml-96 xs:ml-312-px;
+}
+
 .social {
   @apply flex flex-col items-end gap-10 xs:items-start xs:gap-4;
+}
+
+.social-list {
+  @apply flex gap-9 xs:gap-6;
 }
 
 .social-icon {
@@ -26,10 +38,18 @@
   @apply flex justify-between xs:flex-col xs:gap-10 xs:mt-10;
 }
 
+.brand-name {
+  @apply xs:text-2xl xs:leading-8;
+}
+
 .information {
   @apply flex gap-16 flex-wrap xs:justify-between xs:gap-10;
 }
 
 .information-links {
-  @apply flex flex-col items-start gap-22-px xs:gap-4;
+  @apply flex flex-col items-start gap-[22px] xs:gap-4;
+}
+
+.information-heading {
+  @apply xs:subtitle-1;
 }

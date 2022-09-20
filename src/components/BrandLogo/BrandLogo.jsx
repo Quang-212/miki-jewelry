@@ -21,13 +21,9 @@ export default function BrandLogo({ vertical, horizontal, wrapper, logo, brandNa
     [logo]: logo,
   });
 
-  const classBrandName = mk(
-    'brand-name',
-    'font-secondary font-bold text-5xl leading-58-px text-primary uppercase',
-    {
-      [brandName]: brandName,
-    },
-  );
+  const classBrandName = mk('brand-name', {
+    [brandName]: brandName,
+  });
 
   return (
     <BrandLogoWrapper className={classWrapper}>

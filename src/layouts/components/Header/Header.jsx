@@ -14,7 +14,7 @@ export function Header() {
   // const { data: session } = useSession();
 
   return (
-    <header className={mk('header')}>
+    <header className={mk('header', 'container')}>
       <nav className={mk('nav')}>
         <Navigation />
         <BrandLogo vertical />

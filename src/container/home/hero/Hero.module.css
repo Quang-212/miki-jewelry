@@ -6,7 +6,7 @@
   @apply flex w-auto h-full bg-hero-image-rgba;
 }
 
-.font-secondary font-bold text-5xl leading-58-px text-primary uppercase {
+.heading {
   @apply my-5 font-primary font-bold text-2xl leading-8 text-neutral-5;
 }
 

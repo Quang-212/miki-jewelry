@@ -15,11 +15,7 @@ export function Hero() {
           <h1 className="display text-neutral-5">Thế Giới Nữ Trang</h1>
           <div className="flex flex-col items-center">
             <NormalDivider wrapper={mk('divider')} />
-            <h3
-              className={mk(
-                'font-secondary font-bold text-5xl leading-58-px text-primary uppercase',
-              )}
-            >
+            <h3 className={mk('heading')}>
               Tôn vinh vẻ đẹp phái nữ - Trao quà tặng - Trao yêu thương
             </h3>
             <NormalDivider wrapper={mk('divider')} />

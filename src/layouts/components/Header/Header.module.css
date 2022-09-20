@@ -1,5 +1,5 @@
 .header {
-  @apply relative z-header container;
+  @apply relative z-header;
 }
 
 .nav {

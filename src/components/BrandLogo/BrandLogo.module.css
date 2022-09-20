@@ -16,6 +16,6 @@
 }
 
 .brand-name {
-  @apply text-4xl leading-48-px 
+  @apply font-secondary font-bold text-[40px] leading-[48px] text-primary uppercase
   xs:text-2xl xs:leading-8;
 }
