@@ -15,7 +15,8 @@ const nextConfig = {
     CLOUD_NAME: 'doa5p4v4z',
     API_KEY: '713324216691184',
     API_SECRET: 'UiCKSCwd-jKb_Bt8TvDbXnKf4Q8',
-    BASE_URL: 'http://localhost:3000',
+    NEXT_PUBLIC_API_URL: 'http://localhost:3000',
+    NEXT_PUBLIC_BASE_URL: 'http://localhost:3000',
   },
 };
 
