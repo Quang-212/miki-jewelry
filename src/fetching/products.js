@@ -35,8 +35,8 @@ export const getProducts = (params = [], query, options) => {
   const queryString = qs.stringify(query);
   const BASE_URL =
     process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_API_URL
-      : process.env.NEXT_PUBLIC_BASE_URL;
+      ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
+      : 'http://localhost:3000';
   return axios({
     method: 'GET',
     url: `${BASE_URL}/api/products/${params.join('/')}?${queryString}`,
