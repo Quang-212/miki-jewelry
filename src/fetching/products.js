@@ -33,10 +33,11 @@ export const deleteProduct = (data, options) => {
 
 export const getProducts = (params = [], query, options) => {
   const queryString = qs.stringify(query);
-
+  const BASE_URL =
+    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_URL : process.env.BASE_URL;
   return axios({
     method: 'GET',
-    url: `${process.env.BASE_URL}/api/products/${params.join('/')}?${queryString}`,
+    url: `${BASE_URL}/api/products/${params.join('/')}?${queryString}`,
     ...options,
   });
 };
