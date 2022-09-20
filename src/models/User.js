@@ -12,6 +12,12 @@ const UserSchema = new Schema(
     birthday: { type: Date },
     phone: { type: String, default: null },
     consumerSpending: { type: Number, default: 0 },
+    status: {
+      type: String,
+      enum: ['active', 'banned', 'deleted'],
+      default: 'active',
+      required: true,
+    },
   },
   {
     timestamps: true,

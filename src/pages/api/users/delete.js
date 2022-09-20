@@ -9,7 +9,7 @@ async function handlerDelete(req, res) {
     const { method } = req;
     switch (method) {
       case 'POST':
-        await User.findOneAndDelete(req.query.id);
+        await User.findOneAndDelete(req.query.id); //findOneAndUpdate => status => deleted
         return res.status(200).json({
           message: 'Bạn đã xóa thành công',
           code: 200,
