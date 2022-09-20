@@ -9,9 +9,8 @@ import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import { FormProvider, RadioField, SelectField, TextField } from 'src/components/HookForms';
 import Image from 'src/components/Image';
-import { deleteImage } from 'src/fetching/deleteImage';
 import { createProduct, updateProduct } from 'src/fetching/products';
-import { uploadFile } from 'src/fetching/uploadFile';
+import { deleteImage, uploadFile } from 'src/fetching/upload';
 import { productVisibilityStatus } from '../products-config';
 import { formatSearchString } from 'src/utils/formatString';
 
