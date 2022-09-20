@@ -89,7 +89,7 @@ export function Footer() {
         <div className={mk('information')}>
           {publicInformation.map((item, index) => (
             <ul key={index} className={mk('information-links')}>
-              <li className={mk('heading-5', 'information-heading')}>{item.heading}</li>
+              <li className={mk('heading-5', 'xs:subtitle-1')}>{item.heading}</li>
               {item.content.map((value, index) => (
                 <li key={index}>
                   <Button text externalLink={value.path}>

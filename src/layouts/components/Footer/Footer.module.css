@@ -49,7 +49,3 @@
 .information-links {
   @apply flex flex-col items-start gap-[22px] xs:gap-4;
 }
-
-.information-heading {
-  @apply xs:subtitle-1;
-}
