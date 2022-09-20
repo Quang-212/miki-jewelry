@@ -39,7 +39,9 @@ export const getProducts = (params = [], query, options) => {
       : 'http://localhost:3000';
   return axios({
     method: 'GET',
-    url: `${BASE_URL}/api/products/${params.join('/')}?${queryString}`,
+    url: `https://miki-jewelry-quang-212.vercel.app/api/products/${params.join(
+      '/',
+    )}?${queryString}`,
     ...options,
   });
 };
