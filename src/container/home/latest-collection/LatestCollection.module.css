@@ -16,7 +16,7 @@
   @apply relative flex flex-col gap-4 top-152-px left-52;
 }
 
-.font-secondary font-bold text-5xl leading-58-px text-primary uppercase {
+.heading {
   @apply text-5xl leading-64-px text-neutral-5;
 }
 

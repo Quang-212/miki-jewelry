@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+
 import Button from 'src/components/Button';
 import { userState } from 'src/recoils';
 import { PATH } from 'src/routes';
 
 export default function AdminGuard({ children }) {
   const { isAuthenticated, user } = useRecoilValue(userState);
+
   useEffect(() => {
     if (!isAuthenticated || user.role !== 'admin') {
       return (

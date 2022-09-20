@@ -51,23 +51,19 @@ export function Footer() {
     <footer className={mk('footer', 'container')}>
       <div className={mk('connect')}>
         <div className={mk('promotions')}>
-          <p className="font-primary font-bold text-32-px leading-10 text-primary xs:font-primary font-semibold text-2xl leading-8 text-primary xs:text-[23.5px] xs:tracking-tight">
-            Đăng ký để nhận khuyến mãi
-          </p>
+          <p className={mk('promotions-title', 'heading-2')}>Đăng ký để nhận khuyến mãi</p>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col relative">
               <TextField name="email" placeholder="Email" wrapper="w-412-px xs:w-343-px" />
-              <Button icon wrapper="absolute mt-4 ml-96 xs:ml-312-px">
+              <Button icon wrapper={mk('btn-arrow')}>
                 <ArrowForwardIcon />
               </Button>
             </div>
           </FormProvider>
         </div>
         <div className={mk('social')}>
-          <p className="font-primary font-bold text-32-px leading-10 text-primary xs:font-primary font-semibold text-2xl leading-8 text-primary">
-            Kết nối với chúng tôi tại
-          </p>
-          <ul className="flex gap-9 xs:gap-6">
+          <p className="heading-2">Kết nối với chúng tôi tại</p>
+          <ul className={mk('social-list')}>
             {socialLink.map((item, index) => (
               <li key={index}>
                 <Button externalLink={item.path} wrapper="xs:text-2xl">
@@ -83,10 +79,8 @@ export function Footer() {
 
       <div className={mk('credit')}>
         <div className="flex flex-col gap-4">
-          <span className="font-secondary font-bold text-5xl leading-58-px text-primary uppercase xs:text-2xl xs:leading-8">
-            Miki Jewelry
-          </span>
-          <ul className="w-351-px">
+          <span className={mk('brand-name', 'heading')}>Miki Jewelry</span>
+          <ul className="w-[351px]">
             {businessLicense.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
@@ -95,9 +89,7 @@ export function Footer() {
         <div className={mk('information')}>
           {publicInformation.map((item, index) => (
             <ul key={index} className={mk('information-links')}>
-              <li className="font-primary font-bold text-xl leading-7 text-primary xs:subtitle-1">
-                {item.heading}
-              </li>
+              <li className={mk('heading-5', 'information-heading')}>{item.heading}</li>
               {item.content.map((value, index) => (
                 <li key={index}>
                   <Button text externalLink={value.path}>
