@@ -109,8 +109,6 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
           ...data.stocks.map((stock) => stock.price.toString()),
         ]),
       };
-      console.log(data);
-      setFocus('name');
 
       const formData = new FormData();
 

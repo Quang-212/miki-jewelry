@@ -1,24 +1,23 @@
 import Tippy from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { useRecoilValue } from 'recoil';
-import classNames from 'classnames/bind';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
 import Image from 'src/components/Image';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import { images } from 'src/constants';
+import { useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
-import CartReviewItem from './CartReviewItem';
 import styles from './Cart.module.css';
-import { PATH } from 'src/routes';
-import { useRouter } from 'src/hooks';
+import CartReviewItem from './CartReviewItem';
 
 const mk = classNames.bind(styles);
 
 export default function CartReview({ cartRecoil, children }) {
-  const totalCart = useRecoilValue(totalCartState);
+  const totalCart = useRecoilValue(totalCartState({}));
   const totalPrice = formatVndCurrency(totalCart);
 
   const { push } = useRouter();

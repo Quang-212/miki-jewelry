@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
@@ -12,9 +13,8 @@ import styles from './Calculation.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function Calculation() {
-  const totalCart = useRecoilValue(totalCartState);
-
+export default function Calculation({ checked }) {
+  const totalCart = useRecoilValue(totalCartState({ filterCartIds: checked.orders }));
   const isClient = useClientSide();
 
   const { push } = useRouter();

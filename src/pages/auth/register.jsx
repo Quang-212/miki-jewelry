@@ -5,7 +5,7 @@ import RegisterFormSection, {
   CircleIcon2,
   CircleIcon3,
 } from 'src/container/auth/register-form';
-import { GuestGuard } from 'src/Guard';
+import { GuestGuard } from 'src/guard';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 

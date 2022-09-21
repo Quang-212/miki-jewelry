@@ -20,7 +20,11 @@ async function handleCreateOrder(req, res) {
         const getProperty = (index, property) => {
           return order.products[index][property];
         };
-
+        const getPropertyMongoProduct = (index, searchKey, compareValue, property) => {
+          return products[index].stocks.find((stock) => stock[searchKey] === compareValue)[
+            property
+          ];
+        };
         const outOfStockProducts = products.filter(({ stocks }, index) => {
           return (
             stocks.find((stock) => stock.size == getProperty(index, 'size')).quantity <

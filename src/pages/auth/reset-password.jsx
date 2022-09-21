@@ -1,6 +1,6 @@
 import Page from 'src/components/Page';
 import Form from 'src/container/auth/reset-password';
-import { GuestGuard } from 'src/Guard';
+import { GuestGuard } from 'src/guard';
 import { PATH } from 'src/routes';
 
 export default function ResetPassword() {

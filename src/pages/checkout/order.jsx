@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import Page from 'src/components/Page';
 import { Form, Invoice } from 'src/container/order';
-import { AuthGuard } from 'src/Guard';
+import { AuthGuard } from 'src/guard';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
 import { PATH } from 'src/routes';
@@ -55,7 +55,7 @@ export default function Order() {
         </h2>
         <div className="flex justify-between gap-10">
           <Form address={address} setAddress={setAddress} chosenOrder={chosenOrder} />
-          <Invoice address={address} chosenOrder={chosenOrder} />
+          <Invoice address={address} chosenOrder={chosenOrder} chosenOrderId={chosenOrderId} />
         </div>
       </div>
       <Dialog isOpen={isOpen} closeModal={() => {}} content="w-[600px] px-12">
