@@ -1,16 +1,15 @@
-import { Fragment, useState } from 'react';
 import classNames from 'classnames/bind';
+import { Fragment, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
-import { NormalDivider } from 'src/components/Dividers';
-import ProductItem from './ProductItem';
-import styles from './Common.module.css';
-import { addToCartState, userState } from 'src/recoils';
-import { addToCart } from 'src/fetching/cart';
 import Dialog from 'src/components/Dialog';
-import { CloseIcon } from 'src/components/icons';
+import { NormalDivider } from 'src/components/Dividers';
+import { CloseIcon } from 'src/components/Icons';
+import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
+import styles from './Common.module.css';
+import ProductItem from './ProductItem';
 
 const mk = classNames.bind(styles);
 

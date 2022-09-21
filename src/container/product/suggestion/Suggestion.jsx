@@ -1,6 +1,8 @@
 import { CardProduct } from 'src/components/Card';
+import { useRouter } from 'src/hooks';
 
 export function Suggestion({ relatedProducts = [] }) {
+  const { push } = useRouter();
   const handleClick = (slug) => push(PATH.PRODUCT_DETAIL(slug));
 
   return (
