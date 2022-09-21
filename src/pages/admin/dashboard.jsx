@@ -1,5 +1,5 @@
+import AdminGuard from 'src/guard/AdminGuard';
 import Page from 'src/components/Page';
-import { AdminGuard } from 'src/guard';
 import MainLayout from 'src/layouts/MainLayout';
 
 AdminPage.getLayout = (page) => <MainLayout variant="admin">{page}</MainLayout>;

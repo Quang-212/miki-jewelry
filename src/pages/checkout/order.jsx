@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import Page from 'src/components/Page';
 import { Form, Invoice } from 'src/container/order';
-import { AuthGuard } from 'src/guard';
+import AuthGuard from 'src/guard/AuthGuard';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
 import { PATH } from 'src/routes';

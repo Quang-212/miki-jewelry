@@ -1,7 +1,7 @@
 import { ProductsList } from 'src/container/admin/products';
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
-import { AdminGuard } from 'src/guard';
+import AdminGuard from 'src/guard/AdminGuard';
 
 ProductsListPage.getLayout = (page) => <MainLayout variant="admin">{page}</MainLayout>;
 

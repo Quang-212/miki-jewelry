@@ -1,8 +1,8 @@
+import { AuthGuard } from 'src/guard';
 import Breadcrumb from 'src/components/Breadcrumb';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Banner, OrdersManagement } from 'src/container/orders';
-import { AuthGuard } from 'src/guard';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
