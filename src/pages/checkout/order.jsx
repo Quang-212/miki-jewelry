@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import Page from 'src/components/Page';
 import { Form, Invoice } from 'src/container/order';
-import AuthGuard from 'src/guard/AuthGuard';
+// import AuthGuard from 'src/guard/AuthGuard';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
 import { PATH } from 'src/routes';
@@ -39,7 +39,7 @@ export default function Order() {
   }, []);
 
   return (
-    <AuthGuard>
+    <>
       <Page
         data={{
           title: 'Trang giao hàng',
@@ -74,6 +74,6 @@ export default function Order() {
           </div>
         </div>
       </Dialog>
-    </AuthGuard>
+    </>
   );
 }
