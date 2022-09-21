@@ -2,7 +2,7 @@ import Breadcrumb from 'src/components/Breadcrumb';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Banner, ProfileInformation, RecommendedProducts } from 'src/container/profile';
-import AuthGuard from 'src/guard/AuthGuard';
+// import AuthGuard from 'src/guard/AuthGuard';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
@@ -15,7 +15,7 @@ export default function Profile() {
   ];
 
   return (
-    <AuthGuard>
+    <>
       <Page
         data={{
           title: 'Thông tin khách hàng',
@@ -33,6 +33,6 @@ export default function Profile() {
         <ProfileInformation />
         <RecommendedProducts />
       </div>
-    </AuthGuard>
+    </>
   );
 }

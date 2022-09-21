@@ -1,4 +1,4 @@
-import AdminGuard from 'src/guard/AdminGuard';
+// import AdminGuard from 'src/guard/AdminGuard';
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 import { CouponList } from 'src/container/admin/coupon';
@@ -7,7 +7,7 @@ CouponPage.getLayout = (page) => <MainLayout variant="admin">{page}</MainLayout>
 
 export default function CouponPage() {
   return (
-    <AdminGuard>
+    <>
       <Page
         data={{
           title: 'Miki Shop',
@@ -17,6 +17,6 @@ export default function CouponPage() {
         }}
       />
       <CouponList />
-    </AdminGuard>
+    </>
   );
 }
