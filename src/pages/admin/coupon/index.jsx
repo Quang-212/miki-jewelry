@@ -1,7 +1,7 @@
 import Page from 'src/components/Page';
 import MainLayout from 'src/layouts/MainLayout';
 import { CouponList } from 'src/container/admin/coupon';
-import { AdminGuard } from 'src/Guard';
+import { AdminGuard } from 'src/guard';
 
 CouponPage.getLayout = (page) => <MainLayout variant="admin">{page}</MainLayout>;
 

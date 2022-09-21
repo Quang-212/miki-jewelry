@@ -11,20 +11,10 @@ import CartItem from './CartItem';
 
 const mk = classNames.bind(styles);
 
-export default function Cart() {
-  const [checked, setChecked] = useState({ orders: [], ready: false });
-
+export default function Cart({ setChecked, checked }) {
   const cart = useRecoilValue(cartState);
 
   const isClient = useClientSide();
-
-  useEffect(() => {
-    setChecked({ orders: JSON.parse(sessionStorage.getItem('orders')) || [], ready: true });
-  }, []);
-
-  useEffect(() => {
-    checked.ready && sessionStorage.setItem('orders', JSON.stringify(checked.orders));
-  }, [checked]);
 
   const handleCheckBox = (_id) => {
     setChecked((prev) => {
@@ -41,8 +31,6 @@ export default function Cart() {
       orders: checked.orders.length !== cart.length ? cart.map((item) => item._id) : [],
     }));
   };
-
-  console.log(cart);
 
   return (
     <>

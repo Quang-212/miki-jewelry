@@ -12,6 +12,7 @@ const Order = new Schema(
     ],
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    total: { type: Number, required: true },
     search: { type: String, required: true },
     status: {
       type: String,

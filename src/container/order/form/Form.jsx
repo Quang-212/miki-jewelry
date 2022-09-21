@@ -121,8 +121,14 @@ export default function Form({ address, setAddress, chosenOrder }) {
     setIsOpen(true);
   };
 
+  const productNameSearch = chosenOrder.map(({ product }) => product.name);
+
   const onSubmit = async (data) => {
     const cartIds = chosenOrder.map((orderItem) => orderItem._id);
+    const total = JSON.parse(sessionStorage.getItem('total'));
+    if (!total) {
+      return console.log('total is not calculated');
+    }
     try {
       //cartInfo =>> existedCard !important
       const { newCard, savedCard, payment, number, expireTime, cvv, ...rest } = data;
@@ -134,7 +140,10 @@ export default function Form({ address, setAddress, chosenOrder }) {
           ...(data.payment.includes('savedCard') && { cardInfo: 'cardId' }),
           isPaid: !data.payment.includes('cash'),
           user: user._id,
-          search: formatSearchString([data.firstName, data.lastName, data.phone]),
+          total,
+          search: formatSearchString(
+            [data.firstName, data.lastName, data.phone].concat(productNameSearch),
+          ),
           products: chosenOrder.map((orderItem) => {
             const { createdAt, updatedAt, _id, __v, userId, status, product, ...needCartIfo } =
               orderItem;

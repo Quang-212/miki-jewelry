@@ -8,7 +8,7 @@ import Image from 'src/components/Image';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Calculation, CartDetail } from 'src/container/cart';
-import { AuthGuard } from 'src/Guard';
+import { AuthGuard } from 'src/guard';
 import { useClientSide } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
@@ -21,6 +21,15 @@ const breadcrumbs = [{ label: 'Giỏ hàng', href: PATH.cart }];
 export default function Cart() {
   const cart = useRecoilValue(cartState);
   const isClient = useClientSide();
+  const [checked, setChecked] = useState({ orders: [], ready: false });
+
+  useEffect(() => {
+    setChecked({ orders: JSON.parse(sessionStorage.getItem('orders')) || [], ready: true });
+  }, []);
+
+  useEffect(() => {
+    checked.ready && sessionStorage.setItem('orders', JSON.stringify(checked.orders));
+  }, [checked]);
 
   return (
     <AuthGuard>
@@ -35,8 +44,8 @@ export default function Cart() {
             <Breadcrumb breadcrumbs={breadcrumbs} />
             {!isEmpty(cart) ? (
               <div className="flex justify-between gap-[138px]">
-                <CartDetail />
-                <Calculation />
+                <CartDetail checked={checked} setChecked={setChecked} />
+                <Calculation checked={checked} />
               </div>
             ) : (
               <div className="flex flex-col items-center gap-8">

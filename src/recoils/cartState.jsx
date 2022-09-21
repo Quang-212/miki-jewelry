@@ -1,4 +1,5 @@
-import { atom, selector } from 'recoil';
+import { isEmpty } from 'lodash';
+import { atom, selector, selectorFamily } from 'recoil';
 
 import persistAtom from 'src/utils/recoilPersist';
 
@@ -40,17 +41,26 @@ export const deleteCartItemState = selector({
   },
 });
 
-export const totalCartState = selector({
+export const totalCartState = selectorFamily({
   key: 'totalCart',
-  get: ({ get }) => {
-    const cart = get(cartState);
+  get:
+    ({ filterCartIds = [], totalCart = false }) =>
+    ({ get }) => {
+      const cart = get(cartState);
 
-    const pricePerProduct = (cartItem) => {
-      return cartItem.product.stocks.find((stock) => stock.size == cartItem.size).price;
-    };
+      const pricePerProduct = (cartItem) => {
+        return cartItem.product.stocks.find((stock) => stock.size == cartItem.size).price;
+      };
 
-    return cart.reduce((total, item) => {
-      return (total += pricePerProduct(item) * item.quantity);
-    }, 0);
-  },
+      return cart
+        .filter((item) => {
+          if (totalCart) {
+            return item;
+          }
+          return !isEmpty(filterCartIds) && filterCartIds.includes(item._id);
+        })
+        .reduce((total, item) => {
+          return (total += pricePerProduct(item) * item.quantity);
+        }, 0);
+    },
 });

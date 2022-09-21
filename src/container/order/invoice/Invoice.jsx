@@ -1,21 +1,17 @@
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { NormalDivider } from 'src/components/Dividers';
+import { totalCartState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Invoice.module.css';
 import InvoiceItem from './InvoiceItem';
 
 const mk = classNames.bind(styles);
 
-export default function Invoice({ address: { provinces }, chosenOrder }) {
-  const pricePerProduct = (cartItem) => {
-    return cartItem.product.stocks.find((stock) => stock.size == cartItem.size).price;
-  };
-
-  const totalInvoice = chosenOrder.reduce((total, item) => {
-    return (total += pricePerProduct(item) * item.quantity);
-  }, 0);
-
+export default function Invoice({ address: { provinces }, chosenOrder, chosenOrderId }) {
+  const totalInvoice = useRecoilValue(totalCartState({ filterCartIds: chosenOrderId }));
   const generateShippingFee = (provinceCode = 9999) => {
     const FREE_SHIPPING_POINT = 500000;
     const DEFAULT_SHIPPING_FEE = 50000;
@@ -29,12 +25,12 @@ export default function Invoice({ address: { provinces }, chosenOrder }) {
         return DEFAULT_SHIPPING_FEE;
     }
   };
-
   const discountByCoupon = 200000;
 
-  const totalPrice = formatVndCurrency(
-    totalInvoice - (discountByCoupon + generateShippingFee(provinces)),
-  );
+  const totalPrice = totalInvoice - (discountByCoupon + generateShippingFee(provinces));
+  useEffect(() => {
+    sessionStorage.setItem('total', JSON.stringify(totalPrice));
+  }, [totalPrice]);
 
   return (
     <section className={mk('invoice')}>
@@ -67,7 +63,9 @@ export default function Invoice({ address: { provinces }, chosenOrder }) {
       <NormalDivider wrapper={mk('divider-2')} />
       <div className={mk('total')}>
         <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
-        <span className="font-primary font-bold text-xl leading-7 text-primary">{totalPrice}</span>
+        <span className="font-primary font-bold text-xl leading-7 text-primary">
+          {formatVndCurrency(totalPrice)}
+        </span>
       </div>
     </section>
   );
