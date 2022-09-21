@@ -131,13 +131,37 @@ export function MainInformation({ product }) {
     }
 
     try {
-      const res = await addToCart({
-        userId: user._id,
-        product: product._id,
-        size: generateProperty(sizeChecked, 'size'),
-        quantity: fallback,
-      });
-
+      const res = await toast.promise(
+        addToCart({
+          userId: user._id,
+          product: product._id,
+          size: generateProperty(sizeChecked, 'size'),
+          quantity: fallback,
+        }),
+        {
+          pending: {
+            render() {
+              return 'Đang kết nối';
+            },
+            icon: '😇',
+          },
+          success: {
+            render({ data }) {
+              return data.data.message;
+            },
+            icon: '😍',
+          },
+          error: {
+            render({ data }) {
+              console.log(data);
+              return data.response?.data.message;
+            },
+            icon: '😵‍💫',
+          },
+        },
+        { autoClose: 4000 },
+      );
+      console.log(res);
       setCart(res.data);
     } catch (error) {
       console.log(error);
@@ -167,7 +191,7 @@ export function MainInformation({ product }) {
       {discount ? (
         <>
           <div className="flex items-center gap-4 mt-5">
-            <span className="font-primary font-semibold text-2xl leading-8 text-primary text-neutral-2 line-through">
+            <span className="font-primary font-semibold text-2xl leading-8 text-neutral-2 line-through">
               {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
             </span>
             <NormalDivider vertical="border-2 h-5 border-l-[1px] border-neutral-2" />
@@ -185,13 +209,13 @@ export function MainInformation({ product }) {
               Đã thích ({likedCount})
             </Button>
           </div>
-          <span className="font-primary font-bold text-5xl leading-58-px text-primary text-primary-2">
+          <span className="font-primary font-bold text-5xl leading-58-px text-primary-2">
             {formatVndCurrency(generateProperty(sizeChecked, 'price'), discount)}
           </span>
         </>
       ) : (
         <div>
-          <span className="mt-8 mb-4 font-primary font-bold text-5xl leading-58-px text-primary text-primary-2">
+          <span className="mt-8 mb-4 font-primary font-bold text-5xl leading-58-px text-primary-2">
             {formatVndCurrency(generateProperty(sizeChecked, 'price'))}
           </span>
           <Button
@@ -203,7 +227,7 @@ export function MainInformation({ product }) {
             onClick={handleClickFavorite}
             wrapper="ml-4"
           >
-            Đã thích (1,6k)
+            Đã thích ({likedCount})
           </Button>
         </div>
       )}

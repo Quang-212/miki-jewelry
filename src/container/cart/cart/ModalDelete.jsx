@@ -16,7 +16,10 @@ export default function ModalDelete({ handleDeleteCartItem, productName, confirm
 
   return (
     <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="w-[600px] px-12">
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-end cursor-pointer">
+          <CloseIcon onClick={handleCloseModal} />
+        </div>
         <p className="font-primary font-bold text-xl leading-7 text-primary">
           Bạn chắc chắn muốn bỏ sản phẩm này?
         </p>

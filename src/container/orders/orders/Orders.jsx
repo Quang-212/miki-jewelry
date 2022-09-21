@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useInView } from 'react-intersection-observer';
 
 import Tab from 'src/components/Tab';
 import { useInfiniteLoading } from 'src/hooks';
@@ -46,10 +47,16 @@ export default function Orders() {
     [user._id],
     { status: tabValue, limit: 2 },
   );
+  console.log(isLoadingMore);
 
-  // console.log({ data, error, size, setSize, isLoadingMore, isReachingEnd });
-  // console.log(data.orders?.map((order) => order.products).flat(1));
-  const orders = data.orders?.map((order) => order.products).flat(1);
+  const { ref, inView } = useInView({});
+
+  useEffect(() => {
+    inView && setSize(size + 1);
+    // inView && console.log('loaded more');
+  }, [inView]);
+
+  console.log(data);
 
   return (
     <section className="mt-12">
@@ -58,14 +65,15 @@ export default function Orders() {
         onTabChange={setSelectedIndex}
         tabs={TABS}
         orders={data.orders}
+        // isLoadingMore={isLoadingMore}
         wrapper="flex flex-col gap-8"
-        tabList="flex mx-152-px bg-neutral-5"
-        tab="flex justify-center w-[189px] py-2"
-        tabSelected="subtitle-1 w-[189px] py-2 bg-primary-4 cursor-not-allowed"
+        tabList="flex justify-between mx-152-px bg-neutral-5"
+        tab="flex justify-center w-[230px] py-2"
+        tabSelected="subtitle-1 w-[230px] py-2 bg-primary-4 cursor-not-allowed"
       >
         <Search />
-        <button onClick={() => setSize(size + 1)}>more</button>
       </Tab>
+      {isLoadingMore && <div ref={ref} className="h-[2px]"></div>}
     </section>
   );
 }

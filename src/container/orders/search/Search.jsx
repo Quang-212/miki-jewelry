@@ -8,16 +8,22 @@ import styles from './Search.module.css';
 const mk = classNames.bind(styles);
 
 export default function Search() {
+  // const [searchValue, setSearchValue] = useState('');
+  // const [searchResult, setSearchResult] = useState([]);
+  // const [showResult, setShowResult] = useState(false);
+
+  // const inputRef = useRef();
+
   const handleClear = () => {
     console.log('clear');
   };
 
   return (
-    <div className={mk('search')}>
+    <div className={mk('search', 'container')}>
       <input
         // ref={inputRef}
         // value={searchValue}
-        // placeholder="Tìm kiếm"
+        placeholder="Tìm kiếm đơn hàng theo Mã đơn hàng hoặc tên sản phẩm"
         spellCheck="false"
         // onFocus={() => setShowResult(true)}
         className={mk('input-search')}

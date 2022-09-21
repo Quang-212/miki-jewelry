@@ -8,12 +8,12 @@ import { PATH } from 'src/routes';
 
 Orders.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-export default function Orders() {
-  const breadcrumbs = [
-    { label: 'Tài khoản', href: PATH.profile },
-    { label: 'Quản lý đơn hàng', href: PATH.orders },
-  ];
+const breadcrumbs = [
+  { label: 'Tài khoản', href: PATH.profile },
+  { label: 'Quản lý đơn hàng', href: PATH.orders },
+];
 
+export default function Orders() {
   return (
     <AuthGuard>
       <Page

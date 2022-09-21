@@ -92,7 +92,7 @@ export function Footer() {
               <li className={mk('heading-5', 'xs:subtitle-1')}>{item.heading}</li>
               {item.content.map((value, index) => (
                 <li key={index}>
-                  <Button text externalLink={value.path}>
+                  <Button text externalLink={value.path} wrapper={mk('btn-information')}>
                     {value.title}
                   </Button>
                 </li>

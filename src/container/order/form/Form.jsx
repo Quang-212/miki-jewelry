@@ -146,6 +146,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
         },
         cartIds: chosenOrder.map((orderItem) => orderItem._id),
       });
+      // toast mess error 405
       console.log(res);
       handleAfterOrdered(cartIds);
     } catch (error) {
@@ -182,6 +183,9 @@ export default function Form({ address, setAddress, chosenOrder }) {
       </FormProvider>
       <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="w-[600px] px-12">
         <div className="flex flex-col gap-4">
+          <div className="flex justify-end cursor-pointer">
+            <CloseIcon onClick={handleCloseModal} />
+          </div>
           <p className="font-primary font-bold text-xl leading-7 text-primary">
             Bạn đã đặt hàng thành công !!
           </p>

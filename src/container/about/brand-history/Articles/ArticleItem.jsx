@@ -35,7 +35,9 @@ export default function ArticleItem({ article, index }) {
       />
     );
   };
+
   const array = [<ArticleText article={article} />, <ArticleImage article={article} />];
+
   return (
     <ArticleWrapper className={mk('article-wrapper')}>
       {isEven(index) ? array : array.reverse()}

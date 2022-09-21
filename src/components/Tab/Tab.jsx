@@ -10,6 +10,7 @@ export default function Tab({
   selectedIndex,
   onTabChange,
   orders,
+  isLoadingMore,
   children,
   wrapper,
   tabList,
@@ -59,7 +60,7 @@ export default function Tab({
       <HeadlessTab.Panels className={classTabPanels}>
         {tabs.map(({ component }, index) => (
           <HeadlessTab.Panel key={index} className={classPanel}>
-            {component({ orders })}
+            {component({ orders, isLoadingMore })}
           </HeadlessTab.Panel>
         ))}
       </HeadlessTab.Panels>
