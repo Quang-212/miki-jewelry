@@ -26,12 +26,17 @@ export default function useInfiniteLoading(params = [], query = {}, options, isS
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, options);
   // console.log('data ', data[0].orders);
 
+  const currentPage = data && data[0].page;
+  const pageCount = data && data[0].pageCount;
+
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData || (size > 0 && data && typeof data[size - 1] === 'undefined');
 
   const isEmptyPag = data?.[0]?.length === 0;
-  const isReachingEnd = isEmptyPag || (data && data[data.length - 1]?.length < PAGE_SIZE);
+  const isReachingEnd = isEmptyPag || currentPage >= pageCount - 1;
+
+  console.log(currentPage);
 
   return {
     data: isEmpty(data)

@@ -17,7 +17,7 @@ import CartReviewItem from './CartReviewItem';
 const mk = classNames.bind(styles);
 
 export default function CartReview({ cartRecoil, children }) {
-  const totalCart = useRecoilValue(totalCartState({}));
+  const totalCart = useRecoilValue(totalCartState({ totalCart: true }));
   const totalPrice = formatVndCurrency(totalCart);
 
   const { push } = useRouter();

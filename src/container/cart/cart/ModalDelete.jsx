@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
+import { CloseIcon } from 'src/components/Icons';
 
 export default function ModalDelete({ handleDeleteCartItem, productName, confirm, setConfirm }) {
   const [isOpen, setIsOpen] = useState(false);

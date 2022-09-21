@@ -27,9 +27,10 @@ export default function Invoice({ address: { provinces }, chosenOrder, chosenOrd
   };
   const discountByCoupon = 200000;
 
-  const totalPrice = totalInvoice - (discountByCoupon + generateShippingFee(provinces));
+  const totalPrice = totalInvoice - discountByCoupon + generateShippingFee(provinces);
+
   useEffect(() => {
-    sessionStorage.setItem('total', JSON.stringify(totalPrice));
+    sessionStorage.setItem('total', JSON.stringify(totalPrice < 0 ? 0 : totalPrice));
   }, [totalPrice]);
 
   return (
@@ -64,7 +65,7 @@ export default function Invoice({ address: { provinces }, chosenOrder, chosenOrd
       <div className={mk('total')}>
         <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
         <span className="font-primary font-bold text-xl leading-7 text-primary">
-          {formatVndCurrency(totalPrice)}
+          {formatVndCurrency(totalPrice < 0 ? 0 : totalPrice)}
         </span>
       </div>
     </section>

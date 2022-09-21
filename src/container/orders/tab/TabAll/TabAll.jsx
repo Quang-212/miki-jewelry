@@ -7,7 +7,7 @@ import styles from './TabAll.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function TabAll({ orders }) {
+export default function TabAll({ orders, isLoadingMore }) {
   return (
     <ul className={mk('tab-all')}>
       {orders?.map((order, index) => (
@@ -15,7 +15,7 @@ export default function TabAll({ orders }) {
           <OrderItem data={order} index={index} />
         </li>
       ))}
-      {/* {isLoadingMore && <LoadingRotatingLines className="absolute z-10 left-2/4 top-2/4" />} */}
+      {isLoadingMore && <LoadingRotatingLines className="absolute z-10 left-2/4 top-2/4" />}
     </ul>
   );
 }

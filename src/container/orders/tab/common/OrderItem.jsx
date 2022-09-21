@@ -10,6 +10,7 @@ import { addToCartState, userState } from 'src/recoils';
 import { addToCart } from 'src/fetching/cart';
 import Dialog from 'src/components/Dialog';
 import { CloseIcon } from 'src/components/icons';
+import { formatVndCurrency } from 'src/utils/formatNumber';
 
 const mk = classNames.bind(styles);
 
@@ -105,8 +106,6 @@ export default function OrderItem({ data, index }) {
 
   const handleCloseModal = () => setIsOpen(false);
 
-  console.log(data);
-
   return (
     <>
       <div className={mk('order-item', 'container')}>
@@ -134,7 +133,7 @@ export default function OrderItem({ data, index }) {
               </p>
             )}
             <p className={mk('order-total')}>Tổng tiền:</p>
-            <span className={mk('order-price')}>1.250.000đ</span>
+            <span className={mk('order-price')}>{formatVndCurrency(data.total)}</span>
             <Button outline onClick={handleBuyAgain} wrapper={mk('btn-buy-again')}>
               Mua lại
             </Button>

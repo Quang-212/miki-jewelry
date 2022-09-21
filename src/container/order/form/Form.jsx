@@ -21,6 +21,7 @@ import { useSetRecoilState } from 'recoil';
 import { cartState } from 'src/recoils';
 import { userState } from 'src/recoils';
 import { useRecoilValue } from 'recoil';
+import { CloseIcon } from 'src/components/Icons';
 
 const mk = classNames.bind(styles);
 

@@ -3,10 +3,12 @@ import { useRecoilValue } from 'recoil';
 import { useInView } from 'react-intersection-observer';
 
 import Tab from 'src/components/Tab';
-import { useInfiniteLoading } from 'src/hooks';
+import { useDebounce, useInfiniteLoading } from 'src/hooks';
 import { userState } from 'src/recoils';
 import { Search } from '../search';
 import { TabAll, TabCancel, TabComplete, TabProcessing, TabShipping } from '../tab';
+import { isEmpty } from 'lodash';
+import useMyInfiniteLoading from 'src/hooks/useMyInfiniteLoading';
 
 const TABS = [
   {
@@ -38,25 +40,41 @@ const TABS = [
 
 export default function Orders() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [page, setPage] = useState(0);
+  const [search, setSearch] = useState({
+    status: false,
+    value: '',
+  });
 
   const { user } = useRecoilValue(userState);
 
   const tabValue = TABS.find((_, index) => index === selectedIndex).value;
 
-  const { data, error, size, setSize, isLoadingMore, isReachingEnd } = useInfiniteLoading(
+  const debouncedValue = useDebounce(search.value, 600);
+
+  const { data, error, isLoadingMore, isReachingEnd } = useMyInfiniteLoading(
     [user._id],
-    { status: tabValue, limit: 2 },
+    {
+      status: tabValue,
+      limit: 2,
+      page,
+      search: debouncedValue,
+    },
+    search.status,
   );
-  console.log(isLoadingMore);
+
+  useEffect(() => {
+    setPage(0);
+  }, [debouncedValue]);
 
   const { ref, inView } = useInView({});
 
   useEffect(() => {
-    inView && setSize(size + 1);
-    // inView && console.log('loaded more');
+    if (inView) {
+      setPage((prev) => prev + 1);
+      search.status && setSearch((prev) => ({ ...prev, status: false }));
+    }
   }, [inView]);
-
-  console.log(data);
 
   return (
     <section className="mt-12">
@@ -65,15 +83,17 @@ export default function Orders() {
         onTabChange={setSelectedIndex}
         tabs={TABS}
         orders={data.orders}
-        // isLoadingMore={isLoadingMore}
+        isLoadingMore={isLoadingMore}
         wrapper="flex flex-col gap-8"
         tabList="flex justify-between mx-152-px bg-neutral-5"
         tab="flex justify-center w-[230px] py-2"
         tabSelected="subtitle-1 w-[230px] py-2 bg-primary-4 cursor-not-allowed"
       >
-        <Search />
+        <Search onSearch={setSearch} />
       </Tab>
-      {isLoadingMore && <div ref={ref} className="h-[2px]"></div>}
+      {!isReachingEnd && !isEmpty(data.orders) && (
+        <div ref={ref} className="h-[2px] bg-red-600"></div>
+      )}
     </section>
   );
 }
