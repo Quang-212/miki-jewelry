@@ -126,7 +126,7 @@ export default function OrderItem({ data, index }) {
         <div className="flex justify-end">
           <div className={mk('order-footer')}>
             {data.products.length > MIN_PRODUCTS_QUANTITY && (
-              <p className={mk('order-view')} onClick={() => handleViewAll(index)}>
+              <p className={mk('order-view', 'subtitle-1')} onClick={() => handleViewAll(index)}>
                 {!isViewAll.status
                   ? `Xem thêm ${leftProducts(data.products)} sản phẩm`
                   : `Ẩn bớt ${leftProducts(data.products)} sản phẩm`}

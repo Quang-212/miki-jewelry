@@ -11,7 +11,7 @@
 }
 
 .order-view {
-  @apply col-span-12 justify-self-end subtitle-1 cursor-pointer;
+  @apply col-span-12 justify-self-end cursor-pointer;
 }
 
 .order-total {
