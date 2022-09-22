@@ -6,9 +6,10 @@ import Tab from 'src/components/Tab';
 import { useDebounce, useInfiniteLoading } from 'src/hooks';
 import { userState } from 'src/recoils';
 import { Search } from '../search';
-import { TabAll, TabCancel, TabComplete, TabProcessing, TabShipping } from '../tab';
+import { TabAll, TabCanceled, TabCompleted, TabProcessing, TabShipping } from '../tab';
 import { isEmpty } from 'lodash';
 import useMyInfiniteLoading from 'src/hooks/useMyInfiniteLoading';
+import { formatReplaceString } from 'src/utils/formatString';
 
 const TABS = [
   {
@@ -29,12 +30,12 @@ const TABS = [
   {
     title: 'Đã hoàn thành',
     value: 'completed',
-    component: (props) => <TabComplete {...props} />,
+    component: (props) => <TabCompleted {...props} />,
   },
   {
     title: 'Đã hủy',
     value: 'canceled',
-    component: (props) => <TabCancel {...props} />,
+    component: (props) => <TabCanceled {...props} />,
   },
 ];
 
@@ -50,9 +51,9 @@ export default function Orders() {
 
   const tabValue = TABS.find((_, index) => index === selectedIndex).value;
 
-  const debouncedValue = useDebounce(search.value, 600);
+  const debouncedValue = useDebounce(formatReplaceString(search.value), 600);
 
-  const { data, error, isLoadingMore, isReachingEnd } = useMyInfiniteLoading(
+  const { data, isError, isLoadingMore, isReachingEnd } = useMyInfiniteLoading(
     [user._id],
     {
       status: tabValue,
@@ -76,6 +77,8 @@ export default function Orders() {
     }
   }, [inView]);
 
+  if (isError) return <h2>{isError}</h2>;
+
   return (
     <section className="mt-12">
       <Tab
@@ -89,11 +92,9 @@ export default function Orders() {
         tab="flex justify-center w-[230px] py-2"
         tabSelected="subtitle-1 w-[230px] py-2 bg-primary-4 cursor-not-allowed"
       >
-        <Search onSearch={setSearch} />
+        <Search searchValue={search.value} onSearch={setSearch} />
       </Tab>
-      {!isReachingEnd && !isEmpty(data.orders) && (
-        <div ref={ref} className="h-[2px] bg-red-600"></div>
-      )}
+      {!isReachingEnd && !isEmpty(data.orders) && <div ref={ref} className="h-[2px]"></div>}
     </section>
   );
 }

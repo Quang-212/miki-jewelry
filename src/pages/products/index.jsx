@@ -1,6 +1,6 @@
 import Page from 'src/components/Page';
 import Breadcrumb from 'src/components/Breadcrumb';
-import { Hero, Pagination, ProductsList, Sorting } from 'src/container/products';
+import { Hero, Pagination, ProductsList, Sorting } from 'src/container/products-list';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';

@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import { Calculation, CartDetail } from 'src/container/cart';
+import { Calculation, CartDetail } from 'src/container/cart-management';
 import { AuthGuard } from 'src/guard';
 import { useClientSide } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';

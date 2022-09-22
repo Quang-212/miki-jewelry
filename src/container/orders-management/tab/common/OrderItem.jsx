@@ -21,7 +21,6 @@ export default function OrderItem({ data, index }) {
     status: false,
     index: null,
   });
-
   const [isOpen, setIsOpen] = useState(false);
 
   const { user } = useRecoilValue(userState);
