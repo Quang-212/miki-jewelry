@@ -124,7 +124,7 @@ export function CardProduct({
         <CardTextTitle className="w-[272px] font-primary font-bold text-xl leading-7 text-primary text-center overflow-hidden text-ellipsis whitespace-nowrap">
           {name}
         </CardTextTitle>
-        <CardTextPrice className="font-primary font-bold text-xl leading-7 text-primary text-primary-2">
+        <CardTextPrice className="font-primary font-bold text-xl leading-7 text-primary-2">
           {formatVndCurrency(price)}
         </CardTextPrice>
       </CardTextWrapper>

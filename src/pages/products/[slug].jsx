@@ -2,7 +2,12 @@ import decode from 'jwt-decode';
 import Breadcrumb from 'src/components/Breadcrumb';
 import { StarDivider } from 'src/components/Dividers';
 import Page from 'src/components/Page';
-import { Images, MainInformation, MoreInformation, Suggestion } from 'src/container/product';
+import {
+  Images,
+  MainInformation,
+  MoreInformation,
+  Suggestion,
+} from 'src/container/product-details';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';

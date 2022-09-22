@@ -42,7 +42,7 @@ export default function useMyInfiniteLoading(params = [], query = {}, isSearch, 
 
   return {
     data: newData || null,
-    error,
+    isError: error,
     isLoadingMore: !data && !error,
     isReachingEnd: newData.page >= newData.pageCount - 1,
   };
