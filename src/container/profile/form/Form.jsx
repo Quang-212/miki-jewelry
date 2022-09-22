@@ -13,8 +13,10 @@ import { images } from 'src/constants';
 import { userState } from 'src/recoils';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { updateUser } from 'src/fetching/user';
-import { useEffect } from 'react';
-import { fTimestamp } from 'src/utils/formartTime';
+import { useEffect, useState } from 'react';
+import { fDefaultInputDate, fTimestamp } from 'src/utils/formartTime';
+import { isString } from 'lodash';
+import { deleteImage, uploadFile } from 'src/fetching/upload';
 
 const mk = classNames.bind(styles);
 
@@ -22,6 +24,7 @@ const schema = yup.object().shape({
   userName: yup.string().required('*Vui lòng nhập họ và tên'),
   birthday: yup.date(),
   gender: yup.string().required('*Vui lòng chọn giới tính'),
+  avatar: yup.mixed(),
   // phone: yup
   //   .string()
   //   .required('*Vui lòng nhập số điện thoại')
@@ -45,31 +48,69 @@ const schema = yup.object().shape({
 
 export default function Form() {
   const [{ user }, setUser] = useRecoilState(userState);
-
+  const [preview, setPreview] = useState('');
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      userName: user.userName,
-      email: user.email,
-      birthday: user.birthday,
+      userName: user.userName || '',
+      email: user.email || '',
       gender: user.gender || 'male',
-      phone: user.phone,
+      phone: user.phone || '',
+      avatar: user.profilePicture?.url || '',
+      birthday: user.birthday
+        ? fDefaultInputDate(user.birthday)
+        : fDefaultInputDate(new Date().getTime()),
     },
   });
 
-  console.log(Date());
-
-  const { handleSubmit, reset, setFocus, watch } = methods;
-
+  const { handleSubmit, watch } = methods;
   useEffect(() => {
-    console.log(watch('gender'));
-  }, [watch('gender')]);
-
+    const avatarValue = watch('avatar');
+    if (avatarValue && !isString(avatarValue)) {
+      setPreview(URL.createObjectURL(avatarValue[0]));
+    }
+    return () => {
+      URL.revokeObjectURL(preview);
+    };
+  }, [watch('avatar')]);
   const onSubmit = async (data) => {
+    const { avatar, ...rest } = data;
+    let profilePicture;
+    const uploadAvatar = async (avatarFromRHF) => {
+      const formData = new FormData();
+      formData.append('avatar', avatarFromRHF[0]);
+      const uploadAvatar = await uploadFile(formData);
+      return uploadAvatar.data.data;
+    };
     try {
+      if (!user.profilePicture && avatar && !isString(avatar)) {
+        profilePicture = await uploadAvatar(avatar);
+      }
+      if (isString(user.profilePicture?.url) && avatar && isString(avatar)) {
+        profilePicture = user.profilePicture;
+      }
+      if (isString(user.profilePicture?.url) && avatar && !isString(avatar)) {
+        profilePicture = (
+          await Promise.all([
+            uploadAvatar(avatar),
+            deleteImage({
+              images: [user.profilePicture.public_id],
+            }),
+          ])
+        )[0];
+      }
+
+      data = {
+        ...rest,
+        ...(avatar && { profilePicture }),
+      };
+
+      console.log(data);
+
       const res = await updateUser(data, {
         params: { userId: user._id },
       });
+
       console.log(res.data);
 
       setUser((prev) => ({
@@ -81,7 +122,6 @@ export default function Form() {
       console.log(error);
     }
   };
-
   return (
     <>
       <h2 className={mk('title')}>Cập nhật Hồ sơ</h2>
@@ -93,15 +133,17 @@ export default function Form() {
         <div className={mk('info-personal')}>
           <h5 className={mk('info-personal-title')}>Thông tin cá nhân</h5>
           <div className="row-span-2 flex items-start">
-            <Image
-              src={images.adminAvatar}
-              alt=""
-              width={110}
-              height={110}
-              className="rounded-full"
-            />
+            <label htmlFor="avatar">
+              <Image
+                src={preview || user.profilePicture?.url || images.adminAvatar}
+                alt=""
+                width={110}
+                height={110}
+                className="rounded-full"
+              />
+              <TextField name="avatar" id="avatar" type="file" hidden />
+            </label>
           </div>
-          {/* <TextField name="avatar" type="file" /> */}
           <strong>Họ và tên</strong>
           <TextField name="userName" wrapper="col-span-2" />
 
@@ -133,7 +175,7 @@ export default function Form() {
             <LockIcon />
             <strong>Đổi mật khẩu</strong>
           </span>
-          <TextField name="password" type="password" wrapper="col-span-3" />
+          {/* <TextField name="password" type="password" wrapper="col-span-3" /> */}
         </div>
         <Button primary wrapper={mk('btn-save')}>
           Lưu thay đổi

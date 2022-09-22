@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import { compare } from 'bcrypt';
 import { serialize } from 'cookie';
 import RefreshToken from 'src/models/RefreshToken';
 import User from 'src/models/User';
@@ -11,15 +11,14 @@ async function loginUser(req, res) {
   try {
     switch (method) {
       case 'POST':
-        //tìm kiếm email user có tồn tại trong data
         const emailUser = await User.findOne({ email: req.body.email }).lean();
         if (!emailUser)
           return res.status(404).json({
             message: 'Email không tồn tại',
             code: 404,
           });
-        //so sánh mật khẩu user nhập
-        const validateUser = await bcrypt.compare(req.body.password, emailUser.password);
+
+        const validateUser = await compare(req.body.password, emailUser.password);
 
         if (!validateUser)
           return res.status(401).json({

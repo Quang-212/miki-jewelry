@@ -3,6 +3,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import Avatar from 'src/components/Avatar';
 import { UserIcon } from 'src/components/Icons';
 import Menu from 'src/components/Popper/Menu';
+import { images } from 'src/constants';
 import { logoutForm } from 'src/fetching/auth';
 import { useClientSide, useRouter } from 'src/hooks';
 import { userState } from 'src/recoils';
@@ -40,7 +41,7 @@ export default function User() {
     >
       {isClient && isAuthenticated ? (
         <div className="flex items-center ml-8">
-          <Avatar name={user?.userName} imageUrl="" />
+          <Avatar name={user?.userName} imageUrl={user.profilePicture?.url || images.adminAvatar} />
         </div>
       ) : (
         <div>

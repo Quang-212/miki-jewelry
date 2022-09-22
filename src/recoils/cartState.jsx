@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isArray, isEmpty } from 'lodash';
 import { atom, selector, selectorFamily } from 'recoil';
 
 import persistAtom from 'src/utils/recoilPersist';
@@ -14,8 +14,9 @@ export const addToCartState = selector({
   get: ({ get }) => get(cartState),
   set: ({ get, set }, { data: currentCartItem }) => {
     const prevCart = get(cartState);
-
-    const existedProduct = prevCart.find((cartItem) => cartItem._id === currentCartItem._id);
+    const existedProduct = isArray(currentCartItem)
+      ? false
+      : prevCart.find((cartItem) => cartItem._id === currentCartItem._id);
 
     const updateCart = (currentCartItem) => {
       return prevCart.map((item) => (item._id === currentCartItem._id ? currentCartItem : item));
@@ -23,7 +24,7 @@ export const addToCartState = selector({
 
     return set(
       cartState,
-      existedProduct ? updateCart(currentCartItem) : [...prevCart, currentCartItem],
+      existedProduct ? updateCart(currentCartItem) : [...prevCart, currentCartItem].flat(1),
     );
   },
 });

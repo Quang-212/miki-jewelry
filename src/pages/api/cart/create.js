@@ -29,23 +29,30 @@ async function handlerAddCart(req, res) {
             data: { ...updatedCartItem, product: currentProduct },
           });
         }
-
-        const newCartItem = await Cart.create({
-          userId,
-          product,
-          size,
-          quantity,
-        });
+        const products =
+          Array.isArray(req.body) &&
+          (await Promise.all(req.body.map((item) => Product.findById(item.product).lean())));
+        console.log(products, req.body);
+        const newCartItem = !Array.isArray(req.body)
+          ? await Cart.create({
+              userId,
+              product,
+              size,
+              quantity,
+            })
+          : await Cart.insertMany(req.body);
 
         return res.status(200).json({
           message: 'Thêm vào giỏ hàng thành công',
           code: 200,
-          data: { ...newCartItem._doc, product: currentProduct },
+          data: Array.isArray(newCartItem)
+            ? newCartItem.map((item, index) => ({ ...item._doc, product: products[index] }))
+            : { ...newCartItem._doc, product: currentProduct },
         });
       default:
-        return res.status(404).json({
-          message: 'Không tìm thấy yêu cầu hợp lệ',
-          code: 404,
+        return res.status(400).json({
+          message: 'Yêu cầu không hợp lệ',
+          code: 400,
         });
     }
   } catch (error) {

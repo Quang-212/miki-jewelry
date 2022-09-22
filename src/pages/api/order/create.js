@@ -95,9 +95,9 @@ async function handleCreateOrder(req, res) {
         });
 
       default:
-        return res.status(404).json({
+        return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
-          code: 404,
+          code: 400,
         });
     }
   } catch (error) {

@@ -12,14 +12,14 @@ async function handlerDeleteImage(req, res) {
     switch (method) {
       case 'POST':
         const files = req.body.images;
-        await Promise.all(files.map((file) => cloudinary.uploader.destroy(file.public_id)));
+        await Promise.all(files.map((public_id) => cloudinary.uploader.destroy(public_id)));
         return res.status(200).json({
           message: 'Xóa ảnh thành công',
           code: 200,
         });
       default:
         return res.status(400).json({
-          message: 'Không tìm thấy yêu cầu hợp lệ',
+          message: 'Yêu cầu không hợp lệ',
           code: 400,
         });
     }

@@ -9,8 +9,10 @@ import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
 import styles from './Search.module.css';
-import { useDebounce, useProducts } from 'src/hooks';
+import { useDebounce, useProducts, useRouter } from 'src/hooks';
 import { formatReplaceString } from 'src/utils/formatString';
+import { PATH } from 'src/routes';
+import qs from 'qs';
 
 const mk = classNames.bind(styles);
 
@@ -20,7 +22,7 @@ export default function Search() {
   const [showResult, setShowResult] = useState(false);
 
   const inputRef = useRef();
-
+  const { push, pathname, query } = useRouter();
   const debouncedValue = useDebounce(formatReplaceString(searchValue), 600);
 
   const { productsState, isLoading, isError } = useProducts(
@@ -36,6 +38,34 @@ export default function Search() {
     {},
     true,
   );
+
+  useEffect(() => {
+    const handler = (event) => {
+      if (event.key === 'Enter') {
+        setShowResult(false);
+        if (debouncedValue && !pathname.includes('products')) {
+          return push(`${PATH.products}?search=${debouncedValue}`);
+        }
+        if (pathname.includes('products') && debouncedValue) {
+          console.log(query);
+          const queryString = qs.stringify({
+            ...query,
+            search: debouncedValue,
+          });
+          return push(`${PATH.products}?${queryString}`);
+        }
+        if (pathname.includes('products') && !debouncedValue) {
+          push(PATH.products);
+        }
+      }
+    };
+
+    inputRef.current.addEventListener('keydown', handler);
+
+    return () => {
+      inputRef.current?.removeEventListener('keydown', handler);
+    };
+  }, [debouncedValue, pathname, query]);
 
   useEffect(() => {
     if (!debouncedValue.trim()) {

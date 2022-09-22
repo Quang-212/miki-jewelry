@@ -43,6 +43,7 @@ export const getServerSideProps = async ({ query }) => {
     category: query.category,
     sortBy: query.sortBy,
     order: query.order,
+    search: query.search,
     select: {
       visibilityStatus: 0,
     },

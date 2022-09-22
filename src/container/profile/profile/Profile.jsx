@@ -8,6 +8,7 @@ import Dialog from 'src/components/Dialog';
 import { images } from 'src/constants';
 import { useClientSide } from 'src/hooks';
 import { userState } from 'src/recoils';
+import { fDate } from 'src/utils/formartTime';
 import Form from '../form';
 import { PERSONAL_INFORMATION, PHONE_SECURITY } from './profile-config';
 import styles from './Profile.module.css';
@@ -37,14 +38,14 @@ export default function Profile() {
               <figure className={mk('avatar-wrapper')}>
                 <Avatar
                   name="ngoc khoi"
-                  imageUrl={images.adminAvatar}
+                  imageUrl={user.profilePicture?.url || images.adminAvatar}
                   image="rounded-secondary"
                   width="120"
                   height="120"
                 />
-                <figcaption>
+                {/* <figcaption>
                   <strong>_ngockhoi96_</strong>
-                </figcaption>
+                </figcaption> */}
               </figure>
               <ul className={mk('info-personal-list-title')}>
                 {PERSONAL_INFORMATION.map((info, index) => (
@@ -56,7 +57,7 @@ export default function Profile() {
               <ul className={mk('info-personal-list-item')}>
                 <li>{user.userName}</li>
                 <li>{user.gender}</li>
-                <li>{user.birthday}</li>
+                <li>{fDate(user.birthday)}</li>
               </ul>
             </div>
           </div>
@@ -88,7 +89,7 @@ export default function Profile() {
         </Button>
       </div>
       <Dialog isOpen={isOpen} closeModal={handleCloseModal}>
-        <Form data={user} />
+        <Form />
       </Dialog>
     </section>
   );

@@ -1,6 +1,7 @@
 import { genSalt, hash } from 'bcrypt';
 import User from 'src/models/User';
 import UserPromotion from 'src/models/UserPromotion';
+import VerifyCode from 'src/models/VerifyCode';
 import dbConnect from 'src/utils/dbConnect';
 
 async function registerUser(req, res) {
@@ -10,7 +11,6 @@ async function registerUser(req, res) {
   try {
     switch (method) {
       case 'POST':
-        //kiểm tra user trong data
         const userExist = await User.findOne({
           email,
         });
@@ -20,15 +20,21 @@ async function registerUser(req, res) {
             code: 409,
           });
         }
-        //băm mật khẩu user
+        const validCode = await VerifyCode.findOne({ code, email }).exec();
+        if (!validCode) {
+          return res.status(403).json({
+            message: 'Code vừa nhập đã hết hạn hoặc bị sửa đổi',
+            code: 403,
+          });
+        }
         const salt = await genSalt(10);
         const hashPassword = await hash(password, salt);
-        // tạo user mới
         await User.create({
           userName,
           email,
           password: hashPassword,
         });
+
         //kiểm tra user đã đăng kí nhận khuyến mãi chưa?
         if (promotions) {
           // tìm emal nười dùng trong data
@@ -40,6 +46,7 @@ async function registerUser(req, res) {
             });
           }
         }
+
         return res.status(201).json({
           message: 'Chúc mừng bạn đã đăng ký thành công',
           code: 201,
