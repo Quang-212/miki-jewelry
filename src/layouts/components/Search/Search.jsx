@@ -23,6 +23,7 @@ export default function Search() {
 
   const inputRef = useRef();
   const { push, pathname, query } = useRouter();
+
   const debouncedValue = useDebounce(formatReplaceString(searchValue), 600);
 
   const { productsState, isLoading, isError } = useProducts(
@@ -43,9 +44,11 @@ export default function Search() {
     const handler = (event) => {
       if (event.key === 'Enter') {
         setShowResult(false);
+
         if (debouncedValue && !pathname.includes('products')) {
           return push(`${PATH.products}?search=${debouncedValue}`);
         }
+
         if (pathname.includes('products') && debouncedValue) {
           console.log(query);
           const queryString = qs.stringify({
@@ -54,12 +57,12 @@ export default function Search() {
           });
           return push(`${PATH.products}?${queryString}`);
         }
+
         if (pathname.includes('products') && !debouncedValue) {
           push(PATH.products);
         }
       }
     };
-
     inputRef.current.addEventListener('keydown', handler);
 
     return () => {
@@ -111,8 +114,6 @@ export default function Search() {
   if (isError) return <h2>{isError}</h2>;
 
   return (
-    // Using a wrapper <div> tag around the reference element
-    // solves this by creating a new parentNode context.
     <div>
       <HeadlessTippy
         visible={showResult && searchResult?.length > 0}

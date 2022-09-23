@@ -6,7 +6,8 @@ import {
   Images,
   MainInformation,
   MoreInformation,
-  Suggestion,
+  RelatedProducts,
+  ViewedProducts,
 } from 'src/container/product-details';
 import { getProducts } from 'src/fetching/products';
 import MainLayout from 'src/layouts/MainLayout';
@@ -15,8 +16,8 @@ import { PATH } from 'src/routes';
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product = {}, relatedProducts }) {
-  console.log(relatedProducts);
   const { name, category, description, slug, images } = product;
+
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':
@@ -63,8 +64,8 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
         </div>
         <MoreInformation />
         <StarDivider wrapper="mt-8" />
-        <div>Sản phẩm đã xem</div>
-        <Suggestion relatedProducts={relatedProducts} />
+        <ViewedProducts />
+        <RelatedProducts relatedProducts={relatedProducts} />
       </div>
     </>
   );
@@ -86,6 +87,7 @@ export const getServerSideProps = async ({ params, req }) => {
       sortBy: 'sold',
       order: -1,
     });
+
     return {
       props: {
         product: product.data.data || {},

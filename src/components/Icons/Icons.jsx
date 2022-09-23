@@ -238,13 +238,13 @@ export const UserIcon = ({ width = '28', height = '28', className }) => (
       cx="16"
       cy="9.33333"
       r="5.33333"
-      stroke="#33363F"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
     />
     <path
       d="M7.5292 22.9362C8.39099 20.1977 11.105 18.6667 13.9759 18.6667H18.0241C20.8949 18.6667 23.609 20.1977 24.4708 22.9362C24.8584 24.168 25.1852 25.5686 25.2944 27.0009C25.3364 27.5516 24.8856 28.0001 24.3333 28.0001H7.66665C7.11437 28.0001 6.6636 27.5516 6.70559 27.0009C6.81481 25.5686 7.14155 24.168 7.5292 22.9362Z"
-      stroke="#33363F"
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -540,10 +540,12 @@ export const KeyboardArrowIcon = ({ width = '11', height = '16', className }) =>
   </svg>
 );
 
-export const CheckIcon = () => (
+export const CheckIcon = ({ width = '24', height = '24', className }) => (
   <svg
+    width={width}
+    height={height}
     xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
+    className={className}
     viewBox="0 0 20 20"
     fill="currentColor"
   >

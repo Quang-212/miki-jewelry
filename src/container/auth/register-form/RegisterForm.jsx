@@ -13,33 +13,34 @@ import { images } from 'src/constants';
 import { registerForm } from 'src/fetching/auth';
 import { PATH } from 'src/routes';
 import styles from './RegisterForm.module.css';
+import { formatSearchString } from 'src/utils/formatString';
 
 const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  // firstName: yup.string().required('*Bắt buộc!'),
-  // lastName: yup.string().required('*Bắt buộc!'),
-  // email: yup
-  //   .string()
-  //   .required('*Vui lòng nhập địa chỉ email của bạn')
-  //   .matches(
-  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //     '*Vui lòng nhập đúng địa chỉ email của bạn',
-  //   ),
-  // password: yup
-  //   .string()
-  //   .trim()
-  //   .required('*Vui lòng nhập mật khẩu')
-  //   .matches(
-  //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-  //     '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
-  //   ),
-  // confirmPassword: yup
-  //   .string()
-  //   .trim()
-  //   .required('*Vui lòng nhập lại mật khẩu')
-  //   .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng'),
-  // terms: yup.boolean().oneOf([true], '*Bạn cần đọc và đồng ý với các điều khoản chính sách'),
+  firstName: yup.string().required('*Bắt buộc!'),
+  lastName: yup.string().required('*Bắt buộc!'),
+  email: yup
+    .string()
+    .required('*Vui lòng nhập địa chỉ email của bạn')
+    .matches(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      '*Vui lòng nhập đúng địa chỉ email của bạn',
+    ),
+  password: yup
+    .string()
+    .trim()
+    .required('*Vui lòng nhập mật khẩu')
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+      '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
+    ),
+  confirmPassword: yup
+    .string()
+    .trim()
+    .required('*Vui lòng nhập lại mật khẩu')
+    .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng'),
+  terms: yup.boolean().oneOf([true], '*Bạn cần đọc và đồng ý với các điều khoản chính sách'),
 });
 
 export default function RegisterFormSection() {
@@ -61,8 +62,11 @@ export default function RegisterFormSection() {
   const { handleSubmit, reset, setFocus } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data);
-    data = { ...data, userName: `${data.firstName} ${data.lastName}` };
+    data = {
+      ...data,
+      userName: `${data.firstName} ${data.lastName}`,
+      search: formatSearchString([data.firstName, data.lastName, data.email]),
+    };
 
     try {
       console.log(data);
@@ -82,7 +86,6 @@ export default function RegisterFormSection() {
             render({ data }) {
               return data.data.message;
             },
-            // other options
             icon: '😊',
           },
           error: {

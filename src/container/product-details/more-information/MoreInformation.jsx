@@ -1,5 +1,10 @@
+import classNames from 'classnames/bind';
+
 import Tab from 'src/components/Tab';
-import { TabComments, TabDescription, TabShipping, TabWarrantyReturn } from '../tab';
+import { TabReviews, TabDescription, TabShipping, TabWarrantyReturn } from '../tabs';
+import styles from './MoreInformation.module.css';
+
+const mk = classNames.bind(styles);
 
 export function MoreInformation() {
   const TABS = [
@@ -17,7 +22,7 @@ export function MoreInformation() {
     },
     {
       title: 'Đánh giá(02)',
-      component: (props) => <TabComments {...props} />,
+      component: (props) => <TabReviews {...props} />,
     },
   ];
 
@@ -25,10 +30,10 @@ export function MoreInformation() {
     <section className="mt-9">
       <Tab
         tabs={TABS}
-        wrapper="flex flex-col gap-12"
-        tabList="flex justify-between"
-        tab="font-primary font-bold text-xl leading-7 text-primary text-neutral-3"
-        tabSelected="font-primary font-bold text-xl leading-7 text-primary text-primary-1 underline decoration-[1.2px] underline-offset-8 decoration-primary-1 cursor-not-allowed"
+        wrapper={mk('tabs-wrapper')}
+        tabList={mk('tabs-list')}
+        tab={mk('tab')}
+        tabSelected={mk('tab-selected')}
       />
     </section>
   );

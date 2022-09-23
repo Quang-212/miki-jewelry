@@ -1,31 +1,33 @@
 import { useMemo } from 'react';
+import classNames from 'classnames/bind';
 
 import BasicTable from 'src/components/Tables/BasicTable';
-import { tableColumns, tableData } from './tab-config';
+import { tableColumns, tableData } from '../tab-config';
+import styles from './TabShipping.module.css';
 
-export function TabShipping() {
+const mk = classNames.bind(styles);
+
+export default function TabShipping() {
   const shippingData = useMemo(() => tableData, []);
 
   const shippingColumns = useMemo(() => tableColumns, []);
 
   return (
-    <div className="flex flex-col gap-4">
-      <h5 className="font-primary font-bold text-xl leading-7 text-primary">
-        Chính sách vận chuyển
-      </h5>
+    <div className={mk('tab-shipping')}>
+      <h5 className={mk('title')}>Chính sách vận chuyển</h5>
       <p>
         Với đối tác giao hàng uy tín, có mua bảo hiểm hàng hóa, thời gian giao hàng nhanh và đúng
         hẹn:
       </p>
-      <div className="flex justify-center mt-2">
+      <div className={mk('table-container')}>
         <BasicTable
           data={shippingData.find((data) => data.heading === 'shippingTerms').content}
           columns={shippingColumns.find((column) => column.heading === 'shippingTerms').content}
-          wrapper="w-[940px] text-left bg-neutral-5"
+          wrapper={mk('table-wrapper')}
         />
       </div>
-      <div className="flex flex-col mt-3">
-        <span className="text-caption-1">**** Chú ý</span>
+      <div className={mk('note-wrapper')}>
+        <span className={mk('note-title')}>**** Chú ý</span>
         <p>
           Với sản phẩm giảm giá khuyến mãi từ 20% trở lên khách hàng sẽ chịu hoàn toàn phí giao
           hàng.

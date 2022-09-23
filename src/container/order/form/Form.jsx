@@ -22,6 +22,7 @@ import { cartState } from 'src/recoils';
 import { userState } from 'src/recoils';
 import { useRecoilValue } from 'recoil';
 import { CloseIcon } from 'src/components/Icons';
+import { toast } from 'react-toastify';
 
 const mk = classNames.bind(styles);
 
@@ -133,30 +134,53 @@ export default function Form({ address, setAddress, chosenOrder }) {
     try {
       //cartInfo =>> existedCard !important
       const { newCard, savedCard, payment, number, expireTime, cvv, ...rest } = data;
-      const res = await createOrder({
-        order: {
-          ...rest,
-          paymentMethod: data.payment.join(''),
-          ...(data.payment.includes('newCard') && { newCard: data.newCard }),
-          ...(data.payment.includes('savedCard') && { cardInfo: 'cardId' }),
-          isPaid: !data.payment.includes('cash'),
-          user: user._id,
-          total,
-          search: formatSearchString(
-            [data.firstName, data.lastName, data.phone].concat(productNameSearch),
-          ),
-          products: chosenOrder.map((orderItem) => {
-            const { createdAt, updatedAt, _id, __v, userId, status, product, ...needCartIfo } =
-              orderItem;
-            return {
-              ...needCartIfo,
-              product: product._id,
-            };
-          }),
+      const res = await toast.promise(
+        createOrder({
+          order: {
+            ...rest,
+            paymentMethod: data.payment.join(''),
+            ...(data.payment.includes('newCard') && { newCard: data.newCard }),
+            ...(data.payment.includes('savedCard') && { cardInfo: 'cardId' }),
+            isPaid: !data.payment.includes('cash'),
+            user: user._id,
+            total,
+            search: formatSearchString(
+              [data.firstName, data.lastName, data.phone].concat(productNameSearch),
+            ),
+            products: chosenOrder.map((orderItem) => {
+              const { createdAt, updatedAt, _id, __v, userId, status, product, ...needCartIfo } =
+                orderItem;
+              return {
+                ...needCartIfo,
+                product: product._id,
+              };
+            }),
+          },
+          cartIds: chosenOrder.map((orderItem) => orderItem._id),
+        }),
+        {
+          pending: {
+            render() {
+              return 'Đang kết nối';
+            },
+            icon: '😇',
+          },
+          success: {
+            render({ data }) {
+              return data.data.message;
+            },
+            icon: '😍',
+          },
+          error: {
+            render({ data }) {
+              console.log(data);
+              return data.response?.data.message;
+            },
+            icon: '😵‍💫',
+          },
         },
-        cartIds: chosenOrder.map((orderItem) => orderItem._id),
-      });
-      // toast mess error 405
+        { autoClose: 4000 },
+      );
       console.log(res);
       handleAfterOrdered(cartIds);
     } catch (error) {

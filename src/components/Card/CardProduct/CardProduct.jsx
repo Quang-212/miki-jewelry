@@ -45,18 +45,41 @@ export function CardProduct({
       )?.quantity || 0;
 
     if (1 + targetProductQuantity > generateProperty(product, 'quantity')) {
-      return toast('Số lượng vượt quá hiện có, check giỏ hàng hoặc chi tiết sản phẩm', {
+      return toast('Số lượng vượt quá hiện có, kiểm tra giỏ hàng hoặc chi tiết sản phẩm', {
         type: 'info',
       });
     }
 
     try {
-      const res = await addToCart({
-        userId: user._id,
-        product: product._id,
-        size: generateProperty(product, 'size'),
-      });
-
+      const res = await toast.promise(
+        addToCart({
+          userId: user._id,
+          product: product._id,
+          size: generateProperty(product, 'size'),
+        }),
+        {
+          pending: {
+            render() {
+              return 'Đang kết nối';
+            },
+            icon: '😇',
+          },
+          success: {
+            render({ data }) {
+              return data.data.message;
+            },
+            icon: '😍',
+          },
+          error: {
+            render({ data }) {
+              console.log(data);
+              return data.response?.data.message;
+            },
+            icon: '😵‍💫',
+          },
+        },
+        { autoClose: 4000 },
+      );
       setAddToCart(res.data);
     } catch (error) {
       console.log(error);

@@ -79,6 +79,13 @@ export default function Form() {
             >
               Thay đổi mật khẩu
             </h5>
+            <TextField
+              name="email"
+              value="ngockhoi"
+              disabled
+              wrapper="mt-8"
+              input="text-neutral-3"
+            />
             <OtpField />
             <TextField
               name="password"

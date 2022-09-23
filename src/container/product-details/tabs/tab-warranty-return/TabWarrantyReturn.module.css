@@ -1,0 +1,3 @@
+.tab-warranty-return {
+  @apply flex flex-col gap-8;
+}

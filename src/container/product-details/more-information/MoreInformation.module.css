@@ -1,0 +1,16 @@
+.tabs-wrapper {
+  @apply flex flex-col gap-12;
+}
+
+.tabs-list {
+  @apply flex justify-between;
+}
+
+.tab {
+  @apply font-primary font-bold text-xl leading-7 text-neutral-3;
+}
+
+.tab-selected {
+  @apply font-primary font-bold text-xl leading-7 text-primary-1 
+  underline decoration-[1.2px] underline-offset-8 decoration-primary-1 cursor-not-allowed;
+}

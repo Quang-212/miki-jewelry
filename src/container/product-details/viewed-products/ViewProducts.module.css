@@ -1,0 +1,11 @@
+.viewed-products {
+  @apply flex flex-col gap-72-px;
+}
+
+.title {
+  @apply font-primary font-bold text-32-px leading-10 text-primary;
+}
+
+.product-list {
+  @apply flex justify-between;
+}

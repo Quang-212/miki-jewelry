@@ -11,7 +11,7 @@
 }
 
 .name {
-  @apply font-primary font-bold text-xl leading-6 text-primary;
+  /* @apply font-primary font-bold text-xl leading-6 text-primary; */
 }
 
 .sub-info {
@@ -19,5 +19,5 @@
 }
 
 .price {
-  /* @apply text-sm; */
+  @apply text-sm font-semibold;
 }

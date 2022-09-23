@@ -7,7 +7,7 @@ const mk = classNames.bind(styles);
 
 import Image from 'src/components/Image';
 
-export function Images({ images, name }) {
+export default function Images({ images, name }) {
   const [mainImage, setMainImage] = useState(images.find((image) => image.type === 'primary').url);
 
   return (

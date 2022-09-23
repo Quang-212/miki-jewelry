@@ -1,15 +1,19 @@
 import { useMemo } from 'react';
+import classNames from 'classnames/bind';
 
 import BasicTable from 'src/components/Tables/BasicTable';
-import { tableColumns, tableData, notes } from './tab-config';
+import { tableColumns, tableData, notes } from '../tab-config';
+import styles from './TabWarrantyReturn.module.css';
 
-export function TabWarrantyReturn() {
+const mk = classNames.bind(styles);
+
+export default function TabWarrantyReturn() {
   const warrantyReturnData = useMemo(() => tableData, []);
 
   const warrantyReturnColumns = useMemo(() => tableColumns, []);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className={mk('tab-warranty-return')}>
       <div className="flex justify-between">
         <div className="flex flex-col gap-3">
           <h5 className="font-primary font-bold text-xl leading-7 text-primary">

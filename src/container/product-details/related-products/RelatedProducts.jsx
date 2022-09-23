@@ -1,19 +1,21 @@
+import classNames from 'classnames/bind';
+
 import { CardProduct } from 'src/components/Card';
 import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
+import styles from './RelatedProducts.module.css';
 
-export function Suggestion({ relatedProducts = [] }) {
+const mk = classNames.bind(styles);
+
+export default function RelatedProducts({ relatedProducts = [] }) {
   const { push } = useRouter();
+
   const handleClick = (slug) => push(PATH.PRODUCT_DETAIL(slug));
 
   return (
-    <section className="flex flex-col gap-72-px">
-      <div className="relative z-10 flex justify-between">
-        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
-          Có thể bạn cũng thích
-        </h2>
-      </div>
-      <ul className="flex justify-between">
+    <section className={mk('related-products')}>
+      <h2 className={mk('title')}>Có thể bạn cũng thích</h2>
+      <ul className={mk('products-list')}>
         {relatedProducts.map((product, index) => (
           <li key={index}>
             <CardProduct

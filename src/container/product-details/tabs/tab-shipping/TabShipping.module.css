@@ -1,0 +1,23 @@
+.tab-shipping {
+  @apply flex flex-col gap-4;
+}
+
+.title {
+  @apply font-primary font-bold text-xl leading-7 text-primary;
+}
+
+.table-container {
+  @apply flex justify-center mt-2;
+}
+
+.table-wrapper {
+  @apply w-[940px] text-left bg-neutral-5;
+}
+
+.note-wrapper {
+  @apply flex flex-col mt-3;
+}
+
+.note-title {
+  @apply text-caption-1;
+}

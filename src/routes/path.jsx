@@ -8,6 +8,7 @@ export const PATH = {
   RECRUITMENT: '/about/recruitment',
 
   register: '/auth/register',
+  VERIFY_EMAIL: '/auth/verify-email',
   login: '/auth/login',
   resetPassword: '/auth/reset-password',
   newPassword: '/auth/new-password',

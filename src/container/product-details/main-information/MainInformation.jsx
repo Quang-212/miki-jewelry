@@ -11,7 +11,7 @@ import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
-export function MainInformation({ product }) {
+export default function MainInformation({ product }) {
   const {
     _id,
     name,
@@ -113,6 +113,7 @@ export function MainInformation({ product }) {
       fallback: fallback - 1,
     }));
   };
+
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
       return push(PATH.login);
@@ -125,7 +126,7 @@ export function MainInformation({ product }) {
       )?.quantity || 0;
 
     if (fallback + targetProductQuantity > generateProperty(sizeChecked, 'quantity')) {
-      return toast('SL quá lớn, kiểm tra giỏ hàng hoặc số lượng còn lại', {
+      return toast('Số lượng quá lớn, kiểm tra giỏ hàng hoặc số lượng còn lại', {
         type: 'info',
       });
     }
@@ -166,6 +167,10 @@ export function MainInformation({ product }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleBuyNow = () => {
+    console.log('buy now');
   };
 
   return (
@@ -289,14 +294,16 @@ export function MainInformation({ product }) {
         </span>
       </div>
       {isOutOfStock(+quantity) && (
-        <span>Bạn chỉ có thể mua tối đa {generateProperty(sizeChecked, 'quantity')} sản phẩm</span>
+        <span className="caption text-caption-1">
+          Bạn chỉ có thể mua tối đa {generateProperty(sizeChecked, 'quantity')} sản phẩm!
+        </span>
       )}
 
       <div className="flex justify-between gap-10 mt-4">
-        <Button outline wrapper="w-2/4" onClick={handleAddToCart}>
+        <Button outline onClick={handleAddToCart} wrapper="w-2/4">
           Thêm vào giỏ hàng
         </Button>
-        <Button primary wrapper="w-2/4">
+        <Button primary onClick={handleBuyNow} wrapper="w-2/4">
           Mua ngay
         </Button>
       </div>
