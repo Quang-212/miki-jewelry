@@ -15,5 +15,5 @@
 }
 
 .content {
-  @apply w-full max-w-[1136px] transform overflow-hidden rounded-secondary bg-wrapper pt-4 pb-12 text-left align-middle shadow-xl transition-all;
+  @apply w-full max-w-[1136px] transform overflow-hidden rounded-secondary bg-neutral-5 pt-4 pb-12 text-left align-middle shadow-xl transition-all;
 }

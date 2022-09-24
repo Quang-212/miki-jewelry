@@ -39,7 +39,7 @@ const TABS = [
   },
 ];
 
-export default function Orders() {
+export default function OrdersList() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState({
@@ -80,7 +80,7 @@ export default function Orders() {
   if (isError) return <h2>{isError}</h2>;
 
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       <Tab
         selectedIndex={selectedIndex}
         onTabChange={setSelectedIndex}
@@ -88,7 +88,7 @@ export default function Orders() {
         orders={data.orders}
         isLoadingMore={isLoadingMore}
         wrapper="flex flex-col gap-8"
-        tabList="flex justify-between mx-152-px bg-neutral-5"
+        tabList="flex justify-between bg-neutral-5"
         tab="flex justify-center w-[230px] py-2"
         tabSelected="subtitle-1 w-[230px] py-2 bg-primary-4 cursor-not-allowed"
       >

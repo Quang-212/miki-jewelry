@@ -3,27 +3,23 @@
 }
 
 .info-wrapper {
-  @apply flex justify-between;
+  @apply flex justify-between gap-2;
 }
 
 .info-personal {
-  @apply flex flex-col gap-11;
+  @apply flex flex-col gap-11 w-6/12;
 }
 
 .info-personal-wrapper {
-  @apply flex justify-between gap-10 ml-20;
+  @apply grid grid-cols-12 gap-y-4 gap-x-6;
 }
 
 .avatar-wrapper {
-  @apply flex flex-col justify-center items-center gap-2;
+  @apply col-span-3 row-span-2 flex items-start;
 }
 
-.info-personal-list-title {
-  @apply flex flex-col items-end gap-12;
-}
-
-.info-personal-list-item {
-  @apply flex flex-col gap-12;
+.info-others {
+  @apply flex flex-col gap-11;
 }
 
 .btn-container {

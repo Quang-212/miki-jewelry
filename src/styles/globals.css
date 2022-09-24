@@ -56,7 +56,11 @@
 
 @layer base {
   input {
-    @apply caret-primary-1 focus-within:border-primary-1 focus-within:border-2 outline-none;
+    @apply caret-primary-1 focus-within:border-primary-1 focus-within:border-2;
+  }
+  textarea {
+    @apply py-3 px-4 caret-primary-1 rounded-primary border-2 border-neutral-4 
+    outline-none focus:border-primary-1 focus:border-2;
   }
 }
 

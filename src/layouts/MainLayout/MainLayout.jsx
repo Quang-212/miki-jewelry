@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import BrandLogo from 'src/components/BrandLogo';
 import Copyright from 'src/components/Copyright';
 import { NAVBAR } from 'src/config';
+import { Banner } from 'src/container/profile';
 import { useCollapseDrawer } from 'src/hooks';
 import { Footer, Header, Sidebar, SubHeader } from '../components';
 import styles from './MainLayout.module.css';
@@ -37,6 +38,21 @@ export default function MainLayout({ variant, children }) {
           <main className={mk('main-admin')} style={mainStyle}>
             {children}
           </main>
+        </div>
+      );
+
+    case 'user':
+      return (
+        <div className={mk('wrapper', 'default')}>
+          <Header />
+          <main className="grid grid-cols-12 gap-10">
+            <div className="col-span-12">
+              <Banner />
+            </div>
+            <div className="col-span-2">Sidebar</div>
+            <div className="col-span-10 flex flex-col gap-10">{children}</div>
+          </main>
+          <Footer />
         </div>
       );
 

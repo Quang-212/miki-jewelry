@@ -540,7 +540,7 @@ export const KeyboardArrowIcon = ({ width = '11', height = '16', className }) =>
   </svg>
 );
 
-export const CheckIcon = ({ width = '24', height = '24', className }) => (
+export const CheckIcon = ({ width = '20', height = '20', className }) => (
   <svg
     width={width}
     height={height}
@@ -1154,6 +1154,48 @@ export const LockIcon = ({ width = '28', height = '28', className }) => (
       fill="none"
       stroke="currentColor"
       d="M12.5 8.5v-1a1 1 0 0 0-1-1h-10a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1m0-4h-4a2 2 0 1 0 0 4h4m0-4a2 2 0 1 1 0 4m-9-6v-3a3 3 0 0 1 6 0v3m2.5 4h1m-3 0h1m-3 0h1"
+    />
+  </svg>
+);
+
+export const UploadImageIcon = ({ width = '24', height = '24', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 4V16H8V4H20ZM20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM11.5 11.67L13.19 13.93L15.67 10.83L19 15H9L11.5 11.67ZM2 6V20C2 21.1 2.9 22 4 22H18V20H4V6H2Z"
+      fill="currentColor"
+    />
+    <path
+      d="M20 4V16H8V4H20ZM20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM11.5 11.67L13.19 13.93L15.67 10.83L19 15H9L11.5 11.67ZM2 6V20C2 21.1 2.9 22 4 22H18V20H4V6H2Z"
+      fill="currentColor"
+      fillOpacity="0.2"
+    />
+  </svg>
+);
+
+export const RatingStarIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16 25.7179L25.888 32L23.264 20.16L32 12.1937L20.496 11.1663L16 0L11.504 11.1663L0 12.1937L8.736 20.16L6.112 32L16 25.7179Z"
+      fill="currentColor"
+    />
+    <path
+      d="M16 25.7179L25.888 32L23.264 20.16L32 12.1937L20.496 11.1663L16 0L11.504 11.1663L0 12.1937L8.736 20.16L6.112 32L16 25.7179Z"
+      fill="currentColor"
+      fillOpacity="0.2"
     />
   </svg>
 );

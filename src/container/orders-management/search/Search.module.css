@@ -6,7 +6,7 @@
   content: '';
   position: absolute;
   top: 8px;
-  right: 320px;
+  right: 168px;
   width: 1px;
   height: 24px;
   background-color: rgba(22, 24, 35, 0.12);
@@ -22,13 +22,13 @@ input:not(:placeholder-shown) ~ .search-btn {
 }
 
 .search-btn {
-  @apply absolute h-full left-[166px];
+  @apply absolute h-full left-[14px];
 }
 
 .clear {
-  @apply absolute right-[344px] translate-y-2/4 text-icon-rgba;
+  @apply absolute right-[192px] translate-y-2/4 text-icon-rgba;
 }
 
 .search-text {
-  @apply absolute h-full w-32 right-[166px] text-primary-1 hover:opacity-80;
+  @apply absolute h-full w-32 right-[14px] text-primary-1 hover:opacity-80;
 }

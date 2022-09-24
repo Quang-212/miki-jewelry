@@ -1,36 +1,57 @@
 import { useState } from 'react';
+
 import Button from 'src/components/Button';
 import { CheckIcon } from 'src/components/Icons';
 import { TABS_FILTER } from '../tab-config';
-import TabFilter from './TabFilter';
+import ModalLeaving from './ModalLeaving';
+import ModalReview from './ModalReview';
+import ReviewItem from './ReviewItem';
 
 export default function TabReviews() {
-  const [active, setActive] = useState(0);
+  const [activeTab, setActiveTab] = useState(['all']);
+  const [isOpen, setIsOpen] = useState({
+    review: false,
+    leaving: false,
+  });
+
+  const handleClickTab = (value) => {
+    setActiveTab((prev) => {
+      return prev.includes(value) ? prev.filter((tab) => tab !== value) : [...prev, value];
+    });
+  };
+
+  const handleOpenModalReview = () => {
+    return setIsOpen((prev) => ({ ...prev, review: true }));
+  };
 
   return (
-    <div className="grid grid-cols-12 gap-x-14">
+    <div className="grid grid-cols-12 gap-y-6 gap-x-14 mt-12">
       <div className="col-span-3 flex flex-col gap-4">
         <h5 className="heading-5">Đánh giá sản phẩm</h5>
         <div className="flex items-center gap-2">
           <div>* * * * *</div>
           <strong>5.0 Sao</strong>
         </div>
-        <Button outline>Viết đánh giá</Button>
+        <Button outline onClick={handleOpenModalReview}>
+          Viết đánh giá
+        </Button>
       </div>
-      <ul className="col-span-9 flex flex-wrap gap-y-4 gap-x-6">
+      <ul className="col-span-9 flex flex-wrap gap-y-4 gap-x-5">
         {TABS_FILTER.map((item, index) => {
-          const activeTab = active === index;
+          const selectedTab = activeTab.includes(item.value);
           return (
             <li key={index}>
               <Button
-                leftIcon={activeTab && <CheckIcon className={activeTab ? 'fill-primary-1' : ''} />}
-                onClick={() => setActive(index)}
+                leftIcon={
+                  selectedTab && <CheckIcon className={selectedTab ? 'fill-primary-1' : ''} />
+                }
+                onClick={() => handleClickTab(item.value)}
                 wrapper={
-                  activeTab
+                  selectedTab
                     ? 'justify-center py-[7px] px-6 rounded-primary border-2 border-primary-1'
                     : 'justify-center py-[7px] px-6 rounded-primary border-2 border-neutral-3'
                 }
-                title={activeTab ? 'text-primary-1' : 'text-neutral-3'}
+                title={selectedTab ? 'text-primary-1 ml-0' : 'text-neutral-3 ml-0'}
               >
                 {item.title}
               </Button>
@@ -38,9 +59,17 @@ export default function TabReviews() {
           );
         })}
       </ul>
-      <ul className="col-span-12 flex flex-col">
-        <li></li>
+      <ul className="col-span-12 flex flex-col gap-9">
+        <li>
+          <ReviewItem />
+        </li>
+        <li>
+          <ReviewItem />
+        </li>
       </ul>
+
+      <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />
+      <ModalLeaving isOpen={isOpen.leaving} setIsOpen={setIsOpen} />
     </div>
   );
 }

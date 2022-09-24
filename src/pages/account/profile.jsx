@@ -6,7 +6,7 @@ import { Banner, ProfileInformation, RecommendedProducts } from 'src/container/p
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
-Profile.getLayout = (page) => <MainLayout>{page}</MainLayout>;
+Profile.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
 
 export default function Profile() {
   const breadcrumbs = [
@@ -24,15 +24,15 @@ export default function Profile() {
           thumbnailUrl: images.accountProfileBanner,
         }}
       />
-      <Banner />
-      <div className="container mt-10 flex flex-col gap-10">
-        <Breadcrumb breadcrumbs={breadcrumbs} />
-        <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
-          Thông tin khách hàng
-        </h2>
-        <ProfileInformation />
-        <RecommendedProducts />
-      </div>
+      {/* <Banner /> */}
+      {/* <div className="container mt-10 flex flex-col gap-10"> */}
+      <Breadcrumb breadcrumbs={breadcrumbs} />
+      <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
+        Thông tin khách hàng
+      </h2>
+      <ProfileInformation />
+      <RecommendedProducts />
+      {/* </div> */}
     </>
   );
 }

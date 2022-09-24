@@ -1,5 +1,5 @@
 .articles {
-  @apply container mt-[88px];
+  @apply mt-[88px];
 }
 
 .article-list {

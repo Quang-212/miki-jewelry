@@ -8,7 +8,7 @@ const mk = classNames.bind(styles);
 
 export default function Articles() {
   return (
-    <section className={mk('articles')}>
+    <section className={mk('articles', 'container')}>
       <ul className={mk('article-list')}>
         {articles.map((article, index) => (
           <li key={index}>

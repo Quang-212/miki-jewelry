@@ -91,26 +91,38 @@ export const tableColumns = [
 export const TABS_FILTER = [
   {
     title: 'Tất cả',
+    value: 'all',
   },
   {
     title: '5 Sao (2)',
+    value: 'five',
   },
   {
     title: '4 Sao (0)',
+    value: 'four',
+  },
+  {
+    title: '3 Sao (0)',
+    value: 'three',
   },
   {
     title: '2 Sao (0)',
+    value: 'two',
   },
   {
     title: '1 Sao (0)',
+    value: 'one',
   },
   {
     title: 'Mới nhất',
+    value: 'newest',
   },
   {
     title: 'Có bình luận (0)',
+    value: 'comments',
   },
   {
     title: 'Có hình ảnh/ video (0)',
+    value: 'image-video',
   },
 ];

@@ -26,7 +26,7 @@ export default function Search({ searchValue, onSearch }) {
   };
 
   return (
-    <div className={mk('search', 'container')}>
+    <div className={mk('search')}>
       <input
         ref={inputRef}
         value={searchValue}

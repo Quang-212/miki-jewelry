@@ -7,7 +7,7 @@ const mk = classNames.bind(styles);
 
 export default function TabProcessing({ orders }) {
   return (
-    <ul className={mk('tab-all')}>
+    <ul className={mk('tab-processing')}>
       {orders?.map((order, index) => (
         <li key={order._id}>
           <OrderItem data={order} index={index} />

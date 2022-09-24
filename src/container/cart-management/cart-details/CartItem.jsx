@@ -252,6 +252,7 @@ export default function CartItem({ data, orders, onCheck }) {
         </Tippy>
         <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
+
       <ModalQuantity
         availableQuantity={generateAvailableQuantity(sizeChecked)}
         confirm={confirm}

@@ -11,7 +11,7 @@ import CartItem from './CartItem';
 
 const mk = classNames.bind(styles);
 
-export default function Cart({ setChecked, checked }) {
+export default function CartDetails({ setChecked, checked }) {
   const cart = useRecoilValue(cartState);
 
   const isClient = useClientSide();

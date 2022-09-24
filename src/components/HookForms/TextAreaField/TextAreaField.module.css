@@ -1,0 +1,7 @@
+.textarea {
+  /* @apply w-full h-12 py-3 px-4 outline-none rounded-primary border border-primary-1; */
+}
+
+.caption {
+  @apply block h-6 ml-1 text-caption-1 text-sm leading-5;
+}
