@@ -7,7 +7,7 @@
 }
 
 .cart-item {
-  @apply grid grid-cols-3 content-between px-4;
+  @apply grid grid-cols-12;
 }
 
 .image {
@@ -22,10 +22,10 @@
   /* @apply caption text-[#707070]; */
 }
 
-.col-3 {
-  @apply flex flex-col justify-between items-end;
+.delete-item {
+  @apply col-span-1 flex flex-col justify-between items-end;
 }
 
 .price {
-  @apply font-primary font-bold text-2xl leading-8 text-primary text-primary-2;
+  @apply col-span-4 justify-self-end font-primary font-bold text-2xl leading-8 text-primary-2;
 }

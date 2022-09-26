@@ -16,6 +16,8 @@ export default function CartDetails({ setChecked, checked }) {
 
   const isClient = useClientSide();
 
+  const totalProducts = cart.length;
+
   const handleCheckBox = (_id) => {
     setChecked((prev) => {
       const { orders } = prev;
@@ -28,7 +30,7 @@ export default function CartDetails({ setChecked, checked }) {
   const handleCheckAll = () => {
     setChecked((prev) => ({
       ...prev,
-      orders: checked.orders.length !== cart.length ? cart.map((item) => item._id) : [],
+      orders: checked.orders.length !== totalProducts ? cart.map((item) => item._id) : [],
     }));
   };
 
@@ -39,6 +41,18 @@ export default function CartDetails({ setChecked, checked }) {
           <h3 className={mk('font-primary font-semibold text-2xl leading-8 text-primary')}>
             Giỏ hàng
           </h3>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id="all"
+              checked={checked.orders.length === totalProducts}
+              onChange={handleCheckAll}
+              className="w-6 h-6"
+            />
+            <label htmlFor="all" className="text-lg">
+              Chọn tất cả ({totalProducts} sản phẩm)
+            </label>
+          </div>
+          <NormalDivider />
           <ul className={mk('cart-list')}>
             {cart.map((cartItem) => (
               <Fragment key={cartItem._id}>
@@ -49,11 +63,6 @@ export default function CartDetails({ setChecked, checked }) {
               </Fragment>
             ))}
           </ul>
-          <Checkbox
-            checked={checked.orders.length === cart.length}
-            onChange={handleCheckAll}
-            className="w-8 h-8"
-          />
         </section>
       )}
     </>

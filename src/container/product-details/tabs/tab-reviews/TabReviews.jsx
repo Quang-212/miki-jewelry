@@ -21,7 +21,7 @@ export default function TabReviews() {
   };
 
   const handleOpenModalReview = () => {
-    return setIsOpen((prev) => ({ ...prev, review: true }));
+    return setIsOpen((prev) => ({ ...prev, review: true, leaving: false }));
   };
 
   return (

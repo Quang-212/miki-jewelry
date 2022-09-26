@@ -43,7 +43,7 @@ export default function User() {
           <Avatar name={user?.userName} imageUrl={user.profilePicture?.url} />
         </div>
       ) : (
-        <div>
+        <div className="ml-8">
           <UserIcon />
         </div>
       )}

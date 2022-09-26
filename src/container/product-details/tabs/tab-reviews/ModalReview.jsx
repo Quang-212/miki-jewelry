@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,6 +13,7 @@ const TOTAL_STARS = 5;
 
 const schema = yup.object().shape({
   // comment:
+  rating: yup.number().typeError('qwerty').min(1, 'asdfg'),
 });
 
 export default function ModalReview({ isOpen, setIsOpen }) {
@@ -30,7 +31,15 @@ export default function ModalReview({ isOpen, setIsOpen }) {
     },
   });
 
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = methods;
+
+  useEffect(() => {
+    setValue('rating', rating);
+  }, [rating]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -49,6 +58,7 @@ export default function ModalReview({ isOpen, setIsOpen }) {
           onRating={(prev) => setRating(prev)}
           color={{ filled: 'text-active-star', unfilled: 'text-[#E9E9E9]' }}
         />
+        <span>{errors?.rating?.message}</span>
         <strong className="col-span-6 mt-2">Bình luận*</strong>
         <small className="col-span-6 justify-self-end">Ký tự còn lại 250</small>
         <FormProvider

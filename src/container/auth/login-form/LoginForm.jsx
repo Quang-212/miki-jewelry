@@ -70,24 +70,22 @@ export default function LoginFormSection() {
             render() {
               return 'Đang kết nối';
             },
-            icon: false,
+            icon: '😇',
           },
           success: {
             render({ data }) {
               return data.data.message;
             },
-            // other options
-            icon: '😊',
+            icon: '😍',
           },
           error: {
             render({ data }) {
-              console.log(data);
-              // When the promise reject, data will contains the error
               return data.response?.data.message;
             },
+            icon: '😵‍💫',
           },
         },
-        { autoClose: 10000 },
+        { autoClose: 4000 },
       );
       console.log(res);
 
@@ -133,9 +131,14 @@ export default function LoginFormSection() {
               Đăng nhập
             </h5>
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
-            <TextField name="password" type="password" placeholder="Mật khẩu" />
+            <TextField name="password" password placeholder="Mật khẩu" />
 
-            <Button text internalLink={PATH.forgotPassword} wrapper="mt-5 xs:mt-0" title="caption">
+            <Button
+              text
+              internalLink={PATH.forgotPassword}
+              wrapper="mt-5 xs:mt-0"
+              title="caption hover:underline underline-offset-4"
+            >
               Quên mật khẩu ?
             </Button>
             <Button primary wrapper="w-full mt-8">

@@ -49,11 +49,11 @@ export default function RegisterFormSection() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: '1234',
-      lastName: '1234',
-      email: 'nk@gmail.com',
-      password: '123',
-      confirmPassword: '123',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       promotions: false,
       terms: false,
     },
@@ -69,7 +69,6 @@ export default function RegisterFormSection() {
     };
 
     try {
-      console.log(data);
       setFocus('firstName');
       reset();
 
@@ -80,24 +79,23 @@ export default function RegisterFormSection() {
             render() {
               return 'Đang kết nối';
             },
-            icon: false,
+            icon: '😇',
           },
           success: {
             render({ data }) {
               return data.data.message;
             },
-            icon: '😊',
+            icon: '😍',
           },
           error: {
             render({ data }) {
-              // When the promise reject, data will contains the error
-              return data.response.data.message;
+              return data.response?.data.message;
             },
+            icon: '😵‍💫',
           },
         },
-        { autoClose: 10000 },
+        { autoClose: 4000 },
       );
-      console.log(res);
       replace(PATH.login);
     } catch (error) {
       console.log(error);
@@ -127,10 +125,10 @@ export default function RegisterFormSection() {
               <TextField name="lastName" placeholder="Tên" input="w-full" />
             </div>
             <TextField name="email" placeholder="Địa chỉ email" />
-            <TextField name="password" type="password" placeholder="Mật khẩu" />
+            <TextField name="password" password placeholder="Mật khẩu" />
             <TextField
               name="confirmPassword"
-              type="password"
+              password
               placeholder="Nhập lại mật khẩu"
               wrapper="mt-4"
             />

@@ -1,5 +1,17 @@
+.root {
+  @apply relative;
+}
+
+.label {
+  /* @apply mb-2; */
+}
+
 .input {
-  @apply w-full h-12 py-3 px-4 outline-none rounded-primary border border-primary-1;
+  @apply w-full h-12 py-3 pl-4 pr-14 outline-none rounded-primary border border-primary-1;
+}
+
+.view-icon {
+  @apply absolute top-3 right-4;
 }
 
 .caption {
