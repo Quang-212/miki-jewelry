@@ -135,7 +135,13 @@ export default function LoginFormSection() {
             <TextField name="email" placeholder="Địa chỉ email" wrapper="mt-8" />
             <TextField name="password" type="password" placeholder="Mật khẩu" />
 
-            <Button text internalLink={PATH.forgotPassword} wrapper="mt-5 xs:mt-0" title="caption">
+            <Button
+              type="button"
+              text
+              internalLink={PATH.resetPassword}
+              wrapper="mt-5 xs:mt-0"
+              title="caption"
+            >
               Quên mật khẩu ?
             </Button>
             <Button primary wrapper="w-full mt-8">

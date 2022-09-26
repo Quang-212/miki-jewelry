@@ -8,7 +8,7 @@ export default function VerifyEmail() {
     <>
       <Page
         data={{
-          title: 'Khôi phục mật khẩu',
+          title: 'Xác thực',
           description: '',
           url: PATH.resetPassword,
           thumbnailUrl: '',

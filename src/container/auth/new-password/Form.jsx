@@ -10,6 +10,12 @@ import Image from 'src/components/Image';
 import OtpField from 'src/components/OtpField';
 import { images } from 'src/constants';
 import styles from './Form.module.css';
+import { useRouter } from 'src/hooks';
+import { useEffect, useState } from 'react';
+import { verifyCode } from 'src/fetching/mailer';
+import { toast } from 'react-toastify';
+import { resetPassword } from 'src/fetching/auth';
+import { PATH } from 'src/routes';
 
 const mk = classNames.bind(styles);
 
@@ -30,27 +36,44 @@ const schema = yup.object().shape({
 });
 
 export default function Form() {
+  const { query, isReady, replace } = useRouter();
+  const [validURL, setValidURL] = useState(true);
+  console.log(validURL);
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
+      email: '',
       password: '',
       confirmPassword: '',
     },
   });
+  const { handleSubmit, reset, setFocus, setValue } = methods;
 
-  const { handleSubmit, reset, setFocus } = methods;
+  useEffect(() => {
+    if (!('email' in query) || !('code' in query)) {
+      setValidURL(false);
+    } else {
+      verifyCode({ params: { email: query.email, code: query.code } })
+        .then(() => setValue('email', query.email))
+        .catch(() => setValidURL(false));
+    }
+  }, [isReady, query]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ password, email }) => {
     try {
-      console.log(data);
+      await resetPassword({ password }, { params: { email, code: query.code } });
+      sessionStorage.removeItem('email');
+      replace(PATH.login);
     } catch (error) {
+      if (403 === error.response?.status) {
+        toast(error.response.data.message, { type: 'warning' });
+      }
       console.log(error);
-
       setFocus('password');
       reset();
     }
   };
-
+  // đường dẫn của bạn không hợp lệ hoặc đã bị chỉnh sửa => đưa về trang verify(reset-password)(replace)
   return (
     <section className={mk('new-password')}>
       <div className={mk('form-wrapper')}>
@@ -79,14 +102,8 @@ export default function Form() {
             >
               Thay đổi mật khẩu
             </h5>
-            <TextField
-              name="email"
-              value="ngockhoi"
-              disabled
-              wrapper="mt-8"
-              input="text-neutral-3"
-            />
-            <OtpField />
+            <TextField name="email" disabled wrapper="mt-8" input="text-neutral-3" />
+
             <TextField
               name="password"
               type="password"
@@ -96,7 +113,7 @@ export default function Form() {
             <TextField name="confirmPassword" type="password" placeholder="Nhập lại mật khẩu" />
 
             <Button primary wrapper={mk('btn-login')}>
-              Đăng nhập
+              Đặt lại mật khẩu
             </Button>
           </FormProvider>
         </div>

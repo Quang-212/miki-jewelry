@@ -51,12 +51,12 @@ const OTPHandler = async (req, res) => {
           transport.sendMail(emailOptions),
           VerifyCode.create({
             email,
-            otp: randomCode,
+            code: randomCode,
           }),
         ]);
         transport.close();
         return res.status(201).json({
-          message: 'OTP sent',
+          message: 'Mã xác thực đã gửi tới email của bạn.',
           code: 201,
         });
 

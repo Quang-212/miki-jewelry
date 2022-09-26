@@ -7,6 +7,10 @@ import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/HookForms';
 import { useRouter } from 'src/hooks';
 import styles from './Form.module.css';
+import { userExistedChecking } from 'src/fetching/auth';
+import { toast } from 'react-toastify';
+import { PATH } from 'src/routes';
+import { sendCode } from 'src/fetching/mailer';
 
 const mk = classNames.bind(styles);
 
@@ -21,7 +25,7 @@ const schema = yup.object().shape({
 });
 
 export default function Form() {
-  const { back } = useRouter();
+  const { back, push } = useRouter();
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -32,12 +36,40 @@ export default function Form() {
 
   const { handleSubmit, reset, setFocus } = methods;
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ email }) => {
     try {
-      console.log(data);
+      await userExistedChecking(email);
+      await toast.promise(
+        sendCode({ email }),
+        {
+          pending: {
+            render() {
+              return 'Gửi mã xác nhận...';
+            },
+            icon: false,
+          },
+          success: {
+            render({ data }) {
+              return data.data.message;
+            },
+            icon: '😊',
+          },
+          error: {
+            render({ data }) {
+              // When the promise reject, data will contains the error
+              return data.response.data.message;
+            },
+          },
+        },
+        { autoClose: 5000 },
+      );
+      sessionStorage.setItem('email', JSON.stringify(email));
+      push(PATH.VERIFY_EMAIL('reset-password'));
     } catch (error) {
+      if (error.response?.status === 404) {
+        toast(error.response.data.message, { type: 'warning' });
+      }
       console.log(error);
-
       setFocus('email');
       reset();
     }
@@ -56,8 +88,8 @@ export default function Form() {
           Xác thực tài khoản
         </h5>
         <p className={mk('description')}>
-          Vui lòng nhập địa chỉ email được liên kết với tài khoản của bạn, chúng tôi sẽ gửi đường
-          link khôi phục mật khẩu
+          Vui lòng nhập địa chỉ email được liên kết với tài khoản của bạn, chúng tôi sẽ gửi mã xác
+          thực để đặt lại mật khẩu
         </p>
         <TextField name="email" placeholder="Nhập email" input={mk('email-input')} />
         <Button primary wrapper={mk('btn-submit')}>
