@@ -137,34 +137,44 @@ export default function RegisterFormSection() {
               wrapper="mt-4"
             />
 
-            <CheckBoxField
-              name="promotions"
-              value={{
-                id: 'promotions',
-                highlight: false,
-                content: 'Nhận thông tin khuyến mãi qua email',
-              }}
-              caption="h-0"
-            />
-            <CheckBoxField
-              name="terms"
-              value={{
-                id: 'terms',
-                highlight: true,
-                highlightText: 'điều khoản chính sách',
-                content: 'Tôi đã đọc và đồng ý với các điều khoản chính sách của Miki Jewelry',
-              }}
-              wrapper="mt-7"
-              caption="h-6"
-              highlight="text-primary-3 hover:underline hover:opacity-80 transition-all duration-500 ease-in-out"
-            />
+            <div className="flex items-center gap-2">
+              <CheckBoxField
+                hidden
+                name="promotions"
+                value={{
+                  id: 'promotions',
+                }}
+                caption="h-0"
+              />
+              <label htmlFor="promotions" className="cursor-pointer">
+                Nhận thông tin khuyến mãi qua email
+              </label>
+            </div>
+            <div className="flex items-center gap-2 ">
+              <CheckBoxField
+                hidden
+                name="terms"
+                value={{
+                  id: 'terms',
+                }}
+                wrapper="mt-7"
+                caption="h-6"
+              />
+              <label>
+                Tôi đã đọc và đồng ý với các{' '}
+                <span className="text-primary-3 cursor-pointer hover:underline underline-offset-4">
+                  điều khoản chính sách
+                </span>{' '}
+                của Miki Jewelry
+              </label>
+            </div>
 
             <Button primary wrapper="w-full">
               Đăng ký
             </Button>
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
-              <Button text internalLink={PATH.login} wrapper="ml-2" title={mk('title-btn-login')}>
+              <Button text internalLink={PATH.LOGIN} wrapper="ml-2" title={mk('title-btn-login')}>
                 Đăng nhập
               </Button>
             </p>

@@ -35,7 +35,7 @@ async function resetPasswordHandler(req, res) {
           await User.findByIdAndUpdate(userExist._id, { password: hashPassword });
 
           return res.status(200).json({
-            message: 'OK',
+            message: 'Cập nhật mật khẩu mới thành công',
             code: 200,
           });
         }

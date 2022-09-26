@@ -32,7 +32,7 @@ export function Header() {
                   <button onClick={() => signOut()}>Đăng xuất</button>
                 </>
               ) : (
-                <Button icon internalLink={PATH.login}>
+                <Button icon internalLink={PATH.LOGIN}>
                   <UserIcon />
                 </Button>
               )}

@@ -19,6 +19,7 @@ import { fDefaultInputDate } from 'src/utils/formartTime';
 import ModalPassword from './ModalPassword';
 import { GENDERS } from './profile-form-config';
 import styles from './ProfileForm.module.css';
+import Image from 'src/components/Image';
 
 const mk = classNames.bind(styles);
 
@@ -163,18 +164,22 @@ export default function ProfileForm() {
             <h5 className={mk('heading-5')}>Thông tin cá nhân:</h5>
             <div className={mk('info-personal-wrapper')}>
               <div className={mk('avatar-wrapper')}>
-                <Avatar
-                  name="ngoc khoi"
-                  imageUrl={user.profilePicture?.url || images.adminAvatar}
-                  image="rounded-full"
-                  width="120"
-                  height="120"
-                />
+                <label htmlFor="avatar">
+                  <Image
+                    src={preview || user.profilePicture?.url}
+                    alt=""
+                    width={110}
+                    height={110}
+                    className="rounded-full"
+                  />
+                  <TextField name="avatar" id="avatar" type="file" hidden />
+                </label>
               </div>
               <strong className="col-span-3">Họ và tên</strong>
               <TextField name="userName" wrapper="col-span-6" />
               <strong className="col-span-3">Giới tính</strong>
               <RadioField
+                hidden
                 name="gender"
                 options={GENDERS}
                 wrapper="col-span-6 grid grid-cols-3 items-start"

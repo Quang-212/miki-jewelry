@@ -7,7 +7,7 @@
 }
 
 .title {
-  /* @apply m-auto mt-4 font-primary font-bold text-xl leading-7 text-primary; */
+  @apply m-auto mt-4 font-primary font-bold text-xl leading-7 text-primary;
 }
 
 .description {

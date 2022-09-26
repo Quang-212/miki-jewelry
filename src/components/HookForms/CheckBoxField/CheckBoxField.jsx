@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
+import { CheckedInputIcon, UncheckedInputIcon } from 'src/components/Icons';
 
 import { PATH } from 'src/routes';
 import styles from './CheckBoxField.module.css';
@@ -21,6 +22,7 @@ export function CheckBoxField({
 }) {
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
 
@@ -60,6 +62,7 @@ export function CheckBoxField({
         id={value.id}
         type="checkbox"
         value={inputValue}
+        // checked={value.id === watch(name)}
         className={classInput}
         {...other}
         {...register(name, {
@@ -67,9 +70,7 @@ export function CheckBoxField({
         })}
       />
       <label htmlFor={value.id} className={classLabel}>
-        {value.highlight
-          ? highlightText(value.content, value.highlightText, highlight)
-          : value.content}
+        {watch(name) ? <CheckedInputIcon /> : <UncheckedInputIcon />}
       </label>
       <span className={classCaption}>{errors[name]?.message}</span>
     </div>

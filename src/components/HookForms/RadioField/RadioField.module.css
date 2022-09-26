@@ -10,9 +10,9 @@
 .input {
 }
 
-/* .label {
-  @apply font-primary font-medium text-base leading-6 text-primary;
-} */
+.label {
+  @apply flex gap-2;
+}
 
 .caption {
   @apply block h-6 ml-1 text-caption-1 text-sm leading-5;

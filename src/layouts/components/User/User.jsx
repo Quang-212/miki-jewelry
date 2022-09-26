@@ -7,18 +7,16 @@ import { logoutForm } from 'src/fetching/auth';
 import { useClientSide, useRouter } from 'src/hooks';
 import { userState } from 'src/recoils';
 import { PATH } from 'src/routes';
-import { handleMenuItems, handleMenuUserItems } from '../Header/nav-config';
+import { MENU_ITEMS, MENU_USER_ITEMS } from '../Header/nav-config';
 
 export default function User() {
   const isClient = useClientSide();
 
-  const { push, replace } = useRouter();
+  const { replace } = useRouter();
 
   const resetUserValue = useResetRecoilState(userState);
 
   const { user, isAuthenticated } = useRecoilValue(userState);
-
-  const handleClickLogin = () => push(PATH.login);
 
   const handleClickLogout = async () => {
     if (user?._id) {
@@ -31,13 +29,7 @@ export default function User() {
   };
 
   return (
-    <Menu
-      items={
-        isAuthenticated
-          ? handleMenuUserItems({ handleClickLogout })
-          : handleMenuItems(handleClickLogin)
-      }
-    >
+    <Menu items={isAuthenticated ? MENU_USER_ITEMS({ handleClickLogout }) : MENU_ITEMS}>
       {isClient && isAuthenticated ? (
         <div className="flex items-center ml-8">
           <Avatar name={user?.userName} imageUrl={user.profilePicture?.url} />

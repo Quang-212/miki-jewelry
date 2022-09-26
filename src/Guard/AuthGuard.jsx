@@ -10,7 +10,7 @@ export default function AuthGuard({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      push(PATH.login);
+      push(PATH.LOGIN);
     }
   }, [isAuthenticated]);
 

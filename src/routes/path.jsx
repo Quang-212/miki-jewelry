@@ -8,12 +8,12 @@ export const PATH = {
   BRAND_HISTORY: '/about/brand-history',
   RECRUITMENT: '/about/recruitment',
 
-  register: '/auth/register',
+  REGISTER: '/auth/register',
   VERIFY_EMAIL(type) {
     return `/auth/verify-email?type=${type}`; // valid type: "register" "reset-password"
   },
-  login: '/auth/login',
-  resetPassword: '/auth/reset-password',
+  LOGIN: '/auth/login',
+  RESET_PASSWORD: '/auth/reset-password',
   NEW_PASSWORD(query) {
     return `/auth/new-password?${qs.stringify(query)}`;
   },

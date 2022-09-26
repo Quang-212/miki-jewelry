@@ -1,21 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
+import Dialog from 'src/components/Dialog';
 import { FormProvider, TextField } from 'src/components/HookForms';
+import { CloseIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
-import OtpField from 'src/components/OtpField';
 import { images } from 'src/constants';
-import styles from './Form.module.css';
-import { useRouter } from 'src/hooks';
-import { useEffect, useState } from 'react';
-import { verifyCode } from 'src/fetching/mailer';
-import { toast } from 'react-toastify';
 import { resetPassword } from 'src/fetching/auth';
+import { verifyCode } from 'src/fetching/mailer';
+import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
+import styles from './Form.module.css';
 
 const mk = classNames.bind(styles);
 
@@ -35,10 +36,10 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng'),
 });
 
-export default function Form() {
+export default function NewPasswordForm() {
   const { query, isReady, replace } = useRouter();
   const [validURL, setValidURL] = useState(true);
-  console.log(validURL);
+
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -61,19 +62,46 @@ export default function Form() {
 
   const onSubmit = async ({ password, email }) => {
     try {
-      await resetPassword({ password }, { params: { email, code: query.code } });
+      await toast.promise(
+        resetPassword({ password }, { params: { email, code: query.code } }),
+        {
+          pending: {
+            render() {
+              return 'Đang kết nối';
+            },
+            icon: '😇',
+          },
+          success: {
+            render({ data }) {
+              console.log(data);
+              return data.data.message;
+            },
+            icon: '😍',
+          },
+          error: {
+            render({ data }) {
+              return data.response?.data.message;
+            },
+            icon: '😵‍💫',
+          },
+        },
+        { autoClose: 4000 },
+      );
       sessionStorage.removeItem('email');
-      replace(PATH.login);
+      replace(PATH.LOGIN);
     } catch (error) {
       if (403 === error.response?.status) {
-        toast(error.response.data.message, { type: 'warning' });
+        toast(error.response.data.message, { type: 'error' });
       }
       console.log(error);
       setFocus('password');
       reset();
     }
   };
-  // đường dẫn của bạn không hợp lệ hoặc đã bị chỉnh sửa => đưa về trang verify(reset-password)(replace)
+
+  const handleGoToVerifyEmail = () => replace(PATH.VERIFY_EMAIL('reset-password'));
+  const handleCloseModal = () => {};
+
   return (
     <section className={mk('new-password')}>
       <div className={mk('form-wrapper')}>
@@ -115,9 +143,23 @@ export default function Form() {
             <Button primary wrapper={mk('btn-login')}>
               Đặt lại mật khẩu
             </Button>
+            <Button outline onClick={handleGoToVerifyEmail} wrapper={mk('btn-login')}>
+              Trở về
+            </Button>
           </FormProvider>
         </div>
       </div>
+      <Dialog isOpen={!validURL} closeModal={handleCloseModal} content="w-[600px] px-12">
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-end cursor-pointer">
+            <CloseIcon onClick={handleCloseModal} />
+          </div>
+          <p className="text-xl">Đường dẫn của bạn không hợp lệ hoặc đã bị chỉnh sửa</p>
+          <Button primary onClick={handleGoToVerifyEmail} wrapper="mt-10 w-full">
+            Chuyển về trang xác thực
+          </Button>
+        </div>
+      </Dialog>
     </section>
   );
 }

@@ -10,7 +10,6 @@ export default function VerifyEmail() {
         data={{
           title: 'Xác thực',
           description: '',
-          url: PATH.resetPassword,
           thumbnailUrl: '',
         }}
       />

@@ -1266,3 +1266,67 @@ export const CircleIcon = ({ width, height, cx1, cy1, r1, cx2, cy2, r2, classNam
     {cx2 && <circle cx={cx2} cy={cy2} r={r2} fill="#B78D71" fillOpacity="0.1" />}
   </svg>
 );
+
+export const CircleUncheckInputIcon = ({ width = '24', height = '24', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="12" cy="12" r="11.5" stroke="#6E5544" />
+  </svg>
+);
+
+export const CircleCheckedInputIcon = ({ width = '24', height = '24', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="12" cy="12" r="11.5" stroke="#6E5544" />
+    <circle cx="12" cy="12" r="8" fill="#6E5544" />
+  </svg>
+);
+
+export const CheckedInputIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4ZM25.3333 25.3333H6.66667V6.66667H25.3333V25.3333ZM23.9867 12L22.1067 10.1067L13.32 18.8933L9.88 15.4667L7.98667 17.3467L13.32 22.6667L23.9867 12Z"
+      fill="#251C17"
+    />
+    <path
+      d="M25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4ZM25.3333 25.3333H6.66667V6.66667H25.3333V25.3333ZM23.9867 12L22.1067 10.1067L13.32 18.8933L9.88 15.4667L7.98667 17.3467L13.32 22.6667L23.9867 12Z"
+      fill="black"
+      fill-opacity="0.2"
+    />
+  </svg>
+);
+
+export const UncheckedInputIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={width}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
+      fill="black"
+    />
+  </svg>
+);

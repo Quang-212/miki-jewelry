@@ -134,8 +134,9 @@ export default function LoginFormSection() {
             <TextField name="password" password placeholder="Mật khẩu" />
 
             <Button
+              type="button"
               text
-              internalLink={PATH.forgotPassword}
+              internalLink={PATH.RESET_PASSWORD}
               wrapper="mt-5 xs:mt-0"
               title="caption hover:underline underline-offset-4"
             >
@@ -164,7 +165,7 @@ export default function LoginFormSection() {
               <span className="caption">Bạn chưa có tài khoản?</span>
               <Button
                 text
-                internalLink={PATH.register}
+                internalLink={PATH.REGISTER}
                 wrapper="ml-2"
                 title={mk('title-btn-register')}
               >

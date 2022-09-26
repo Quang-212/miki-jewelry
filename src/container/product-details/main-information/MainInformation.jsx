@@ -41,7 +41,7 @@ export default function MainInformation({ product }) {
 
   const handleClickFavorite = async () => {
     if (!isAuthenticated) {
-      return push(PATH.login);
+      return push(PATH.LOGIN);
     }
 
     try {
@@ -116,7 +116,7 @@ export default function MainInformation({ product }) {
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
-      return push(PATH.login);
+      return push(PATH.LOGIN);
     }
 
     const targetProductQuantity =
