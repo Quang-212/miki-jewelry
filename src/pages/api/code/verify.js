@@ -11,7 +11,7 @@ async function verifyOTPHandler(req, res) {
         const aliveCode = await VerifyCode.findOne({ code, email }).exec();
         if (aliveCode) {
           return res.status(200).json({
-            message: 'OK',
+            message: 'Mã xác thực chính xác',
             code: 200,
           });
         }

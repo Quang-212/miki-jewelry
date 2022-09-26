@@ -1,2 +1,2 @@
 export * from './CircleBackground';
-export { default } from './Form';
+export { default } from './NewPasswordForm';

@@ -19,7 +19,7 @@ export default function LoginPage() {
         data={{
           title: 'Đăng nhập tài khoản',
           description: '',
-          url: PATH.login,
+          url: PATH.LOGIN,
           thumbnailUrl: images.loginForm,
         }}
       />

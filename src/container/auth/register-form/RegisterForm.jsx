@@ -50,11 +50,11 @@ export default function RegisterFormSection() {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: 'Khoi',
-      lastName: 'Mom',
-      email: 'quang.nv212@gmail.com',
-      password: '1234567*Aa',
-      confirmPassword: '1234567*Aa',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       promotions: false,
       terms: false,
     },
@@ -77,22 +77,22 @@ export default function RegisterFormSection() {
             render() {
               return 'Đang kết nối';
             },
-            icon: false,
+            icon: '😇',
           },
           success: {
             render({ data }) {
               return data.data.message;
             },
-            icon: '😊',
+            icon: '😍',
           },
           error: {
             render({ data }) {
-              // When the promise reject, data will contains the error
-              return data.response.data.message;
+              return data.response?.data.message;
             },
+            icon: '😵‍💫',
           },
         },
-        { autoClose: 5000 },
+        { autoClose: 4000 },
       );
       sessionStorage.setItem('user', JSON.stringify(data));
       push(PATH.VERIFY_EMAIL('register'));
@@ -129,42 +129,52 @@ export default function RegisterFormSection() {
               <TextField name="lastName" placeholder="Tên" input="w-full" />
             </div>
             <TextField name="email" placeholder="Địa chỉ email" />
-            <TextField name="password" type="password" placeholder="Mật khẩu" />
+            <TextField name="password" password placeholder="Mật khẩu" />
             <TextField
               name="confirmPassword"
-              type="password"
+              password
               placeholder="Nhập lại mật khẩu"
               wrapper="mt-4"
             />
 
-            <CheckBoxField
-              name="promotions"
-              value={{
-                id: 'promotions',
-                highlight: false,
-                content: 'Nhận thông tin khuyến mãi qua email',
-              }}
-              caption="h-0"
-            />
-            <CheckBoxField
-              name="terms"
-              value={{
-                id: 'terms',
-                highlight: true,
-                highlightText: 'điều khoản chính sách',
-                content: 'Tôi đã đọc và đồng ý với các điều khoản chính sách của Miki Jewelry',
-              }}
-              wrapper="mt-7"
-              caption="h-6"
-              highlight="text-primary-3 hover:underline hover:opacity-80 transition-all duration-500 ease-in-out"
-            />
+            <div className="flex items-center gap-2">
+              <CheckBoxField
+                hidden
+                name="promotions"
+                value={{
+                  id: 'promotions',
+                }}
+                caption="h-0"
+              />
+              <label htmlFor="promotions" className="cursor-pointer">
+                Nhận thông tin khuyến mãi qua email
+              </label>
+            </div>
+            <div className="flex items-center gap-2 ">
+              <CheckBoxField
+                hidden
+                name="terms"
+                value={{
+                  id: 'terms',
+                }}
+                wrapper="mt-7"
+                caption="h-6"
+              />
+              <label>
+                Tôi đã đọc và đồng ý với các{' '}
+                <span className="text-primary-3 cursor-pointer hover:underline underline-offset-4">
+                  điều khoản chính sách
+                </span>{' '}
+                của Miki Jewelry
+              </label>
+            </div>
 
             <Button primary wrapper="w-full">
               Đăng ký
             </Button>
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
-              <Button text internalLink={PATH.login} wrapper="ml-2" title={mk('title-btn-login')}>
+              <Button text internalLink={PATH.LOGIN} wrapper="ml-2" title={mk('title-btn-login')}>
                 Đăng nhập
               </Button>
             </p>

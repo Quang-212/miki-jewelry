@@ -1,17 +1,17 @@
-.profile {
+/* .profile {
   @apply flex flex-col gap-10;
-}
+} */
 
 .info-wrapper {
-  @apply flex justify-between gap-2;
+  @apply grid grid-cols-12;
 }
 
 .info-personal {
-  @apply flex flex-col gap-11 w-6/12;
+  @apply col-span-6 flex flex-col gap-11 pr-8 border-r-2 border-primary-5;
 }
 
 .info-personal-wrapper {
-  @apply grid grid-cols-12 gap-y-4 gap-x-6;
+  @apply grid grid-cols-12 gap-y-4;
 }
 
 .avatar-wrapper {
@@ -19,7 +19,7 @@
 }
 
 .info-others {
-  @apply flex flex-col gap-11;
+  @apply col-span-6 flex flex-col gap-11 pl-8;
 }
 
 .btn-container {

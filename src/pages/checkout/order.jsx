@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import Breadcrumb from 'src/components/Breadcrumb';
 import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
+import { CloseIcon } from 'src/components/Icons';
 import Page from 'src/components/Page';
 import { Form, Invoice } from 'src/container/order';
 // import AuthGuard from 'src/guard/AuthGuard';
@@ -60,6 +61,9 @@ export default function Order() {
       </div>
       <Dialog isOpen={isOpen} closeModal={() => {}} content="w-[600px] px-12">
         <div className="flex flex-col gap-4">
+          <div className="flex justify-end cursor-pointer">
+            <CloseIcon />
+          </div>
           <p className="font-primary font-bold text-xl leading-7 text-primary">
             Giỏ hàng của bạn đang trống.
           </p>

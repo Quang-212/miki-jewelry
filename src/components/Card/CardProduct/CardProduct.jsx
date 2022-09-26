@@ -35,7 +35,7 @@ export function CardProduct({
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
-      return push(PATH.login);
+      return push(PATH.LOGIN);
     }
 
     const targetProductQuantity =

@@ -4,7 +4,7 @@ const VerifyCode = new Schema(
   {
     email: { type: String, required: true },
     code: { type: String, required: true },
-    deleteAt: { type: Date, expires: 600, default: Date.now },
+    deleteAt: { type: Date, expires: '10m', default: Date.now },
   },
   {
     timestamps: true,

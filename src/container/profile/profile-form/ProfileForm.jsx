@@ -1,65 +1,43 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
+import { isString } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 import * as yup from 'yup';
 
-import { fDefaultInputDate, fTimestamp } from 'src/utils/formartTime';
-import { isString } from 'lodash';
-import { deleteImage, uploadFile } from 'src/fetching/upload';
 import Avatar from 'src/components/Avatar';
 import Button from 'src/components/Button';
-import Dialog from 'src/components/Dialog';
 import { FormProvider, RadioField, TextField } from 'src/components/HookForms';
 import { images } from 'src/constants';
+import { deleteImage, uploadFile } from 'src/fetching/upload';
+import { updateUser } from 'src/fetching/user';
 import { useClientSide } from 'src/hooks';
 import { userState } from 'src/recoils';
-import { fDate } from 'src/utils/formartTime';
-import Form from '../form';
-import { PERSONAL_INFORMATION, PHONE_SECURITY } from './profile-config';
-import styles from './Profile.module.css';
-import { GENDERS } from '../form/form-config';
+import { fDefaultInputDate } from 'src/utils/formartTime';
+import ModalPassword from './ModalPassword';
+import { GENDERS } from './profile-form-config';
+import styles from './ProfileForm.module.css';
+import Image from 'src/components/Image';
 
 const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  userName: yup.string().required('*Vui lòng nhập họ và tên'),
+  userName: yup.string(),
   birthday: yup.date(),
-  gender: yup.string().required('*Vui lòng chọn giới tính'),
+  gender: yup.string(),
   avatar: yup.mixed(),
-  // phone: yup
-  //   .string()
-  //   .required('*Vui lòng nhập số điện thoại')
-  //   .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, '*Vui lòng nhập CHÍNH XÁC số điện thoại'),
-  // email: yup
-  //   .string()
-  //   .required('*Vui lòng nhập địa chỉ email của bạn')
-  //   .matches(
-  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //     '*Vui lòng nhập CHÍNH XÁC địa chỉ email',
-  //   ),
-  // password: yup
-  //   .string()
-  //   .trim()
-  //   .required('*Vui lòng nhập mật khẩu')
-  //   .matches(
-  //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-  //     '*Tối thiểu 8 ký tự, trong đó có 1 ký tự in hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
-  //   ),
 });
 
-export default function Profile() {
+export default function ProfileForm() {
   const [isOpen, setIsOpen] = useState(false);
+  const [preview, setPreview] = useState('');
+
+  const [{ user }, setUser] = useRecoilState(userState);
 
   const isClient = useClientSide();
 
-  const handleOpenModal = () => setIsOpen(true);
-
-  const handleCloseModal = () => setIsOpen(false);
-
-  const [{ user }, setUser] = useRecoilState(userState);
-  const [preview, setPreview] = useState('');
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -71,24 +49,37 @@ export default function Profile() {
       birthday: user.birthday
         ? fDefaultInputDate(user.birthday)
         : fDefaultInputDate(new Date().getTime()),
+      password: '@nKhoi96',
     },
   });
 
-  const { handleSubmit, watch } = methods;
+  const { handleSubmit, watch, setError } = methods;
 
   useEffect(() => {
     const avatarValue = watch('avatar');
+
     if (avatarValue && !isString(avatarValue)) {
       setPreview(URL.createObjectURL(avatarValue[0]));
     }
+
     return () => {
       URL.revokeObjectURL(preview);
     };
   }, [watch('avatar')]);
 
   const onSubmit = async (data) => {
+    const phone = watch('phone');
+
+    if (phone && pattern.test(phone) === false) {
+      return setError('phone', {
+        type: 'string',
+        message: '*Vui lòng nhập CHÍNH XÁC số điện thoại',
+      });
+    }
+
     const { avatar, ...rest } = data;
     let profilePicture;
+
     const uploadAvatar = async (avatarFromRHF) => {
       const formData = new FormData();
       formData.append('avatar', avatarFromRHF[0]);
@@ -118,13 +109,34 @@ export default function Profile() {
         ...rest,
         ...(avatar && { profilePicture }),
       };
-
       console.log(data);
 
-      const res = await updateUser(data, {
-        params: { userId: user._id },
-      });
-
+      const res = await toast.promise(
+        updateUser(data, {
+          params: { userId: user._id },
+        }),
+        {
+          pending: {
+            render() {
+              return 'Đang kết nối';
+            },
+            icon: '😇',
+          },
+          success: {
+            render({ data }) {
+              return data.data.message;
+            },
+            icon: '😍',
+          },
+          error: {
+            render({ data }) {
+              return data.response?.data.message;
+            },
+            icon: '😵‍💫',
+          },
+        },
+        { autoClose: 4000 },
+      );
       console.log(res.data);
 
       setUser((prev) => ({
@@ -137,8 +149,11 @@ export default function Profile() {
     }
   };
 
+  const handleChangePassword = () => setIsOpen(true);
+  const handleCloseModal = () => setIsOpen(false);
+
   return (
-    <section className="">
+    <section>
       {isClient && (
         <FormProvider
           methods={methods}
@@ -149,18 +164,22 @@ export default function Profile() {
             <h5 className={mk('heading-5')}>Thông tin cá nhân:</h5>
             <div className={mk('info-personal-wrapper')}>
               <div className={mk('avatar-wrapper')}>
-                <Avatar
-                  name="ngoc khoi"
-                  imageUrl={user.profilePicture?.url || images.adminAvatar}
-                  image="rounded-secondary"
-                  width="120"
-                  height="120"
-                />
+                <label htmlFor="avatar">
+                  <Image
+                    src={preview || user.profilePicture?.url}
+                    alt=""
+                    width={110}
+                    height={110}
+                    className="rounded-full"
+                  />
+                  <TextField name="avatar" id="avatar" type="file" hidden />
+                </label>
               </div>
               <strong className="col-span-3">Họ và tên</strong>
               <TextField name="userName" wrapper="col-span-6" />
               <strong className="col-span-3">Giới tính</strong>
               <RadioField
+                hidden
                 name="gender"
                 options={GENDERS}
                 wrapper="col-span-6 grid grid-cols-3 items-start"
@@ -169,6 +188,9 @@ export default function Profile() {
               />
               <strong className="col-span-3">Ngày sinh</strong>
               <TextField name="birthday" type="date" wrapper="col-span-9" />
+              <Button primary wrapper="col-span-12 justify-self-end w-[200px]">
+                Lưu thay đổi
+              </Button>
             </div>
           </div>
 
@@ -180,24 +202,28 @@ export default function Profile() {
               <strong className="col-span-3">Số điện thoại</strong>
               <TextField name="phone" wrapper="col-span-9" />
               <strong className="col-span-3">Địa chỉ email</strong>
-              <TextField name="email" wrapper="col-span-9" />
-              <strong className="col-span-3">Đổi mật khẩu</strong>
-              <Button outline wrapper="col-span-9">
+              <TextField name="email" disabled wrapper="col-span-9" input="text-neutral-2" />
+              <strong className="col-span-3">Mật khẩu</strong>
+              <TextField
+                name="password"
+                type="password"
+                disabled
+                wrapper="col-span-6 w-11/12"
+                input="text-neutral-2"
+              />
+              <Button
+                type="button"
+                outline
+                onClick={handleChangePassword}
+                wrapper="col-span-3 h-12"
+              >
                 Cập nhật
               </Button>
             </div>
           </div>
         </FormProvider>
       )}
-
-      {/* <div className={mk('btn-container')}>
-        <Button primary onClick={handleOpenModal} wrapper={mk('btn-update')}>
-          Cập nhật
-        </Button>
-      </div>
-      <Dialog isOpen={isOpen} closeModal={handleCloseModal}>
-        <Form />
-      </Dialog> */}
+      <ModalPassword isOpen={isOpen} handleCloseModal={handleCloseModal} />
     </section>
   );
 }

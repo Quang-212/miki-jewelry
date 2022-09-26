@@ -1,6 +1,6 @@
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import Form, {
+import NewPasswordForm, {
   CircleIcon1,
   CircleIcon1Mobile,
   CircleIcon2,
@@ -8,7 +8,6 @@ import Form, {
 } from 'src/container/auth/new-password';
 // import GuestGuard from 'src/guard/GuestGuard';
 import MainLayout from 'src/layouts/MainLayout';
-import { PATH } from 'src/routes';
 
 NewPassword.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 
@@ -19,11 +18,10 @@ export default function NewPassword() {
         data={{
           title: 'Thay đổi mật khẩu',
           description: '',
-          url: '',
           thumbnailUrl: images.loginForm,
         }}
       />
-      <Form />
+      <NewPasswordForm />
       <CircleIcon1 />
       <CircleIcon1Mobile />
       <CircleIcon2 />

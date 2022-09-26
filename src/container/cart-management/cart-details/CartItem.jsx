@@ -8,7 +8,7 @@ import 'tippy.js/dist/tippy.css';
 
 import Button from 'src/components/Button';
 import { Checkbox } from 'src/components/Checkbox';
-import { CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { BinIcon, CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { deleteCartItem, updateCart } from 'src/fetching/cart';
 import { useRouter } from 'src/hooks';
@@ -23,10 +23,9 @@ const mk = classNames.bind(styles);
 
 export default function CartItem({ data, orders, onCheck }) {
   const { product, size, quantity, _id } = data;
+  const initialSizeChecked = product.stocks.findIndex((stock) => stock.size == size);
 
-  const [sizeChecked, setSizeChecked] = useState(
-    product.stocks.findIndex((stock) => stock.size == size),
-  );
+  const [sizeChecked, setSizeChecked] = useState(initialSizeChecked);
 
   const [confirm, setConfirm] = useState({
     delete: false,
@@ -180,7 +179,7 @@ export default function CartItem({ data, orders, onCheck }) {
 
   return (
     <div className={mk('cart-item')}>
-      <div>
+      <div className="col-span-4 row-span-3 flex items-center gap-4">
         <Checkbox
           checked={orders.includes(_id)}
           onChange={() => onCheck(_id)}
@@ -189,69 +188,64 @@ export default function CartItem({ data, orders, onCheck }) {
         <Image
           src={product.images.find((image) => image.type === 'primary').url}
           alt={product.name}
-          width={136}
-          height={136}
+          width={120}
+          height={120}
           className={mk('image')}
           onClick={handleGoToDetail}
         />
       </div>
-      <div className={mk('col-2')}>
-        <h5
-          className={mk('font-primary font-bold text-xl leading-7 text-primary cursor-pointer')}
-          onClick={handleGoToDetail}
-        >
-          {isOutOfStockServerTracking(product.stocks) ? 'disabled' : product.name}
-        </h5>
-        <div>
-          <HeadlessTippy
-            // visible
-            interactive
-            placement="bottom-start"
-            delay={[200, 400]}
-            render={renderDistribution}
-          >
-            <p className={mk('size caption text-[#707070]')}>
-              Phân loại hàng: <br /> Kích thước: {size}
-            </p>
-          </HeadlessTippy>
-        </div>
-        <div className="flex justify-center items-center gap-4">
-          <Button
-            // ref={subtractButtonRef}
-            icon
-            wrapper="active:bg-primary active:rounded-full"
-            onClick={handleSubtract}
-          >
-            <MinusIcon className="active:text-white h-6 w-6" />
-          </Button>
-          <span className="font-primary font-bold text-xl leading-7 text-primary">
-            <input
-              type="text"
-              className="w-10 text-center"
-              value={inputQuantity}
-              onBlur={handleTypingInput}
-              onKeyUp={handleTypingInput}
-              onChange={handleTypingInput}
-            />
-          </span>
-          <Button
-            // ref={addButtonRef}
-            icon
-            wrapper="active:bg-primary active:rounded-full"
-            onClick={handleAdd}
-          >
-            <PlusIcon className="active:text-white w-8 h-8" />
-          </Button>
-        </div>
-      </div>
-      <div className={mk('col-3')}>
+      <h5 className="col-span-7 ml-4 heading-5 cursor-pointer" onClick={handleGoToDetail}>
+        {isOutOfStockServerTracking(product.stocks) ? 'disabled' : product.name}
+      </h5>
+      <div className={mk('delete-item')}>
         <Tippy content={<span>Xóa sản phẩm</span>}>
           <Button icon onClick={handleDeleteCartItem}>
-            <CloseIcon />
+            <BinIcon />
           </Button>
         </Tippy>
-        <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
       </div>
+      <div className="col-span-8 ml-4">
+        <HeadlessTippy
+          interactive
+          placement="bottom-start"
+          delay={[200, 400]}
+          render={renderDistribution}
+          onHide={() => handleClickSize(initialSizeChecked)}
+        >
+          <p className={mk('size caption text-[#707070]')}>
+            Phân loại hàng: <br /> Kích thước: {size}
+          </p>
+        </HeadlessTippy>
+      </div>
+      <div className="col-span-4 flex items-center gap-4 ml-4">
+        <Button
+          // ref={subtractButtonRef}
+          icon
+          wrapper="active:bg-primary active:rounded-full"
+          onClick={handleSubtract}
+        >
+          <MinusIcon className="active:text-white h-6 w-6" />
+        </Button>
+        <span className="font-primary font-bold text-xl leading-7 text-primary">
+          <input
+            type="text"
+            className="w-10 text-center"
+            value={inputQuantity}
+            onBlur={handleTypingInput}
+            onKeyUp={handleTypingInput}
+            onChange={handleTypingInput}
+          />
+        </span>
+        <Button
+          // ref={addButtonRef}
+          icon
+          wrapper="active:bg-primary active:rounded-full"
+          onClick={handleAdd}
+        >
+          <PlusIcon className="active:text-white w-8 h-8" />
+        </Button>
+      </div>
+      <span className={mk('price')}>{formatVndCurrency(generatePrice())}</span>
 
       <ModalQuantity
         availableQuantity={generateAvailableQuantity(sizeChecked)}

@@ -1,55 +1,87 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { forwardRef } from 'react';
 import { useFormContext } from 'react-hook-form';
+import Button from 'src/components/Button';
+import { ViewHideIcon, ViewIcon } from 'src/components/Icons';
+
 import accessNestedObject from 'src/utils/accessNestedObject';
 
 import styles from './TextField.module.css';
 
 const mk = classNames.bind(styles);
 
-export const TextField = forwardRef(
-  ({ name, label, placeholder, wrapper, input, caption, onChange, ...other }, ref) => {
-    const {
-      register,
-      formState: { errors },
-    } = useFormContext();
+export function TextField({
+  name,
+  label,
+  password,
+  placeholder,
+  wrapper,
+  input,
+  viewIcon,
+  caption,
+  onChange,
+  ...other
+}) {
+  const [showPassword, setShowPassword] = useState(false);
 
-    const classWrapper = mk('root', {
-      [wrapper]: wrapper,
-    });
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
-    const classLabel = mk('root', 'subtitle-1', {});
+  const classWrapper = mk('root', {
+    [wrapper]: wrapper,
+  });
 
-    const classInput = mk('input', {
-      [input]: input,
-    });
+  const classLabel = mk('label', 'subtitle-1', {});
 
-    const classCaption = mk('caption', {
-      [caption]: caption,
-    });
+  const classInput = password
+    ? mk('input', 'pr-14', {
+        [input]: input,
+      })
+    : mk('input', 'pr-4', {
+        [input]: input,
+      });
 
-    return (
-      <div className={classWrapper}>
+  const classViewIcon = mk('view-icon', {
+    [viewIcon]: viewIcon,
+  });
+
+  const classCaption = mk('caption', {
+    [caption]: caption,
+  });
+
+  return (
+    <div className={classWrapper}>
+      {label && (
         <label htmlFor={name} className={classLabel}>
           {label}
         </label>
-        <input
-          type="text"
-          placeholder={placeholder}
-          className={classInput}
-          style={{
-            ...(errors?.[name] && {
-              borderColor: 'red',
-              backgroundColor: '#ffebeb',
-            }),
-          }}
-          {...other}
-          {...register(name, {
-            onChange,
-          })}
-        />
-        <span className={classCaption}>{accessNestedObject(errors, name)?.message}</span>
-      </div>
-    );
-  },
-);
+      )}
+      <input
+        type={password ? (showPassword ? 'text' : 'password') : 'text'}
+        placeholder={placeholder}
+        className={classInput}
+        style={{
+          ...(errors?.[name] && {
+            borderColor: 'red',
+            backgroundColor: '#ffebeb',
+          }),
+        }}
+        {...other}
+        {...register(name)}
+      />
+      {password && (
+        <Button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          wrapper={classViewIcon}
+        >
+          {showPassword ? <ViewIcon /> : <ViewHideIcon />}
+        </Button>
+      )}
+      <span className={classCaption}>{accessNestedObject(errors, name)?.message}</span>
+    </div>
+  );
+}

@@ -18,7 +18,7 @@ export default function RegisterPage() {
         data={{
           title: 'Đăng ký tài khoản',
           description: '',
-          url: PATH.register,
+          url: PATH.REGISTER,
           thumbnailUrl: images.registerForm,
         }}
       />

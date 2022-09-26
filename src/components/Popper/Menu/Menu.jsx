@@ -26,7 +26,7 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
                     setHistory((prev) => [...prev, item.children]);
                   }
                 : () => {
-                    push(item.path);
+                    item.onClick ? item.onClick() : push(item.path);
                   }
             }
           />
