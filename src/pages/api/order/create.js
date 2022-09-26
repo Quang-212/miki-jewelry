@@ -1,9 +1,12 @@
 import { isEmpty } from 'lodash';
 import mongoose from 'mongoose';
+import usePusherServer from 'src/hooks/usePusherServer';
 import Cart from 'src/models/Cart';
+import Notification from 'src/models/Notification';
 import Order from 'src/models/Order';
 import PaymentCard from 'src/models/PaymentCard';
 import Product from 'src/models/Product';
+import User from 'src/models/User';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handleCreateOrder(req, res) {
@@ -14,17 +17,15 @@ async function handleCreateOrder(req, res) {
   try {
     switch (method) {
       case 'POST':
-        const products = await Promise.all(
-          order.products.map((item) => Product.findById(item.product).lean()),
-        );
+        const [adminList, ...products] = await Promise.all([
+          User.find({ role: 'admin' }).lean(),
+          ...order.products.map((item) => Product.findById(item.product).lean()),
+        ]);
+
         const getProperty = (index, property) => {
           return order.products[index][property];
         };
-        const getPropertyMongoProduct = (index, searchKey, compareValue, property) => {
-          return products[index].stocks.find((stock) => stock[searchKey] === compareValue)[
-            property
-          ];
-        };
+
         const outOfStockProducts = products.filter(({ stocks }, index) => {
           return (
             stocks.find((stock) => stock.size == getProperty(index, 'size')).quantity <
@@ -40,7 +41,24 @@ async function handleCreateOrder(req, res) {
             code: 405,
           });
         }
+        const pusherServer = usePusherServer();
 
+        const commonMutation = () => {
+          return [
+            Notification.insertMany(
+              adminList.map((admin) => ({
+                sender: order.user,
+                to: admin._id,
+                type: 'order',
+                content: 'Khách hàng mới đặt đơn',
+              })),
+            ),
+            ...cartIds.map((item) => Cart.findByIdAndUpdate(item, { status: 'ordered' })),
+          ];
+        };
+
+        const sendNotice = (events) => pusherServer.triggerBatch(events);
+        'admin', 'order', { message: 'Khách hàng mới đặt đơn' };
         if (order.paymentMethod === 'newCard') {
           const existedCard = await PaymentCard.findOne({
             number: order.newCard.number,
@@ -48,46 +66,62 @@ async function handleCreateOrder(req, res) {
           }).lean();
 
           if (existedCard) {
-            await Promise.all(
-              cartIds
-                .map((item) => Cart.findByIdAndUpdate(item, { status: 'ordered' }))
-                .concat([
-                  Order.create({
-                    ...order,
-                    cardInfo: existedCard._id,
-                  }),
-                ]),
+            const [notifications] = await Promise.all([
+              ...commonMutation(),
+              Order.create({
+                ...order,
+                cardInfo: existedCard._id,
+              }),
+            ]);
+
+            await sendNotice(
+              notifications.map((item) => ({
+                channel: 'admin',
+                name: 'order',
+                data: item._doc,
+              })),
             );
             return res.status(200).json({
-              message: 'order thành công',
+              message: 'Order thành công',
               code: 200,
             });
           }
+
           const newCardId = mongoose.Types.ObjectId();
-          await Promise.all(
-            cartIds
-              .map((item) => Cart.findByIdAndUpdate(item, { status: 'ordered' }))
-              .concat([
-                PaymentCard.create({
-                  _id: newCardId,
-                  userId: order.user,
-                  ...order.newCard,
-                }),
-                Order.create({
-                  ...order,
-                  cardInfo: newCardId,
-                }),
-              ]),
+
+          const [notifications] = await Promise.all([
+            ...commonMutation(),
+            PaymentCard.create({
+              _id: newCardId,
+              userId: order.user,
+              ...order.newCard,
+            }),
+            Order.create({
+              ...order,
+              cardInfo: newCardId,
+            }),
+          ]);
+
+          await sendNotice(
+            notifications.map((item) => ({
+              channel: 'admin',
+              name: 'order',
+              data: item._doc,
+            })),
           );
           return res.status(200).json({
             message: 'order thành công',
             code: 200,
           });
         }
-        await Promise.all(
-          cartIds
-            .map((item) => Cart.findByIdAndUpdate(item, { status: 'ordered' }))
-            .concat([Order.create(order)]),
+        const [notifications] = await Promise.all([...commonMutation(), Order.create(order)]);
+
+        await sendNotice(
+          notifications.map((item) => ({
+            channel: 'admin',
+            name: 'order',
+            data: item._doc,
+          })),
         );
         return res.status(200).json({
           message: 'order thành công',

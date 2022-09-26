@@ -6,6 +6,7 @@ import Cart from '../Cart';
 import Navigation from '../Navigation';
 import Search from '../Search';
 import User from '../User';
+import GlobalEvent from './GlobalEvent';
 import styles from './Header.module.css';
 
 const mk = classNames.bind(styles);
@@ -15,6 +16,7 @@ export function Header() {
 
   return (
     <header className={mk('header', 'container')}>
+      <GlobalEvent />
       <nav className={mk('nav')}>
         <Navigation />
         <BrandLogo vertical />

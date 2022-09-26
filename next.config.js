@@ -21,6 +21,10 @@ const nextConfig = {
     API_SECRET: 'UiCKSCwd-jKb_Bt8TvDbXnKf4Q8',
     NEXT_PUBLIC_API_URL: 'http://localhost:3000',
     NEXT_PUBLIC_BASE_URL: 'http://localhost:3000',
+    PUSHER_ID: '1482193',
+    PUSHER_KEY: 'fb8e2c1822be76c549cc',
+    PUSHER_SECRET: 'e6cbcf88db5535278f0b',
+    PUSHER_CLUSTER: 'ap1',
   },
 };
 
