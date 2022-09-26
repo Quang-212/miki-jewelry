@@ -10,10 +10,11 @@ import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/HookForms';
 import { images } from 'src/constants';
-import { registerForm } from 'src/fetching/auth';
+import { sendCode } from 'src/fetching/mailer';
 import { PATH } from 'src/routes';
-import styles from './RegisterForm.module.css';
 import { formatSearchString } from 'src/utils/formatString';
+import styles from './RegisterForm.module.css';
+import { emailChecking } from 'src/fetching/auth';
 
 const mk = classNames.bind(styles);
 
@@ -44,7 +45,7 @@ const schema = yup.object().shape({
 });
 
 export default function RegisterFormSection() {
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -67,13 +68,10 @@ export default function RegisterFormSection() {
       userName: `${data.firstName} ${data.lastName}`,
       search: formatSearchString([data.firstName, data.lastName, data.email]),
     };
-
+    await emailChecking({ params: { email: data.email } });
     try {
-      setFocus('firstName');
-      reset();
-
-      const res = await toast.promise(
-        registerForm(data),
+      await toast.promise(
+        sendCode({ email: data.email }),
         {
           pending: {
             render() {
@@ -96,8 +94,14 @@ export default function RegisterFormSection() {
         },
         { autoClose: 4000 },
       );
-      replace(PATH.login);
+      sessionStorage.setItem('user', JSON.stringify(data));
+      push(PATH.VERIFY_EMAIL('register'));
     } catch (error) {
+      if (error.response?.status === 409) {
+        toast(error.response.data.message, { type: 'info' });
+      }
+      setFocus('firstName');
+      reset();
       console.log(error);
     }
   };

@@ -19,7 +19,7 @@ export default function NewPassword() {
         data={{
           title: 'Thay đổi mật khẩu',
           description: '',
-          url: PATH.newPassword,
+          url: '',
           thumbnailUrl: images.loginForm,
         }}
       />

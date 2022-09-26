@@ -1,3 +1,4 @@
+import qs from 'qs';
 export const PATH = {
   home: '/',
   products: '/products',
@@ -8,10 +9,14 @@ export const PATH = {
   RECRUITMENT: '/about/recruitment',
 
   register: '/auth/register',
-  VERIFY_EMAIL: '/auth/verify-email',
+  VERIFY_EMAIL(type) {
+    return `/auth/verify-email?type=${type}`; // valid type: "register" "reset-password"
+  },
   login: '/auth/login',
   resetPassword: '/auth/reset-password',
-  newPassword: '/auth/new-password',
+  NEW_PASSWORD(query) {
+    return `/auth/new-password?${qs.stringify(query)}`;
+  },
 
   cart: '/checkout/cart',
   ORDER: '/checkout/order',

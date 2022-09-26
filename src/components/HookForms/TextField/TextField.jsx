@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { forwardRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Button from 'src/components/Button';
 import { ViewHideIcon, ViewIcon } from 'src/components/Icons';
