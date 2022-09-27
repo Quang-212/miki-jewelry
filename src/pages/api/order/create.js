@@ -58,7 +58,7 @@ async function handleCreateOrder(req, res) {
         };
 
         const sendNotice = (events) => pusherServer.triggerBatch(events);
-        'admin', 'order', { message: 'Khách hàng mới đặt đơn' };
+
         if (order.paymentMethod === 'newCard') {
           const existedCard = await PaymentCard.findOne({
             number: order.newCard.number,
