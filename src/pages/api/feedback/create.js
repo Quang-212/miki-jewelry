@@ -1,4 +1,4 @@
-import Rating from 'src/models/Rating';
+import Feedback from 'src/models/Feedback';
 import dbConnect from 'src/utils/dbConnect';
 
 const ratingProduct = async (req, res) => {
@@ -8,11 +8,11 @@ const ratingProduct = async (req, res) => {
 
   switch (method) {
     case 'POST':
-      const feedbacks = await Rating.find({ product_id, user_id });
+      const feedbacks = await Feedback.find({ product_id, user_id });
 
       // kiểm tra xem người dùng đã đánh giá chưa?
       if (!feedbacks) {
-        await Rating.create({
+        await Feedback.create({
           user_id: user_id,
           product_id: product_id,
           count: count,

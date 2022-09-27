@@ -1,4 +1,4 @@
-import Rating from 'src/models/Rating';
+import Feedback from 'src/models/Feedback';
 import dbConnect from 'src/utils/dbConnect';
 
 async function handlerRating(req, res) {
@@ -7,17 +7,19 @@ async function handlerRating(req, res) {
   try {
     switch (method) {
       case 'GET':
-        const getProductId = await Rating.aggregate([
+        const feedbacks = await Feedback.aggregate([
           {
             $group: { _id: '$product_id', avg: { $avg: '$count' }, count: { $sum: 1 } },
           },
           { $sort: { _id: 1 } },
         ]);
+
         return res.status(200).json({
-          message: 'thành công',
+          message: 'OK',
           code: 200,
-          getProductId,
+          data: feedbacks,
         });
+
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
