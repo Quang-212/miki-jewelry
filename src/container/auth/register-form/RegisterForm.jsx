@@ -144,6 +144,7 @@ export default function RegisterFormSection() {
                 value={{
                   id: 'promotions',
                 }}
+                inputValue="promotions"
                 caption="h-0"
               />
               <label htmlFor="promotions" className="cursor-pointer">
@@ -157,6 +158,7 @@ export default function RegisterFormSection() {
                 value={{
                   id: 'terms',
                 }}
+                inputValue="terms"
                 wrapper="mt-7"
                 caption="h-6"
               />
@@ -164,7 +166,7 @@ export default function RegisterFormSection() {
                 Tôi đã đọc và đồng ý với các{' '}
                 <span className="text-primary-3 cursor-pointer hover:underline underline-offset-4">
                   điều khoản chính sách
-                </span>{' '}
+                </span>
                 của Miki Jewelry
               </label>
             </div>

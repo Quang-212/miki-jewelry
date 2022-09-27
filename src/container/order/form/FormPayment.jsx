@@ -15,45 +15,65 @@ export default function FormPayment({ setValue }) {
     <div className={mk('payment')}>
       <h6 className={mk('payment-title')}>Phương thức thanh toán</h6>
       <div className={mk('payment-form')}>
-        <CheckBoxField
-          name="payment"
-          value={{
-            id: 'cash',
-            content: 'Tiền mặt',
-          }}
-          inputValue="cash"
-          onChange={handleChange}
-          wrapper={mk('cash-wrapper')}
-          caption="h-0"
-        />
-        <div className={mk('saved-card')}>
+        <div className="flex items-center gap-2 col-span-2 p-4 border-b-[1px] border-primary">
           <CheckBoxField
+            multiple
+            hidden
             name="payment"
             value={{
-              id: 'savedCard',
-              content: 'Thẻ đã lưu',
+              id: 'cash',
+              content: 'Tiền mặt',
             }}
-            inputValue="savedCard"
+            inputValue="cash"
             onChange={handleChange}
+            wrapper={mk('cash-wrapper')}
             caption="h-0"
           />
+          <label htmlFor="cash" className="cursor-pointer">
+            Tiền mặt
+          </label>
+        </div>
+        <div className={mk('saved-card')}>
+          <div className="flex items-center gap-2">
+            <CheckBoxField
+              multiple
+              hidden
+              name="payment"
+              value={{
+                id: 'savedCard',
+              }}
+              inputValue="savedCard"
+              onChange={handleChange}
+              caption="h-0"
+            />
+            <label htmlFor="savedCard" className="cursor-pointer">
+              Thẻ đã lưu
+            </label>
+          </div>
           <div className={mk('visa-number')}>
             <VisaIcon />
             <span>***6699</span>
           </div>
         </div>
         <div className={mk('card-wrapper')}>
-          <CheckBoxField
-            name="payment"
-            value={{
-              id: 'newCard',
-              content: 'Thẻ tín dụng hoặc thẻ ghi nợ ',
-            }}
-            inputValue="newCard"
-            onChange={handleChange}
-            input="register-checkbox"
-            caption="h-0"
-          />
+          <div className="flex items-center gap-2">
+            <CheckBoxField
+              multiple
+              hidden
+              name="payment"
+              value={{
+                id: 'newCard',
+                content: 'Thẻ tín dụng hoặc thẻ ghi nợ',
+              }}
+              inputValue="newCard"
+              onChange={handleChange}
+              input="register-checkbox"
+              caption="h-0"
+            />
+            <label htmlFor="newCard" className="cursor-pointer">
+              Thẻ tín dụng hoặc thẻ ghi nợ
+            </label>
+          </div>
           <div className={mk('card-list')}>
             <VisaIcon />
             <MasterIcon />

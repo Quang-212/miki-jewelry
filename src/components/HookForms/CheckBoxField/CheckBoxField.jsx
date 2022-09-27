@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { isEmpty } from 'lodash';
 import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
 import { CheckedInputIcon, UncheckedInputIcon } from 'src/components/Icons';
@@ -18,6 +19,7 @@ export function CheckBoxField({
   highlight,
   inputValue,
   onChange,
+  multiple,
   ...other
 }) {
   const {
@@ -56,6 +58,21 @@ export function CheckBoxField({
     );
   };
 
+  const renderCheckbox = (multiple, name, inputValue) => {
+    if (multiple) {
+      return (
+        <label htmlFor={value.id} className={classLabel}>
+          {watch(name).join('') === inputValue ? <CheckedInputIcon /> : <UncheckedInputIcon />}
+        </label>
+      );
+    }
+    return (
+      <label htmlFor={value.id} className={classLabel}>
+        {watch(name) ? <CheckedInputIcon /> : <UncheckedInputIcon />}
+      </label>
+    );
+  };
+
   return (
     <div className={classWrapper}>
       <input
@@ -68,9 +85,7 @@ export function CheckBoxField({
           ...(onChange && { onChange }),
         })}
       />
-      <label htmlFor={value.id} className={classLabel}>
-        {watch(name) ? <CheckedInputIcon /> : <UncheckedInputIcon />}
-      </label>
+      {renderCheckbox(multiple, name, inputValue)}
       <span className={classCaption}>{errors[name]?.message}</span>
     </div>
   );
