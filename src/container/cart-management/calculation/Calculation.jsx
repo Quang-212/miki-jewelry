@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
@@ -15,13 +15,10 @@ const mk = classNames.bind(styles);
 
 export default function Calculation({ checked }) {
   const totalCart = useRecoilValue(totalCartState({ filterCartIds: checked.orders }));
+  const [discountByCoupon, setDiscountByCoupon] = useState(0);
   const isClient = useClientSide();
 
   const { push } = useRouter();
-
-  const priceByDiscount = () => {
-    return 0;
-  };
 
   const handleSubmit = () => {
     const orderId = JSON.parse(sessionStorage.getItem('orders'));
@@ -30,6 +27,10 @@ export default function Calculation({ checked }) {
     }
     push(PATH.ORDER);
   };
+
+  useEffect(() => {
+    sessionStorage.setItem('discount', JSON.stringify(discountByCoupon));
+  }, [discountByCoupon]);
 
   return (
     <>
@@ -60,7 +61,7 @@ export default function Calculation({ checked }) {
               </li>
               <li className="font-primary font-bold text-xl leading-7 text-primary">50.000đ</li>
               <li className="font-primary font-bold text-xl leading-7 text-primary">
-                {formatVndCurrency(priceByDiscount())}
+                {formatVndCurrency(discountByCoupon)}
               </li>
             </ul>
           </div>
@@ -68,7 +69,7 @@ export default function Calculation({ checked }) {
           <div className={mk('total')}>
             <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
             <span className="font-primary font-bold text-xl leading-7 text-primary text-primary-1">
-              {formatVndCurrency(totalCart - priceByDiscount())}
+              {formatVndCurrency(totalCart - discountByCoupon)}
             </span>
           </div>
           <Button primary onClick={handleSubmit} wrapper={mk('btn')}>
