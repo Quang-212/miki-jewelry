@@ -61,8 +61,6 @@ export default function LoginFormSection() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
-
       const res = await toast.promise(
         loginForm(data),
         {

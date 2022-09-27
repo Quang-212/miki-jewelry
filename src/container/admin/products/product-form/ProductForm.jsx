@@ -153,7 +153,6 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
             ...image,
             type: primaryImage === index ? 'primary' : 'secondary',
           }));
-        console.log(newImages, newUploadedImage.data);
 
         const apiRequests = [
           updateProduct({ ...data, images: newImages }, currentProduct.data._id),
@@ -173,22 +172,18 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
               render({ data }) {
                 return data[0].data.message;
               },
-              // other options
               icon: '😊',
             },
             error: {
               render({ data }) {
-                console.log(data);
                 return data.response.data.message;
               },
             },
           },
           { autoClose: 4000 },
         );
-        console.log(updatedProduct);
       } else {
         const upload = await uploadFile(formData);
-        console.log(upload.data);
 
         const product = await toast.promise(
           createProduct({
@@ -220,7 +215,6 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
           },
           { autoClose: 4000 },
         );
-        console.log(product);
       }
     } catch (error) {
       console.log(error);

@@ -1,10 +1,15 @@
 import Page from 'src/components/Page';
 import { OrderMainInformation } from 'src/container/user';
+import { useOrderDetails, useRouter } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';
 
 OrderDetails.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
 
 export default function OrderDetails() {
+  const { query } = useRouter();
+  const { order } = useOrderDetails(query.id);
+  console.log(order);
+
   return (
     <>
       <Page

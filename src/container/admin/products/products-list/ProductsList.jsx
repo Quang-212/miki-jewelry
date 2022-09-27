@@ -66,7 +66,6 @@ export function ProductsList() {
   const productsColumn = useMemo(() => columnProducts, [products]);
   const productsData = useMemo(() => [...products], [products]);
 
-  console.log(productsData);
   if (isError) return <h2>{isError}</h2>;
   //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
   //! FUCK WHEN LOADING => Table is unmount (the same)

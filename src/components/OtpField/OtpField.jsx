@@ -30,7 +30,6 @@ export default function OtpField() {
   const inputRef = useRef();
   useEffect(() => {
     const valueByIndex = codeWatch[currentIndex];
-    console.log(codeWatch);
     // if (type === 'click') {
     //   setFocus(`code[${currentIndex}]`);
     // }

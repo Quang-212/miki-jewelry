@@ -109,7 +109,6 @@ export default function ProfileForm() {
         ...rest,
         ...(avatar && { profilePicture }),
       };
-      console.log(data);
 
       const res = await toast.promise(
         updateUser(data, {
@@ -137,7 +136,6 @@ export default function ProfileForm() {
         },
         { autoClose: 4000 },
       );
-      console.log(res.data);
 
       setUser((prev) => ({
         //! REMEMBER RETURN STALE DATA BEFORE UPDATE NEW

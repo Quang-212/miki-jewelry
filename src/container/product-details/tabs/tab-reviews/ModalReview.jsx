@@ -18,7 +18,6 @@ const schema = yup.object().shape({
 
 export default function ModalReview({ isOpen, setIsOpen }) {
   const [rating, setRating] = useState(0);
-  console.log(rating);
 
   const handleCloseModal = () => {
     return setIsOpen((prev) => ({ ...prev, review: false }));

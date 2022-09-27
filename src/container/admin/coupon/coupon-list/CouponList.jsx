@@ -38,8 +38,6 @@ export function CouponList() {
     pageIndex,
   });
 
-  console.log(couponState);
-
   const _coupons = couponState;
 
   const handleCreateProduct = () => {
@@ -70,8 +68,6 @@ export function CouponList() {
     _coupons &&
       setPagination((prev) => ({ ...prev, pageCount: Math.ceil(couponState.total / limit) }));
   }, [_coupons, limit]);
-
-  console.log(coupons);
 
   const productsColumn = useMemo(() => columnCoupon, [coupons]);
   const productsData = useMemo(

@@ -43,7 +43,6 @@ export function RadioField({
   const classCaption = mk('caption', {
     [caption]: caption,
   });
-  console.log(watch(name));
 
   return (
     <div className={classWrapper}>

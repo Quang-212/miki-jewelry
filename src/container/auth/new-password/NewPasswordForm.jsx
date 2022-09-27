@@ -73,7 +73,6 @@ export default function NewPasswordForm() {
           },
           success: {
             render({ data }) {
-              console.log(data);
               return data.data.message;
             },
             icon: '😍',

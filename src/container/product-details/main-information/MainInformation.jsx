@@ -154,7 +154,6 @@ export default function MainInformation({ product, averageRating }) {
           },
           error: {
             render({ data }) {
-              console.log(data);
               return data.response?.data.message;
             },
             icon: '😵‍💫',

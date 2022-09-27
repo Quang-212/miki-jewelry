@@ -36,7 +36,6 @@ export function Footer() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       setFocus('email');
       reset();
 

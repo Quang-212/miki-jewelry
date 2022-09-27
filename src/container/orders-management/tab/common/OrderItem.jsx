@@ -133,7 +133,11 @@ export default function OrderItem({ data, index }) {
             <Button outline onClick={handleBuyAgain} wrapper={mk('btn-buy-again')}>
               Mua lại
             </Button>
-            <Button outline internalLink={`/products`} wrapper={mk('btn-view-detail')}>
+            <Button
+              outline
+              internalLink={`/account/orders/${data._id}`}
+              wrapper={mk('btn-view-detail')}
+            >
               Xem chi tiết
             </Button>
           </div>
