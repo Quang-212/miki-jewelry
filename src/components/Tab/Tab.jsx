@@ -7,6 +7,7 @@ const mk = classNames.bind(styles);
 
 export default function Tab({
   tabs,
+  reviews,
   selectedIndex,
   onTabChange,
   orders,
@@ -60,7 +61,7 @@ export default function Tab({
       <HeadlessTab.Panels className={classTabPanels}>
         {tabs.map(({ component }, index) => (
           <HeadlessTab.Panel key={index} className={classPanel}>
-            {component({ orders, isLoadingMore })}
+            {component({ orders, isLoadingMore, reviews })}
           </HeadlessTab.Panel>
         ))}
       </HeadlessTab.Panels>

@@ -11,7 +11,7 @@ import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
-export default function MainInformation({ product }) {
+export default function MainInformation({ product, averageRating }) {
   const {
     _id,
     name,
@@ -179,7 +179,7 @@ export default function MainInformation({ product }) {
 
       <div className="flex gap-8">
         <div className="flex items-center gap-4">
-          <div>5.0 *****</div>
+          <div>{averageRating} *****</div>
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
           <p>{sold} đã bán</p>
         </div>

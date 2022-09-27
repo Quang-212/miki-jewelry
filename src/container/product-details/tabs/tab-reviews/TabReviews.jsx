@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 import Button from 'src/components/Button';
 import { CheckIcon } from 'src/components/Icons';
+import { averageRating } from 'src/utils/averageRating';
 import { TABS_FILTER } from '../tab-config';
 import ModalLeaving from './ModalLeaving';
 import ModalReview from './ModalReview';
 import ReviewItem from './ReviewItem';
 
-export default function TabReviews() {
+export default function TabReviews({ reviews = {} }) {
   const [activeTab, setActiveTab] = useState(['all']);
   const [isOpen, setIsOpen] = useState({
     review: false,
@@ -30,7 +31,7 @@ export default function TabReviews() {
         <h5 className="heading-5">Đánh giá sản phẩm</h5>
         <div className="flex items-center gap-2">
           <div>* * * * *</div>
-          <strong>5.0 Sao</strong>
+          <strong>{averageRating(reviews.rating)} Sao</strong>
         </div>
         <Button outline onClick={handleOpenModalReview}>
           Viết đánh giá
@@ -60,12 +61,11 @@ export default function TabReviews() {
         })}
       </ul>
       <ul className="col-span-12 flex flex-col gap-9">
-        <li>
-          <ReviewItem />
-        </li>
-        <li>
-          <ReviewItem />
-        </li>
+        {reviews.feedbacks.map((feedback) => (
+          <li key={feedback}>
+            <ReviewItem feedback={feedback} />
+          </li>
+        ))}
       </ul>
 
       <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />

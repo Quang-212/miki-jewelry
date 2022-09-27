@@ -4,8 +4,9 @@ const Feedback = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     targetId: { type: Schema.Types.ObjectId, required: true },
-    rating: { type: Number },
-    comment: { type: String, required: true },
+    classify: { type: String },
+    rating: { type: Number, max: 5, min: 0 },
+    comment: { type: String },
     media: {
       type: { type: String, enum: ['image', 'video'] },
       url: { type: String },
