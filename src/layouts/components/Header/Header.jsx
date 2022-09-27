@@ -2,8 +2,10 @@ import classNames from 'classnames/bind';
 // import { useSession } from 'next-auth/react';
 
 import BrandLogo from 'src/components/BrandLogo';
+import { BellRingIcon } from 'src/components/Icons';
 import Cart from '../Cart';
 import Navigation from '../Navigation';
+import { Notifications } from '../Notifications';
 import Search from '../Search';
 import User from '../User';
 import GlobalEvent from './GlobalEvent';
@@ -24,6 +26,7 @@ export function Header() {
           <Search />
           <div className="flex gap-8">
             <Cart />
+            <Notifications />
             <User />
 
             {/* <li>

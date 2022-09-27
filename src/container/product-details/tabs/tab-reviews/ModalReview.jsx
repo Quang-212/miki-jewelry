@@ -47,27 +47,29 @@ export default function ModalReview({ isOpen, setIsOpen }) {
 
   return (
     <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="pb-9 px-14 bg-neutral-5">
-      <div className="grid grid-cols-12 gap-2">
+      <div className="grid grid-cols-12 gap-y-2">
         <div className="col-span-12 flex justify-end cursor-pointer">
           <CloseIcon onClick={handleCloseModal} />
         </div>
         <strong className="col-span-12">Đánh giá sản phẩm này</strong>
-        <RatingStar
-          count={TOTAL_STARS}
-          rating={rating}
-          onRating={(prev) => setRating(prev)}
-          color={{ filled: 'text-active-star', unfilled: 'text-[#E9E9E9]' }}
-        />
-        <span>{errors?.rating?.message}</span>
+        <div className="col-span-12">
+          <RatingStar
+            count={TOTAL_STARS}
+            rating={rating}
+            onRating={(prev) => setRating(prev)}
+            color={{ filled: 'text-active-star', unfilled: 'text-[#E9E9E9]' }}
+          />
+          <span>{errors?.rating?.message}</span>
+        </div>
         <strong className="col-span-6 mt-2">Bình luận*</strong>
         <small className="col-span-6 justify-self-end">Ký tự còn lại 250</small>
         <FormProvider
           methods={methods}
           onSubmit={handleSubmit(onSubmit)}
-          className="col-span-12 grid grid-cols-12 gap-y-6"
+          className="col-span-12 grid grid-cols-12"
         >
           <div className="col-span-12">
-            <TextAreaField name="comment" placeholder="Nhập mô tả tại đây" cols="112" rows="8" />
+            <TextAreaField name="comment" placeholder="Nhập mô tả tại đây" cols="111" rows="8" />
           </div>
           <div className="col-span-12 flex items-center gap-4">
             <strong>Thêm hình ảnh/video sản phẩm nếu có:</strong>

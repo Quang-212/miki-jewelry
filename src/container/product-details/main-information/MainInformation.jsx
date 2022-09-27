@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { FavoriteIcon, MinusIcon, PlusIcon, RatingStarIcon } from 'src/components/Icons';
 import { addToCart } from 'src/fetching/cart';
 import { createFavorite } from 'src/fetching/favorite';
 import { useRouter } from 'src/hooks';
@@ -178,8 +178,27 @@ export default function MainInformation({ product }) {
       <h2 className="font-primary font-bold text-32-px leading-10 text-primary">{name}</h2>
 
       <div className="flex gap-8">
-        <div className="flex items-center gap-4">
-          <div>5.0 *****</div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center">
+            <small className="text-neutral-1">4.9</small>
+            <ul className="flex ml-2">
+              <li>
+                <RatingStarIcon width="14" height="14" className="text-active-star" />
+              </li>
+              <li>
+                <RatingStarIcon width="14" height="14" className="text-active-star" />
+              </li>
+              <li>
+                <RatingStarIcon width="14" height="14" className="text-active-star" />
+              </li>
+              <li>
+                <RatingStarIcon width="14" height="14" className="text-active-star" />
+              </li>
+              <li>
+                <RatingStarIcon width="14" height="14" className="text-active-star" />
+              </li>
+            </ul>
+          </div>
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
           <p>{sold} đã bán</p>
         </div>

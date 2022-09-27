@@ -1,0 +1,7 @@
+.progress {
+  @apply relative w-full h-2 rounded-tag bg-neutral-4;
+}
+
+.progress-done {
+  @apply w-0 h-full rounded-tag bg-neutral-3 shadow-sm transition-all duration-1000 delay-300 ease-linear;
+}

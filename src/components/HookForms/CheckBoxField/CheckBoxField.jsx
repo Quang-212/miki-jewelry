@@ -62,7 +62,6 @@ export function CheckBoxField({
         id={value.id}
         type="checkbox"
         value={inputValue}
-        // checked={value.id === watch(name)}
         className={classInput}
         {...other}
         {...register(name, {
