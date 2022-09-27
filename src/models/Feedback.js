@@ -2,15 +2,15 @@ import { Schema, model, models } from 'mongoose';
 
 const Feedback = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId },
-    product: { type: Schema.Types.ObjectId, ref: 'Product' },
-    quantity: { type: Number, default: 1 },
-    size: { type: String, required: true },
-    status: {
-      type: String,
-      enum: ['added', 'ordered', 'deleted'],
-      default: 'added',
-      required: true,
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    targetId: { type: Schema.Types.ObjectId, required: true },
+    classify: { type: String },
+    rating: { type: Number, max: 5, min: 0 },
+    comment: { type: String },
+    media: {
+      type: { type: String, enum: ['image', 'video'] },
+      url: { type: String },
+      public_id: { type: String },
     },
   },
   {

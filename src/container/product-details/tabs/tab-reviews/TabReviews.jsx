@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 
 import Button from 'src/components/Button';
 import { CheckIcon, RatingStarIcon } from 'src/components/Icons';
+import { averageRating } from 'src/utils/averageRating';
 import RatingStar from 'src/components/RatingStar';
 import { TABS_FILTER } from '../tab-config';
 import ModalLeaving from './ModalLeaving';
@@ -13,7 +14,7 @@ import { ProgressBarRating } from 'src/components/ProgressBarRating';
 
 const mk = classNames.bind(styles);
 
-export default function TabReviews() {
+export default function TabReviews({ reviews = {} }) {
   const [activeTab, setActiveTab] = useState(['all']);
   const [isOpen, setIsOpen] = useState({
     review: false,
@@ -118,12 +119,11 @@ export default function TabReviews() {
         })}
       </ul>
       <ul className="col-span-12 flex flex-col gap-9">
-        <li>
-          <ReviewItem />
-        </li>
-        <li>
-          <ReviewItem />
-        </li>
+        {reviews.feedbacks.map((feedback) => (
+          <li key={feedback}>
+            <ReviewItem feedback={feedback} />
+          </li>
+        ))}
       </ul>
 
       <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />

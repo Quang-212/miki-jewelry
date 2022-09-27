@@ -10,14 +10,19 @@ import {
   ViewedProducts,
 } from 'src/container/product-details';
 import { getProducts } from 'src/fetching/products';
+import useFeedback from 'src/hooks/useFeedback';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
+import { averageRating } from 'src/utils/averageRating';
 
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductDetail({ product = {}, relatedProducts }) {
-  const { name, category, description, slug, images } = product;
+  const { _id, name, category, description, slug, images } = product;
 
+  const { data: reviews } = useFeedback({ productId: _id });
+
+  console.log(reviews);
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':
@@ -60,9 +65,9 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
         <Breadcrumb breadcrumbs={breadcrumbs} />
         <div className="flex justify-between gap-10">
           <Images images={images} name={name} />
-          <MainInformation product={product} />
+          <MainInformation product={product} averageRating={averageRating(reviews?.rating)} />
         </div>
-        <MoreInformation />
+        <MoreInformation reviews={reviews} />
         <StarDivider wrapper="mt-8" />
         <ViewedProducts />
         <RelatedProducts relatedProducts={relatedProducts} />

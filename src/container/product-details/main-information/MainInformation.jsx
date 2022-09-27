@@ -11,7 +11,7 @@ import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
-export default function MainInformation({ product }) {
+export default function MainInformation({ product, averageRating }) {
   const {
     _id,
     name,

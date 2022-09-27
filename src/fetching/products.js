@@ -34,14 +34,10 @@ export const deleteProduct = (data, options) => {
 export const getProducts = (params = [], query, options) => {
   const queryString = qs.stringify(query);
   const BASE_URL =
-    process.env.NODE_ENV === 'production'
-      ? process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
-      : 'http://localhost:3000';
+    process.env.NODE_ENV === 'production' ? process.env.PRODUCTION_BASE_URL : process.env.BASE_URL;
   return axios({
     method: 'GET',
-    url: `https://miki-jewelry-quang-212.vercel.app/api/products/${params.join(
-      '/',
-    )}?${queryString}`,
+    url: `${BASE_URL}/api/products/${params.join('/')}?${queryString}`,
     ...options,
   });
 };

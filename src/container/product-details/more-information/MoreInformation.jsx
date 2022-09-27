@@ -6,7 +6,7 @@ import styles from './MoreInformation.module.css';
 
 const mk = classNames.bind(styles);
 
-export function MoreInformation() {
+export function MoreInformation({ reviews = {} }) {
   const TABS = [
     {
       title: 'Mô tả',
@@ -21,7 +21,7 @@ export function MoreInformation() {
       component: (props) => <TabShipping {...props} />,
     },
     {
-      title: 'Đánh giá(02)',
+      title: `Đánh giá (${reviews.total || 0})`,
       component: (props) => <TabReviews {...props} />,
     },
   ];
@@ -29,6 +29,7 @@ export function MoreInformation() {
   return (
     <section className="mt-9">
       <Tab
+        reviews={reviews}
         tabs={TABS}
         wrapper={mk('tabs-wrapper')}
         tabList={mk('tabs-list')}
