@@ -58,7 +58,7 @@
 }
 
 .cash-wrapper {
-  @apply col-span-2 p-4 border-b-[1px] border-primary;
+  /* @apply col-span-2 p-4 border-b-[1px] border-primary; */
 }
 
 .saved-card {

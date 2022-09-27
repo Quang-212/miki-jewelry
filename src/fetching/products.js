@@ -37,6 +37,7 @@ export const getProducts = (params = [], query, options) => {
     process.env.NODE_ENV === 'production'
       ? process.env.PRODUCTION_BASE_URL
       : process.env.DEV_BASE_URL;
+
   return axios({
     method: 'GET',
     url: `${BASE_URL}/api/products/${params.join('/')}?${queryString}`,

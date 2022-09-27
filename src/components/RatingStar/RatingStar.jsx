@@ -39,5 +39,5 @@ export default function RatingStar({
     });
   }, [count, rating, hoverRating]);
 
-  return <ul className="col-span-12 flex gap-2">{ratingStars}</ul>;
+  return <ul className="flex gap-2">{ratingStars}</ul>;
 }

@@ -56,7 +56,6 @@ export default function VerifyEmailForm() {
             },
             success: {
               render({ data }) {
-                console.log(data);
                 return data.data.message;
               },
               icon: '😍',
@@ -90,7 +89,6 @@ export default function VerifyEmailForm() {
             },
             success: {
               render({ data }) {
-                console.log(data);
                 return data.data.message;
               },
               icon: '😍',

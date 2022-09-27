@@ -183,7 +183,6 @@ export default function Form({ address, setAddress, chosenOrder }) {
           },
           error: {
             render({ data }) {
-              console.log(data);
               return data.response?.data.message;
             },
             icon: '😵‍💫',
@@ -191,7 +190,6 @@ export default function Form({ address, setAddress, chosenOrder }) {
         },
         { autoClose: 4000 },
       );
-      console.log(res);
       handleAfterOrdered(cartIds);
     } catch (error) {
       console.log(error);

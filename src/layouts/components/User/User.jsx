@@ -31,7 +31,7 @@ export default function User() {
   return (
     <Menu items={isAuthenticated ? MENU_USER_ITEMS({ handleClickLogout }) : MENU_ITEMS}>
       {isClient && isAuthenticated ? (
-        <div className="flex items-center ml-8">
+        <div className="flex items-center ml-4">
           <Avatar name={user?.userName} imageUrl={user.profilePicture?.url} />
         </div>
       ) : (

@@ -72,7 +72,6 @@ export function CardProduct({
           },
           error: {
             render({ data }) {
-              console.log(data);
               return data.response?.data.message;
             },
             icon: '😵‍💫',

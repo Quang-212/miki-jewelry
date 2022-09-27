@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 
 import Image from 'src/components/Image';
-import { images } from 'src/constants';
 import { useRouter } from 'src/hooks';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Common.module.css';

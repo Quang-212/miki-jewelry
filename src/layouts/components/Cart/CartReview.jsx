@@ -77,7 +77,7 @@ export default function CartReview({ cartRecoil, children }) {
       interactive
       placement="bottom-end"
       delay={[200, 400]}
-      offset={[108, 16]}
+      offset={[144, 16]}
       render={renderCartReview}
     >
       {children}

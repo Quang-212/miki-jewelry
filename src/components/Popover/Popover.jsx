@@ -11,8 +11,6 @@ export default function Popover({ children, renderContent }) {
 
   const [open, setOpen] = useState(false);
 
-  console.log(open);
-
   return (
     <>
       {open && (

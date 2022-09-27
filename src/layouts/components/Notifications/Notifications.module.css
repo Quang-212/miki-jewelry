@@ -1,0 +1,7 @@
+.popper-wrapper {
+  @apply h-fit flex flex-col gap-3 py-5;
+}
+
+.notifications-review-empty {
+  @apply flex flex-col items-center gap-8;
+}

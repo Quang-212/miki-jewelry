@@ -17,7 +17,6 @@ export default function a() {
       method: 'POST',
       url: '/api/pusher',
     });
-    console.log(res);
   };
   return (
     <div>

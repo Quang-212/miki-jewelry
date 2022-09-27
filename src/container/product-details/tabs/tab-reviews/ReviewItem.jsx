@@ -3,7 +3,6 @@ import { images } from 'src/constants';
 import { fDateTime } from 'src/utils/formartTime';
 
 export default function ReviewItem({ feedback = {} }) {
-  console.log(feedback);
   return (
     <div className="grid grid-cols-12 gap-y-1">
       <div className="col-span-1 row-span-4 w-16 h-16">

@@ -21,6 +21,7 @@ import noImage from 'public/static/images/no-image.png';
 import productsHeroEarring from 'public/static/images/products-hero-earring.jpg';
 import registerForm from 'public/static/images/register-form.png';
 import accountProfileBanner from 'public/static/images/account-profile-banner.png';
+import orderIcon from 'public/static/images/order-icon.png';
 
 export default {
   logo,
@@ -46,4 +47,5 @@ export default {
   accountProfileBanner,
   adminAvatar,
   noImage,
+  orderIcon,
 };
