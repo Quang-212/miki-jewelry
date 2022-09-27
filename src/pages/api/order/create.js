@@ -17,7 +17,8 @@ async function handleCreateOrder(req, res) {
   try {
     switch (method) {
       case 'POST':
-        const [adminList, ...products] = await Promise.all([
+        const [currentUser, adminList, ...products] = await Promise.all([
+          User.findById(order.user).lean(),
           User.find({ role: 'admin' }).lean(),
           ...order.products.map((item) => Product.findById(item.product).lean()),
         ]);
@@ -48,9 +49,9 @@ async function handleCreateOrder(req, res) {
             Notification.insertMany(
               adminList.map((admin) => ({
                 sender: order.user,
-                to: admin._id,
+                owner: admin._id,
                 type: 'order',
-                content: 'Khách hàng mới đặt đơn',
+                content: `${currentUser.userName} mới đặt một đơn hàng.`,
               })),
             ),
             ...cartIds.map((item) => Cart.findByIdAndUpdate(item, { status: 'ordered' })),

@@ -8,16 +8,21 @@ import Dialog from 'src/components/Dialog';
 import { FormProvider, TextAreaField } from 'src/components/HookForms';
 import { CloseIcon, UploadImageIcon } from 'src/components/Icons';
 import RatingStar from 'src/components/RatingStar';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'src/recoils';
+import { createFeedback } from 'src/fetching/feedback';
+import { toast } from 'react-toastify';
 
 const TOTAL_STARS = 5;
 
 const schema = yup.object().shape({
-  // comment:
-  rating: yup.number().typeError('qwerty').min(1, 'asdfg'),
+  rating: yup.number().typeError('qwerty').min(1, 'Bạn cần đánh giá trước khi gửi'),
 });
 
-export default function ModalReview({ isOpen, setIsOpen }) {
+export default function ModalReview({ isOpen, setIsOpen, order }) {
   const [rating, setRating] = useState(0);
+  const { user } = useRecoilValue(userState);
+  const { product, size, _id } = order;
 
   const handleCloseModal = () => {
     return setIsOpen((prev) => ({ ...prev, review: false }));
@@ -26,7 +31,7 @@ export default function ModalReview({ isOpen, setIsOpen }) {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      comment: 'hello ae',
+      comment: '',
     },
   });
 
@@ -41,7 +46,21 @@ export default function ModalReview({ isOpen, setIsOpen }) {
   }, [rating]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    try {
+      const res = await createFeedback({
+        ...data,
+        user: user._id,
+        targetId: product._id,
+        classify: size,
+        productId: product._id,
+        orderId: _id,
+      });
+      console.log(res);
+    } catch (error) {
+      if (405 === error.response?.status) {
+        toast(error.response.data.message, { type: 'info' });
+      }
+    }
   };
 
   return (
@@ -50,7 +69,7 @@ export default function ModalReview({ isOpen, setIsOpen }) {
         <div className="col-span-12 flex justify-end cursor-pointer">
           <CloseIcon onClick={handleCloseModal} />
         </div>
-        <strong className="col-span-12">Đánh giá sản phẩm này</strong>
+        <strong className="col-span-12">Đánh giá sản phẩm này*</strong>
         <div className="col-span-12">
           <RatingStar
             count={TOTAL_STARS}
@@ -60,7 +79,7 @@ export default function ModalReview({ isOpen, setIsOpen }) {
           />
           <span>{errors?.rating?.message}</span>
         </div>
-        <strong className="col-span-6 mt-2">Bình luận*</strong>
+        <strong className="col-span-6 mt-2">Bình luận</strong>
         <small className="col-span-6 justify-self-end">Ký tự còn lại 250</small>
         <FormProvider
           methods={methods}
@@ -76,13 +95,14 @@ export default function ModalReview({ isOpen, setIsOpen }) {
           </div>
           <Button
             text
+            type="button"
             onClick={handleCloseModal}
             title="font-bold"
             wrapper="col-span-10 justify-self-end py-2 px-12"
           >
             Bỏ qua
           </Button>
-          <Button primary wrapper="col-span-2">
+          <Button type="submit" primary wrapper="col-span-2">
             Gửi
           </Button>
         </FormProvider>

@@ -4,6 +4,8 @@ const Feedback = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     targetId: { type: Schema.Types.ObjectId, required: true },
+    productId: { type: Schema.Types.ObjectId },
+    orderId: { type: Schema.Types.ObjectId },
     classify: { type: String },
     rating: { type: Number, max: 5, min: 0 },
     comment: { type: String },
