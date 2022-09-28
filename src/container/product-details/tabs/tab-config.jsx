@@ -87,7 +87,7 @@ export const tableColumns = [
     ],
   },
 ];
-
+// consider remove it (*)
 export const TABS_FILTER = [
   {
     title: 'Tất cả',

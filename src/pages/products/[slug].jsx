@@ -1,4 +1,6 @@
 import decode from 'jwt-decode';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Breadcrumb from 'src/components/Breadcrumb';
 import { StarDivider } from 'src/components/Dividers';
 import Page from 'src/components/Page';
@@ -9,9 +11,10 @@ import {
   RelatedProducts,
   ViewedProducts,
 } from 'src/container/product-details';
+import { getFeedbackByFilters, getStableFeedbackProperties } from 'src/fetching/feedback';
 import { getProducts } from 'src/fetching/products';
-import useFeedback from 'src/hooks/useFeedback';
 import MainLayout from 'src/layouts/MainLayout';
+import { feedbackFilterState } from 'src/recoils/feedbackFilterState';
 import { PATH } from 'src/routes';
 import { averageRating } from 'src/utils/averageRating';
 
@@ -20,9 +23,40 @@ ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 export default function ProductDetail({ product = {}, relatedProducts }) {
   const { _id, name, category, description, slug, images } = product;
 
-  const { data: reviews } = useFeedback({ productId: _id });
+  const { type, filters } = useRecoilValue(feedbackFilterState);
 
-  console.log(reviews);
+  const [reviews, setReviews] = useState({});
+
+  useEffect(() => {
+    if (_id) {
+      getFeedbackByFilters({
+        productId: _id,
+        find_type: type,
+        rating: filters.rating,
+        ...(filters.others.includes('newest') && { order: 'newest' }),
+        properties: filters.others,
+      })
+        .then(({ data: feedbacks }) => {
+          setReviews((prev) => ({ ...prev, ...feedbacks.data }));
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [_id, type, filters]);
+
+  useEffect(() => {
+    if (_id) {
+      getStableFeedbackProperties({ productId: _id })
+        .then(({ data: feedbackProperties }) => {
+          setReviews((prev) => ({ ...prev, ...feedbackProperties.data }));
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [_id]);
+
+  useEffect(() => {
+    console.log(reviews);
+  }, [reviews]);
+
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':

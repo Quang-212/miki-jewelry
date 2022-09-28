@@ -31,7 +31,6 @@ export default function NotificationsReview({ children }) {
     limit: 4,
   });
 
-  console.log(data);
   useEffect(() => {
     !isEmpty(data?.notifications) &&
       setNotifications({ data: data.notifications, unRead: data.unRead });

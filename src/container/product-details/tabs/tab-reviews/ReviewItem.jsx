@@ -16,7 +16,9 @@ export default function ReviewItem({ feedback = {} }) {
       <p className="col-span-11">{feedback.user.userName}</p>
       <div className="col-span-11">{[...Array(feedback.rating)].fill('*')}</div>
       <p className="col-span-11 mt-2">{feedback.comment || ''}</p>
-      <p className="col-span-11 mt-2">{`${fDateTime(feedback.createdAt)} | Size: 16`}</p>
+      <p className="col-span-11 mt-2">{`${fDateTime(feedback.createdAt)} | Kích thước: ${
+        feedback.classify
+      }`}</p>
     </div>
   );
 }
