@@ -6,13 +6,13 @@ async function handleGetOrderByAccount(req, res) {
   await dbConnect();
   const { method } = req;
   const { status, userId, search, limit = 10, page = 0 } = req.query;
-
+  console.log(userId);
   try {
     switch (method) {
       case 'GET':
         const baseQuery = () => {
           return Order.find({
-            userId,
+            user: userId,
             ...(status && status !== 'all' && { status }),
             ...(search && { search: new RegExp(search) }),
           });
