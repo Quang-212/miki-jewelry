@@ -1,7 +1,7 @@
 import dbConnect from 'src/utils/dbConnect';
 import Notification from 'src/models/Notification';
 
-const deleteHandler = async (req, res) => {
+const updateHandler = async (req, res) => {
   await dbConnect();
   try {
     const { method } = req;
@@ -9,7 +9,7 @@ const deleteHandler = async (req, res) => {
 
     switch (method) {
       case 'POST':
-        await Notification.findByIdAndUpdate(id, { deleted: true, read: true });
+        await Notification.findByIdAndUpdate(id, req.body);
         return res.status(200).json({
           message: 'OK',
           code: 200,
@@ -29,4 +29,4 @@ const deleteHandler = async (req, res) => {
   }
 };
 
-export default deleteHandler;
+export default updateHandler;

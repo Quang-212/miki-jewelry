@@ -5,12 +5,12 @@ import qs from 'qs';
 async function getProductList(req, res) {
   await dbConnect();
   const { method } = req;
-  const { limit = 4, page = 0, userId } = qs.parse(req.query);
+  const { limit = 4, page = 0, userId, show_hidden = false } = qs.parse(req.query);
   try {
     switch (method) {
       case 'GET':
         const [notificationList, total, unRead] = await Promise.all([
-          Notification.find({ owner: userId, deleted: false })
+          Notification.find({ owner: userId, deleted: show_hidden })
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(+page * limit)
