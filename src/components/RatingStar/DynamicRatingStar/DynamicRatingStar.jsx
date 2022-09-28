@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
-import Button from '../Button';
+import Button from '../../Button';
 
-import { RatingStarIcon } from '../Icons';
+import { RatingStarIcon } from '../../Icons';
 
-export default function RatingStar({
+export default function DynamicRatingStar({
   count,
   rating,
   onRating,

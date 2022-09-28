@@ -19,19 +19,23 @@ import styles from './Notifications.module.css';
 const mk = classNames.bind(styles);
 
 export default function NotificationsReview({ children }) {
-  const pusher = usePusherClient();
   const { user, isAuthenticated } = useRecoilValue(userState);
+
   const [notifications, setNotifications] = useState({
     data: [],
     unRead: 0,
   });
+
   const { data } = useNotifications({
     userId: user._id,
     page: 0,
     limit: 4,
   });
 
+  const pusher = usePusherClient();
+
   console.log(data);
+
   useEffect(() => {
     !isEmpty(data?.notifications) &&
       setNotifications({ data: data.notifications, unRead: data.unRead });

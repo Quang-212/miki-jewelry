@@ -1,1 +1,2 @@
-export { default } from './RatingStar';
+export * from './PassiveRatingStar';
+export * from './DynamicRatingStar';

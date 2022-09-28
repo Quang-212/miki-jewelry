@@ -1,5 +1,5 @@
 .images {
-  @apply flex gap-10 max-w-[597px];
+  @apply flex gap-10 w-[646px] h-[465px];
 }
 
 .images-list {

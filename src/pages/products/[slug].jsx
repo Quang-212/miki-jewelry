@@ -22,7 +22,7 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
 
   const { data: reviews } = useFeedback({ productId: _id });
 
-  console.log(reviews);
+  // console.log(reviews);
   const generateCategory = (category) => {
     switch (category) {
       case 'ring':
