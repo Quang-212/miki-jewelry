@@ -14,7 +14,6 @@ export default function OrderProductItem({ data }) {
 
   const { push } = useRouter();
 
-  console.log(data);
   const { product, size, quantity } = data;
 
   const handleComment = () => {
@@ -55,7 +54,7 @@ export default function OrderProductItem({ data }) {
         <span className="col-span-1 justify-self-center">{formatVndCurrency(discountPrice)}</span>
         <span className="col-span-2 justify-self-center">{formatVndCurrency(newPrice)}</span>
       </div>
-      <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />
+      <ModalReview isOpen={isOpen.review} order={data} setIsOpen={setIsOpen} />
       <ModalLeaving isOpen={isOpen.leaving} setIsOpen={setIsOpen} />
     </>
   );

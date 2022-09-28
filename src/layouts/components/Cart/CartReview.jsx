@@ -19,11 +19,13 @@ const mk = classNames.bind(styles);
 export default function CartReview({ cartRecoil, children }) {
   const totalCart = useRecoilValue(totalCartState({ totalCart: true }));
   const totalPrice = formatVndCurrency(totalCart);
+  const DEFAULT_SHIPPING_FEE = 50000;
 
   const { push } = useRouter();
 
   const handleCheckout = async () => {
     sessionStorage.setItem('orders', JSON.stringify(cartRecoil.map((cartItem) => cartItem._id)));
+    sessionStorage.setItem('shippingFee', JSON.stringify(DEFAULT_SHIPPING_FEE));
     push('/checkout/order');
   };
 

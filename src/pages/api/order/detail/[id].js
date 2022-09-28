@@ -1,4 +1,5 @@
 import Order from 'src/models/Order';
+import PaymentCard from 'src/models/PaymentCard';
 import Product from 'src/models/Product';
 import dbConnect from 'src/utils/dbConnect';
 
@@ -10,10 +11,16 @@ async function handleGetOrderByAccount(req, res) {
   try {
     switch (method) {
       case 'GET':
-        const order = await Order.findById(id).populate({
-          path: 'products.product',
-          model: Product,
-        });
+        const order = await Order.findById(id).populate([
+          {
+            path: 'products.product',
+            model: Product,
+          },
+          {
+            path: 'cardInfo',
+            model: PaymentCard,
+          },
+        ]);
 
         return res.status(200).json({
           message: 'OK',

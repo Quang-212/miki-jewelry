@@ -39,8 +39,8 @@ async function feedbackHandler(req, res) {
               $replaceRoot: {
                 newRoot: {
                   $mergeObjects: [
-                    { percent: { $multiply: [{ $divide: ['$rating.count', '$total'] }, 100] } },
                     '$rating',
+                    { percent: { $multiply: [{ $divide: ['$rating.count', '$total'] }, 100] } },
                   ],
                 },
               },
@@ -54,11 +54,17 @@ async function feedbackHandler(req, res) {
           Feedback.find({ targetId }).countDocuments(),
         ]);
 
+        const ratingStructure = [...Array(5)].map((_, index) => ({
+          star: 5 - index,
+          count: 0,
+          percent: 0,
+        }));
+
         return res.status(200).json({
           message: 'OK',
           code: 200,
           data: {
-            rating,
+            rating: ratingStructure.map((item, index) => rating[index] || item),
             feedbacks,
             page: +page,
             pageSize: +limit,

@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { isEmpty, isPlainObject } from 'lodash';
+import { isEmpty, isNumber, isPlainObject } from 'lodash';
 import { useEffect, useState } from 'react';
 import Button from 'src/components/Button';
 import { FormProvider } from 'src/components/HookForms';
@@ -124,15 +124,22 @@ export default function Form({ address, setAddress, chosenOrder }) {
   };
 
   const productNameSearch = chosenOrder.map(({ product }) => product.name);
-
+  const getFromSessionStorage = (key) => JSON.parse(sessionStorage.getItem(key));
   const onSubmit = async (data) => {
     const cartIds = chosenOrder.map((orderItem) => orderItem._id);
-    const total = JSON.parse(sessionStorage.getItem('total'));
-    if (!total) {
-      return console.log('total is not calculated');
+    const provisionalPrice = getFromSessionStorage('provisionalPrice');
+    const shippingFee = getFromSessionStorage('shippingFee');
+    const discount = getFromSessionStorage('discount');
+    const total = getFromSessionStorage('total');
+    if (
+      !isNumber(total) ||
+      !isNumber(discount) ||
+      !isNumber(shippingFee) ||
+      !isNumber(provisionalPrice)
+    ) {
+      return console.log('some price or properties is not calculated');
     }
     try {
-      //cartInfo =>> existedCard !important
       const { newCard, savedCard, payment, number, expireTime, cvv, ...rest } = data;
       const res = await toast.promise(
         createOrder({
@@ -143,6 +150,9 @@ export default function Form({ address, setAddress, chosenOrder }) {
             ...(data.payment.includes('savedCard') && { cardInfo: 'cardId' }),
             isPaid: !data.payment.includes('cash'),
             user: user._id,
+            provisionalPrice,
+            shippingFee,
+            discountByCoupon: discount,
             total,
             search: formatSearchString(
               [data.firstName, data.lastName, data.phone].concat(productNameSearch),
