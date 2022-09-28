@@ -58,7 +58,7 @@ export default function TabReviews({ reviews = {} }) {
             </li>
           </ul>
           <small className="col-span-9 mt-1 ml-3 text-neutral-1">28 nhận xét</small>
-          <ul className="col-span-12 mt-2">
+          {/* <ul className="col-span-12 mt-2">
             <li className="flex justify-between items-center gap-2">
               <ul className="flex gap-1">
                 <li>
@@ -84,11 +84,8 @@ export default function TabReviews({ reviews = {} }) {
             <li>qwertyu</li>
             <li>qwertyu</li>
             <li>qwertyu</li>
-          </ul>
+          </ul> */}
         </div>
-        <Button outline onClick={handleOpenModalReview}>
-          Viết đánh giá
-        </Button>
       </div>
       <ul className="col-span-9 flex flex-wrap gap-y-4 gap-x-5">
         {TABS_FILTER.map((item, index) => {
@@ -113,9 +110,40 @@ export default function TabReviews({ reviews = {} }) {
           );
         })}
       </ul>
+      <ul className="col-span-12 max-w-[242px] mt-2">
+        <li className="flex justify-between items-center gap-2">
+          <ul className="flex gap-1">
+            <li>
+              <RatingStarIcon width="14" height="14" className="text-active-star" />
+            </li>
+            <li>
+              <RatingStarIcon width="14" height="14" className="text-active-star" />
+            </li>
+            <li>
+              <RatingStarIcon width="14" height="14" className="text-active-star" />
+            </li>
+            <li>
+              <RatingStarIcon width="14" height="14" className="text-active-star" />
+            </li>
+            <li>
+              <RatingStarIcon width="14" height="14" className="text-active-star" />
+            </li>
+          </ul>
+          <ProgressBarRating done="80" />
+          <small className="text-neutral-1">26</small>
+        </li>
+        <li>qwertyu</li>
+        <li>qwertyu</li>
+        <li>qwertyu</li>
+        <li>qwertyu</li>
+      </ul>
+      <Button outline onClick={handleOpenModalReview} wrapper="col-span-12 max-w-[242px]">
+        Viết đánh giá
+      </Button>
+
       <ul className="col-span-12 flex flex-col gap-9">
         {reviews.feedbacks.map((feedback) => (
-          <li key={feedback}>
+          <li key={feedback._id}>
             <ReviewItem feedback={feedback} />
           </li>
         ))}
