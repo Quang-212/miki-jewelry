@@ -179,7 +179,7 @@ export default function MainInformation({ product, averageRating }) {
       <div className="flex gap-8">
         <div className="flex items-center gap-2">
           <div className="flex items-center">
-            <small className="text-neutral-1">4.9</small>
+            <small className="text-neutral-1">{averageRating}</small>
             <ul className="flex ml-2">
               <li>
                 <RatingStarIcon width="14" height="14" className="text-active-star" />

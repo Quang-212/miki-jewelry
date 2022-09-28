@@ -2,7 +2,7 @@ import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import { CloseIcon } from 'src/components/Icons';
 
-export default function ModalLeaving({ isOpen, setIsOpen }) {
+export default function ModalCompleted({ isOpen, setIsOpen }) {
   const handleCloseModal = () => {
     return setIsOpen((prev) => ({ ...prev, leaving: false, review: false }));
   };
@@ -17,18 +17,14 @@ export default function ModalLeaving({ isOpen, setIsOpen }) {
         <div className="flex justify-end cursor-pointer">
           <CloseIcon onClick={handleCloseModal} />
         </div>
-        <p>
-          Đánh giá của bạn rất quan trọng đối với chúng tôi! Bạn có chắc muốn rời khỏi trang đánh
-          giá này không?
+        <p className="heading-4">Cảm ơn bạn đã đánh giá!</p>
+        <p className="text-lg">
+          Chúng tôi sẽ thông báo đến bạn khi đánh giá được duyệt. Đánh giá của bạn sẽ giúp mọi người
+          mua sắm tốt hơn.
         </p>
-        <div className="flex justify-between gap-8 mt-10">
-          <Button outline onClick={handleCloseModal} wrapper="w-full">
-            Rời khỏi
-          </Button>
-          <Button primary onClick={handleStayModal} wrapper="w-full">
-            Ở lại
-          </Button>
-        </div>
+        <Button primary onClick={handleCloseModal} wrapper="w-full mt-10">
+          Không có gì
+        </Button>
       </div>
     </Dialog>
   );

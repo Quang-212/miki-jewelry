@@ -6,11 +6,10 @@ import { CheckIcon, RatingStarIcon } from 'src/components/Icons';
 import { averageRating } from 'src/utils/averageRating';
 import RatingStar from 'src/components/RatingStar';
 import { TABS_FILTER } from '../tab-config';
-import ModalLeaving from './ModalLeaving';
-import ModalReview from './ModalReview';
 import ReviewItem from './ReviewItem';
 import styles from './TabReviews.module.css';
 import { ProgressBarRating } from 'src/components/ProgressBarRating';
+import { ModalCompleted, ModalLeaving, ModalReview } from 'src/container/reviews';
 
 const mk = classNames.bind(styles);
 
@@ -19,7 +18,9 @@ export default function TabReviews({ reviews = {} }) {
   const [isOpen, setIsOpen] = useState({
     review: false,
     leaving: false,
+    completed: false,
   });
+  console.log(reviews);
 
   const handleClickTab = (value) => {
     setActiveTab((prev) => {
@@ -31,20 +32,14 @@ export default function TabReviews({ reviews = {} }) {
     return setIsOpen((prev) => ({ ...prev, review: true, leaving: false }));
   };
 
-  const ProgressBar = ({ done }) => {
-    return (
-      <div className={mk('progress')}>
-        <div className={mk('progress-done')} style={{ width: `${done}%`, opacity: 1 }}></div>
-      </div>
-    );
-  };
-
   return (
     <div className="grid grid-cols-12 gap-y-6 gap-x-14 mt-12">
       <div className="col-span-3 flex flex-col gap-4">
         <h5 className="heading-5">Đánh giá sản phẩm</h5>
         <div className="grid grid-cols-12">
-          <p className="col-span-3 row-span-2 heading-2 text-primary-2">4.9</p>
+          <p className="col-span-3 row-span-2 heading-2 text-primary-2">
+            {averageRating(reviews?.rating)}
+          </p>
           <ul className="col-span-9 flex gap-1 ml-2">
             <li>
               <RatingStarIcon width="24" height="24" className="text-active-star" />
@@ -128,6 +123,7 @@ export default function TabReviews({ reviews = {} }) {
 
       <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />
       <ModalLeaving isOpen={isOpen.leaving} setIsOpen={setIsOpen} />
+      <ModalCompleted isOpen={isOpen.completed} setIsOpen={setIsOpen} />
     </div>
   );
 }

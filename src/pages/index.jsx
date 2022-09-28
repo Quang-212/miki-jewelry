@@ -40,7 +40,7 @@ export default function HomePage({ products }) {
 export const getServerSideProps = async () => {
   try {
     const featuredProducts = await getProducts([], {
-      limit: 4,
+      limit: 8,
       sortBy: 'sold',
       order: -1,
     });

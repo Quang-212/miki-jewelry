@@ -8,6 +8,6 @@ export function averageRating(rating = []) {
       .reduce((avg, item) => {
         return (avg += (item.count * item.star) / total);
       }, 0)
-      .toFixed(1) || 0
+      .toFixed(1) || 5
   );
 }

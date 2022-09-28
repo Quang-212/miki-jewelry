@@ -1,5 +1,4 @@
 import Avatar from 'src/components/Avatar';
-import { images } from 'src/constants';
 import { fDateTime } from 'src/utils/formartTime';
 
 export default function ReviewItem({ feedback = {} }) {
@@ -8,7 +7,7 @@ export default function ReviewItem({ feedback = {} }) {
       <div className="col-span-1 row-span-4 w-16 h-16">
         <Avatar
           name={feedback.user.userName}
-          imageUrl={feedback.user.profilePicture?.url || images.adminAvatar}
+          imageUrl={feedback.user.profilePicture?.url}
           width="100"
           height="100"
         />
