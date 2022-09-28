@@ -437,12 +437,12 @@ export const TicketIcon = ({ width = '28', height = '28', className }) => (
     <path
       d="M24 28V4L20 6.66667L16 4L12 6.66667L8 4V28L12 26L16 28L20 26L24 28Z"
       stroke="#33363F"
-      stroke-width="2.66667"
-      stroke-linejoin="round"
+      strokeWidth="2.66667"
+      strokeLinejoin="round"
     />
-    <path d="M13.3333 12H18.6666" stroke="#33363F" stroke-width="2.66667" stroke-linecap="round" />
-    <path d="M13.3333 20H18.6666" stroke="#33363F" stroke-width="2.66667" stroke-linecap="round" />
-    <path d="M13.3333 16H18.6666" stroke="#33363F" stroke-width="2.66667" stroke-linecap="round" />
+    <path d="M13.3333 12H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
+    <path d="M13.3333 20H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
+    <path d="M13.3333 16H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
   </svg>
 );
 
@@ -1011,23 +1011,23 @@ export const ChatPlusIcon = ({ width = '40', height = '40', className }) => (
       d="M15 18.3333L25 18.3333"
       stroke="#6E5544"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
     <path
       d="M8.33398 13.3334L8.33398 3.33337"
       stroke="#6E5544"
       strokeWidth="1.5"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
     <path
       d="M3.33398 8.33337L13.334 8.33337"
       stroke="#6E5544"
       strokeWidth="1.5"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinejoin="round"
     />
-    <path d="M20 25H25" stroke="#6E5544" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M20 25H25" stroke="#6E5544" stroke-linecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -1336,7 +1336,7 @@ export const CheckedInputIcon = ({ width = '32', height = '32', className }) => 
 export const UncheckedInputIcon = ({ width = '32', height = '32', className }) => (
   <svg
     width={width}
-    height={width}
+    height={height}
     className={className}
     viewBox="0 0 32 32"
     fill="none"
@@ -1345,6 +1345,26 @@ export const UncheckedInputIcon = ({ width = '32', height = '32', className }) =
     <path
       d="M25.3333 6.66667V25.3333H6.66667V6.66667H25.3333ZM25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4Z"
       fill="black"
+    />
+  </svg>
+);
+
+export const ArrowRightIcon = ({ width = '32', height = '32', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.91003 19.92L15.43 13.4C16.2 12.63 16.2 11.37 15.43 10.6L8.91003 4.08"
+      stroke="#8A8A8A"
+      strokeWidth="3"
+      stroke-miterlimit="10"
+      stroke-linecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

@@ -20,6 +20,7 @@ const Button = React.forwardRef(
       large = false,
       text = false,
       icon = false,
+      underline = false,
       disabled,
       children,
       wrapper,
@@ -58,13 +59,18 @@ const Button = React.forwardRef(
       large,
       text,
       icon,
+      underline,
       disabled,
       [wrapper]: wrapper,
     });
 
-    const classTitle = mk('title', {
-      [title]: title,
-    });
+    const classTitle = underline
+      ? mk('title-underline', {
+          [title]: title,
+        })
+      : mk('title', {
+          [title]: title,
+        });
 
     if (internalLink) {
       ButtonWrapper = Link;

@@ -163,11 +163,11 @@ export default function RegisterFormSection() {
                 caption="h-6"
               />
               <label>
-                Tôi đã đọc và đồng ý với các{' '}
+                Tôi đã đọc và đồng ý với các&nbsp;
                 <span className="text-primary-3 cursor-pointer hover:underline underline-offset-4">
                   điều khoản chính sách
                 </span>
-                của Miki Jewelry
+                &nbsp;của Miki Jewelry
               </label>
             </div>
 
@@ -176,7 +176,13 @@ export default function RegisterFormSection() {
             </Button>
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
-              <Button text internalLink={PATH.LOGIN} wrapper="ml-2" title={mk('title-btn-login')}>
+              <Button
+                text
+                underline
+                internalLink={PATH.LOGIN}
+                wrapper="ml-2"
+                title={mk('title-btn-login')}
+              >
                 Đăng nhập
               </Button>
             </p>

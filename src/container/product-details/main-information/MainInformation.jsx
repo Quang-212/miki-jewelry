@@ -1,15 +1,22 @@
+import classNames from 'classnames/bind';
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
-import { FavoriteIcon, MinusIcon, PlusIcon, RatingStarIcon } from 'src/components/Icons';
+import { FavoriteIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { PassiveRatingStar } from 'src/components/RatingStar';
 import { addToCart } from 'src/fetching/cart';
 import { createFavorite } from 'src/fetching/favorite';
 import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
+import styles from './MainInformation.module.css';
+
+const mk = classNames.bind(styles);
+
+const TOTAL_STARS = 5;
 
 export default function MainInformation({ product, averageRating }) {
   const {
@@ -173,39 +180,30 @@ export default function MainInformation({ product, averageRating }) {
   };
 
   return (
-    <section className="flex flex-col gap-4 max-w-[539px] max-h-[465px]">
+    <section className="flex flex-col gap-4 w-[450px] max-h-[465px]">
       <h2 className="font-primary font-bold text-32-px leading-10 text-primary">{name}</h2>
 
-      <div className="flex gap-8">
+      <div className="flex items-center gap-20">
         <div className="flex items-center gap-2">
           <div className="flex items-center">
-            <small className="text-neutral-1">4.9</small>
+            <small className="text-neutral-1">{averageRating}</small>
             <ul className="flex ml-2">
-              <li>
-                <RatingStarIcon width="14" height="14" className="text-active-star" />
-              </li>
-              <li>
-                <RatingStarIcon width="14" height="14" className="text-active-star" />
-              </li>
-              <li>
-                <RatingStarIcon width="14" height="14" className="text-active-star" />
-              </li>
-              <li>
-                <RatingStarIcon width="14" height="14" className="text-active-star" />
-              </li>
-              <li>
-                <RatingStarIcon width="14" height="14" className="text-active-star" />
-              </li>
+              <PassiveRatingStar
+                count={TOTAL_STARS}
+                star={Math.round(averageRating)}
+                width="14"
+                color={{ filled: 'text-active-star', unfilled: 'text-normal-star' }}
+              />
             </ul>
           </div>
           <NormalDivider vertical="border-2 h-3 border-l-[1px] border-neutral-2" />
-          <p>{sold} đã bán</p>
+          <small>{sold} đã bán</small>
         </div>
         {!generateProperty(sizeChecked, 'quantity') ? (
           <span className="ml-8 subtitle-1 text-caption-1">Hết hàng</span>
         ) : generateProperty(sizeChecked, 'quantity') < 10 ? (
-          <span className="ml-8 subtitle-1 text-caption-1">
-            Sắp hết hàng (Còn {generateProperty(sizeChecked, 'quantity')} sản phẩm)
+          <span className="font-bold text-caption-1">
+            Sắp hết hàng (còn lại {generateProperty(sizeChecked, 'quantity')})
           </span>
         ) : (
           <span className="ml-8 subtitle-1 text-caption-2">Còn hàng</span>
@@ -226,7 +224,7 @@ export default function MainInformation({ product, averageRating }) {
                 />
               }
               onClick={handleClickFavorite}
-              wrapper="ml-8"
+              wrapper="ml-11"
               title="font-medium"
             >
               Đã thích ({likedCount})
@@ -263,9 +261,9 @@ export default function MainInformation({ product, averageRating }) {
                 wrapper={
                   stock.quantity
                     ? index === sizeChecked
-                      ? 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5'
-                      : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary cursor-pointer'
-                    : 'flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-neutral-3 text-neutral-5'
+                      ? mk('btn-size-active')
+                      : mk('btn-size-inactive')
+                    : mk('btn-size-zero')
                 }
                 onClick={() => handleClickSize(index)}
                 disabled={stock.quantity === 0}
@@ -317,7 +315,7 @@ export default function MainInformation({ product, averageRating }) {
         </span>
       )}
 
-      <div className="flex justify-between gap-10 mt-4">
+      <div className="flex justify-between gap-5 mt-4">
         <Button outline onClick={handleAddToCart} wrapper="w-2/4">
           Thêm vào giỏ hàng
         </Button>

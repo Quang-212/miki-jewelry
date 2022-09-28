@@ -1,3 +1,6 @@
+import { map } from 'lodash';
+import { isEmpty } from 'lodash';
+
 export const formatReplaceString = (sourceString) => {
   return sourceString.replace(/[^\wèéòàùì\s]/gi, '');
 };
@@ -25,7 +28,8 @@ export const formatSearchString = (targetArray) => {
 };
 
 export const formatStringTextAvatar = (text) => {
-  const textSplit = text.split(' ');
+  const textSplit = text.split(' ').filter((item) => item.trim());
+
   const initials = textSplit[0].charAt(0).toUpperCase() + textSplit[1].charAt(0).toUpperCase();
 
   return initials;

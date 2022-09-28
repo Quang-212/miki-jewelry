@@ -17,7 +17,7 @@ export default function ModalLeaving({ isOpen, setIsOpen }) {
         <div className="flex justify-end cursor-pointer">
           <CloseIcon onClick={handleCloseModal} />
         </div>
-        <p>
+        <p className="text-lg">
           Đánh giá của bạn rất quan trọng đối với chúng tôi! Bạn có chắc muốn rời khỏi trang đánh
           giá này không?
         </p>

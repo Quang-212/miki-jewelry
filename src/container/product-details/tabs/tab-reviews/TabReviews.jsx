@@ -4,12 +4,12 @@ import { useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import Button from 'src/components/Button';
-import { CheckIcon, RatingStarIcon } from 'src/components/Icons';
-import { ProgressBarRating } from 'src/components/ProgressBarRating';
+import { CheckIcon } from 'src/components/Icons';
+import { ModalCompleted, ModalLeaving, ModalReview } from 'src/container/reviews';
 import { feedbackFilterState } from 'src/recoils/feedbackFilterState';
-import ModalLeaving from './ModalLeaving';
-import ModalReview from './ModalReview';
-import ReviewItem from './ReviewItem';
+import CommentsList from './CommentsList';
+import RatingStarsList from './RatingStarsList';
+import RatingStarsPreview from './RatingStarsPreview';
 import styles from './TabReviews.module.css';
 
 const mk = classNames.bind(styles);
@@ -27,6 +27,7 @@ export default function TabReviews({ reviews = {} }) {
   const [isOpen, setIsOpen] = useState({
     review: false,
     leaving: false,
+    completed: false,
   });
   const TABS_FILTER = useMemo(
     () => [
@@ -86,70 +87,10 @@ export default function TabReviews({ reviews = {} }) {
     return setIsOpen((prev) => ({ ...prev, review: true, leaving: false }));
   };
 
-  const ProgressBar = ({ done }) => {
-    return (
-      <div className={mk('progress')}>
-        <div className={mk('progress-done')} style={{ width: `${done}%`, opacity: 1 }}></div>
-      </div>
-    );
-  };
-
   return (
-    <div className="grid grid-cols-12 gap-y-6 gap-x-14 mt-12">
-      <div className="col-span-3 flex flex-col gap-4">
-        <h5 className="heading-5">Đánh giá sản phẩm</h5>
-        <div className="grid grid-cols-12">
-          <p className="col-span-3 row-span-2 heading-2 text-primary-2">4.9</p>
-          <ul className="col-span-9 flex gap-1 ml-2">
-            <li>
-              <RatingStarIcon width="24" height="24" className="text-active-star" />
-            </li>
-            <li>
-              <RatingStarIcon width="24" height="24" className="text-active-star" />
-            </li>
-            <li>
-              <RatingStarIcon width="24" height="24" className="text-active-star" />
-            </li>
-            <li>
-              <RatingStarIcon width="24" height="24" className="text-active-star" />
-            </li>
-            <li>
-              <RatingStarIcon width="24" height="24" className="text-active-star" />
-            </li>
-          </ul>
-          <small className="col-span-9 mt-1 ml-3 text-neutral-1">28 nhận xét</small>
-          <ul className="col-span-12 mt-2">
-            <li className="flex justify-between items-center gap-2">
-              <ul className="flex gap-1">
-                <li>
-                  <RatingStarIcon width="14" height="14" className="text-active-star" />
-                </li>
-                <li>
-                  <RatingStarIcon width="14" height="14" className="text-active-star" />
-                </li>
-                <li>
-                  <RatingStarIcon width="14" height="14" className="text-active-star" />
-                </li>
-                <li>
-                  <RatingStarIcon width="14" height="14" className="text-active-star" />
-                </li>
-                <li>
-                  <RatingStarIcon width="14" height="14" className="text-active-star" />
-                </li>
-              </ul>
-              <ProgressBarRating done="80" />
-              <small className="text-neutral-1">26</small>
-            </li>
-            <li>qwertyu</li>
-            <li>qwertyu</li>
-            <li>qwertyu</li>
-            <li>qwertyu</li>
-          </ul>
-        </div>
-        <Button outline onClick={handleOpenModalReview}>
-          Viết đánh giá
-        </Button>
-      </div>
+    <div className="grid grid-cols-12 gap-x-14 mt-12">
+      <RatingStarsPreview data={reviews} />
+
       <ul className="col-span-9 flex flex-wrap gap-y-4 gap-x-5">
         {TABS_FILTER.map((item, index) => {
           const selectedTab = (type, index) => {
@@ -185,16 +126,18 @@ export default function TabReviews({ reviews = {} }) {
           );
         })}
       </ul>
-      <ul className="col-span-12 flex flex-col gap-9">
-        {reviews.feedbacks.map((feedback) => (
-          <li key={feedback}>
-            <ReviewItem feedback={feedback} />
-          </li>
-        ))}
-      </ul>
+
+      <RatingStarsList data={reviews.rating} />
+
+      <Button outline onClick={handleOpenModalReview} wrapper="col-span-12 max-w-[242px] mt-4">
+        Viết đánh giá
+      </Button>
+
+      <CommentsList data={reviews.feedbacks} />
 
       <ModalReview isOpen={isOpen.review} setIsOpen={setIsOpen} />
       <ModalLeaving isOpen={isOpen.leaving} setIsOpen={setIsOpen} />
+      <ModalCompleted isOpen={isOpen.completed} setIsOpen={setIsOpen} />
     </div>
   );
 }

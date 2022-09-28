@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 
 import { CardProduct } from 'src/components/Card';
+import Slider from 'src/components/Slider';
 import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 import styles from './RelatedProducts.module.css';
@@ -15,7 +16,7 @@ export default function RelatedProducts({ relatedProducts = [] }) {
   return (
     <section className={mk('related-products')}>
       <h2 className={mk('title')}>Có thể bạn cũng thích</h2>
-      <ul className={mk('products-list')}>
+      <Slider>
         {relatedProducts.map((product, index) => (
           <li key={index}>
             <CardProduct
@@ -28,7 +29,7 @@ export default function RelatedProducts({ relatedProducts = [] }) {
             />
           </li>
         ))}
-      </ul>
+      </Slider>
     </section>
   );
 }

@@ -1,17 +1,17 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
 import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import { FormProvider, TextAreaField } from 'src/components/HookForms';
 import { CloseIcon, UploadImageIcon } from 'src/components/Icons';
-import RatingStar from 'src/components/RatingStar';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'src/recoils';
+import { DynamicRatingStar } from 'src/components/RatingStar';
 import { createFeedback } from 'src/fetching/feedback';
-import { toast } from 'react-toastify';
+import { userState } from 'src/recoils';
 
 const TOTAL_STARS = 5;
 
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
   rating: yup.number().typeError('qwerty').min(1, 'Bạn cần đánh giá trước khi gửi'),
 });
 
-export default function ModalReview({ isOpen, setIsOpen, order }) {
+export default function ModalReview({ isOpen, setIsOpen, order = {} }) {
   const [rating, setRating] = useState(0);
   const { user } = useRecoilValue(userState);
   const { product, size, _id } = order;
@@ -71,11 +71,11 @@ export default function ModalReview({ isOpen, setIsOpen, order }) {
         </div>
         <strong className="col-span-12">Đánh giá sản phẩm này*</strong>
         <div className="col-span-12">
-          <RatingStar
+          <DynamicRatingStar
             count={TOTAL_STARS}
             rating={rating}
             onRating={(prev) => setRating(prev)}
-            color={{ filled: 'text-active-star', unfilled: 'text-[#E9E9E9]' }}
+            color={{ filled: 'text-active-star', unfilled: 'text-normal-star' }}
           />
           <span>{errors?.rating?.message}</span>
         </div>

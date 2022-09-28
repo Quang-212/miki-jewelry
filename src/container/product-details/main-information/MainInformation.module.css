@@ -1,0 +1,35 @@
+.btn-size-zero {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  opacity: 0.4;
+}
+.btn-size-zero:hover {
+  opacity: 1;
+}
+.btn-size-zero:before,
+.btn-size-zero:after {
+  position: absolute;
+  content: ' ';
+  height: 48px;
+  width: 1.5px;
+  background-color: #251c17;
+}
+.btn-size-zero:before {
+  transform: rotate(45deg);
+}
+.btn-size-zero:after {
+  transform: rotate(-45deg);
+}
+
+.btn-size-zero {
+  @apply relative flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary text-primary;
+}
+
+.btn-size-active {
+  @apply flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary bg-primary text-neutral-5;
+}
+
+.btn-size-inactive {
+  @apply flex justify-center items-center w-[42px] h-10 py-2 px-3 border-2 rounded-primary border-primary;
+}
