@@ -42,6 +42,7 @@ const Product = new Schema(
       },
     ],
     search: { type: String, required: true },
+    deleted: { type: Boolean, required: true, default: false },
   },
   {
     timestamps: true,

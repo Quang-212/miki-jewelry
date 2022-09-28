@@ -33,6 +33,7 @@ async function getProductList(req, res) {
 
         const [productList, total] = await Promise.all([
           Product.find({
+            deleted: false,
             ...(category && { category }),
             ...(search && { search: new RegExp(search) }),
           })
@@ -41,7 +42,7 @@ async function getProductList(req, res) {
             .skip(page * +limit)
             .select(select)
             .exec(),
-          Product.countDocuments(),
+          Product.find({ deleted: false }).countDocuments(),
         ]);
 
         return res.status(200).json({

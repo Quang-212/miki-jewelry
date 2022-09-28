@@ -10,7 +10,7 @@ async function getProductList(req, res) {
     switch (method) {
       case 'GET':
         const [notificationList, total, unRead] = await Promise.all([
-          Notification.find({ owner: userId })
+          Notification.find({ owner: userId, deleted: false })
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(+page * limit)

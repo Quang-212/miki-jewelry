@@ -1,7 +1,7 @@
-import Product from 'src/models/Product';
+import Notification from 'src/models/Notification';
 import dbConnect from 'src/utils/dbConnect';
 
-const deleteProduct = async (req, res) => {
+const markAsReadHandler = async (req, res) => {
   await dbConnect();
   try {
     const { method } = req;
@@ -11,12 +11,13 @@ const deleteProduct = async (req, res) => {
     switch (method) {
       case 'POST':
         type === 'many'
-          ? await Product.updateMany({ _id: { $in: id } }, { deleted: true })
-          : await Product.findByIdAndUpdate(id, { deleted: true });
+          ? await Notification.updateMany({ _id: { $in: id } }, { deleted: true })
+          : await Notification.findByIdAndUpdate(id, { deleted: true });
         return res.status(200).json({
-          message: 'Bạn đã xóa thành công sản phẩm',
+          message: 'OK',
           code: 200,
         });
+
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
@@ -31,4 +32,4 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-export default deleteProduct;
+export default markAsReadHandler;
