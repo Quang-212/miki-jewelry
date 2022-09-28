@@ -20,12 +20,25 @@ import { averageRating } from 'src/utils/averageRating';
 
 ProductDetail.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
+const generateCategory = (category) => {
+  switch (category) {
+    case 'ring':
+      return 'Nhẫn';
+    case 'necklace':
+      return 'Dây chuyền';
+    case 'earring':
+      return 'Bông tai';
+    default:
+      return 'Lắc';
+  }
+};
+
 export default function ProductDetail({ product = {}, relatedProducts }) {
-  const { _id, name, category, description, slug, images } = product;
+  const [reviews, setReviews] = useState({});
 
   const { type, filters } = useRecoilValue(feedbackFilterState);
 
-  const [reviews, setReviews] = useState({});
+  const { _id, name, category, description, slug, images } = product;
 
   useEffect(() => {
     if (_id) {
@@ -53,22 +66,9 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
     }
   }, [_id]);
 
-  useEffect(() => {
-    console.log(reviews);
-  }, [reviews]);
-
-  const generateCategory = (category) => {
-    switch (category) {
-      case 'ring':
-        return 'Nhẫn';
-      case 'necklace':
-        return 'Dây chuyền';
-      case 'earring':
-        return 'Bông tai';
-      default:
-        return 'Lắc';
-    }
-  };
+  // useEffect(() => {
+  //   console.log(reviews);
+  // }, [reviews]);
 
   const breadcrumbs = [
     {

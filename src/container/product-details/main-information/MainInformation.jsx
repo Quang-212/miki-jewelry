@@ -180,7 +180,7 @@ export default function MainInformation({ product, averageRating }) {
   };
 
   return (
-    <section className="flex flex-col gap-4 w-[450px] max-h-[465px]">
+    <section className="flex flex-col gap-4 w-[450px]">
       <h2 className="font-primary font-bold text-32-px leading-10 text-primary">{name}</h2>
 
       <div className="flex items-center gap-20">

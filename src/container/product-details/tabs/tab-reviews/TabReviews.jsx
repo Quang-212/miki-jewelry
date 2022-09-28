@@ -13,6 +13,7 @@ import RatingStarsPreview from './RatingStarsPreview';
 import styles from './TabReviews.module.css';
 
 const mk = classNames.bind(styles);
+
 const INIT_ACTIVE_TAB = {
   type: 'all',
   filters: {
@@ -29,6 +30,8 @@ export default function TabReviews({ reviews = {} }) {
     leaving: false,
     completed: false,
   });
+  console.log(reviews);
+
   const TABS_FILTER = useMemo(
     () => [
       {
@@ -70,6 +73,7 @@ export default function TabReviews({ reviews = {} }) {
       if (value === 'all') {
         return INIT_ACTIVE_TAB;
       }
+
       const result = {
         type: 'filter',
         filters: {
@@ -77,6 +81,7 @@ export default function TabReviews({ reviews = {} }) {
           others: type !== 'rating' ? handleFilter(value, filters.others) : filters.others,
         },
       };
+
       return isEmpty(result.filters.rating) && isEmpty(result.filters.others)
         ? INIT_ACTIVE_TAB
         : result;
@@ -102,6 +107,7 @@ export default function TabReviews({ reviews = {} }) {
             }
             return activeTab.filters['others'].includes(item.value);
           };
+
           return (
             <li key={index}>
               <Button

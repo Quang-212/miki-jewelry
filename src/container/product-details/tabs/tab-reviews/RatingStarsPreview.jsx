@@ -19,7 +19,9 @@ export default function RatingStarsPreview({ data }) {
             color={{ filled: 'text-active-star', unfilled: 'text-normal-star' }}
           />
         </ul>
-        <small className="col-span-9 ml-3 text-neutral-1">{data.total} nhận xét</small>
+        <small className="col-span-9 ml-3 text-neutral-1">
+          {data.total ? `${data.total} nhận xét` : ''}
+        </small>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const updateHandler = async (req, res) => {
     const { id } = req.query;
 
     switch (method) {
-      case 'POST':
+      case 'PATCH':
         await Notification.findByIdAndUpdate(id, req.body);
         return res.status(200).json({
           message: 'OK',
