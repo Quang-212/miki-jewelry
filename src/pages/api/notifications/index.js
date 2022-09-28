@@ -15,8 +15,8 @@ async function getProductList(req, res) {
             .limit(limit)
             .skip(+page * limit)
             .exec(),
-          Notification.find({ owner: userId }).countDocuments(),
-          Notification.find({ owner: userId, read: false }).countDocuments(),
+          Notification.find({ owner: userId, deleted: false }).countDocuments(),
+          Notification.find({ owner: userId, deleted: false, read: false }).countDocuments(),
         ]);
 
         return res.status(200).json({

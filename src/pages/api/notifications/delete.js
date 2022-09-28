@@ -1,18 +1,15 @@
-import Notification from 'src/models/Notification';
 import dbConnect from 'src/utils/dbConnect';
+import Notification from 'src/models/Notification';
 
-const markAsReadHandler = async (req, res) => {
+const deleteHandler = async (req, res) => {
   await dbConnect();
   try {
     const { method } = req;
-    const { id } = req.body;
-    const { type = 'one' } = req.query;
+    const { id } = req.query;
 
     switch (method) {
       case 'POST':
-        type === 'many'
-          ? await Notification.updateMany({ _id: { $in: id } }, { read: true })
-          : await Notification.findByIdAndUpdate(id, { read: true });
+        await Notification.findByIdAndUpdate(id, { deleted: true });
         return res.status(200).json({
           message: 'OK',
           code: 200,
@@ -32,4 +29,4 @@ const markAsReadHandler = async (req, res) => {
   }
 };
 
-export default markAsReadHandler;
+export default deleteHandler;
