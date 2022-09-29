@@ -7,10 +7,11 @@ async function createProduct(req, res) {
     await dbConnect();
     switch (method) {
       case 'POST':
-        await Product.create(req.body);
+        const newProduct = await Product.create(req.body);
         return res.status(201).json({
           message: 'Bạn đã tạo mới sản phẩm thành công',
           code: 201,
+          data: newProduct,
         });
       default:
         return res.status(400).json({

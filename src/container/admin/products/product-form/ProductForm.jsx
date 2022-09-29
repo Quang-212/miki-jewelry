@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { isEmpty } from 'lodash';
+import { isArray, isEmpty } from 'lodash';
 import { toast } from 'react-toastify';
 import Button from 'src/components/Button';
 import { NormalDivider } from 'src/components/Dividers';
@@ -19,12 +19,12 @@ const stocksSchema = yup.object().shape({
   quantity: yup
     .number()
     .typeError('Quantity is required')
-    // .positive('This field must contain positive numbers')
+    .min(1, 'This field must be at least 1')
     .integer('This field must contain integers'),
   price: yup
     .number()
     .typeError('Price is required')
-    .positive('This field must contain positive numbers')
+    .min(1, 'This field must be at least 1')
     .integer('This field must contain integers'),
   sku: yup.string().required('SKU is required'),
 });
@@ -36,12 +36,18 @@ const schema = yup.object().shape({
   visibilityStatus: yup.string().typeError('Visibility status is required'),
   discount: yup
     .number()
-    .positive('This field must contain positive numbers')
+    .min(0, 'This field must be at least 0')
     .integer('This field must contain integers'),
-  stocks: yup.array(1, 'At least ONE stock').of(stocksSchema),
+  stocks: yup.array().of(stocksSchema),
 });
 
-export function ProductForm({ setShowProductsList, currentProduct, setCurrentProduct }) {
+export function ProductForm({
+  setShowProductsList,
+  onAddNewProduct,
+  onUpdateProduct,
+  currentProduct,
+  setCurrentProduct,
+}) {
   const [primaryImage, setPrimaryImage] = useState(
     currentProduct.data.images?.findIndex((image) => image.type === 'primary') || 0,
   );
@@ -61,22 +67,26 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      name: currentProduct.data.name,
-      description: currentProduct.data.description,
-      category: currentProduct.data.category,
-      visibilityStatus: currentProduct.data.visibilityStatus,
-      discount: currentProduct.data.discount,
-      coupon: currentProduct.data.coupon,
-      stocks: currentProduct.data.stocks,
-      images: currentProduct.data.images,
+      name: currentProduct.data.name || '',
+      description: currentProduct.data.description || '',
+      category: currentProduct.data.category || 'ring',
+      visibilityStatus: currentProduct.data.visibilityStatus || 'published',
+      discount: currentProduct.data.discount || 0,
+      stocks: currentProduct.data.stocks || [],
+      images: currentProduct.data.images || [],
     },
   });
 
-  const { control, handleSubmit, setFocus } = methods;
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = methods;
   const image = useWatch({
     control,
   });
-
+  console.log(errors);
   const {
     fields: stocksField,
     append: addStock,
@@ -100,6 +110,14 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
   }, [image]);
 
   const onSubmit = async (data) => {
+    if (isEmpty(data.images)) {
+      return setError('images', '1');
+    }
+
+    if (isEmpty(data.stocks)) {
+      return setError('stocks', '1');
+    }
+
     try {
       data = {
         ...data,
@@ -113,53 +131,47 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
       const formData = new FormData();
 
       const distributedImage = data.images.reduce(
-        (imageCategory, image) => {
+        ({ files, uploadedImages }, image, index) => {
           if (image.url) {
-            imageCategory.formattedImages.push(image);
+            uploadedImages.push({ index, content: image });
           } else {
-            imageCategory.files.push(image);
-            imageCategory.formattedImages.push(null);
+            files.push({ index, content: image });
           }
-          return imageCategory;
+          return { files, uploadedImages };
         },
         {
           files: [],
-          formattedImages: [],
+          uploadedImages: [],
         },
       );
 
       distributedImage.files.forEach((file) => {
-        formData.append('pictures-file', file[0]);
+        formData.append('pictures-file', file.content[0]);
       });
 
       if (currentProduct.isEdit) {
         const newUploadedImage = !isEmpty(distributedImage.files) && (await uploadFile(formData));
 
         const imageIds = currentProduct.data.images
-          ?.filter((_, index) => distributedImage.formattedImages[index] === null)
+          .filter((_, index) => !!distributedImage.files.find((file) => file.index === index))
           .map((image) => ({ public_id: image.public_id }));
 
-        let index = 0;
-        const newImages = distributedImage.formattedImages
-          .map((image) => {
-            if (image) return image;
-            else {
-              const qwerty = newUploadedImage.data[index];
-              index++;
-              return qwerty;
-            }
-          })
+        const newImages = [distributedImage.uploadedImages, newUploadedImage.data.data]
+          .flat()
           .map((image, index) => ({
             ...image,
             type: primaryImage === index ? 'primary' : 'secondary',
           }));
 
         const apiRequests = [
-          updateProduct({ ...data, images: newImages }, currentProduct.data._id),
+          updateProduct(
+            { ...data, images: newImages },
+            { params: { id: currentProduct.data._id } },
+          ),
         ];
 
-        !isEmpty(distributedImage.files) && apiRequests.push(deleteImage({ images: imageIds }));
-        const updatedProduct = await toast.promise(
+        !isEmpty(imageIds) && apiRequests.push(deleteImage({ images: imageIds }));
+        const [updatedProduct] = await toast.promise(
           Promise.all(apiRequests),
           {
             pending: {
@@ -182,16 +194,20 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
           },
           { autoClose: 4000 },
         );
+        console.log(updatedProduct.data.data);
+        onUpdateProduct(currentProduct.data._id, updatedProduct.data.data);
       } else {
         const upload = await uploadFile(formData);
-
+        const images = upload.data.data;
         const product = await toast.promise(
           createProduct({
             ...data,
-            images: upload.data.response.map((image, index) => ({
-              ...image,
-              type: index === primaryImage ? 'primary' : 'secondary',
-            })),
+            images: isArray(images)
+              ? images.map((image, index) => ({
+                  ...image,
+                  type: index === primaryImage ? 'primary' : 'secondary',
+                }))
+              : { ...images, type: 'primary' },
           }),
           {
             pending: {
@@ -215,6 +231,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
           },
           { autoClose: 4000 },
         );
+        onAddNewProduct(product.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -248,6 +265,7 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
 
           <div className="bg-white pt-6 px-6">
             <h5 className="font-primary font-bold text-xl leading-7 text-primary">Images</h5>
+            <p>{errors.images?.message}</p>
             <Button primary type="button" onClick={() => addImage()}>
               Add image
             </Button>
@@ -303,30 +321,28 @@ export function ProductForm({ setShowProductsList, currentProduct, setCurrentPro
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="font-primary font-bold text-xl leading-7 text-primary">Discount</h5>
-              <TextField name="discount" wrapper="mt-5" />
-            </div>
-            <div className="bg-white pt-4 px-4 w-full">
-              <h5 className="font-primary font-bold text-xl leading-7 text-primary">Coupon</h5>
-              <TextField name="coupon" wrapper="mt-5" />
-            </div>
+          <div className="bg-white pt-4 px-4 w-full">
+            <h5 className="font-primary font-bold text-xl leading-7 text-primary">Discount</h5>
+            <TextField name="discount" wrapper="mt-5" />
           </div>
-          {stocksField.map(({ id }, index) => (
-            <div key={id} className="flex items-center gap-6 bg-white pt-4 px-4">
-              <TextField name={`stocks.${index}.size`} label="Size" input="mt-2" />
-              <TextField name={`stocks.${index}.quantity`} label="Quantity" input="mt-2" />
-              <TextField name={`stocks.${index}.price`} label="Price" input="mt-2" />
-              <TextField name={`stocks.${index}.sku`} label="SKU" input="mt-2" />
-              <Button primary type="button" onClick={() => removeStock(index)}>
-                Remove
-              </Button>
-            </div>
-          ))}
-          <Button primary type="button" onClick={() => addStock()}>
-            Add Stocks
-          </Button>
+          <div className="bg-white pt-4 px-4 w-full">
+            <h5 className="font-primary font-bold text-xl leading-7 text-primary">Stocks</h5>
+            {stocksField.map(({ id }, index) => (
+              <div key={id} className="flex items-center gap-6 bg-white pt-4 px-4">
+                <TextField name={`stocks.${index}.size`} label="Size" input="mt-2" />
+                <TextField name={`stocks.${index}.quantity`} label="Quantity" input="mt-2" />
+                <TextField name={`stocks.${index}.price`} label="Price" input="mt-2" />
+                <TextField name={`stocks.${index}.sku`} label="SKU" input="mt-2" />
+                <Button primary type="button" onClick={() => removeStock(index)}>
+                  Remove
+                </Button>
+              </div>
+            ))}
+            <p>{errors.stocks?.message}</p>
+            <Button primary type="button" onClick={() => addStock()}>
+              Add Stocks
+            </Button>
+          </div>
         </div>
       </FormProvider>
     </section>

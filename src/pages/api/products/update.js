@@ -5,12 +5,11 @@ async function updateProduct(req, res) {
   await dbConnect();
   const { method } = req;
   const { id } = req.query;
-  const { data } = req.body;
 
   try {
     switch (method) {
       case 'PATCH':
-        const data = await Product.findByIdAndUpdate(id, req.body);
+        const data = await Product.findByIdAndUpdate(id, req.body, { new: true });
         return res.status(200).json({
           message: 'Cập nhật thành công',
           code: 200,
