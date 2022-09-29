@@ -1,11 +1,9 @@
 import { Icon } from '@iconify/react';
-import { useEffect } from 'react';
 import { usePagination, useRowSelect, useTable } from 'react-table';
 import List from 'src/components/List';
 import ListIconButton from 'src/components/ListIconButton';
 import ListItemButton from 'src/components/ListItemButton';
 import Popover from 'src/components/Popover';
-import { Wrapper } from 'src/components/Popper';
 
 import { isEven } from 'src/utils/isEven';
 import Button from '../../Button';
@@ -14,9 +12,9 @@ import { MenuVerticalIcon } from '../../Icons';
 
 export default function DynamicTable({
   columns,
-  data,
+  pagination: { pageSize: _pageSize, pageCount: _pageCount, page: pageIndex },
+  products,
   onPageChange,
-  pageState: { limit: _pageSize, pageCount: _pageCount, pageIndex },
   handleEdit,
   handleDelete,
 }) {
@@ -83,7 +81,7 @@ export default function DynamicTable({
   const tableInstance = useTable(
     {
       columns,
-      data,
+      data: products,
       initialState: { pageIndex, pageSize: _pageSize },
       manualPagination: true,
       pageCount: _pageCount,
@@ -109,16 +107,8 @@ export default function DynamicTable({
     gotoPage,
     pageCount,
     setPageSize,
-    state: { pageIndex: _pageIndex, pageSize },
+    state: { pageSize },
   } = tableInstance;
-
-  useEffect(() => {
-    onPageChange((prev) => ({
-      ...prev,
-      pageIndex: _pageIndex,
-      limit: pageSize,
-    }));
-  }, [_pageIndex, pageSize]);
 
   return (
     <>
@@ -165,16 +155,47 @@ export default function DynamicTable({
       </Table>
 
       <Pagination>
-        <Button icon outline onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        <Button
+          icon
+          outline
+          onClick={() => {
+            onPageChange((prev) => ({ ...prev, page: 0 }));
+            gotoPage(0);
+          }}
+          disabled={!canPreviousPage}
+        >
           {'<<'}
         </Button>
-        <Button outline onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <Button
+          outline
+          onClick={() => {
+            onPageChange((prev) => ({ ...prev, page: prev.page - 1 }));
+
+            previousPage();
+          }}
+          disabled={!canPreviousPage}
+        >
           Previous
         </Button>
-        <Button outline onClick={() => nextPage()} disabled={!canNextPage}>
+        <Button
+          outline
+          onClick={() => {
+            onPageChange((prev) => ({ ...prev, page: prev.page + 1 }));
+            nextPage();
+          }}
+          disabled={!canNextPage}
+        >
           Next
         </Button>
-        <Button icon outline onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+        <Button
+          icon
+          outline
+          onClick={() => {
+            onPageChange((prev) => ({ ...prev, page: pageCount - 1 }));
+            gotoPage(pageCount - 1);
+          }}
+          disabled={!canNextPage}
+        >
           {'>>'}
         </Button>
         <span>
@@ -190,12 +211,20 @@ export default function DynamicTable({
             defaultValue={pageIndex + 1}
             onChange={(event) => {
               const pageNumber = event.target.value ? Number(event.target.value) - 1 : 0;
+              onPageChange((prev) => ({ ...prev, page: pageNumber }));
               gotoPage(pageNumber);
             }}
             style={{ width: '50px' }}
           />
         </span>
-        <select value={pageSize} onChange={(event) => setPageSize(+event.target.value)}>
+        <select
+          value={pageSize}
+          onChange={(event) => {
+            const pageSize = +event.target.value;
+            onPageChange((prev) => ({ ...prev, pageSize }));
+            setPageSize(pageSize);
+          }}
+        >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
@@ -203,17 +232,6 @@ export default function DynamicTable({
           ))}
         </select>
       </Pagination>
-      {/* <pre>
-        <code>
-          {JSON.stringify(
-            {
-              selectedFlatRows: selectedFlatRows.map((row) => row.original._id),
-            },
-            null,
-            2,
-          )}
-        </code>
-      </pre> */}
     </>
   );
 }

@@ -9,7 +9,8 @@ import Button from 'src/components/Button';
 import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
-import { useDebounce, useProducts, useRouter } from 'src/hooks';
+import { getProducts } from 'src/fetching/products';
+import { useDebounce, useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 import { formatReplaceString } from 'src/utils/formatString';
 import styles from './Search.module.css';
@@ -18,27 +19,56 @@ const mk = classNames.bind(styles);
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
+
+  const [searchState, setSearchState] = useState({
+    isLoading: false,
+    isError: false,
+    errorMessage: '',
+    result: [],
+  });
+  const { isLoading, isError, errorMessage, result } = searchState;
 
   const inputRef = useRef();
   const { push, pathname, query } = useRouter();
 
   const debouncedValue = useDebounce(formatReplaceString(searchValue), 600);
 
-  const { productsState, isLoading, isError } = useProducts(
-    {
-      search: debouncedValue,
-      select: {
-        images: 1,
-        name: 1,
-        slug: 1,
-        stocks: 1,
-      },
-    },
-    {},
-    true,
-  );
+  useEffect(() => {
+    if (!debouncedValue.trim()) {
+      setSearchState((prev) => ({
+        ...prev,
+        result: [],
+      }));
+    } else {
+      setSearchState((prev) => ({ ...prev, isLoading: true }));
+
+      getProducts([], {
+        search: debouncedValue,
+        select: {
+          images: 1,
+          name: 1,
+          slug: 1,
+          stocks: 1,
+        },
+      })
+        .then(({ data: serverResponse }) => {
+          setSearchState((prev) => ({
+            ...prev,
+            result: serverResponse.data.products,
+          }));
+        })
+        .catch((error) => {
+          console.log(error);
+          setSearchState((prev) => ({
+            ...prev,
+            isError: true,
+            errorMessage: error.response?.data.message,
+          }));
+        })
+        .finally(() => setSearchState((prev) => ({ ...prev, isLoading: false })));
+    }
+  }, [debouncedValue]);
 
   useEffect(() => {
     const handler = (event) => {
@@ -70,21 +100,13 @@ export default function Search() {
     };
   }, [debouncedValue, pathname, query]);
 
-  useEffect(() => {
-    if (!debouncedValue.trim()) {
-      setSearchResult([]);
-    } else {
-      setSearchResult(productsState);
-    }
-  }, [debouncedValue, productsState]);
-
   const renderResult = (attrs) => {
     return (
       <div className="w-[430px]" tabIndex="-1" {...attrs}>
         <PopperWrapper className="gap-1">
-          <h4 className="py-1 px-3">Sản phẩm: {searchResult?.length}</h4>
+          <h4 className="py-1 px-3">Sản phẩm: {result.length}</h4>
           <ul className="flex flex-col gap-2">
-            {searchResult?.map((result) => (
+            {result.map((result) => (
               <ProductItem key={result._id} data={result} />
             ))}
           </ul>
@@ -95,7 +117,10 @@ export default function Search() {
 
   const handleClear = () => {
     setSearchValue('');
-    setSearchResult([]);
+    setSearchState((prev) => ({
+      ...prev,
+      result: [],
+    }));
     inputRef.current.focus();
   };
 
@@ -111,12 +136,12 @@ export default function Search() {
     }
   };
 
-  if (isError) return <h2>{isError}</h2>;
+  if (isError) return <h2>{errorMessage}</h2>;
 
   return (
     <div>
       <HeadlessTippy
-        visible={showResult && searchResult?.length > 0}
+        visible={showResult && result.length > 0}
         interactive
         placement="bottom-start"
         delay={[200, 400]}

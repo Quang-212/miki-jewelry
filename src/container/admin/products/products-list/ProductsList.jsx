@@ -3,13 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import Button from 'src/components/Button';
 import { LoadingRotatingLines } from 'src/components/Loadings';
 import DynamicTable from 'src/components/Tables/DynamicTable';
-import { deleteProduct } from 'src/fetching/products';
-import { useProducts } from 'src/hooks';
+import { deleteProduct, getProducts } from 'src/fetching/products';
 import { ProductForm } from '../product-form';
 import { columnProducts } from './columns-config';
 
 export function ProductsList() {
-  const [products, setProducts] = useState([]);
   const [showProductsList, setShowProductsList] = useState(true);
   const [currentProduct, setCurrentProduct] = useState({
     data: {},
@@ -17,21 +15,61 @@ export function ProductsList() {
     formOpen: false,
   });
 
-  const [{ limit, pageIndex, pageCount }, setPagination] = useState({
-    limit: 5,
-    pageIndex: 0,
+  const [pagination, setPagination] = useState({
+    pageSize: 5,
     pageCount: 0,
+    page: 0,
   });
 
-  const { productsState, isLoading, isError } = useProducts({
-    limit,
-    page: pageIndex,
-    select: {
-      __v: 0,
+  const [{ productsState, isLoading, isError, errorMessage }, setProductState] = useState({
+    isLoading: false,
+    isError: false,
+    errorMessage: '',
+    productsState: {
+      products: [],
+      pageSize: 5,
+      pageCount: 0,
+      page: 0,
     },
   });
+  const { pageSize, page, pageCount } = productsState;
+  console.log(productsState);
+  useEffect(() => {
+    // do not remove comment below
 
-  const _products = productsState;
+    // if (!debouncedValue.trim()) {
+    //   setSearchState((prev) => ({
+    //     ...prev,
+    //     result: [],
+    //   }));
+    // } else {
+    setProductState((prev) => ({ ...prev, isLoading: true }));
+
+    getProducts([], {
+      // search: debouncedValue,
+      limit: pagination.pageSize,
+      page: pagination.page,
+      select: {
+        __v: 0,
+      },
+    })
+      .then(({ data: serverResponse }) => {
+        setProductState((prev) => ({
+          ...prev,
+          productsState: serverResponse.data,
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+        setProductState((prev) => ({
+          ...prev,
+          isError: true,
+          errorMessage: error.response?.data.message,
+        }));
+      })
+      .finally(() => setProductState((prev) => ({ ...prev, isLoading: false })));
+    // }
+  }, [pagination]);
 
   const handleCreateProduct = () => {
     setCurrentProduct({
@@ -53,27 +91,51 @@ export function ProductsList() {
 
   const handleDeleteProduct = async (id) => {
     await deleteProduct({ id }, { params: { type: Array.isArray(id) ? 'many' : 'one' } });
-    id = [id].flat(Infinity);
-    setProducts((prev) => prev.filter((product) => !id.includes(product._id)));
+    id = [id].flat(2);
+    setProductState((prev) => ({
+      ...prev,
+      productsState: {
+        ...prev.productsState,
+        products: prev.productsState.products.filter((product) => !id.includes(product._id)),
+        pageCount: Math.ceil((prev.productsState.total - id.length) / prev.productsState.pageSize),
+        total: prev.productsState.total - id.length,
+      },
+    }));
   };
 
-  useEffect(() => {
-    _products && setProducts(_products);
-    _products &&
-      setPagination((prev) => ({ ...prev, pageCount: Math.ceil(productsState.total / limit) }));
-  }, [_products, limit]);
+  const productsColumn = useMemo(() => columnProducts, [productsState]);
 
-  const productsColumn = useMemo(() => columnProducts, [products]);
-  const productsData = useMemo(() => [...products], [products]);
-
-  if (isError) return <h2>{isError}</h2>;
   //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
   //! FUCK WHEN LOADING => Table is unmount (the same)
-  if (isLoading) return <LoadingRotatingLines className="absolute z-10 left-2/4 top-3/4" />;
+
+  const pushNewProduct = (data) => {
+    setProductState((prev) => ({
+      ...prev,
+      productsState: {
+        ...prev.productsState,
+        products: [data, ...prev.productsState.products],
+        pageCount: Math.ceil((prev.productsState.total + 1) / prev.productsState.pageSize),
+        total: prev.productsState.total + 1,
+      },
+    }));
+  };
+
+  const updateProduct = (id, data) => {
+    console.log(productsState.products.find((item) => item._id === id));
+    setProductState((prev) => ({
+      ...prev,
+      productsState: {
+        ...prev.productsState,
+        products: prev.productsState.products.map((item) =>
+          item._id === id ? { ...item, ...data } : item,
+        ),
+      },
+    }));
+  };
 
   return (
     <section>
-      {showProductsList && (
+      {showProductsList && !isError && (
         <>
           <div className="flex justify-between">
             <div className="flex flex-col">
@@ -89,22 +151,27 @@ export function ProductsList() {
           <div className="flex flex-col gap-4">
             <DynamicTable
               columns={productsColumn}
-              data={productsData}
+              products={productsState.products}
+              pagination={{ pageSize, page, pageCount }}
               onPageChange={setPagination}
-              pageState={{ limit, pageCount, pageIndex }}
               handleEdit={handleEditProduct}
               handleDelete={handleDeleteProduct}
             />
           </div>
         </>
       )}
+      {isError && <h2>{errorMessage}</h2>}
       {currentProduct.formOpen && (
         <ProductForm
           setShowProductsList={setShowProductsList}
+          onAddNewProduct={pushNewProduct}
+          onUpdateProduct={updateProduct}
+          setProductState={setProductState}
           currentProduct={currentProduct}
           setCurrentProduct={setCurrentProduct}
         />
       )}
+      {isLoading && <LoadingRotatingLines className="absolute z-10 left-2/4 top-3/4" />}
     </section>
   );
 }

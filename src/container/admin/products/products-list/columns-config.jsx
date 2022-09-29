@@ -10,7 +10,7 @@ export const columnProducts = [
     accessor: 'images',
     Cell: ({ row, value }) => (
       <Image
-        src={value.find((image) => image.type === 'primary').url}
+        src={row.original.images.find((image) => image.type === 'primary')?.url}
         alt={row.original.name}
         width={80}
         height={80}

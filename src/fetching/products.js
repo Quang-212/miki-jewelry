@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { isEmpty } from 'lodash';
 import qs from 'qs';
 
 import axiosInstance from 'src/utils/axios';
@@ -13,10 +12,10 @@ export const createProduct = (data, options) => {
   });
 };
 
-export const updateProduct = (data, value, options) => {
+export const updateProduct = (data, options) => {
   return axiosInstance({
     method: 'PATCH',
-    url: `/api/products/update?id=${value}`,
+    url: `/api/products/update`,
     data,
     ...options,
   });

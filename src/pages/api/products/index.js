@@ -18,7 +18,7 @@ async function getProductList(req, res) {
           order = -1,
           search = '',
         } = qs.parse(req.query);
-
+        console.log(qs.parse(req.query));
         const generateSort = (sortBy, order) => {
           if (sortBy == 'price') {
             return { 'stocks.price': order };
@@ -51,7 +51,7 @@ async function getProductList(req, res) {
           data: {
             products: productList,
             total,
-            page,
+            page: +page,
             pageSize: +limit,
             pageCount: Math.ceil(total / +limit),
           },
