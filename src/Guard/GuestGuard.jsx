@@ -11,7 +11,7 @@ export default function GuestGuard({ children }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      push(PATH.home);
+      push(PATH.HOME);
     }
   }, [isAuthenticated]);
 

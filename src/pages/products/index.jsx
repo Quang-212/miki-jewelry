@@ -16,7 +16,7 @@ export default function ProductsAll({ products, pageCount }) {
         data={{
           title: 'Tất cả sản phẩm',
           description: 'Tất cả sản phẩm',
-          url: PATH.products,
+          url: PATH.PRODUCTS,
           thumbnailUrl: '',
         }}
       />

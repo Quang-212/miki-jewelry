@@ -25,7 +25,6 @@ export default function HomePage({ products }) {
           thumbnailUrl: '',
         }}
       />
-
       <Hero />
       <About />
       <FeaturedProducts products={products} />

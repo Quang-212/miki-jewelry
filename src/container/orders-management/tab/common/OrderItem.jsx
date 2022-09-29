@@ -91,7 +91,7 @@ export default function OrderItem({ data, index }) {
         return setIsOpen(true);
       }
 
-      push(PATH.cart);
+      push(PATH.CART);
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +99,7 @@ export default function OrderItem({ data, index }) {
 
   const handleBuyAgainRedirect = () => {
     setIsOpen(false);
-    push(PATH.cart);
+    push(PATH.CART);
   };
 
   return (

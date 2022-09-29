@@ -49,7 +49,7 @@ export default function ProfileForm() {
       birthday: user.birthday
         ? fDefaultInputDate(user.birthday)
         : fDefaultInputDate(new Date().getTime()),
-      password: '@nKhoi96',
+      matkhau: '**********',
     },
   });
 
@@ -77,7 +77,7 @@ export default function ProfileForm() {
       });
     }
 
-    const { avatar, ...rest } = data;
+    const { avatar, matkhau, ...rest } = data;
     let profilePicture;
 
     const uploadAvatar = async (avatarFromRHF) => {
@@ -203,7 +203,7 @@ export default function ProfileForm() {
               <TextField name="email" disabled wrapper="col-span-9" input="text-neutral-2" />
               <strong className="col-span-3">Mật khẩu</strong>
               <TextField
-                name="password"
+                name="matkhau"
                 type="password"
                 disabled
                 wrapper="col-span-6 w-11/12"

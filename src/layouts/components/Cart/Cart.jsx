@@ -10,7 +10,7 @@ import { useClientSide } from 'src/hooks';
 import useCart from 'src/hooks/useCart';
 import { cartState, userState } from 'src/recoils';
 import styles from './Cart.module.css';
-import CartReview from './CartReview';
+import CartPreview from './CartPreview';
 
 const mk = classNames.bind(styles);
 
@@ -30,13 +30,13 @@ export default function Cart() {
   return (
     <>
       {isClient && (
-        <CartReview cartRecoil={cartRecoil}>
+        <CartPreview cartRecoil={cartRecoil}>
           <Badge badgeContent={cartRecoil?.length || 0}>
             <Button icon internalLink="/checkout/cart" wrapper={mk('cart-icon')}>
               <BasketIcon />
             </Button>
           </Badge>
-        </CartReview>
+        </CartPreview>
       )}
     </>
   );

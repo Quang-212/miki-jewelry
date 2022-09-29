@@ -16,7 +16,7 @@ import { PATH } from 'src/routes';
 Order.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 const breadcrumbs = [
-  { label: 'Giỏ hàng', href: PATH.cart },
+  { label: 'Giỏ hàng', href: PATH.CART },
   { label: 'Trang giao hàng', href: PATH.ORDER },
 ];
 

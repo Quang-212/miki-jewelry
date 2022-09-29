@@ -66,13 +66,13 @@ export const SearchIcon = ({ width = '24', height = '24', className }) => (
   >
     <circle cx="11" cy="11" r="7" stroke="#251C17" strokeWidth="1.5" />
     <circle cx="11" cy="11" r="7" stroke="black" strokeOpacity="0.2" strokeWidth="1.5" />
-    <path d="M20 20L17 17" stroke="#251C17" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M20 20L17 17" stroke="#251C17" strokeWidth="1.5" strokeLinejoin="round" />
     <path
       d="M20 20L17 17"
       stroke="black"
       strokeOpacity="0.2"
       strokeWidth="1.5"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -205,20 +205,20 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
       d="M5.33334 5.33325H7.77179C8.52174 5.33325 8.89672 5.33325 9.16798 5.54505C9.43924 5.75684 9.53019 6.12062 9.71208 6.84818L10.0199 8.07954C10.2759 9.1034 10.4039 9.61533 10.7169 9.97649C10.8866 10.1723 11.0928 10.3333 11.324 10.4505C11.7503 10.6666 12.278 10.6666 13.3333 10.6666V10.6666"
       stroke="#33363F"
       strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M24 22.6667H10.0679C9.45671 22.6667 9.15112 22.6667 8.93982 22.561C8.64666 22.4142 8.44405 22.1331 8.39754 21.8086C8.36402 21.5747 8.46065 21.2848 8.65392 20.705V20.705C8.86804 20.0626 8.97511 19.7414 9.15649 19.4916C9.40793 19.1454 9.76379 18.8889 10.1718 18.7598C10.4661 18.6667 10.8047 18.6667 11.4818 18.6667H18.6667"
       stroke="#33363F"
       strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeLinejoin="round"
     />
     <path
       d="M20.1945 18.6667H14.0552C12.4368 18.6667 11.6277 18.6667 11.0682 18.1928C10.5087 17.7188 10.3757 16.9207 10.1096 15.3243L9.91554 14.1599C9.64529 12.5384 9.51016 11.7276 9.9595 11.1972C10.4089 10.6667 11.2308 10.6667 12.8747 10.6667H23.4306C24.881 10.6667 25.6062 10.6667 25.8993 11.141C26.1924 11.6153 25.8681 12.2639 25.2195 13.5612L23.7723 16.4556C23.2343 17.5314 22.9654 18.0694 22.4821 18.3681C21.9988 18.6667 21.3974 18.6667 20.1945 18.6667Z"
       stroke="#33363F"
       strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <circle cx="22.6667" cy="26.6666" r="1.33333" fill="#33363F" />
     <circle cx="12" cy="26.6666" r="1.33333" fill="#33363F" />
@@ -256,13 +256,13 @@ export const UserIcon = ({ width = '28', height = '28', className }) => (
       r="5.33333"
       stroke="currentColor"
       strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M7.5292 22.9362C8.39099 20.1977 11.105 18.6667 13.9759 18.6667H18.0241C20.8949 18.6667 23.609 20.1977 24.4708 22.9362C24.8584 24.168 25.1852 25.5686 25.2944 27.0009C25.3364 27.5516 24.8856 28.0001 24.3333 28.0001H7.66665C7.11437 28.0001 6.6636 27.5516 6.70559 27.0009C6.81481 25.5686 7.14155 24.168 7.5292 22.9362Z"
       stroke="currentColor"
       strokeWidth="2"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -359,7 +359,7 @@ export const EnglishIcon = ({ width = '28', height = '28', className }) => (
     <g
       fill="none"
       stroke="currentColor"
-      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeLinejoin="round"
       strokeWidth="4"
     >
@@ -440,9 +440,9 @@ export const TicketIcon = ({ width = '28', height = '28', className }) => (
       strokeWidth="2.66667"
       strokeLinejoin="round"
     />
-    <path d="M13.3333 12H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
-    <path d="M13.3333 20H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
-    <path d="M13.3333 16H18.6666" stroke="#33363F" strokeWidth="2.66667" stroke-linecap="round" />
+    <path d="M13.3333 12H18.6666" stroke="#33363F" strokeWidth="2.66667" strokeLinecap="round" />
+    <path d="M13.3333 20H18.6666" stroke="#33363F" strokeWidth="2.66667" strokeLinecap="round" />
+    <path d="M13.3333 16H18.6666" stroke="#33363F" strokeWidth="2.66667" strokeLinecap="round" />
   </svg>
 );
 
@@ -457,12 +457,12 @@ export const HistoryIcon = ({ width = '28', height = '28', className }) => (
   >
     <g fill="none" stroke="currentColor" strokeWidth="4">
       <path
-        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeLinejoin="round"
         d="M42 24V9a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h15"
       />
       <circle cx="32" cy="32" r="6" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="m37 36l5 4M14 16h20m-20 8h8" />
+      <path strokeLinejoin="round" strokeLinejoin="round" d="m37 36l5 4M14 16h20m-20 8h8" />
     </g>
   </svg>
 );
@@ -939,13 +939,13 @@ export const MinusIcon = ({ width = '20', height = '4', className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M18 2L2 2" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path d="M18 2L2 2" stroke="currentColor" strokeWidth="2.66667" strokeLinejoin="round" />
     <path
       d="M18 2L2 2"
       stroke="currentColor"
       strokeOpacity="0"
       strokeWidth="2.66667"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -959,21 +959,21 @@ export const PlusIcon = ({ width = '32', height = '32', className }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M16 8L16 24" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path d="M16 8L16 24" stroke="currentColor" strokeWidth="2.66667" strokeLinejoin="round" />
     <path
       d="M16 8L16 24"
       stroke="black"
       strokeOpacity="0"
       strokeWidth="2.66667"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
-    <path d="M24 16L8 16" stroke="currentColor" strokeWidth="2.66667" strokeLinecap="round" />
+    <path d="M24 16L8 16" stroke="currentColor" strokeWidth="2.66667" strokeLinejoin="round" />
     <path
       d="M24 16L8 16"
       stroke="black"
       strokeOpacity="0"
       strokeWidth="2.66667"
-      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
@@ -1010,24 +1010,24 @@ export const ChatPlusIcon = ({ width = '40', height = '40', className }) => (
     <path
       d="M15 18.3333L25 18.3333"
       stroke="#6E5544"
-      stroke-linecap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M8.33398 13.3334L8.33398 3.33337"
       stroke="#6E5544"
       strokeWidth="1.5"
-      stroke-linecap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M3.33398 8.33337L13.334 8.33337"
       stroke="#6E5544"
       strokeWidth="1.5"
-      stroke-linecap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
-    <path d="M20 25H25" stroke="#6E5544" stroke-linecap="round" strokeLinejoin="round" />
+    <path d="M20 25H25" stroke="#6E5544" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -1048,7 +1048,7 @@ export const DoneRingIcon = ({ width = '40', height = '40', className }) => (
       d="M35 20C35 23.1342 34.0183 26.1896 32.1927 28.7372C30.3671 31.2848 27.7894 33.1965 24.8216 34.204C21.8538 35.2114 18.6449 35.2639 15.6457 34.3541C12.6465 33.4443 10.0077 31.6179 8.0997 29.1314C6.19175 26.6449 5.11058 23.6233 5.00803 20.4908C4.90548 17.3583 5.78671 14.2724 7.52796 11.6664C9.2692 9.0605 11.783 7.06542 14.7162 5.96141C17.6495 4.85741 20.8549 4.69993 23.8823 5.51111"
       stroke="#6E5544"
       strokeWidth="1.5"
-      stroke-linecap="round"
+      strokeLinecap="round"
     />
   </svg>
 );
@@ -1067,7 +1067,7 @@ export const LampIcon = ({ width = '40', height = '40', className }) => (
       d="M18.3327 23.3334V16.25C18.3327 15.0994 17.3999 14.1667 16.2493 14.1667V14.1667C15.0988 14.1667 14.166 15.0994 14.166 16.25V16.25C14.166 17.4006 15.0988 18.3334 16.2493 18.3334H23.7493C24.8999 18.3334 25.8327 17.4006 25.8327 16.25V16.25C25.8327 15.0994 24.8999 14.1667 23.7493 14.1667V14.1667C22.5988 14.1667 21.666 15.0994 21.666 16.25V23.3334"
       stroke="#6E5544"
       strokeWidth="1.5"
-      stroke-linecap="round"
+      strokeLinecap="round"
     />
     <path
       fillRule="evenodd"
@@ -1363,7 +1363,7 @@ export const ArrowRightIcon = ({ width = '32', height = '32', className }) => (
       stroke="#8A8A8A"
       strokeWidth="3"
       stroke-miterlimit="10"
-      stroke-linecap="round"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>

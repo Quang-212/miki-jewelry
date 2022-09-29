@@ -16,7 +16,7 @@ import { PATH } from 'src/routes';
 
 Cart.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
-const breadcrumbs = [{ label: 'Giỏ hàng', href: PATH.cart }];
+const breadcrumbs = [{ label: 'Giỏ hàng', href: PATH.CART }];
 
 export default function Cart() {
   const cart = useRecoilValue(cartState);

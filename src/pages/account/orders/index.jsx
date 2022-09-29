@@ -9,8 +9,8 @@ import { PATH } from 'src/routes';
 Orders.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
 
 const breadcrumbs = [
-  { label: 'Tài khoản', href: PATH.profile },
-  { label: 'Quản lý đơn hàng', href: PATH.orders },
+  { label: 'Tài khoản', href: PATH.PROFILE },
+  { label: 'Quản lý đơn hàng', href: PATH.ORDERS },
 ];
 
 export default function Orders() {
@@ -20,7 +20,7 @@ export default function Orders() {
         data={{
           title: 'Quản lý đơn hàng',
           description: '',
-          url: PATH.orders,
+          url: PATH.ORDERS,
           thumbnailUrl: images.accountProfileBanner,
         }}
       />

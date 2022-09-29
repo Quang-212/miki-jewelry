@@ -8,7 +8,7 @@ export default function Breadcrumb({ breadcrumbs, className }) {
 
   return (
     <BreadcrumbWrapper className={className}>
-      <BreadcrumbItem isFirst isCurrent={pathname === '/'} href={PATH.home}>
+      <BreadcrumbItem isFirst isCurrent={pathname === '/'} href={PATH.HOME}>
         Trang chủ
       </BreadcrumbItem>
       {breadcrumbs?.map((breadcrumb, index, originalArray) => (

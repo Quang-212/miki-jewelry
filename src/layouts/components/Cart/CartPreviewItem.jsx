@@ -14,7 +14,7 @@ import styles from './Cart.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function CartReviewItem({ data }) {
+export default function CartPreviewItem({ data }) {
   const { _id, product, size, quantity } = data;
 
   const deleteCartItemRecoil = useSetRecoilState(deleteCartItemState);

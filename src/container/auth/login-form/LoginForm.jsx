@@ -56,7 +56,7 @@ export default function LoginFormSection() {
 
   useEffect(() => {
     prefetch('/admin/dashboard');
-    prefetch(PATH.home);
+    prefetch(PATH.HOME);
   }, []);
 
   const onSubmit = async (data) => {
@@ -96,10 +96,10 @@ export default function LoginFormSection() {
       });
 
       if (user.role === 'admin') {
-        return replace(PATH.adminDashboard);
+        return replace(PATH.ADMIN_DASHBOARD);
       }
 
-      replace(PATH.home);
+      replace(PATH.HOME);
     } catch (error) {
       console.log(error);
 

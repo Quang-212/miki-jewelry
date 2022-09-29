@@ -1,46 +1,53 @@
 import classNames from 'classnames/bind';
+import { motion } from 'framer-motion';
 
+import Animation, { BOTTOM_TOP, SCALE_ZOOM } from 'src/components/Animation';
 import Image from 'src/components/Image';
 import { isEven } from 'src/utils/isEven';
 import styles from './Articles.module.css';
 
 const mk = classNames.bind(styles);
 
-const ArticleWrapper = 'article';
-
 export default function ArticleItem({ article, index }) {
   const ArticleText = ({ article }) => {
     return (
-      <div className={mk('article-text')}>
+      <Animation variant={BOTTOM_TOP} className={mk('article-text')}>
         <h2
           className={mk('article-title font-primary font-bold text-32-px leading-10 text-primary')}
         >
           {article.title}
         </h2>
         <p>{article.content}</p>
-      </div>
+      </Animation>
     );
   };
 
   const ArticleImage = ({ article }) => {
     return (
-      <Image
-        src={article.image.src}
-        alt={article.image.alt}
-        width={548}
-        height={383}
-        objectFit="cover"
-        placeholder="blur"
-        className={mk('article-image')}
-      />
+      <Animation variant={SCALE_ZOOM}>
+        <Image
+          src={article.image.src}
+          alt={article.image.alt}
+          width={548}
+          height={383}
+          objectFit="cover"
+          placeholder="blur"
+          className={mk('article-image')}
+        />
+      </Animation>
     );
   };
 
   const array = [<ArticleText article={article} />, <ArticleImage article={article} />];
 
   return (
-    <ArticleWrapper className={mk('article-wrapper')}>
+    <motion.article
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.8 }}
+      className={mk('article-wrapper')}
+    >
       {isEven(index) ? array : array.reverse()}
-    </ArticleWrapper>
+    </motion.article>
   );
 }

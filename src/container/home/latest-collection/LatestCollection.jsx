@@ -26,7 +26,7 @@ export function LatestCollection() {
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
         </p>
-        <Button normal internalLink={PATH.products} wrapper={mk('btn')}>
+        <Button normal internalLink={PATH.PRODUCTS} wrapper={mk('btn')}>
           Tìm hiểu thêm
         </Button>
       </article>

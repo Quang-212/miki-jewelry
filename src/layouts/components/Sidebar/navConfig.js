@@ -7,12 +7,12 @@ export const navConfig = [
       {
         title: 'App',
         icon: 'ant-design:bell-filled',
-        path: PATH.adminDashboard,
+        path: PATH.ADMIN_DASHBOARD,
       },
       {
         title: 'Products',
         icon: 'ant-design:bell-filled',
-        path: PATH.adminProducts,
+        path: PATH.ADMIN_PRODUCTS,
       },
       {
         title: 'Customer',
@@ -55,7 +55,7 @@ export const navConfig = [
       {
         title: 'Blog',
         icon: 'ant-design:bell-filled',
-        path: PATH.adminProducts,
+        path: PATH.ADMIN_PRODUCTS,
         children: [
           {
             title: 'profile',

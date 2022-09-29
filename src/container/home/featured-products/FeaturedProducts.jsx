@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 
 import { useRouter } from 'next/router';
+import { Fragment } from 'react';
 import Button from 'src/components/Button';
 import { CardProduct } from 'src/components/Card';
 import Slider from 'src/components/Slider';
@@ -23,13 +24,13 @@ export function FeaturedProducts({ products }) {
         <h2 className="font-primary font-bold text-32-px leading-10 text-primary">
           Sản phẩm nổi bật
         </h2>
-        <Button primary internalLink={PATH.products}>
+        <Button primary internalLink={PATH.PRODUCTS}>
           Xem tất cả
         </Button>
       </div>
       <Slider>
         {featuredProducts.map((product, index) => (
-          <div key={index}>
+          <Fragment key={index}>
             <CardProduct
               product={product}
               width={254}
@@ -38,7 +39,7 @@ export function FeaturedProducts({ products }) {
               styleWrapper={{ wrapper: 'max-w-254-px' }}
               onClick={() => handleClick(product.slug)}
             />
-          </div>
+          </Fragment>
         ))}
       </Slider>
     </section>

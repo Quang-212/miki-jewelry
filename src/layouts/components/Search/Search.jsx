@@ -1,18 +1,18 @@
+import Tippy from '@tippyjs/react';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import qs from 'qs';
 import { useEffect, useRef, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
-import Tippy from '@tippyjs/react';
 
 import Button from 'src/components/Button';
 import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import ProductItem from 'src/components/ProductItem';
-import styles from './Search.module.css';
 import { useDebounce, useProducts, useRouter } from 'src/hooks';
-import { formatReplaceString } from 'src/utils/formatString';
 import { PATH } from 'src/routes';
-import qs from 'qs';
+import { formatReplaceString } from 'src/utils/formatString';
+import styles from './Search.module.css';
 
 const mk = classNames.bind(styles);
 
@@ -46,7 +46,7 @@ export default function Search() {
         setShowResult(false);
 
         if (debouncedValue && !pathname.includes('products')) {
-          return push(`${PATH.products}?search=${debouncedValue}`);
+          return push(`${PATH.PRODUCTS}?search=${debouncedValue}`);
         }
 
         if (pathname.includes('products') && debouncedValue) {
@@ -55,11 +55,11 @@ export default function Search() {
             ...query,
             search: debouncedValue,
           });
-          return push(`${PATH.products}?${queryString}`);
+          return push(`${PATH.PRODUCTS}?${queryString}`);
         }
 
         if (pathname.includes('products') && !debouncedValue) {
-          push(PATH.products);
+          push(PATH.PRODUCTS);
         }
       }
     };

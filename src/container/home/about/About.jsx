@@ -1,4 +1,6 @@
 import classNames from 'classnames/bind';
+import { motion } from 'framer-motion';
+import Animation, { LEFT_RIGHT, RIGHT_LEFT } from 'src/components/Animation';
 
 import Button from 'src/components/Button';
 import Image from 'src/components/Image';
@@ -10,8 +12,13 @@ const mk = classNames.bind(styles);
 
 export function About() {
   return (
-    <section className={mk('about', 'container')}>
-      <article className={mk('article')}>
+    <motion.section
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: 0.8 }}
+      className={mk('about', 'container')}
+    >
+      <Animation variant={LEFT_RIGHT} className={mk('article')}>
         <h2 className={mk('title')}>Về chúng tôi</h2>
         <q className={mk('heading')}>Ngày mai phải tốt hơn ngày hôm nay</q>
         <p>
@@ -21,17 +28,20 @@ export function About() {
         <Button primary internalLink={PATH.BRAND_HISTORY} wrapper={mk('btn')}>
           Tìm hiểu thêm
         </Button>
-      </article>
-      <Image
-        src={images.homeAbout}
-        alt="Picture of Miki about"
-        width={548}
-        height={537}
-        priority
-        objectFit="cover"
-        placeholder="blur"
-        className={mk('image')}
-      />
-    </section>
+      </Animation>
+
+      <Animation variant={RIGHT_LEFT} className="z-50">
+        <Image
+          src={images.homeAbout}
+          alt="Picture of Miki about"
+          width={548}
+          height={537}
+          priority
+          objectFit="cover"
+          placeholder="blur"
+          className={mk('image')}
+        />
+      </Animation>
+    </motion.section>
   );
 }

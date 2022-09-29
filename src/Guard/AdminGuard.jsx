@@ -13,7 +13,7 @@ export default function AdminGuard({ children }) {
       return (
         <>
           <h1>Permissions Denied</h1>
-          <Button primary internalLink={PATH.home} wrapper="mt-2">
+          <Button primary internalLink={PATH.HOME} wrapper="mt-2">
             Quay lại trang chủ
           </Button>
         </>

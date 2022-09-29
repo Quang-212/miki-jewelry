@@ -24,7 +24,7 @@ export default function User() {
       console.log(res);
 
       resetUserValue();
-      replace(PATH.home);
+      replace(PATH.HOME);
     }
   };
 

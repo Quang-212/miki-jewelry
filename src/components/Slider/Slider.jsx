@@ -1,7 +1,6 @@
 import SliderSlick from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import { ArrowRightIcon } from '../Icons';
 
 export default function Slider({ children }) {
   const NextArrow = (props) => {

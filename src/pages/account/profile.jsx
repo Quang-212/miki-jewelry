@@ -10,8 +10,8 @@ Profile.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
 
 export default function Profile() {
   const breadcrumbs = [
-    { label: 'Tài khoản', href: PATH.profile },
-    { label: 'Thông tin khách hàng', href: PATH.profile },
+    { label: 'Tài khoản', href: PATH.PROFILE },
+    { label: 'Thông tin khách hàng', href: PATH.PROFILE },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function Profile() {
         data={{
           title: 'Thông tin khách hàng',
           description: '',
-          url: PATH.profile,
+          url: PATH.PROFILE,
           thumbnailUrl: images.accountProfileBanner,
         }}
       />

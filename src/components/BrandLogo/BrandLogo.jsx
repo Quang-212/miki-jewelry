@@ -27,7 +27,7 @@ export default function BrandLogo({ vertical, horizontal, wrapper, logo, brandNa
 
   return (
     <BrandLogoWrapper className={classWrapper}>
-      <Button icon internalLink={PATH.home}>
+      <Button icon internalLink={PATH.HOME}>
         <LogoIcon className={classIcon} />
       </Button>
       <BrandName className={classBrandName}>Miki Jewelry</BrandName>

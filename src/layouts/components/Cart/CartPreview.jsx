@@ -12,11 +12,11 @@ import { useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
-import CartReviewItem from './CartReviewItem';
+import CartPreviewItem from './CartPreviewItem';
 
 const mk = classNames.bind(styles);
 
-export default function CartReview({ cartRecoil, children }) {
+export default function CartPreview({ cartRecoil, children }) {
   const totalCart = useRecoilValue(totalCartState({ totalCart: true }));
   const totalPrice = formatVndCurrency(totalCart);
   const DEFAULT_SHIPPING_FEE = 50000;
@@ -42,7 +42,7 @@ export default function CartReview({ cartRecoil, children }) {
               <ul className={mk('cart-review-list')}>
                 {cartRecoil.map((cartItem) => (
                   <li key={cartItem._id}>
-                    <CartReviewItem data={cartItem} />
+                    <CartPreviewItem data={cartItem} />
                   </li>
                 ))}
               </ul>

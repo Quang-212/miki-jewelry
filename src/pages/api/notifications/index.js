@@ -6,18 +6,19 @@ async function getProductList(req, res) {
   await dbConnect();
   const { method } = req;
   const { limit = 4, page = 0, userId, show_hidden = false } = qs.parse(req.query);
+  console.log(typeof show_hidden);
   try {
     switch (method) {
       case 'GET':
         const [notificationList, total, unRead] = await Promise.all([
-          Notification.find({ owner: userId, ...(!show_hidden && { deleted: show_hidden }) })
+          Notification.find({ owner: userId, deleted: JSON.parse(show_hidden) })
             .sort({ createdAt: -1 })
             .limit(limit)
             .skip(+page * limit)
             .exec(),
           Notification.find({
             owner: userId,
-            ...(!show_hidden && { deleted: show_hidden }),
+            deleted: JSON.parse(show_hidden),
           }).countDocuments(),
           Notification.find({ owner: userId, deleted: false, read: false }).countDocuments(),
         ]);

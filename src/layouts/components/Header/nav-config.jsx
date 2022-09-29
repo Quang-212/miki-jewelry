@@ -18,11 +18,11 @@ import { PATH } from 'src/routes';
 export const NAVIGATION_LINKS = [
   {
     title: 'Trang chủ',
-    path: PATH.home,
+    path: PATH.HOME,
   },
   {
     title: 'Sản phẩm',
-    path: PATH.products,
+    path: PATH.PRODUCTS,
     link: 'category',
   },
   {
@@ -194,7 +194,7 @@ export const MENU_USER_ITEMS = ({ handleClickLogout }) => {
     {
       title: 'Thoát tài khoản',
       icon: <LogoutIcon />,
-      path: PATH.home,
+      path: PATH.HOME,
       separate: true,
       onClick() {
         handleClickLogout();

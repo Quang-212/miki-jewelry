@@ -73,7 +73,7 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
   const breadcrumbs = [
     {
       label: 'Tất cả sản phẩm',
-      href: PATH.products,
+      href: PATH.PRODUCTS,
     },
     {
       label: generateCategory(category),
@@ -122,7 +122,7 @@ export const getServerSideProps = async ({ params, req }) => {
 
     const relatedProducts = await getProducts([], {
       category,
-      limit: 4,
+      limit: 8,
       sortBy: 'sold',
       order: -1,
     });

@@ -1,13 +1,13 @@
 import Button from 'src/components/Button';
 import { BellRingIcon } from 'src/components/Icons';
-import NotificationsReview from './NotificationsReview';
+import NotificationsPreview from './NotificationsPreview';
 
 export default function Notifications() {
   return (
-    <NotificationsReview>
+    <NotificationsPreview>
       <Button icon wrapper="absolute top-2/4 -translate-y-2/4">
         <BellRingIcon />
       </Button>
-    </NotificationsReview>
+    </NotificationsPreview>
   );
 }

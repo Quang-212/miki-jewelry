@@ -1,12 +1,14 @@
 import qs from 'qs';
+
 export const PATH = {
-  home: '/',
-  products: '/products',
+  HOME: '/',
+  PRODUCTS: '/products',
+  BRAND_HISTORY: '/about/brand-history',
+  RECRUITMENT: '/about/recruitment',
+
   PRODUCT_DETAIL(slug) {
     return `/products/${slug}`;
   },
-  BRAND_HISTORY: '/about/brand-history',
-  RECRUITMENT: '/about/recruitment',
 
   REGISTER: '/auth/register',
   VERIFY_EMAIL(type) {
@@ -18,14 +20,14 @@ export const PATH = {
     return `/auth/new-password?${qs.stringify(query)}`;
   },
 
-  cart: '/checkout/cart',
+  CART: '/checkout/cart',
   ORDER: '/checkout/order',
 
-  profile: '/account/profile',
-  orders: '/account/orders',
+  PROFILE: '/account/profile',
+  ORDERS: '/account/orders',
 
-  adminDashboard: '/admin/dashboard',
-  adminProducts: '/admin/products',
+  ADMIN_DASHBOARD: '/admin/dashboard',
+  ADMIN_PRODUCTS: '/admin/products',
   ADMIN_CUSTOMER: '/admin/customer',
   ADMIN_COUPON: '/admin/coupon',
 
@@ -42,5 +44,5 @@ export const PATH = {
   handbook: '/',
   questions: '/',
 
-  terms: 'https://www.google.com',
+  TERMS: 'https://www.google.com',
 };

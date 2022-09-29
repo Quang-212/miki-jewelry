@@ -1,8 +1,9 @@
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import Badge from 'src/components/Badge';
@@ -16,21 +17,20 @@ import { markAsReadNotification, updateNotification } from 'src/fetching/notific
 import useNotifications from 'src/hooks/useNotifications';
 import usePusherClient from 'src/hooks/usePusherClient';
 import { userState } from 'src/recoils';
-import NotificationReviewItem from './NotificationReviewItem';
+import NotificationPreviewItem from './NotificationPreviewItem';
 import styles from './Notifications.module.css';
 
 const mk = classNames.bind(styles);
 
-export default function NotificationsReview({ children }) {
-  const { user, isAuthenticated } = useRecoilValue(userState);
-
+export default function NotificationsPreview({ children }) {
   const [enabled, setEnabled] = useState(false);
-  console.log(enabled);
 
   const [notifications, setNotifications] = useState({
     data: [],
     unRead: 0,
   });
+
+  const { user, isAuthenticated } = useRecoilValue(userState);
 
   const { data } = useNotifications({
     userId: user._id,
@@ -150,8 +150,9 @@ export default function NotificationsReview({ children }) {
               <ul className="flex flex-col gap-2 max-h-[400px] divide-y-[1.5px] divide-dashed overflow-y-scroll">
                 {notifications.data.map((item) => (
                   <li key={item._id}>
-                    <NotificationReviewItem
+                    <NotificationPreviewItem
                       data={item}
+                      enabled={enabled}
                       onMarkAsRead={handleMarkAsRead}
                       onHide={handleHideNotification}
                       onShow={handleShowNotification}
@@ -179,8 +180,7 @@ export default function NotificationsReview({ children }) {
 
   return (
     <Badge badgeContent={notifications.unRead || 0} wrapper="ml-4">
-      <Tippy
-        visible
+      <HeadlessTippy
         interactive
         placement="bottom-end"
         delay={[200, 400]}
@@ -188,7 +188,7 @@ export default function NotificationsReview({ children }) {
         render={renderNotificationsReview}
       >
         {children}
-      </Tippy>
+      </HeadlessTippy>
     </Badge>
   );
 }

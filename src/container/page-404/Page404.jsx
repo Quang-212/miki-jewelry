@@ -25,12 +25,12 @@ export default function Page404Section() {
           <strong>truy cập lại từ trang chủ</strong> thay vì dùng URL đã lưu.
         </li>
       </ul>
-      <Button primary internalLink={PATH.home} wrapper="mt-2">
+      <Button primary internalLink={PATH.HOME} wrapper="mt-2">
         Truy cập trang chủ
       </Button>
       <p>
         👉 hoặc đi tới{' '}
-        <Button text internalLink={PATH.products} title={mk('title-btn-products')}>
+        <Button text internalLink={PATH.PRODUCTS} title={mk('title-btn-products')}>
           Sản phẩm
         </Button>
       </p>

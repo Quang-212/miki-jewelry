@@ -70,7 +70,7 @@ export const publicInformation = [
       },
       {
         title: 'Giỏ hàng',
-        path: PATH.cart,
+        path: PATH.CART,
       },
       {
         title: 'Thông tin',

@@ -17,7 +17,7 @@ export default function useProducts(query = {}, options, isSearch = false) {
     options,
   );
   //* if error => console not on screen
-  // console.log(data, error);
+  console.log(data);
 
   return {
     productsState: data?.data?.data?.products || null,
