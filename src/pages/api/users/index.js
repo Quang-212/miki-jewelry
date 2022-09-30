@@ -17,7 +17,10 @@ async function getAllUsersHandler(req, res) {
           })
             .limit(+limit)
             .skip(page * +limit),
-          User.countDocuments(),
+          User.find({
+            status: { $ne: 'deleted' },
+            ...(search && { search: new RegExp(search) }),
+          }).countDocuments(),
         ]);
 
         return res.status(200).json({
