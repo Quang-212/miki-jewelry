@@ -3,24 +3,17 @@
 }
 
 .image-wrapper {
-  @apply overflow-hidden max-h-[300px] rounded-primary hover:rounded-tertiary transition-all ease-in-out duration-700
-    relative;
+  @apply overflow-hidden max-h-[300px] rounded-primary hover:rounded-tertiary transition-all ease-in-out duration-700;
 }
-
-/* .image-wrapper::before {
-  content: 'hello';
-  position: absolute;
-  background-color: #ffff;
-  z-index: 30;
-  width: 20px;
-  height: 20px;
-  right: 0;
-} */
-
 .image {
   @apply transition-all ease-in-out duration-700;
 }
 
 .text-wrapper {
   @apply flex flex-col justify-center items-center gap-6-px;
+}
+
+.tag-sale {
+  @apply z-30 px-4  font-semibold before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-primary-1 relative 
+  top-[38px] right-[82px] before:rounded-tag;
 }

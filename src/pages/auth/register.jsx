@@ -1,11 +1,13 @@
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import RegisterFormSection, {
+import {
   CircleIcon1,
   CircleIcon2,
   CircleIcon3,
+  RegisterForm,
 } from 'src/container/auth/register-form';
-// import GuestGuard from 'src/guard/GuestGuard';
+
+import GuestGuard from 'src/guard/GuestGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
@@ -13,7 +15,7 @@ RegisterPage.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayo
 
 export default function RegisterPage() {
   return (
-    <>
+    <GuestGuard>
       <Page
         data={{
           title: 'Đăng ký tài khoản',
@@ -22,10 +24,10 @@ export default function RegisterPage() {
           thumbnailUrl: images.registerForm,
         }}
       />
-      <RegisterFormSection />
+      <RegisterForm />
       <CircleIcon1 />
       <CircleIcon2 />
       <CircleIcon3 />
-    </>
+    </GuestGuard>
   );
 }

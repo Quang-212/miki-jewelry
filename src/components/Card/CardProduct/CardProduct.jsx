@@ -130,6 +130,9 @@ export function CardProduct({
 
   return (
     <CardWrapper className={classWrapper}>
+      <span className={mk('tag-sale')}>
+        <span className="relative text-white">Giảm {discount}%</span>
+      </span>
       <CardImage className={classImageWrapper}>
         <Image
           src={primaryImageURL}
@@ -153,7 +156,7 @@ export function CardProduct({
           {formatVndCurrency(price, discount)}
         </CardTextPrice>
       </CardTextWrapper>
-      <Button primary onClick={handleAddToCart}>
+      <Button primary onClick={handleAddToCart} wrapper="w-[264px]">
         Thêm vào giỏ hàng
       </Button>
     </CardWrapper>

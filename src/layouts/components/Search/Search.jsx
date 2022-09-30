@@ -28,9 +28,10 @@ export default function Search() {
     isError: false,
     errorMessage: '',
     result: [],
+    total: null,
   });
 
-  const { isLoading, isError, errorMessage, result } = searchState;
+  const { isLoading, isError, errorMessage, result, total } = searchState;
 
   const inputRef = useRef();
 
@@ -62,6 +63,7 @@ export default function Search() {
           setSearchState((prev) => ({
             ...prev,
             result: serverResponse.data.products,
+            total: serverResponse.data.total,
           }));
         })
         .catch((error) => {
@@ -136,7 +138,6 @@ export default function Search() {
     return (
       <motion.div className="w-[464px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className="gap-1">
-          <h4 className="py-1 px-3">Sản phẩm: {result.length}</h4>
           <ul className="flex flex-col divide-y-1 divide-primary-5">
             {result.map((result) => (
               <ProductItem key={result._id} data={result} />
@@ -145,7 +146,7 @@ export default function Search() {
           <NormalDivider />
           <div className="flex justify-center pt-2 pb-3">
             <Button text onClick={handleClickSeeAll} title="font-semibold hover:opacity-80">
-              Xem tất cả
+              Xem tất cả {total} sản phẩm
             </Button>
           </div>
         </PopperWrapper>

@@ -45,7 +45,7 @@ export default function MainLayout({ variant, children }) {
       return (
         <div className={mk('wrapper', 'default')}>
           <Header />
-          <main className="grid grid-cols-12 gap-10">
+          <main className="grid grid-cols-12 gap-10 pt-[128px]">
             <div className="col-span-12">
               <Banner />
             </div>
@@ -69,7 +69,7 @@ export default function MainLayout({ variant, children }) {
       return (
         <div className={mk('wrapper', 'default')}>
           <Header />
-          <main>{children}</main>
+          <main className="pt-[128px]">{children}</main>
           <Footer />
         </div>
       );

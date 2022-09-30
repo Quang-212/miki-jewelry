@@ -9,8 +9,8 @@ export default function Pagination({ pageCount, onPageChange, previousLabelIcon,
   return (
     <ReactPaginate
       pageCount={pageCount}
-      pageRangeDisplayed="3"
-      marginPagesDisplayed="2"
+      pageRangeDisplayed="1"
+      marginPagesDisplayed="1"
       previousLabel={previousLabelIcon ? previousLabelIcon : 'previous'}
       breakLabel="..."
       nextLabel={nextLabelIcon ? nextLabelIcon : 'next'}

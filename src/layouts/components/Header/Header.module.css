@@ -1,9 +1,9 @@
 .header {
-  @apply relative z-header;
+  @apply z-header fixed w-[1440px] bg-wrapper shadow-lg;
 }
 
 .nav {
-  @apply flex justify-between items-end pt-4 pb-6;
+  @apply flex justify-between items-end pt-4 pb-6 px-[152px];
 }
 
 .active {

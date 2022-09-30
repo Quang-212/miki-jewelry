@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import Button from 'src/components/Button';
 import { FormProvider, TextField } from 'src/components/HookForms';
 import { useRouter } from 'src/hooks';
-import styles from './Form.module.css';
+import styles from './ResetPasswordForm.module.css';
 import { userExistedChecking } from 'src/fetching/auth';
 import { toast } from 'react-toastify';
 import { PATH } from 'src/routes';

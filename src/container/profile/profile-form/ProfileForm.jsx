@@ -173,19 +173,19 @@ export default function ProfileForm() {
                   <TextField name="avatar" id="avatar" type="file" hidden />
                 </label>
               </div>
-              <strong className="col-span-3">Họ và tên</strong>
+              <strong className="col-span-3 mt-3">Họ và tên</strong>
               <TextField name="userName" wrapper="col-span-6" />
-              <strong className="col-span-3">Giới tính</strong>
+              <strong className="col-span-3 mt-3">Giới tính</strong>
               <RadioField
                 hidden
                 name="gender"
                 options={GENDERS}
-                wrapper="col-span-6 grid grid-cols-3 items-start"
+                wrapper="col-span-6 grid grid-cols-3 items-start mt-3"
                 subWrapper="flex items-center gap-2"
                 caption="col-span-6"
               />
-              <strong className="col-span-3">Ngày sinh</strong>
-              <TextField name="birthday" type="date" wrapper="col-span-9" />
+              <strong className="col-span-3 mt-6">Ngày sinh</strong>
+              <TextField name="birthday" type="date" wrapper="col-span-9 mt-3" />
               <Button primary wrapper="col-span-12 justify-self-end w-[200px]">
                 Lưu thay đổi
               </Button>
@@ -197,11 +197,11 @@ export default function ProfileForm() {
               Điện thoại và bảo mật:
             </h5>
             <div className={mk('info-personal-wrapper')}>
-              <strong className="col-span-3">Số điện thoại</strong>
+              <strong className="col-span-3 mt-3">Số điện thoại</strong>
               <TextField name="phone" wrapper="col-span-9" />
-              <strong className="col-span-3">Địa chỉ email</strong>
+              <strong className="col-span-3 mt-3">Địa chỉ email</strong>
               <TextField name="email" disabled wrapper="col-span-9" input="text-neutral-2" />
-              <strong className="col-span-3">Mật khẩu</strong>
+              <strong className="col-span-3 mt-3">Mật khẩu</strong>
               <TextField
                 name="matkhau"
                 type="password"

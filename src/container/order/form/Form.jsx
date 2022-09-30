@@ -2,9 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-
 import { isEmpty, isNumber, isPlainObject } from 'lodash';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
+
 import Button from 'src/components/Button';
 import { FormProvider } from 'src/components/HookForms';
 import { createOrder } from 'src/fetching/order';
@@ -17,12 +20,9 @@ import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
 import Dialog from 'src/components/Dialog';
-import { useSetRecoilState } from 'recoil';
 import { cartState } from 'src/recoils';
 import { userState } from 'src/recoils';
-import { useRecoilValue } from 'recoil';
 import { CloseIcon } from 'src/components/Icons';
-import { toast } from 'react-toastify';
 import { PATH } from 'src/routes';
 
 const mk = classNames.bind(styles);

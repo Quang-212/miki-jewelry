@@ -44,7 +44,7 @@ const schema = yup.object().shape({
   terms: yup.boolean().oneOf([true], '*Bạn cần đọc và đồng ý với các điều khoản chính sách'),
 });
 
-export default function RegisterFormSection() {
+export default function RegisterForm() {
   const { push } = useRouter();
 
   const methods = useForm({

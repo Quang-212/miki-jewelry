@@ -1,7 +1,7 @@
 import Coupon from 'src/models/Coupon';
 import dbConnect from 'src/utils/dbConnect';
 
-async function createCouponHandler(req, res) {
+async function deleteCouponHandler(req, res) {
   await dbConnect();
   const { method } = req;
   const { id } = req.query;
@@ -29,4 +29,4 @@ async function createCouponHandler(req, res) {
   }
 }
 
-export default createCouponHandler;
+export default deleteCouponHandler;

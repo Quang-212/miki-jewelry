@@ -9,12 +9,12 @@ const Coupon = new Schema(
     endDate: { type: Date, required: true },
     status: {
       type: String,
-      enum: ['active', 'in-active', 'future-plan'],
+      enum: ['active', 'in-active'],
       required: true,
-      default: null,
+      default: 'active',
     },
     discount: { type: Number, required: true },
-    limit: { type: Number, required: true },
+    rest: { type: Number, required: true },
     targetUser: { type: Array, required: true }, // {key: 'gender', value: "male", compare: "equal"}
     //{key: 'birthday', value: "date", compare: "lte"}
     discountCategory: {

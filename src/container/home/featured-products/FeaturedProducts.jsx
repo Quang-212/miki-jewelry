@@ -43,10 +43,10 @@ export function FeaturedProducts({ products }) {
           <Fragment key={index}>
             <CardProduct
               product={product}
-              width={254}
-              height={307}
+              width={264}
+              height={300}
               placeholder="blur"
-              styleWrapper={{ wrapper: 'max-w-254-px' }}
+              // styleWrapper={{ wrapper: 'max-w-254-px' }}
               onClick={() => handleClick(product.slug)}
             />
           </Fragment>

@@ -42,7 +42,11 @@ async function getProductList(req, res) {
             .skip(page * +limit)
             .select(select)
             .exec(),
-          Product.find({ deleted: false }).countDocuments(),
+          Product.find({
+            deleted: false,
+            ...(category && { category }),
+            ...(search && { search: new RegExp(search) }),
+          }).countDocuments(),
         ]);
 
         return res.status(200).json({

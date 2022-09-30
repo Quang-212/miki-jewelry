@@ -31,7 +31,7 @@ export default function DynamicTable({
       {
         id: 'selection',
         Header: ({ getToggleAllRowsSelectedProps }) => (
-          <Checkbox {...getToggleAllRowsSelectedProps()} />
+          <Checkbox id="all" {...getToggleAllRowsSelectedProps()} />
         ),
         Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
       },

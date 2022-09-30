@@ -193,7 +193,7 @@ export default function NotificationsPreview({ children }) {
             </>
           ) : (
             <div className={mk('notifications-review-empty')}>
-              <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={200} height={200} />
+              <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={300} height={220} />
               <p>Hiện chưa có thông báo</p>
             </div>
           )}

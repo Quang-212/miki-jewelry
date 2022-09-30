@@ -74,7 +74,7 @@ export default function MenuNavigation({ link, children }) {
           interactive
           placement="bottom-start"
           delay={[200, 400]}
-          offset={[-122, 16]}
+          offset={[-122, 18]}
           render={renderCategory}
           animation={true}
           onMount={onMount}

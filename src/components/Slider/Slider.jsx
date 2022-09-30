@@ -34,7 +34,7 @@ export default function Slider({ children }) {
     initialSlide: 0,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 2400,
     nextArrow: <NextArrow className="bg-pink-200" />,
     prevArrow: <PrevArrow />,
     responsive: [

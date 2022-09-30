@@ -58,7 +58,7 @@ export default function ModalReview({ isOpen, setIsOpen, order = {} }) {
         orderId: _id,
       });
       console.log(res);
-      setIsOpen((prev) => ({ ...prev, review: false, completed: true }));
+      // setIsOpen((prev) => ({ ...prev, review: false, completed: true }));
     } catch (error) {
       if (405 === error.response?.status) {
         toast(error.response.data.message, { type: 'info' });

@@ -25,7 +25,7 @@ export function About() {
           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia
           consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
         </p>
-        <Button primary internalLink={PATH.BRAND_HISTORY} wrapper={mk('btn')}>
+        <Button primary internalLink={PATH.PRODUCTS} wrapper={mk('btn')}>
           Tìm hiểu thêm
         </Button>
       </Animation>

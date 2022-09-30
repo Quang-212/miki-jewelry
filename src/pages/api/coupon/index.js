@@ -2,7 +2,7 @@ import Coupon from 'src/models/Coupon';
 import dbConnect from 'src/utils/dbConnect';
 import qs from 'qs';
 
-async function handleGetUserCart(req, res) {
+async function getCouponHandler(req, res) {
   await dbConnect();
   const { method } = req;
 
@@ -54,4 +54,4 @@ async function handleGetUserCart(req, res) {
   }
 }
 
-export default handleGetUserCart;
+export default getCouponHandler;

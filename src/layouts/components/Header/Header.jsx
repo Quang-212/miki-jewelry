@@ -16,7 +16,7 @@ export function Header() {
   // const { data: session } = useSession();
 
   return (
-    <header className={mk('header', 'container')}>
+    <header className={mk('header')}>
       <GlobalEvent />
       <nav className={mk('nav')}>
         <Navigation />

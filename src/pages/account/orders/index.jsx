@@ -2,7 +2,7 @@ import Breadcrumb from 'src/components/Breadcrumb';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
 import { Banner, OrdersList } from 'src/container/orders-management';
-// import AuthGuard from 'src/guard/AuthGuard';
+import AuthGuard from 'src/guard/AuthGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 
@@ -15,7 +15,7 @@ const breadcrumbs = [
 
 export default function Orders() {
   return (
-    <>
+    <AuthGuard>
       <Page
         data={{
           title: 'Quản lý đơn hàng',
@@ -32,6 +32,6 @@ export default function Orders() {
       </h2>
       {/* </div> */}
       <OrdersList />
-    </>
+    </AuthGuard>
   );
 }

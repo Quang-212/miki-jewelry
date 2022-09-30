@@ -84,7 +84,8 @@ export function CouponList() {
   //! DUMA NHỚ RETURN CUỐI CÙNG !!! (0h => 5h sáng)
   //! FUCK WHEN LOADING => Table is unmount (the same)
   if (isLoading) return <LoadingRotatingLines className="absolute z-10 left-2/4 top-3/4" />;
-
+  const page = pageIndex;
+  const pageSize = limit;
   return (
     <section>
       {!currentCoupon.formOpen && (
@@ -101,14 +102,14 @@ export function CouponList() {
             </Button>
           </div>
           <div className="flex flex-col gap-4">
-            <DynamicTable
+            {/* <DynamicTable
               columns={productsColumn}
               data={productsData}
               onPageChange={setPagination}
-              pageState={{ limit, pageCount, pageIndex }}
+              pagination={{ pageSize, pageCount, page }}
               handleEdit={handleEditProduct}
               handleDelete={handleDeleteProduct}
-            />
+            /> */}
           </div>
         </>
       )}
