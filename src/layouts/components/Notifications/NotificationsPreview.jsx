@@ -43,9 +43,14 @@ export default function NotificationsPreview({ children }) {
   const pusher = usePusherClient();
 
   useEffect(() => {
-    !isEmpty(data?.notifications) &&
-      setNotifications({ data: data.notifications, unRead: data.unRead });
-  }, [data]);
+    setNotifications(() => {
+      if (!isAuthenticated || isEmpty(data?.notifications)) {
+        return { data: [], unRead: 0 };
+      }
+
+      return { data: data.notifications, unRead: data.unRead };
+    });
+  }, [data, isAuthenticated]);
 
   useEffect(() => {
     if (pusher && isAuthenticated && user.role === 'admin') {

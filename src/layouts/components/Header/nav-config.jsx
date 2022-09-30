@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { PATH } from 'src/routes';
 import {
   CommentIcon,
   DashboardIcon,
@@ -10,13 +9,10 @@ import {
   LanguagesIcon,
   LoginIcon,
   LogoutIcon,
-  NotificationIcon,
   UserIcon,
   UserPlusIcon,
   VietnameseIcon,
 } from 'src/components/Icons';
-import { userState } from 'src/recoils';
-import { PATH } from 'src/routes';
 
 export const NAVIGATION_LINKS = [
   {
@@ -125,88 +121,97 @@ export const ABOUT_LINKS = [
   },
 ];
 
-export const MENU_ITEMS = [
-  {
-    title: 'Đăng nhập',
-    icon: <LoginIcon />,
-    path: PATH.LOGIN,
-  },
-  {
-    title: 'Đăng ký',
-    icon: <UserPlusIcon />,
-    path: PATH.REGISTER,
-  },
-  {
-    title: 'Góp ý và hỗ trợ',
-    icon: <FeedbackIcon />,
-    path: '/account/profile',
-  },
-  {
-    title: 'Tiếng việt',
-    icon: <LanguagesIcon />,
-    children: {
-      title: 'Languages',
-      data: [
-        {
-          type: 'languages',
-          code: 'en',
-          title: 'English',
-          icon: <EnglishIcon />,
-        },
-        {
-          type: 'languages',
-          code: 'vi',
-          title: 'Tiếng việt',
-          icon: <VietnameseIcon />,
-        },
-      ],
-    },
-  },
-];
+export const MENU_ITEMS = [];
 
-const [, , ...rest] = MENU_ITEMS;
+const rest = MENU_ITEMS.slice(2);
 
-export const MENU_USER_ITEMS = ({ handleClickLogout }) => {
-  const { user, isAuthenticated } = useRecoilValue(userState);
+export const MENU_USER_ITEMS = ({ handleClickLogout, currentAuthState }) => {
+  const { user, isAuthenticated } = currentAuthState;
 
   return [
-    ...(user.role === 'admin' &&
-      isAuthenticated && [
-        {
-          title: 'Dashboard',
-          icon: <DashboardIcon />,
-          path: PATH.ADMIN_DASHBOARD,
-        },
-      ]),
+    ...(user.role === 'admin' && isAuthenticated
+      ? [
+          {
+            title: 'Dashboard',
+            icon: <DashboardIcon />,
+            path: PATH.ADMIN_DASHBOARD,
+          },
+        ]
+      : []),
+    ...(isAuthenticated
+      ? [
+          {
+            title: 'Tài khoản của tôi',
+            icon: <UserIcon />,
+            path: '/account/profile',
+          },
+          {
+            title: 'Đơn hàng của tôi',
+            icon: <HistoryIcon />,
+            path: '/account/orders',
+          },
+          {
+            title: 'Sản phẩm yêu thích',
+            icon: <FavoriteIcon header />,
+            path: '/account/favorite',
+          },
+          {
+            title: 'Nhận xét sản phẩm',
+            icon: <CommentIcon />,
+            path: '/favorite',
+          },
+        ]
+      : []),
+    ...(!isAuthenticated
+      ? [
+          {
+            title: 'Đăng nhập',
+            icon: <LoginIcon />,
+            path: PATH.LOGIN,
+          },
+          {
+            title: 'Đăng ký',
+            icon: <UserPlusIcon />,
+            path: PATH.REGISTER,
+          },
+        ]
+      : []),
     {
-      title: 'Tài khoản của tôi',
-      icon: <UserIcon />,
+      title: 'Góp ý và hỗ trợ',
+      icon: <FeedbackIcon />,
       path: '/account/profile',
     },
     {
-      title: 'Đơn hàng của tôi',
-      icon: <HistoryIcon />,
-      path: '/account/orders',
-    },
-    {
-      title: 'Sản phẩm yêu thích',
-      icon: <FavoriteIcon header />,
-      path: '/account/favorite',
-    },
-    {
-      title: 'Nhận xét sản phẩm',
-      icon: <CommentIcon />,
-      path: '/favorite',
-    },
-    ...rest,
-    {
-      title: 'Thoát tài khoản',
-      icon: <LogoutIcon />,
-      path: PATH.HOME,
-      separate: true,
-      onClick() {
-        handleClickLogout();
+      title: 'Tiếng việt',
+      icon: <LanguagesIcon />,
+      children: {
+        title: 'Languages',
+        data: [
+          {
+            type: 'languages',
+            code: 'en',
+            title: 'English',
+            icon: <EnglishIcon />,
+          },
+          {
+            type: 'languages',
+            code: 'vi',
+            title: 'Tiếng việt',
+            icon: <VietnameseIcon />,
+          },
+        ],
       },
     },
+    ...(isAuthenticated
+      ? [
+          {
+            title: 'Thoát tài khoản',
+            icon: <LogoutIcon />,
+            path: PATH.HOME,
+            separate: true,
+            onClick: handleClickLogout,
+          },
+        ]
+      : []),
   ];
 };

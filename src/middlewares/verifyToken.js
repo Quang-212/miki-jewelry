@@ -3,8 +3,6 @@ import { ACCESS_TOKEN_KEY } from 'src/pages/api/constant';
 
 export default function verifyToken(handler) {
   return (req, res) => {
-    // lấy access token qua header
-    console.log(req.headers);
     const getAccessToken = req.headers?.authorization;
     const accessToken = getAccessToken?.split(' ')?.[1];
     if (accessToken) {
