@@ -83,7 +83,7 @@ export default function CartPreview({ cartRecoil, children }) {
             </>
           ) : (
             <div className={mk('cart-review-empty')}>
-              <Image src={images.adminAvatar} alt="Ảnh giỏ hàng trống" width={200} height={200} />
+              <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={200} height={200} />
               <p>Hiện chưa có sản phẩm</p>
               <Button primary internalLink="/products">
                 Mua ngay

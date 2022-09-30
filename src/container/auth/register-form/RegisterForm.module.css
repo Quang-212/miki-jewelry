@@ -11,7 +11,7 @@
 }
 
 .title-btn-login {
-  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase;
+  @apply font-primary font-bold text-base leading-6 text-primary-3 uppercase hover:opacity-80;
 }
 
 .caption {

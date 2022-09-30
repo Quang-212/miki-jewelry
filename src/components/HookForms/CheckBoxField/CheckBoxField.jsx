@@ -20,6 +20,7 @@ export function CheckBoxField({
   inputValue,
   onChange,
   multiple,
+  checked,
   ...other
 }) {
   const {
@@ -68,7 +69,7 @@ export function CheckBoxField({
     }
     return (
       <label htmlFor={value.id} className={classLabel}>
-        {watch(name) ? <CheckedInputIcon /> : <UncheckedInputIcon />}
+        {checked === true || watch(name) ? <CheckedInputIcon /> : <UncheckedInputIcon />}
       </label>
     );
   };

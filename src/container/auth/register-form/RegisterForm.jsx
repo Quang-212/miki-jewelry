@@ -154,6 +154,7 @@ export default function RegisterFormSection() {
             <div className="flex items-center gap-2 ">
               <CheckBoxField
                 hidden
+                checked={true}
                 name="terms"
                 value={{
                   id: 'terms',
@@ -176,13 +177,7 @@ export default function RegisterFormSection() {
             </Button>
             <p className="flex items-center gap-1 mt-4">
               <span className="caption">Bạn đã có tài khoản?</span>
-              <Button
-                text
-                underline
-                internalLink={PATH.LOGIN}
-                wrapper="ml-2"
-                title={mk('title-btn-login')}
-              >
+              <Button text internalLink={PATH.LOGIN} wrapper="ml-2" title={mk('title-btn-login')}>
                 Đăng nhập
               </Button>
             </p>

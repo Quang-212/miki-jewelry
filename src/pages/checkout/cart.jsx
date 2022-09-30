@@ -49,7 +49,7 @@ export default function Cart() {
               </div>
             ) : (
               <div className="flex flex-col items-center gap-8">
-                <Image src={images.adminAvatar} alt="Ảnh giỏ hàng trống" width={200} height={200} />
+                <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={200} height={200} />
                 <p>Giỏ hàng của bạn còn trống</p>
                 <Button primary internalLink="/products">
                   Mua ngay

@@ -16,7 +16,7 @@ import { resetPassword } from 'src/fetching/auth';
 import { verifyCode } from 'src/fetching/mailer';
 import { useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
-import styles from './Form.module.css';
+import styles from './NewPasswordForm.module.css';
 
 const mk = classNames.bind(styles);
 

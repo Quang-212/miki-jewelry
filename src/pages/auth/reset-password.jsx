@@ -1,5 +1,5 @@
 import Page from 'src/components/Page';
-import Form from 'src/container/auth/reset-password';
+import ResetPasswordForm from 'src/container/auth/reset-password';
 // import GuestGuard from 'src/guard/GuestGuard';
 
 export default function ResetPassword() {
@@ -12,7 +12,7 @@ export default function ResetPassword() {
           thumbnailUrl: '',
         }}
       />
-      <Form />
+      <ResetPasswordForm />
     </>
   );
 }

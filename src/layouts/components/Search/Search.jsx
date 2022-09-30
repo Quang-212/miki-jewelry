@@ -15,6 +15,7 @@ import { useDebounce, useRouter } from 'src/hooks';
 import { PATH } from 'src/routes';
 import { formatReplaceString } from 'src/utils/formatString';
 import styles from './Search.module.css';
+import { NormalDivider } from 'src/components/Dividers';
 
 const mk = classNames.bind(styles);
 
@@ -30,7 +31,6 @@ export default function Search() {
   });
 
   const { isLoading, isError, errorMessage, result } = searchState;
-  console.log(result);
 
   const inputRef = useRef();
 
@@ -49,7 +49,7 @@ export default function Search() {
 
       getProducts([], {
         search: debouncedValue,
-        limit: 6,
+        limit: 5,
         select: {
           images: 1,
           name: 1,
@@ -137,11 +137,12 @@ export default function Search() {
       <motion.div className="w-[464px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className="gap-1">
           <h4 className="py-1 px-3">Sản phẩm: {result.length}</h4>
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col divide-y-1 divide-primary-5">
             {result.map((result) => (
               <ProductItem key={result._id} data={result} />
             ))}
           </ul>
+          <NormalDivider />
           <div className="flex justify-center pt-2 pb-3">
             <Button text onClick={handleClickSeeAll} title="font-semibold hover:opacity-80">
               Xem tất cả
@@ -212,7 +213,7 @@ export default function Search() {
             </Button>
           )}
           <Tippy content={<span>Tìm kiếm</span>}>
-            <Button icon wrapper={mk('search-btn')}>
+            <Button icon onClick={handleClickSeeAll} wrapper={mk('search-btn')}>
               <SearchIcon />
             </Button>
           </Tippy>

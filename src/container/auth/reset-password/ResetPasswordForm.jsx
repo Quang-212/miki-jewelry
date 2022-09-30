@@ -24,7 +24,7 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function Form() {
+export default function ResetPasswordForm() {
   const { back, push } = useRouter();
 
   const methods = useForm({
