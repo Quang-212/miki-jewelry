@@ -6,9 +6,9 @@ const UserCoupon = new Schema(
     coupon: { type: Schema.Types.ObjectId, ref: 'Coupon', required: true },
     status: {
       type: String,
-      enum: ['active', 'in-active', 'future-plan'],
+      enum: ['available', 'used'],
       required: true,
-      default: null,
+      default: 'available',
     },
   },
   {
