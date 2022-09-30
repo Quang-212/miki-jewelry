@@ -27,7 +27,7 @@ async function logout(req, res) {
 
         res.setHeader(
           'Set-Cookie',
-          serialize('refreshToken', null, {
+          serialize('refreshToken', '', {
             expires: new Date(0),
             path: '/',
           }),

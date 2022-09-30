@@ -32,11 +32,12 @@ async function handlerRefreshToken(req, res) {
             });
           });
         }
+
         return res.status(401).json({
           message: 'Token expired',
           code: 401,
         });
-        break;
+
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
