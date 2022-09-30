@@ -24,21 +24,20 @@ async function handlerRefreshToken(req, res) {
                 message: 'Token expired',
                 code: 401,
               });
-            } else {
-              const newAccessToken = generateAccessToken(payload);
-              return res.status(201).json({
-                message: 'OK',
-                code: 201,
-                accessToken: newAccessToken,
-              });
             }
-          });
-        } else {
-          return res.status(401).json({
-            message: 'Token expired',
-            code: 401,
+            const newAccessToken = generateAccessToken(payload);
+            return res.status(201).json({
+              message: 'OK',
+              code: 201,
+              accessToken: newAccessToken,
+            });
           });
         }
+
+        return res.status(401).json({
+          message: 'Token expired',
+          code: 401,
+        });
 
       default:
         return res.status(400).json({
