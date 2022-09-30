@@ -13,8 +13,8 @@ export function ProductsList({ products }) {
             <CardProduct
               product={product}
               width={272}
-              height={272}
-              styleWrapper={{ wrapper: 'w-[272px]' }}
+              height={300}
+              // styleWrapper={{ wrapper: 'w-[272px]' }}
               placeholder="blur"
               onClick={() => handleClick(product)}
             />

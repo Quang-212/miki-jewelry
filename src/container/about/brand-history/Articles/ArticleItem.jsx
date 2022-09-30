@@ -11,7 +11,7 @@ const mk = classNames.bind(styles);
 export default function ArticleItem({ article, index }) {
   const ArticleText = ({ article }) => {
     return (
-      <Animation variant={BOTTOM_TOP} className={mk('article-text')}>
+      <Animation scroll variant={BOTTOM_TOP} className={mk('article-text')}>
         <h2
           className={mk('article-title font-primary font-bold text-32-px leading-10 text-primary')}
         >
@@ -24,7 +24,7 @@ export default function ArticleItem({ article, index }) {
 
   const ArticleImage = ({ article }) => {
     return (
-      <Animation variant={SCALE_ZOOM}>
+      <Animation scroll variant={SCALE_ZOOM}>
         <Image
           src={article.image.src}
           alt={article.image.alt}

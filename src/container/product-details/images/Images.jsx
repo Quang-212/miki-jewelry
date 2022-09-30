@@ -21,8 +21,8 @@ export default function Images({ images, name }) {
     >
       <ul className={mk('images-list')}>
         {images.map((image) => (
-          <li key={image._id} className={mk('image-item')}>
-            <Animation variant={LEFT_RIGHT}>
+          <li key={image._id}>
+            <Animation gestures className={mk('image-item')}>
               <Image
                 src={image.url}
                 alt={name}
@@ -35,15 +35,7 @@ export default function Images({ images, name }) {
           </li>
         ))}
       </ul>
-      <Animation variant={SCALE_ZOOM}>
-        <Image
-          src={mainImage}
-          alt={name}
-          width={450}
-          height={465}
-          className={mk('image-primary')}
-        />
-      </Animation>
+      <Image src={mainImage} alt={name} width={450} height={465} className={mk('image-primary')} />
     </motion.section>
   );
 }

@@ -6,6 +6,9 @@ export const PATH = {
   BRAND_HISTORY: '/about/brand-history',
   RECRUITMENT: '/about/recruitment',
 
+  PRODUCT_CATEGORY(category) {
+    return `/products?category=${category}`;
+  },
   PRODUCT_DETAIL(slug) {
     return `/products/${slug}`;
   },

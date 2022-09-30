@@ -8,7 +8,7 @@ import 'tippy.js/dist/tippy.css';
 
 import Button from 'src/components/Button';
 import { Checkbox } from 'src/components/Checkbox';
-import { BinIcon, CloseIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
+import { BinIcon, MinusIcon, PlusIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import { deleteCartItem, updateCart } from 'src/fetching/cart';
 import { useRouter } from 'src/hooks';
@@ -23,6 +23,7 @@ const mk = classNames.bind(styles);
 
 export default function CartItem({ data, orders, onCheck }) {
   const { product, size, quantity, _id } = data;
+
   const initialSizeChecked = product.stocks.findIndex((stock) => stock.size == size);
 
   const [sizeChecked, setSizeChecked] = useState(initialSizeChecked);
@@ -181,6 +182,7 @@ export default function CartItem({ data, orders, onCheck }) {
     <div className={mk('cart-item')}>
       <div className="col-span-4 row-span-3 flex items-center gap-4">
         <Checkbox
+          id={product._id}
           checked={orders.includes(_id)}
           onChange={() => onCheck(_id)}
           className="w-6 h-6"

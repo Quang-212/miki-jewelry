@@ -1,6 +1,7 @@
 import Tippy from '@tippyjs/react';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import { motion, useSpring } from 'framer-motion';
 import { isEmpty } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -66,11 +67,12 @@ export default function NotificationsPreview({ children }) {
     try {
       await markAsReadNotification({ id }, { params: { type: 'one' } });
 
-      setNotifications((prev) => ({
-        ...prev,
-        unRead: prev.unRead - 1,
-        data: prev.data.map((item) => (item._id === id ? { ...item, read: true } : item)),
-      }));
+      notifications.unRead > 0 &&
+        setNotifications((prev) => ({
+          ...prev,
+          unRead: prev.unRead - 1,
+          data: prev.data.map((item) => (item._id === id ? { ...item, read: true } : item)),
+        }));
     } catch (error) {
       console.log(error);
     }
@@ -119,9 +121,31 @@ export default function NotificationsPreview({ children }) {
     }
   };
 
+  const springConfig = { damping: 40, stiffness: 400 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  const onMount = () => {
+    scale.set(1);
+    opacity.set(1);
+  };
+
+  const onHide = ({ unmount }) => {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+  };
+
   const renderNotificationsReview = (attrs) => {
     return (
-      <div className="w-[500px]" tabIndex="-1" {...attrs}>
+      <motion.div className="w-[486px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className={mk('popper-wrapper')}>
           {!isEmpty(data?.notifications) ? (
             <>
@@ -174,7 +198,7 @@ export default function NotificationsPreview({ children }) {
             </div>
           )}
         </PopperWrapper>
-      </div>
+      </motion.div>
     );
   };
 
@@ -184,8 +208,11 @@ export default function NotificationsPreview({ children }) {
         interactive
         placement="bottom-end"
         delay={[200, 400]}
-        offset={[108, 16]}
+        offset={[64, 16]}
         render={renderNotificationsReview}
+        animation={true}
+        onMount={onMount}
+        onHide={onHide}
       >
         {children}
       </HeadlessTippy>

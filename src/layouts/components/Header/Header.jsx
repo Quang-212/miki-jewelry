@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 // import { useSession } from 'next-auth/react';
 
 import BrandLogo from 'src/components/BrandLogo';
-import { BellRingIcon } from 'src/components/Icons';
 import Cart from '../Cart';
 import Navigation from '../Navigation';
 import { Notifications } from '../Notifications';

@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import { useState } from 'react';
+import { motion, useSpring } from 'framer-motion';
 
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import { useRouter } from 'src/hooks';
@@ -35,9 +36,32 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
     });
   };
 
+  const springConfig = { damping: 40, stiffness: 400 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  const onMount = () => {
+    scale.set(1);
+    opacity.set(1);
+  };
+
+  const onHide = ({ unmount }) => {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+    setHistory((prev) => prev.slice(0, 1));
+  };
+
   const renderResult = (attrs) => {
     return (
-      <div className="w-64" tabIndex="-1" {...attrs}>
+      <motion.div className="w-64" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper>
           {history.length > 1 && (
             <Header
@@ -49,7 +73,7 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
           )}
           <ul className="overflow-y-scroll">{renderItems()}</ul>
         </PopperWrapper>
-      </div>
+      </motion.div>
     );
   };
 
@@ -61,7 +85,9 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
       delay={[200, 400]}
       offset={[12, 16]}
       render={renderResult}
-      onHide={() => setHistory((prev) => prev.slice(0, 1))}
+      animation={true}
+      onMount={onMount}
+      onHide={onHide}
     >
       {children}
     </Tippy>

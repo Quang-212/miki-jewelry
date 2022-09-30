@@ -24,7 +24,7 @@ export default function ModalDelete({ handleDeleteCartItem, productName, confirm
         <p className="font-primary font-bold text-xl leading-7 text-primary">
           Bạn chắc chắn muốn bỏ sản phẩm này?
         </p>
-        <p>{productName}</p>
+        <p className="text-lg">{productName}</p>
         <div className="flex justify-between gap-8 mt-10">
           <Button primary onClick={handleDeleteCartItem} wrapper="w-full">
             Đồng ý

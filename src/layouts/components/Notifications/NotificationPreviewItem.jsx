@@ -3,7 +3,7 @@ import { TicketIcon } from 'src/components/Icons';
 import { fDateTime } from 'src/utils/formartTime';
 
 const Content = ({ data, onMarkAsRead }) => {
-  const { _id, content, createdAt } = data;
+  const { _id, content, createdAt, read } = data;
 
   return (
     <>
@@ -22,6 +22,7 @@ const Content = ({ data, onMarkAsRead }) => {
       <Button
         text
         onClick={() => onMarkAsRead(_id)}
+        disabled={read}
         wrapper="col-span-5 justify-self-center"
         title="text-caption-2 font-semibold hover:opacity-80"
       >
@@ -99,7 +100,7 @@ export default function NotificationPreviewItem({
   return (
     <div
       className={`grid grid-cols-12 min-h-[60px] px-4 hover:bg-neutral-5 duration-100 ease-in-out ${
-        read || deleted ? 'bg-neutral-5' : 'bg-pink-200'
+        read || deleted ? 'bg-neutral-5' : 'bg-wrapper'
       }`}
     >
       {renderChildren()}

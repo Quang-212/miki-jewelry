@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Button from 'src/components/Button';
 import Image from 'src/components/Image';
-import { ModalLeaving, ModalReview } from 'src/container/reviews';
+import { ModalCompleted, ModalLeaving, ModalReview } from 'src/container/reviews';
 import { useRouter } from 'src/hooks';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
@@ -10,6 +10,7 @@ export default function OrderProductItem({ data }) {
   const [isOpen, setIsOpen] = useState({
     review: false,
     leaving: false,
+    completed: false,
   });
 
   const { push } = useRouter();
@@ -54,8 +55,10 @@ export default function OrderProductItem({ data }) {
         <span className="col-span-1 justify-self-center">{formatVndCurrency(discountPrice)}</span>
         <span className="col-span-2 justify-self-center">{formatVndCurrency(newPrice)}</span>
       </div>
+
       <ModalReview isOpen={isOpen.review} order={data} setIsOpen={setIsOpen} />
       <ModalLeaving isOpen={isOpen.leaving} setIsOpen={setIsOpen} />
+      <ModalCompleted isOpen={isOpen.completed} setIsOpen={setIsOpen} />
     </>
   );
 }

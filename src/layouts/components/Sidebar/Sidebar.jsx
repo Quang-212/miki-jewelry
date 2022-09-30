@@ -23,7 +23,7 @@ import ListItemButton from 'src/components/ListItemButton';
 import { NAVBAR } from 'src/config';
 import { images } from 'src/constants';
 import { useCollapseDrawer } from 'src/hooks';
-import { navConfig } from './navConfig';
+import { navConfig } from './nav-config';
 import NavItemRoot from './NavItem';
 
 import styles from './Sidebar.module.css';

@@ -19,11 +19,11 @@ export function Hero() {
       <div className={mk('hero')}>
         <div className={mk('bg-image-rgba')}>
           <div className="flex flex-col items-center gap-60-px m-auto">
-            <Animation variant={LEFT_RIGHT}>
+            <Animation scroll variant={LEFT_RIGHT}>
               <h1 className="display text-neutral-5">Thế Giới Nữ Trang</h1>
             </Animation>
             <div className="flex flex-col items-center">
-              <Animation variant={RIGHT_LEFT}>
+              <Animation scroll variant={RIGHT_LEFT}>
                 <NormalDivider wrapper={mk('divider')} />
                 <h3 className={mk('heading')}>
                   Tôn vinh vẻ đẹp phái nữ - Trao quà tặng - Trao yêu thương
@@ -31,7 +31,7 @@ export function Hero() {
                 <NormalDivider wrapper={mk('divider')} />
               </Animation>
             </div>
-            <Animation variant={SCALE_ZOOM}>
+            <Animation scroll variant={SCALE_ZOOM}>
               <Button normal internalLink={PATH.HOME}>
                 Tìm hiểu thêm
               </Button>
