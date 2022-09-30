@@ -22,12 +22,12 @@ export default function Hero() {
     >
       <div className={mk('bg-image-rgba')}>
         <article className={mk('content')}>
-          <Animation variant={TOP_BOTTOM}>
+          <Animation scroll variant={TOP_BOTTOM}>
             <h1 className={mk('title')}>
               <q>Miki Jewelry - Tales of Happiness</q>
             </h1>
           </Animation>
-          <Animation variant={LEFT_RIGHT}>
+          <Animation scroll variant={LEFT_RIGHT}>
             <p>
               Lần đầu ra mắt thị trường vào năm 2015, Miki mong muốn mang tới những sản phẩm Nữ
               trang được đầu tư về thiết kế, minh bạch về thông tin giao dịch hàng hoá và mang đến

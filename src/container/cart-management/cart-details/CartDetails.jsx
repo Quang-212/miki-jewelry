@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { Checkbox } from 'src/components/Checkbox';
@@ -41,14 +41,14 @@ export default function CartDetails({ setChecked, checked }) {
           <h3 className={mk('font-primary font-semibold text-2xl leading-8 text-primary')}>
             Giỏ hàng
           </h3>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ">
             <Checkbox
               id="all"
               checked={checked.orders.length === totalProducts}
               onChange={handleCheckAll}
               className="w-6 h-6"
             />
-            <label htmlFor="all" className="text-lg">
+            <label htmlFor="all" className="text-lg cursor-pointer">
               Chọn tất cả ({totalProducts} sản phẩm)
             </label>
           </div>

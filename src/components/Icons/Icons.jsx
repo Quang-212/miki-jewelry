@@ -241,6 +241,22 @@ export const BellRingIcon = ({ width = '28', height = '28', className }) => (
   </svg>
 );
 
+export const DashboardIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M25.3333 6.66667V9.33333H20V6.66667H25.3333ZM12 6.66667V14.6667H6.66667V6.66667H12ZM25.3333 17.3333V25.3333H20V17.3333H25.3333ZM12 22.6667V25.3333H6.66667V22.6667H12ZM28 4H17.3333V12H28V4ZM14.6667 4H4V17.3333H14.6667V4ZM28 14.6667H17.3333V28H28V14.6667ZM14.6667 20H4V28H14.6667V20Z"
+      fill="black"
+    />
+  </svg>
+);
+
 export const UserIcon = ({ width = '28', height = '28', className }) => (
   <svg
     width={width}
@@ -1328,7 +1344,7 @@ export const CheckedInputIcon = ({ width = '32', height = '32', className }) => 
     <path
       d="M25.3333 4H6.66667C5.2 4 4 5.2 4 6.66667V25.3333C4 26.8 5.2 28 6.66667 28H25.3333C26.8 28 28 26.8 28 25.3333V6.66667C28 5.2 26.8 4 25.3333 4ZM25.3333 25.3333H6.66667V6.66667H25.3333V25.3333ZM23.9867 12L22.1067 10.1067L13.32 18.8933L9.88 15.4667L7.98667 17.3467L13.32 22.6667L23.9867 12Z"
       fill="black"
-      fill-opacity="0.2"
+      fillOpacity="0.2"
     />
   </svg>
 );

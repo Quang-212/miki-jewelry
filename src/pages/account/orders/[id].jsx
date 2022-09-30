@@ -3,6 +3,7 @@ import Page from 'src/components/Page';
 import { OrderGeneralInformation, OrderMainInformation } from 'src/container/user';
 import { useOrderDetails, useRouter } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';
+import { PATH } from 'src/routes';
 
 OrderDetails.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
 
@@ -20,7 +21,11 @@ export default function OrderDetails() {
       <OrderGeneralInformation />
       <OrderMainInformation order={order} />
       <div className="flex gap-4">
-        <Button text title="font-bold hover:underline underline-offset-4">
+        <Button
+          text
+          internalLink={PATH.ORDERS}
+          title="font-bold hover:underline underline-offset-4"
+        >
           Quay lại quản lý đơn hàng
         </Button>
         <Button primary>Theo dõi đơn hàng</Button>

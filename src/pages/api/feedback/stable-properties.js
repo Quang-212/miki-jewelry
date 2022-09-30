@@ -59,7 +59,9 @@ async function feedbackHandler(req, res) {
           message: 'OK',
           code: 200,
           data: {
-            rating: ratingStructure.map((item, index) => ratingMongo[index] || item),
+            rating: ratingStructure.map(
+              (item, index) => ratingMongo.find((data) => data.star === item.star) || item,
+            ),
             properties: { hasCommentCount, hasMediaCount },
           },
         });

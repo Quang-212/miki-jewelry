@@ -151,12 +151,14 @@ export function ProductForm({
 
       if (currentProduct.isEdit) {
         const newUploadedImage = !isEmpty(distributedImage.files) && (await uploadFile(formData));
+        console.log(newUploadedImage);
 
         const imageIds = currentProduct.data.images
           .filter((_, index) => !!distributedImage.files.find((file) => file.index === index))
           .map((image) => ({ public_id: image.public_id }));
 
-        const newImages = [distributedImage.uploadedImages, newUploadedImage.data.data]
+        const newImages = distributedImage.uploadedImages
+          .concat(newUploadedImage ? newUploadedImage.data.data : [])
           .flat()
           .map((image, index) => ({
             ...image,

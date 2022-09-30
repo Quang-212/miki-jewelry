@@ -4,11 +4,7 @@ import { CloseIcon } from 'src/components/Icons';
 
 export default function ModalCompleted({ isOpen, setIsOpen }) {
   const handleCloseModal = () => {
-    return setIsOpen((prev) => ({ ...prev, leaving: false, review: false }));
-  };
-
-  const handleStayModal = () => {
-    return setIsOpen((prev) => ({ ...prev, review: true, leaving: false }));
+    return setIsOpen((prev) => ({ ...prev, review: false, completed: false }));
   };
 
   return (

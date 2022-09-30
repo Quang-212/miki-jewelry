@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { motion } from 'framer-motion';
-import Animation, { LEFT_RIGHT, RIGHT_LEFT } from 'src/components/Animation';
+import Animation, { LEFT_RIGHT, RIGHT_LEFT, SCALE_ZOOM } from 'src/components/Animation';
 
 import Button from 'src/components/Button';
 import Image from 'src/components/Image';
@@ -18,7 +18,7 @@ export function About() {
       viewport={{ once: true, amount: 0.8 }}
       className={mk('about', 'container')}
     >
-      <Animation variant={LEFT_RIGHT} className={mk('article')}>
+      <Animation scroll variant={LEFT_RIGHT} className={mk('article')}>
         <h2 className={mk('title')}>Về chúng tôi</h2>
         <q className={mk('heading')}>Ngày mai phải tốt hơn ngày hôm nay</q>
         <p>
@@ -30,7 +30,7 @@ export function About() {
         </Button>
       </Animation>
 
-      <Animation variant={RIGHT_LEFT} className="z-50">
+      <Animation scroll variant={SCALE_ZOOM} className="z-50">
         <Image
           src={images.homeAbout}
           alt="Picture of Miki about"

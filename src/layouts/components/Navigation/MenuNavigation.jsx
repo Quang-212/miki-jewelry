@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import { motion, useSpring } from 'framer-motion';
 
 import Button from 'src/components/Button';
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
@@ -10,9 +11,31 @@ import styles from './Navigation.module.css';
 const mk = classNames.bind(styles);
 
 export default function MenuNavigation({ link, children }) {
+  const springConfig = { damping: 40, stiffness: 400 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  const onMount = () => {
+    scale.set(1);
+    opacity.set(1);
+  };
+
+  const onHide = ({ unmount }) => {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+  };
+
   const renderCategory = (attrs) => {
     return (
-      <div className="w-[1136px]" tabIndex="-1" {...attrs}>
+      <motion.div className="w-[1136px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className="h-[186px]">
           <ul className="grid grid-cols-4 content-center rounded-primary text-center">
             {PRODUCTS_CATEGORY_LINKS.map((category, index) => (
@@ -40,7 +63,7 @@ export default function MenuNavigation({ link, children }) {
             ))}
           </ul>
         </PopperWrapper>
-      </div>
+      </motion.div>
     );
   };
 
@@ -53,6 +76,9 @@ export default function MenuNavigation({ link, children }) {
           delay={[200, 400]}
           offset={[-122, 16]}
           render={renderCategory}
+          animation={true}
+          onMount={onMount}
+          onHide={onHide}
         >
           <h2>{children}</h2>
         </Tippy>

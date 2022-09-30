@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import usePusherClient from 'src/hooks/usePusherClient';
 
 export default function a() {

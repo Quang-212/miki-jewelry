@@ -1,2 +1,2 @@
-export { default } from './Animations';
+export { default } from './Animation';
 export * from './variants-config';

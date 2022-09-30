@@ -6,12 +6,14 @@ import axiosInstance from 'src/utils/axios';
 import { isArray } from 'lodash';
 
 export default function useMyInfiniteLoading(params = [], query = {}, isSearch, options) {
-  const [newData, setNewData] = useState({
+  const initialState = {
     page: 0,
     total: 0,
     pageCount: 0,
     orders: [],
-  });
+  };
+
+  const [newData, setNewData] = useState(initialState);
 
   const queryString = qs.stringify(query);
 
@@ -38,6 +40,7 @@ export default function useMyInfiniteLoading(params = [], query = {}, isSearch, 
           };
         }
       });
+    return () => setNewData(initialState);
   }, [data]);
 
   return {

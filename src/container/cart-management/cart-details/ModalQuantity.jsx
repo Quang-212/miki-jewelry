@@ -20,12 +20,10 @@ export default function ModalQuantity({ availableQuantity, confirm, setConfirm }
         <div className="flex justify-end cursor-pointer">
           <CloseIcon onClick={handleCloseModal} />
         </div>
-        <p>Chỉ còn {availableQuantity} sản phẩm cho mặt hàng này</p>
-        <div className="flex justify-between gap-8 mt-10">
-          <Button primary onClick={handleCloseModal} wrapper="w-full">
-            Đồng ý
-          </Button>
-        </div>
+        <p className="text-lg">Chỉ còn {availableQuantity} sản phẩm cho mặt hàng này</p>
+        <Button primary onClick={handleCloseModal} wrapper="w-full mt-10">
+          Đồng ý
+        </Button>
       </div>
     </Dialog>
   );

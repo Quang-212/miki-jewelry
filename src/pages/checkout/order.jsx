@@ -67,7 +67,7 @@ export default function Order() {
           <p className="font-primary font-bold text-xl leading-7 text-primary">
             Giỏ hàng của bạn đang trống.
           </p>
-          <p className="">
+          <p className="text-lg">
             Một số sản phẩm trong giỏ hàng vừa được cập nhật, bạn vui lòng kiểm tra giỏ hàng và thử
             lại.
           </p>

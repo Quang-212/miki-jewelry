@@ -1,5 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import { motion, useSpring } from 'framer-motion';
 import { isEmpty } from 'lodash';
 import { useRecoilValue } from 'recoil';
 
@@ -29,9 +30,31 @@ export default function CartPreview({ cartRecoil, children }) {
     push('/checkout/order');
   };
 
+  const springConfig = { damping: 40, stiffness: 400 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  const onMount = () => {
+    scale.set(1);
+    opacity.set(1);
+  };
+
+  const onHide = ({ unmount }) => {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+  };
+
   const renderCartReview = (attrs) => {
     return (
-      <div className="w-[480px]" tabIndex="-1" {...attrs}>
+      <motion.div className="w-[480px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className={mk('popper-wrapper')}>
           {!isEmpty(cartRecoil) ? (
             <>
@@ -68,7 +91,7 @@ export default function CartPreview({ cartRecoil, children }) {
             </div>
           )}
         </PopperWrapper>
-      </div>
+      </motion.div>
     );
   };
 
@@ -79,6 +102,9 @@ export default function CartPreview({ cartRecoil, children }) {
       delay={[200, 400]}
       offset={[144, 16]}
       render={renderCartReview}
+      animation={true}
+      onMount={onMount}
+      onHide={onHide}
     >
       {children}
     </Tippy>

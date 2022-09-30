@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import qs from 'qs';
 import { useEffect, useRef, useState } from 'react';
 import 'tippy.js/dist/tippy.css';
+import { motion, useSpring } from 'framer-motion';
 
 import Button from 'src/components/Button';
 import { CloseCircleIcon, LoadingIcon, SearchIcon } from 'src/components/Icons';
@@ -27,9 +28,12 @@ export default function Search() {
     errorMessage: '',
     result: [],
   });
+
   const { isLoading, isError, errorMessage, result } = searchState;
+  console.log(result);
 
   const inputRef = useRef();
+
   const { push, pathname, query } = useRouter();
 
   const debouncedValue = useDebounce(formatReplaceString(searchValue), 600);
@@ -45,11 +49,13 @@ export default function Search() {
 
       getProducts([], {
         search: debouncedValue,
+        limit: 6,
         select: {
           images: 1,
           name: 1,
           slug: 1,
           stocks: 1,
+          discount: 1,
         },
       })
         .then(({ data: serverResponse }) => {
@@ -70,27 +76,31 @@ export default function Search() {
     }
   }, [debouncedValue]);
 
+  const handleClickSeeAll = () => {
+    setShowResult(false);
+
+    if (debouncedValue && !pathname.includes('products')) {
+      return push(`${PATH.PRODUCTS}?search=${debouncedValue}`);
+    }
+
+    if (pathname.includes('products') && debouncedValue) {
+      console.log(query);
+      const queryString = qs.stringify({
+        ...query,
+        search: debouncedValue,
+      });
+      return push(`${PATH.PRODUCTS}?${queryString}`);
+    }
+
+    if (pathname.includes('products') && !debouncedValue) {
+      push(PATH.PRODUCTS);
+    }
+  };
+
   useEffect(() => {
     const handler = (event) => {
       if (event.key === 'Enter') {
-        setShowResult(false);
-
-        if (debouncedValue && !pathname.includes('products')) {
-          return push(`${PATH.PRODUCTS}?search=${debouncedValue}`);
-        }
-
-        if (pathname.includes('products') && debouncedValue) {
-          console.log(query);
-          const queryString = qs.stringify({
-            ...query,
-            search: debouncedValue,
-          });
-          return push(`${PATH.PRODUCTS}?${queryString}`);
-        }
-
-        if (pathname.includes('products') && !debouncedValue) {
-          push(PATH.PRODUCTS);
-        }
+        handleClickSeeAll();
       }
     };
     inputRef.current.addEventListener('keydown', handler);
@@ -100,9 +110,31 @@ export default function Search() {
     };
   }, [debouncedValue, pathname, query]);
 
+  const springConfig = { damping: 40, stiffness: 400 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  const onMount = () => {
+    scale.set(1);
+    opacity.set(1);
+  };
+
+  const onHide = ({ unmount }) => {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+  };
+
   const renderResult = (attrs) => {
     return (
-      <div className="w-[430px]" tabIndex="-1" {...attrs}>
+      <motion.div className="w-[464px]" tabIndex="-1" style={{ scale, opacity }} {...attrs}>
         <PopperWrapper className="gap-1">
           <h4 className="py-1 px-3">Sản phẩm: {result.length}</h4>
           <ul className="flex flex-col gap-2">
@@ -110,8 +142,13 @@ export default function Search() {
               <ProductItem key={result._id} data={result} />
             ))}
           </ul>
+          <div className="flex justify-center pt-2 pb-3">
+            <Button text onClick={handleClickSeeAll} title="font-semibold hover:opacity-80">
+              Xem tất cả
+            </Button>
+          </div>
         </PopperWrapper>
-      </div>
+      </motion.div>
     );
   };
 
@@ -148,6 +185,9 @@ export default function Search() {
         offset={[-12, 12]}
         render={renderResult}
         onClickOutside={handleHideResult}
+        animation={true}
+        onMount={onMount}
+        onHide={onHide}
       >
         <div className={mk('search')}>
           <input

@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
 import {
   CommentIcon,
+  DashboardIcon,
   EnglishIcon,
   FavoriteIcon,
   FeedbackIcon,
@@ -13,6 +15,7 @@ import {
   UserPlusIcon,
   VietnameseIcon,
 } from 'src/components/Icons';
+import { userState } from 'src/recoils';
 import { PATH } from 'src/routes';
 
 export const NAVIGATION_LINKS = [
@@ -35,77 +38,77 @@ export const NAVIGATION_LINKS = [
 export const PRODUCTS_CATEGORY_LINKS = [
   {
     heading: 'Nhẫn',
-    path: '/products',
+    path: PATH.PRODUCT_CATEGORY('ring'),
     content: [
       {
         title: 'Nhẫn cỡ lớn',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('ring'),
       },
       {
         title: 'Nhẫn ngón út',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('ring'),
       },
       {
         title: 'Nhẫn xoay',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('ring'),
       },
       {
         title: 'Nhẫn cưới',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('ring'),
       },
     ],
   },
   {
     heading: 'Dây chuyền',
-    path: '/products',
+    path: PATH.PRODUCT_CATEGORY('necklace'),
     content: [
       {
         title: 'Dây chuyền trơn',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('necklace'),
       },
       {
         title: 'Dây chuyền có mặt',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('necklace'),
       },
       {
         title: 'Mặt dây chuyền',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('necklace'),
       },
     ],
   },
   {
     heading: 'Bông tai',
-    path: '/products',
+    path: PATH.PRODUCT_CATEGORY('earring'),
     content: [
       {
         title: 'Bông tai xỏ lỗ',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('earring'),
       },
       {
         title: 'Bông tai treo',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('earring'),
       },
       {
         title: 'Khuyên vành tai',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('earring'),
       },
     ],
   },
   {
     heading: 'Lắc',
-    path: '/products',
+    path: PATH.PRODUCT_CATEGORY('bracelet'),
     content: [
       {
         title: 'Lắc tay',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('bracelet'),
       },
       {
         title: 'Lắc tay',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('bracelet'),
       },
       {
         title: 'Charm',
-        path: '/products',
+        path: PATH.PRODUCT_CATEGORY('bracelet'),
       },
     ],
   },
@@ -164,15 +167,20 @@ export const MENU_ITEMS = [
 const [, , ...rest] = MENU_ITEMS;
 
 export const MENU_USER_ITEMS = ({ handleClickLogout }) => {
+  const { user, isAuthenticated } = useRecoilValue(userState);
+
   return [
+    ...(user.role === 'admin' &&
+      isAuthenticated && [
+        {
+          title: 'Dashboard',
+          icon: <DashboardIcon />,
+          path: PATH.ADMIN_DASHBOARD,
+        },
+      ]),
     {
       title: 'Tài khoản của tôi',
       icon: <UserIcon />,
-      path: '/account/profile',
-    },
-    {
-      title: 'Thông báo của tôi',
-      icon: <NotificationIcon />,
       path: '/account/profile',
     },
     {

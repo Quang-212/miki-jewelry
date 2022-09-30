@@ -122,7 +122,7 @@ export const getServerSideProps = async ({ params, req }) => {
 
     const relatedProducts = await getProducts([], {
       category,
-      limit: 8,
+      limit: 16,
       sortBy: 'sold',
       order: -1,
     });

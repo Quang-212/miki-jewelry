@@ -5,8 +5,10 @@ import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 
 import Button from 'src/components/Button';
+import Dialog from 'src/components/Dialog';
 import { NormalDivider } from 'src/components/Dividers';
 import { applyCoupon, getMyCoupon } from 'src/fetching/coupon';
+import { CloseIcon } from 'src/components/Icons';
 import { useClientSide, useRouter } from 'src/hooks';
 import { totalCartState, userState } from 'src/recoils';
 import { PATH } from 'src/routes';
@@ -16,13 +18,17 @@ import styles from './Calculation.module.css';
 const mk = classNames.bind(styles);
 
 export default function Calculation({ checked }) {
+  const [discountByCoupon, setDiscountByCoupon] = useState(0);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const totalCart = useRecoilValue(totalCartState({ filterCartIds: checked.orders }));
   const [coupon, setCoupon] = useState('');
   // const [coupon, setCoupon] = useState({
   //   selectedCoupon: "",
   //   list: []
   // });
-  const [discountByCoupon, setDiscountByCoupon] = useState(0);
+
   const isClient = useClientSide();
   const { user } = useRecoilValue(userState);
   const { push } = useRouter();
@@ -30,7 +36,7 @@ export default function Calculation({ checked }) {
   const handleSubmit = async () => {
     const orderId = JSON.parse(sessionStorage.getItem('orders'));
     if (isEmpty(orderId)) {
-      return toast('Vui lòng chọn ít nhất 1 sản phẩm để tiếp tục', { type: 'info' });
+      return setIsOpen(true);
     }
     // try {
     //   const res = await applyCoupon({
@@ -74,6 +80,10 @@ export default function Calculation({ checked }) {
   };
 
   const handleShowCoupon = async () => {};
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -120,13 +130,25 @@ export default function Calculation({ checked }) {
           <NormalDivider wrapper="my-2" />
           <div className={mk('total')}>
             <h5 className="font-primary font-bold text-xl leading-7 text-primary">Tổng</h5>
-            <span className="font-primary font-bold text-xl leading-7 text-primary text-primary-1">
+            <span className="font-primary font-bold text-xl leading-7 text-primary-1">
               {formatVndCurrency(totalCart - discountByCoupon)}
             </span>
           </div>
           <Button primary onClick={handleSubmit} wrapper={mk('btn')}>
             Thanh toán
           </Button>
+
+          <Dialog isOpen={isOpen} closeModal={handleCloseModal} content="w-[600px] px-12">
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-end cursor-pointer">
+                <CloseIcon onClick={handleCloseModal} />
+              </div>
+              <p className="text-lg">Bạn vẫn chưa chọn sản phẩm nào để mua</p>
+              <Button primary onClick={handleCloseModal} wrapper="w-full mt-10">
+                Đồng ý
+              </Button>
+            </div>
+          </Dialog>
         </section>
       )}
     </>

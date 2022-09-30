@@ -23,6 +23,7 @@ import { userState } from 'src/recoils';
 import { useRecoilValue } from 'recoil';
 import { CloseIcon } from 'src/components/Icons';
 import { toast } from 'react-toastify';
+import { PATH } from 'src/routes';
 
 const mk = classNames.bind(styles);
 
@@ -115,7 +116,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
   const onSelectDistrict = async (item) => handleSelect('district', item);
   const onSelectWards = async (item) => handleSelect('ward', item);
 
-  const handleCloseModal = () => setIsOpen(false);
+  const handleCloseModal = () => {};
 
   const handleAfterOrdered = (cartIds) => {
     sessionStorage.removeItem('orders');
@@ -215,7 +216,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
         />
         <FormPayment setValue={setValue} />
         <div className={mk('btn-list')}>
-          <Button text title={mk('btn-back-title')} type="button" onClick={() => back()}>
+          <Button type="button" text title={mk('btn-back-title')} internalLink={PATH.CART}>
             Trở lại giỏ hàng
           </Button>
           <Button primary wrapper={mk('btn-submit-wrapper')}>

@@ -85,7 +85,7 @@ export function CardProduct({
     }
   };
 
-  const { name, images, stocks } = product;
+  const { name, images, stocks, discount } = product;
   const primaryImageURL = images.find((image) => image.type === 'primary').url;
   const price = stocks[0].price;
 
@@ -108,7 +108,7 @@ export function CardProduct({
     },
     {
       first: 'image',
-      second: 'group-hover:scale-110',
+      second: 'group-hover:scale-125',
       className: 'image',
     },
   ];
@@ -143,11 +143,14 @@ export function CardProduct({
         />
       </CardImage>
       <CardTextWrapper className={classTextWrapper} onClick={onClick}>
-        <CardTextTitle className="w-[272px] font-primary font-bold text-xl leading-7 text-primary text-center overflow-hidden text-ellipsis whitespace-nowrap">
+        <CardTextTitle
+          title={name}
+          className="w-[272px] font-primary font-bold text-xl leading-7 text-primary text-center overflow-hidden text-ellipsis whitespace-nowrap"
+        >
           {name}
         </CardTextTitle>
         <CardTextPrice className="font-primary font-bold text-xl leading-7 text-primary-2">
-          {formatVndCurrency(price)}
+          {formatVndCurrency(price, discount)}
         </CardTextPrice>
       </CardTextWrapper>
       <Button primary onClick={handleAddToCart}>
