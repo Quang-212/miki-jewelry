@@ -6,14 +6,14 @@ import NewPasswordForm, {
   CircleIcon2,
   CircleIcon3,
 } from 'src/container/auth/new-password';
-// import GuestGuard from 'src/guard/GuestGuard';
+import { GuestGuard } from 'src/guard';
 import MainLayout from 'src/layouts/MainLayout';
 
 NewPassword.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;
 
 export default function NewPassword() {
   return (
-    <>
+    <GuestGuard>
       <Page
         data={{
           title: 'Thay đổi mật khẩu',
@@ -26,6 +26,6 @@ export default function NewPassword() {
       <CircleIcon1Mobile />
       <CircleIcon2 />
       <CircleIcon3 />
-    </>
+    </GuestGuard>
   );
 }

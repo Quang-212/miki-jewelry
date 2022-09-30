@@ -1,10 +1,10 @@
 import Page from 'src/components/Page';
 import Form from 'src/container/auth/reset-password';
-// import GuestGuard from 'src/guard/GuestGuard';
+import { GuestGuard } from 'src/guard';
 
 export default function ResetPassword() {
   return (
-    <>
+    <GuestGuard>
       <Page
         data={{
           title: 'Khôi phục mật khẩu',
@@ -13,6 +13,6 @@ export default function ResetPassword() {
         }}
       />
       <Form />
-    </>
+    </GuestGuard>
   );
 }
