@@ -17,15 +17,20 @@ const mk = classNames.bind(styles);
 export default function Cart() {
   const [cartRecoil, setCart] = useRecoilState(cartState);
 
-  const { user } = useRecoilValue(userState);
+  const { user, isAuthenticated } = useRecoilValue(userState);
 
   const { cart } = useCart(user?._id);
 
   const isClient = useClientSide();
 
   useEffect(() => {
-    setCart(!isEmpty(cart) ? cart : []);
-  }, [cart]);
+    setCart(() => {
+      if (!isAuthenticated || isEmpty(cart)) {
+        return [];
+      }
+      return cart;
+    });
+  }, [cart, isAuthenticated]);
 
   return (
     <>

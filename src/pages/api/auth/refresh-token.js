@@ -21,7 +21,7 @@ async function handlerRefreshToken(req, res) {
           jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, (err, payload) => {
             if (err)
               return res.status(401).json({
-                message: 'Mã token không còn hiệu lực',
+                message: 'Token expired',
                 code: 401,
               });
             const newAccessToken = generateAccessToken(payload);
@@ -32,6 +32,10 @@ async function handlerRefreshToken(req, res) {
             });
           });
         }
+        return res.status(401).json({
+          message: 'Token expired',
+          code: 401,
+        });
         break;
       default:
         return res.status(400).json({

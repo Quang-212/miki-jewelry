@@ -35,7 +35,7 @@ const nextConfig = {
   //         { key: 'Access-Control-Allow-Credentials', value: 'true' },
   //         {
   //           key: 'Access-Control-Allow-Origin',
-  //           value: 'https://miki-jewelry-quang-212.vercel.app, http://localhost:3000',
+  //           value: 'https://miki-jewelry-quang-212.vercel.app',
   //         },
   //         { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
   //         {

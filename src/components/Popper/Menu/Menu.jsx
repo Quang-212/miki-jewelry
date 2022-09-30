@@ -14,23 +14,18 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
   const current = history[history.length - 1];
 
   const renderItems = () => {
-    return current.data.map((item, index) => {
+    const handleClick = (item) => {
       const isParent = !!item.children;
+      if (isParent) {
+        return setHistory((prev) => [...prev, item.children]);
+      }
+      item.onClick ? item.onClick() : push(item.path);
+    };
 
+    return current.data.map((item, index) => {
       return (
         <li key={index}>
-          <MenuItem
-            data={item}
-            onClick={
-              isParent
-                ? () => {
-                    setHistory((prev) => [...prev, item.children]);
-                  }
-                : () => {
-                    item.onClick ? item.onClick() : push(item.path);
-                  }
-            }
-          />
+          <MenuItem data={item} onClick={() => handleClick(item)} />
         </li>
       );
     });

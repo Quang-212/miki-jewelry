@@ -1,5 +1,4 @@
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-
 import Avatar from 'src/components/Avatar';
 import { UserIcon } from 'src/components/Icons';
 import Menu from 'src/components/Popper/Menu';
@@ -14,25 +13,26 @@ export default function User() {
 
   const { replace } = useRouter();
 
+  const currentAuthState = useRecoilValue(userState);
+  const { user, isAuthenticated } = currentAuthState;
   const resetUserValue = useResetRecoilState(userState);
 
-  const { user, isAuthenticated } = useRecoilValue(userState);
-
   const handleClickLogout = async () => {
-    if (user?._id) {
-      const res = await logoutForm({ params: { userId: user?._id } });
+    try {
+      const res = await logoutForm();
       console.log(res);
-
       resetUserValue();
       replace(PATH.HOME);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <Menu items={isAuthenticated ? MENU_USER_ITEMS({ handleClickLogout }) : MENU_ITEMS}>
+    <Menu items={MENU_USER_ITEMS({ handleClickLogout, currentAuthState })}>
       {isClient && isAuthenticated ? (
         <div className="flex items-center ml-4">
-          <Avatar name={user?.userName} imageUrl={user.profilePicture?.url} />
+          <Avatar name={user.userName} imageUrl={user.profilePicture?.url} />
         </div>
       ) : (
         <div className="ml-8">

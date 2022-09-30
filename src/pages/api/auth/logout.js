@@ -1,30 +1,43 @@
+import { serialize } from 'cookie';
 import verifyToken from 'src/middlewares/verifyToken';
 import RefreshToken from 'src/models/RefreshToken';
-import { serialize } from 'cookie';
 import dbConnect from 'src/utils/dbConnect';
 
 async function logout(req, res) {
-  await dbConnect();
   const { method } = req;
-  const { userId } = req.query;
 
   try {
+    await dbConnect();
     switch (method) {
       case 'DELETE':
-        //xóa refresh trên cookie
+        const refreshTokenCookie = req.cookies.refreshToken;
+
+        const refreshTokenMongo = await RefreshToken.findOne({
+          refreshToken: refreshTokenCookie,
+          userId: req.user._id,
+        }).lean();
+
+        if (refreshTokenMongo.concurrency <= 1) {
+          await RefreshToken.findByIdAndDelete(refreshTokenMongo._id);
+        } else {
+          await RefreshToken.findByIdAndUpdate(refreshTokenMongo._id, {
+            $inc: { concurrency: -1 },
+          });
+        }
+
         res.setHeader(
           'Set-Cookie',
-          serialize('refreshToken', '', {
+          serialize('refreshToken', null, {
             expires: new Date(0),
             path: '/',
           }),
         );
-        //tìm kiếm ID user và xóa refresh trong data
-        await RefreshToken.findOneAndDelete({ userId });
+
         return res.status(200).json({
-          message: 'Bạn đã đăng xuất',
+          message: 'Logout OK',
           code: 200,
         });
+
       default:
         return res.status(400).json({
           message: 'Yêu cầu không hợp lệ',
@@ -32,7 +45,6 @@ async function logout(req, res) {
         });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: error.message,
       code: 500,
