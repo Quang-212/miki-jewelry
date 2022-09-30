@@ -1,11 +1,7 @@
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import LoginFormSection, {
-  CircleIcon1,
-  CircleIcon1Mobile,
-  CircleIcon2,
-  CircleIcon3,
-} from 'src/container/auth/login-form';
+import { CircleIcon1, CircleIcon1Mobile, CircleIcon2, CircleIcon3 } from 'src/container/auth';
+import LoginFormSection from 'src/container/auth/login-form/LoginForm';
 import GuestGuard from 'src/guard/GuestGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';

@@ -1,5 +1,5 @@
 import Page from 'src/components/Page';
-import Form from 'src/container/auth/reset-password';
+import { Form } from 'src/container/auth';
 import GuestGuard from 'src/guard/GuestGuard.js';
 
 export default function ResetPassword() {
