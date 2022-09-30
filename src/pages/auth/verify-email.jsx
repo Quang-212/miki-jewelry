@@ -1,6 +1,6 @@
 import Page from 'src/components/Page';
 import { VerifyEmailForm } from 'src/container/auth';
-import { GuestGuard } from 'src/guard';
+import GuestGuard from 'src/guard/GuestGuard.js';
 
 export default function VerifyEmail() {
   return (

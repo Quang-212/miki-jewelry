@@ -6,7 +6,7 @@ import NewPasswordForm, {
   CircleIcon2,
   CircleIcon3,
 } from 'src/container/auth/new-password';
-import { GuestGuard } from 'src/guard';
+import GuestGuard from 'src/guard/GuestGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 
 NewPassword.getLayout = (page) => <MainLayout variant="footer">{page}</MainLayout>;

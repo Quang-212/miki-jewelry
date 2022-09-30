@@ -6,7 +6,7 @@ import LoginFormSection, {
   CircleIcon2,
   CircleIcon3,
 } from 'src/container/auth/login-form';
-import { GuestGuard } from 'src/guard';
+import GuestGuard from 'src/guard/GuestGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';
 

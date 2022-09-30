@@ -1,2 +1,2 @@
 export * from './CircleBackground';
-export { default } from './RegisterForm';
+export { defaults } from './RegisterForm';
