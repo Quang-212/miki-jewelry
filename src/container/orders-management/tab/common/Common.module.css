@@ -1,5 +1,5 @@
 .order-item {
-  @apply flex flex-col justify-between gap-4 py-8 bg-neutral-5;
+  @apply flex flex-col justify-between gap-4 py-8 px-8 bg-neutral-5;
 }
 
 .order-name {

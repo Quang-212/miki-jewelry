@@ -212,7 +212,6 @@ export const BasketIcon = ({ width = '32', height = '32' }) => (
       stroke="#33363F"
       strokeWidth="2"
       strokeLinejoin="round"
-      strokeLinejoin="round"
     />
     <path
       d="M20.1945 18.6667H14.0552C12.4368 18.6667 11.6277 18.6667 11.0682 18.1928C10.5087 17.7188 10.3757 16.9207 10.1096 15.3243L9.91554 14.1599C9.64529 12.5384 9.51016 11.7276 9.9595 11.1972C10.4089 10.6667 11.2308 10.6667 12.8747 10.6667H23.4306C24.881 10.6667 25.6062 10.6667 25.8993 11.141C26.1924 11.6153 25.8681 12.2639 25.2195 13.5612L23.7723 16.4556C23.2343 17.5314 22.9654 18.0694 22.4821 18.3681C21.9988 18.6667 21.3974 18.6667 20.1945 18.6667Z"
@@ -372,13 +371,7 @@ export const EnglishIcon = ({ width = '28', height = '28', className }) => (
     preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 48 48"
   >
-    <g
-      fill="none"
-      stroke="currentColor"
-      strokeLinejoin="round"
-      strokeLinejoin="round"
-      strokeWidth="4"
-    >
+    <g fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="4">
       <rect width="36" height="36" x="6" y="6" rx="3" />
       <path d="M13 31V17h8m-8 7h7.5M13 31h7.5m5.5 0V19m0 12v-6.5a4.5 4.5 0 0 1 4.5-4.5v0a4.5 4.5 0 0 1 4.5 4.5V31" />
     </g>
@@ -472,13 +465,9 @@ export const HistoryIcon = ({ width = '28', height = '28', className }) => (
     viewBox="0 0 48 48"
   >
     <g fill="none" stroke="currentColor" strokeWidth="4">
-      <path
-        strokeLinejoin="round"
-        strokeLinejoin="round"
-        d="M42 24V9a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h15"
-      />
+      <path strokeLinejoin="round" d="M42 24V9a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h15" />
       <circle cx="32" cy="32" r="6" />
-      <path strokeLinejoin="round" strokeLinejoin="round" d="m37 36l5 4M14 16h20m-20 8h8" />
+      <path strokeLinejoin="round" d="m37 36l5 4M14 16h20m-20 8h8" />
     </g>
   </svg>
 );
@@ -942,6 +931,43 @@ export const OrderIcon = ({ width = '28', height = '28', className }) => (
     <path
       fill="current-color"
       d="M0 48C0 21.49 21.49 0 48 0h320c26.5 0 48 21.49 48 48v48h50.7c17 0 32.4 6.7 45.3 18.7l77.3 77.3c12 12 18.7 28.3 18.7 45.3V352c17.7 0 32 14.3 32 32s-14.3 32-32 32h-32c0 53-43 96-96 96c-53.9 0-96-43-96-96H256c0 53-43 96-96 96c-53.9 0-96-43-96-96H48c-26.51 0-48-21.5-48-48V48zm544 208v-18.7L466.7 160H416v96h128zM160 464c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm320-96c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zM256.1 95.03c-8.5-9.37-23.7-9.37-33.1 0c-9.3 9.37-9.3 24.57 0 33.07l39.1 39.9H96c-13.25 0-24 10.7-24 24s10.75 24 24 24h166.1L223 255c-9.3 9.4-9.3 24.6 0 33.1c9.4 10.2 24.6 10.2 33.1 0l80-80c10.2-8.5 10.2-23.7 0-33.1l-80-79.97z"
+    />
+  </svg>
+);
+
+export const CouponIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 48 48"
+  >
+    <g fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="4">
+      <path d="M4 19.313V9h40v10.313a5.5 5.5 0 0 0-3.636 5.187A5.5 5.5 0 0 0 44 29.687V40H4V29.687A5.5 5.5 0 0 0 7.636 24.5A5.5 5.5 0 0 0 4 19.313Z" />
+      <path strokeLinecap="round" d="m19 16l5 5l5-5m-11 6h12m-12 6.167h12M24 22v12" />
+    </g>
+  </svg>
+);
+
+export const ViewedProductsIcon = ({ width = '28', height = '28', className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={className}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 32 32"
+  >
+    <circle cx="16" cy="19" r="2" fill="currentColor" />
+    <path
+      fill="currentColor"
+      d="M23.777 18.479A8.64 8.64 0 0 0 16 13a8.64 8.64 0 0 0-7.777 5.479L8 19l.223.521A8.64 8.64 0 0 0 16 25a8.64 8.64 0 0 0 7.777-5.479L24 19ZM16 23a4 4 0 1 1 4-4a4.005 4.005 0 0 1-4 4Z"
+    />
+    <path
+      fill="currentColor"
+      d="M27 3H5a2 2 0 0 0-2 2v22a2 2 0 0 0 2 2h22a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM5 5h22v4H5Zm0 22V11h22v16Z"
     />
   </svg>
 );

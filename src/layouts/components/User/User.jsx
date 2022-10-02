@@ -20,7 +20,6 @@ export default function User() {
   const handleClickLogout = async () => {
     try {
       const res = await logoutForm();
-      console.log(res);
       resetUserValue();
       replace(PATH.HOME);
     } catch (error) {

@@ -1,5 +1,7 @@
-import React from 'react';
+import MainLayout from 'src/layouts/MainLayout';
 
-export default function favorites() {
+Favorites.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
+
+export default function Favorites() {
   return <div>favorites</div>;
 }

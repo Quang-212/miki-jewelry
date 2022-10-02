@@ -28,6 +28,13 @@ export const PATH = {
 
   PROFILE: '/account/profile',
   ORDERS: '/account/orders',
+  ORDER_DETAILS(slug) {
+    return `/account/orders/${slug}`;
+  },
+  REVIEWS: '/account/reviews',
+  VIEWED_PRODUCTS: '/account/viewed-products',
+  FAVORITES: '/account/favorites',
+  COUPONS: '/account/coupons',
 
   ADMIN_DASHBOARD: '/admin/dashboard',
   ADMIN_PRODUCTS: '/admin/products',

@@ -1,25 +1,10 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import Avatar from 'src/components/Avatar';
-import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
-import Collapse from 'src/components/Collapse';
 import Drawer from 'src/components/Drawer';
-import {
-  ArrowForwardIcon,
-  BellRingIcon,
-  CategoryIcon,
-  CustomerIcon,
-  HomeIcon,
-  LogoIcon,
-  NotificationIcon,
-  OrderIcon,
-  ProductIcon,
-} from 'src/components/Icons';
+import { ArrowForwardIcon } from 'src/components/Icons';
 import Image from 'src/components/Image';
 import List from 'src/components/List';
-import ListIconButton from 'src/components/ListIconButton';
-import ListItemButton from 'src/components/ListItemButton';
 import { NAVBAR } from 'src/config';
 import { images } from 'src/constants';
 import { useCollapseDrawer } from 'src/hooks';

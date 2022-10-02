@@ -5,7 +5,7 @@ import Copyright from 'src/components/Copyright';
 import { NAVBAR } from 'src/config';
 import { Banner } from 'src/container/profile';
 import { useCollapseDrawer } from 'src/hooks';
-import { Footer, Header, Sidebar, SubHeader } from '../components';
+import { Footer, Header, Sidebar, SubHeader, UserSidebar } from '../components';
 import styles from './MainLayout.module.css';
 
 const mk = classNames.bind(styles);
@@ -49,8 +49,10 @@ export default function MainLayout({ variant, children }) {
             <div className="col-span-12">
               <Banner />
             </div>
-            <div className="col-span-2">Sidebar</div>
-            <div className="col-span-10 flex flex-col gap-10">{children}</div>
+            <div className="col-span-3">
+              <UserSidebar>Sidebar</UserSidebar>
+            </div>
+            <div className="col-span-9 flex flex-col gap-10">{children}</div>
           </main>
           <Footer />
         </div>

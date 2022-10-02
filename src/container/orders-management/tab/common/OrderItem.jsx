@@ -90,7 +90,6 @@ export default function OrderItem({ data, index }) {
       if (notEnoughQuantityProductName) {
         return setIsOpen(true);
       }
-
       push(PATH.CART);
     } catch (error) {
       console.log(error);
@@ -104,7 +103,7 @@ export default function OrderItem({ data, index }) {
 
   return (
     <>
-      <div className={mk('order-item', 'container')}>
+      <div className={mk('order-item')}>
         <h5 className={mk('order-name')}>Mã đơn hàng: {data._id}</h5>
         {data.products
           .slice(
@@ -135,7 +134,7 @@ export default function OrderItem({ data, index }) {
             </Button>
             <Button
               outline
-              internalLink={`/account/orders/${data._id}`}
+              internalLink={PATH.ORDER_DETAILS(data._id)}
               wrapper={mk('btn-view-detail')}
             >
               Xem chi tiết

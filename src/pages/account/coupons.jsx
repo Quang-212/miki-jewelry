@@ -1,5 +1,7 @@
-import React from 'react';
+import MainLayout from 'src/layouts/MainLayout';
 
-export default function coupons() {
+Coupons.getLayout = (page) => <MainLayout variant="user">{page}</MainLayout>;
+
+export default function Coupons() {
   return <div>coupons</div>;
 }
