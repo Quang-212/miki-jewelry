@@ -1,0 +1,19 @@
+.content {
+  @apply flex flex-col gap-8;
+}
+
+.title {
+  /* @apply font-primary font-bold text-32-px leading-10 text-primary; */
+}
+
+.info-list {
+  @apply flex flex-col gap-8;
+}
+
+.info-default {
+  @apply flex items-center gap-2;
+}
+
+.info-first {
+  @apply flex items-center gap-2 -mb-2;
+}
