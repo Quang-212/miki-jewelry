@@ -9,7 +9,7 @@ export const LEFT_RIGHT = {
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };
@@ -25,37 +25,39 @@ export const RIGHT_LEFT = {
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };
 
 export const TOP_BOTTOM = {
   offscreen: {
-    scale: 0,
+    opacity: 0,
     y: -400,
   },
   onscreen: {
-    scale: 1,
+    opacity: 1,
     y: 1,
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };
 
 export const BOTTOM_TOP = {
   offscreen: {
+    opacity: 0,
     y: 400,
   },
   onscreen: {
+    opacity: 1,
     y: 1,
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };
@@ -69,7 +71,7 @@ export const SCALE_ZOOM = {
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };
@@ -83,7 +85,7 @@ export const SCALE_MIN = {
     transition: {
       type: 'spring',
       bounce: 0.4,
-      duration: 2,
+      duration: 2.4,
     },
   },
 };

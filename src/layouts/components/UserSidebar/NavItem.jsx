@@ -10,6 +10,7 @@ export default function NavItem({ data }) {
     <Button
       internalLink={path}
       leftIcon={icon}
+      scroll={false}
       wrapper={`w-[280px] py-2 px-4 hover:bg-primary-4 rounded-tag duration-200 ease-in-out ${
         path === pathname ? 'bg-primary-4' : ''
       }`}

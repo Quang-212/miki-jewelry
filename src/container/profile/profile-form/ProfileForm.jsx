@@ -206,14 +206,14 @@ export default function ProfileForm() {
                 name="matkhau"
                 type="password"
                 disabled
-                wrapper="col-span-6 w-11/12"
+                wrapper="col-span-5"
                 input="text-neutral-2"
               />
               <Button
                 type="button"
                 outline
                 onClick={handleChangePassword}
-                wrapper="col-span-3 h-12"
+                wrapper="col-span-4 justify-self-end w-10/12 h-12"
               >
                 Cập nhật
               </Button>
