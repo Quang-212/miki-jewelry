@@ -1,8 +1,11 @@
 import { Fragment } from 'react';
 import { NormalDivider } from 'src/components/Dividers';
+import { formatVndCurrency } from 'src/utils/formatNumber';
 import OrderProductItem from './OrderProductItem';
 
-export default function OrderMainInformation({ order }) {
+export default function OrderMainInformation({ order = {} }) {
+  const { products = [], provisionalPrice, shippingFee, total } = order;
+
   return (
     <section className="grid grid-cols-12 gap-y-8 bg-neutral-5 py-8 px-6">
       <div className="col-span-12 grid grid-cols-12">
@@ -14,7 +17,7 @@ export default function OrderMainInformation({ order }) {
       </div>
 
       <ul className="col-span-12 flex flex-col gap-4">
-        {order?.products.map((product) => (
+        {products.map((product) => (
           <Fragment key={product._id}>
             <OrderProductItem data={product} />
             <NormalDivider wrapper=" border-primary-5" />
@@ -23,12 +26,12 @@ export default function OrderMainInformation({ order }) {
       </ul>
 
       <div className="col-span-12 justify-self-end mt-8 grid grid-cols-12 gap-y-4">
-        <span className="col-span-6 ">Tạm tính</span>
-        <span className="col-span-6 justify-self-end">180.000 ₫</span>
-        <span className="col-span-6 ">Phí vận chuyển</span>
-        <span className="col-span-6 justify-self-end">5.000 ₫</span>
+        <span className="col-span-6">Tạm tính</span>
+        <span className="col-span-6 justify-self-end">{formatVndCurrency(provisionalPrice)}</span>
+        <span className="col-span-6">Phí vận chuyển</span>
+        <span className="col-span-6 justify-self-end">{formatVndCurrency(shippingFee)}</span>
         <span className="col-span-6">Tổng cộng</span>
-        <span className="col-span-6 justify-self-end">185.000 ₫</span>
+        <span className="col-span-6 justify-self-end">{formatVndCurrency(total)}</span>
       </div>
     </section>
   );

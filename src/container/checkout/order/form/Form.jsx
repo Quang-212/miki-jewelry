@@ -1,29 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { isEmpty, isNumber, isPlainObject } from 'lodash';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { useSetRecoilState } from 'recoil';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import * as yup from 'yup';
 
 import Button from 'src/components/Button';
+import Dialog from 'src/components/Dialog';
 import { FormProvider } from 'src/components/HookForms';
+import { CloseIcon } from 'src/components/Icons';
 import { createOrder } from 'src/fetching/order';
 import { useRouter } from 'src/hooks';
 import useDistrict from 'src/hooks/useDistrict';
 import useProvince from 'src/hooks/useProvince';
 import useWard from 'src/hooks/useWard';
+import { cartState, userState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatSearchString } from 'src/utils/formatString';
 import styles from './Form.module.css';
 import FormAddress from './FormAddress';
 import FormPayment from './FormPayment';
-import Dialog from 'src/components/Dialog';
-import { cartState } from 'src/recoils';
-import { userState } from 'src/recoils';
-import { CloseIcon } from 'src/components/Icons';
-import { PATH } from 'src/routes';
 
 const mk = classNames.bind(styles);
 
@@ -233,7 +231,7 @@ export default function Form({ address, setAddress, chosenOrder }) {
             Bạn đã đặt hàng thành công !!
           </p>
           <p className="">Thông tin hóa đơn, mã QR</p>
-          <Button primary internalLink="/products" wrapper="mt-4">
+          <Button primary internalLink={PATH.PRODUCTS} wrapper="mt-4">
             Tiếp tục mua sắm
           </Button>
         </div>

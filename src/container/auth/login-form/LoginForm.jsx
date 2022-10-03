@@ -24,15 +24,15 @@ const mk = classNames.bind(styles);
 const schema = yup.object().shape({
   email: yup
     .string()
-    .required('*Vui lòng nhập địa chỉ email của bạn')
+    .required('*Vui lòng nhập địa chỉ email!')
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      '*Vui lòng nhập đúng địa chỉ email của bạn',
+      '*Vui lòng nhập đúng địa chỉ email!',
     ),
   password: yup
     .string()
     .trim()
-    .required('*Vui lòng nhập mật khẩu')
+    .required('*Vui lòng nhập mật khẩu!')
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
       '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',

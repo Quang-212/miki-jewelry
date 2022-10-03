@@ -1,9 +1,10 @@
-import { useRouter } from 'src/hooks';
 import { CardProduct } from 'src/components/Card';
+import { useRouter } from 'src/hooks';
+import { PATH } from 'src/routes';
 
 export function ProductsList({ products }) {
   const { push } = useRouter();
-  const handleClick = (item) => push(`/products/${item.slug}`);
+  const handleClick = (item) => push(PATH.PRODUCT_DETAIL(item.slug));
 
   return (
     <section>

@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 
 import Image from 'src/components/Image';
 import { useRouter } from 'src/hooks';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Common.module.css';
 
@@ -18,7 +19,7 @@ export default function ProductItem({ data }) {
     );
   };
 
-  const handleGoToDetail = () => push(`/products/${data.product.slug}`);
+  const handleGoToDetail = () => push(PATH.PRODUCT_DETAIL(data.product.slug));
 
   return (
     <div className={mk('product-item')}>

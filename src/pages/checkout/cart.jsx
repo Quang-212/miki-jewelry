@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import { Calculation, CartDetail } from 'src/container/cart-management';
+import { Calculation, CartDetail } from 'src/container/checkout';
 import AuthGuard from 'src/guard/AuthGuard.js';
 import { useClientSide } from 'src/hooks';
 import MainLayout from 'src/layouts/MainLayout';
@@ -51,7 +51,7 @@ export default function Cart() {
               <div className="flex flex-col items-center gap-8">
                 <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={400} height={300} />
                 <p>Giỏ hàng của bạn còn trống</p>
-                <Button primary internalLink="/products">
+                <Button primary internalLink={PATH.PRODUCTS}>
                   Mua ngay
                 </Button>
               </div>

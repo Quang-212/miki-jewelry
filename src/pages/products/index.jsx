@@ -8,7 +8,7 @@ import { PATH } from 'src/routes';
 ProductsAll.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default function ProductsAll({ products, pageCount }) {
-  const breadcrumbs = [{ label: 'Tất cả sản phẩm', href: '/products' }];
+  const breadcrumbs = [{ label: 'Tất cả sản phẩm', href: PATH.PRODUCTS }];
 
   return (
     <>

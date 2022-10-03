@@ -1,7 +1,7 @@
 import Breadcrumb from 'src/components/Breadcrumb';
 import Page from 'src/components/Page';
 import { images } from 'src/constants';
-import { OrdersList } from 'src/container/orders-management';
+import { OrdersList } from 'src/container/user';
 import AuthGuard from 'src/guard/AuthGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { PATH } from 'src/routes';

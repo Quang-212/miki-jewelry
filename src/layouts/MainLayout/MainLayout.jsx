@@ -3,9 +3,8 @@ import classNames from 'classnames/bind';
 import BrandLogo from 'src/components/BrandLogo';
 import Copyright from 'src/components/Copyright';
 import { NAVBAR } from 'src/config';
-import { Banner } from 'src/container/profile';
 import { useCollapseDrawer } from 'src/hooks';
-import { Footer, Header, Sidebar, SubHeader, UserSidebar } from '../components';
+import { Banner, Footer, Header, Sidebar, SubHeader, UserSidebar } from '../components';
 import styles from './MainLayout.module.css';
 
 const mk = classNames.bind(styles);

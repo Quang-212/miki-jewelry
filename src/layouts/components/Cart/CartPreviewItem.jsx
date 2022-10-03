@@ -9,6 +9,7 @@ import Image from 'src/components/Image';
 import { deleteCartItem } from 'src/fetching/cart';
 import { useRouter } from 'src/hooks';
 import { deleteCartItemState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
 
@@ -39,7 +40,7 @@ export default function CartPreviewItem({ data }) {
     }
   };
 
-  const handleGoToDetail = () => push(`/products/${product.slug}`);
+  const handleGoToDetail = () => push(PATH.PRODUCT_DETAIL(product.slug));
 
   return (
     <div className={mk('cart-review-item')}>
