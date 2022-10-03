@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-// import { useSession } from 'next-auth/react';
 
 import BrandLogo from 'src/components/BrandLogo';
 import Cart from '../Cart';
@@ -13,8 +12,6 @@ import styles from './Header.module.css';
 const mk = classNames.bind(styles);
 
 export function Header() {
-  // const { data: session } = useSession();
-
   return (
     <header className={mk('header')}>
       <GlobalEvent />
@@ -27,20 +24,6 @@ export function Header() {
             <Cart />
             <Notifications />
             <User />
-
-            {/* <li>
-              {session ? (
-                <>
-                  <Image width={40} height={40} className="rounded-full" src={session.user.image} />
-                  <span>{session.user.email}</span>
-                  <button onClick={() => signOut()}>Đăng xuất</button>
-                </>
-              ) : (
-                <Button icon internalLink={PATH.LOGIN}>
-                  <UserIcon />
-                </Button>
-              )}
-            </li> */}
           </div>
         </div>
       </nav>

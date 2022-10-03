@@ -6,8 +6,8 @@ const nextConfig = {
     domains: ['lh3.googleusercontent.com', 'encrypted-tbn0.gstatic.com', 'res.cloudinary.com'],
   },
   env: {
-    ACCESS_TOKEN_KEY: 'secretkeyaccesstokenok',
-    REFRESH_TOKEN_KEY: 'secretkeyrefreshtokenok',
+    ACCESS_TOKEN_KEY: 'q4x6VwslHJ5n1822be76c',
+    REFRESH_TOKEN_KEY: 'Y6ckMK1K9HSJR4oZWUFyhQPCgYIARAAG',
     MONGODB_URI:
       'mongodb+srv://ngockhoi96:nOhAnnCFpeiAPoYe@cluster0.k5yfvio.mongodb.net/miki_shop?retryWrites=true&w=majority',
     GOOGLE_ID: '648607880723-hkc95468mv9na657f574obdbud3o9fah.apps.googleusercontent.com',

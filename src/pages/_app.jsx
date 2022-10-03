@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from 'recoil';
@@ -16,7 +15,6 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    // <SessionProvider session={session}>
     <RecoilRoot>
       <CollapseDrawerProvider>
         <SWRConfig
@@ -46,7 +44,6 @@ function MyApp({ Component, pageProps: { ...pageProps } }) {
         </SWRConfig>
       </CollapseDrawerProvider>
     </RecoilRoot>
-    // </SessionProvider>
   );
 }
 
