@@ -9,6 +9,7 @@ import styles from './Articles.module.css';
 const mk = classNames.bind(styles);
 
 export default function ArticleItem({ article, index }) {
+  console.log('delete me in ArticleItem');
   const ArticleText = ({ article }) => {
     return (
       <Animation scroll variant={BOTTOM_TOP} className={mk('article-text')}>
