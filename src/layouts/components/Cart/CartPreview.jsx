@@ -11,6 +11,7 @@ import { Wrapper as PopperWrapper } from 'src/components/Popper';
 import { images } from 'src/constants';
 import { useRouter } from 'src/hooks';
 import { totalCartState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
 import CartPreviewItem from './CartPreviewItem';
@@ -27,7 +28,7 @@ export default function CartPreview({ cartRecoil, children }) {
   const handleCheckout = async () => {
     sessionStorage.setItem('orders', JSON.stringify(cartRecoil.map((cartItem) => cartItem._id)));
     sessionStorage.setItem('shippingFee', JSON.stringify(DEFAULT_SHIPPING_FEE));
-    push('/checkout/order');
+    push(PATH.ORDER);
   };
 
   const springConfig = { damping: 40, stiffness: 400 };
@@ -73,7 +74,7 @@ export default function CartPreview({ cartRecoil, children }) {
               <div className={mk('cart-review-handle')}>
                 <p className="text-xl">Tổng tiền:</p>
                 <span className={mk('cart-review-price')}>{totalPrice}</span>
-                <Button outline internalLink="/checkout/cart">
+                <Button outline internalLink={PATH.CART}>
                   Xem giỏ hàng
                 </Button>
                 <Button primary onClick={handleCheckout}>
@@ -85,7 +86,7 @@ export default function CartPreview({ cartRecoil, children }) {
             <div className={mk('cart-review-empty')}>
               <Image src={images.emptyCart} alt="Ảnh giỏ hàng trống" width={300} height={220} />
               <p>Hiện chưa có sản phẩm</p>
-              <Button primary internalLink="/products">
+              <Button primary internalLink={PATH.PRODUCTS}>
                 Mua ngay
               </Button>
             </div>

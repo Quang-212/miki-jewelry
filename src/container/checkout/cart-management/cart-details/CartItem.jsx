@@ -13,6 +13,7 @@ import Image from 'src/components/Image';
 import { deleteCartItem, updateCart } from 'src/fetching/cart';
 import { useRouter } from 'src/hooks';
 import { addToCartState, deleteCartItemState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './Cart.module.css';
 import Distribution from './Distribution';
@@ -176,7 +177,7 @@ export default function CartItem({ data, orders, onCheck }) {
     );
   };
 
-  const handleGoToDetail = () => push(`/products/${product.slug}`);
+  const handleGoToDetail = () => push(PATH.PRODUCT_DETAIL(product.slug));
 
   return (
     <div className={mk('cart-item')}>

@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Dialog from 'src/components/Dialog';
 import { CloseIcon } from 'src/components/Icons';
 import Page from 'src/components/Page';
-import { Form, Invoice } from 'src/container/order';
+import { Form, Invoice } from 'src/container/checkout';
 import AuthGuard from 'src/guard/AuthGuard.js';
 import MainLayout from 'src/layouts/MainLayout';
 import { cartState } from 'src/recoils';
@@ -72,7 +72,7 @@ export default function Order() {
             lại.
           </p>
           <div className="flex justify-end mt-4">
-            <Button primary internalLink="/checkout/cart" wrapper="w-40">
+            <Button primary internalLink={PATH.CART} wrapper="w-40">
               Đồng ý
             </Button>
           </div>

@@ -4,6 +4,7 @@ import useSWR from 'swr';
 
 import axiosInstance from 'src/utils/axios';
 import { isArray } from 'lodash';
+import useRouter from './useRouter';
 
 export default function useMyInfiniteLoading(params = [], query = {}, isSearch, options) {
   const initialState = {
@@ -28,6 +29,8 @@ export default function useMyInfiniteLoading(params = [], query = {}, isSearch, 
   //* if error => console not on screen
   // console.log(data, error);
 
+  const { query: queryRouter } = useRouter();
+
   useEffect(() => {
     isArray(data?.orders) &&
       setNewData((prev) => {
@@ -40,8 +43,11 @@ export default function useMyInfiniteLoading(params = [], query = {}, isSearch, 
           };
         }
       });
-    return () => setNewData(initialState);
   }, [data]);
+
+  useEffect(() => {
+    return () => setNewData(initialState);
+  }, [queryRouter]);
 
   return {
     data: newData || null,

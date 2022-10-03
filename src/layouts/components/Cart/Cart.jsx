@@ -9,6 +9,7 @@ import { BasketIcon } from 'src/components/Icons';
 import { useClientSide } from 'src/hooks';
 import useCart from 'src/hooks/useCart';
 import { cartState, userState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import styles from './Cart.module.css';
 import CartPreview from './CartPreview';
 
@@ -37,7 +38,7 @@ export default function Cart() {
       {isClient && (
         <CartPreview cartRecoil={cartRecoil}>
           <Badge badgeContent={cartRecoil?.length || 0}>
-            <Button icon internalLink="/checkout/cart" wrapper={mk('cart-icon')}>
+            <Button icon internalLink={PATH.CART} wrapper={mk('cart-icon')}>
               <BasketIcon />
             </Button>
           </Badge>

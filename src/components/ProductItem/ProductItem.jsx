@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getStableFeedbackProperties } from 'src/fetching/feedback';
+import { PATH } from 'src/routes';
 import { averageRating } from 'src/utils/averageRating';
 
 import { formatVndCurrency } from 'src/utils/formatNumber';
@@ -33,7 +34,7 @@ export default function ProductItem({ data }) {
 
   return (
     <li>
-      <Link href={`/products/${data.slug}`}>
+      <Link href={PATH.PRODUCT_DETAIL(data.slug)}>
         <a className={mk('root')}>
           <Image src={image} alt={data.name} width="50" height="50" className={mk('image')} />
           <div className={mk('info')}>

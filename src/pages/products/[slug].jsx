@@ -77,11 +77,11 @@ export default function ProductDetail({ product = {}, relatedProducts }) {
     },
     {
       label: generateCategory(category),
-      href: `/products?category=${category}`,
+      href: PATH.PRODUCT_CATEGORY(category),
     },
     {
       label: name,
-      href: `/products/${slug}`,
+      href: PATH.PRODUCT_DETAIL(slug),
     },
   ];
 

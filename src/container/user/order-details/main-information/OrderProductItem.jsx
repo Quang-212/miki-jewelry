@@ -4,6 +4,7 @@ import Button from 'src/components/Button';
 import Image from 'src/components/Image';
 import { ModalCompleted, ModalLeaving, ModalReview } from 'src/container/reviews';
 import { useRouter } from 'src/hooks';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 
 export default function OrderProductItem({ data }) {
@@ -31,7 +32,7 @@ export default function OrderProductItem({ data }) {
   const discountPrice = (oldPrice * product.discount) / 100;
   const newPrice = oldPrice - discountPrice;
 
-  const handleGoToDetail = () => push(`/products/${product.slug}`);
+  const handleGoToDetail = () => push(PATH.PRODUCT_DETAIL(product.slug));
 
   return (
     <>
@@ -43,10 +44,10 @@ export default function OrderProductItem({ data }) {
           <p className="col-span-10">{product.name}</p>
           <p className="col-span-10">Kích thước: {size}</p>
           <p className="col-span-10">Sku: 2489747574223</p>
-          <Button outline onClick={handleComment} wrapper="col-span-4 mt-2 mr-2">
+          <Button outline onClick={handleComment} wrapper="col-span-5 mt-2 mr-2">
             Viết nhận xét
           </Button>
-          <Button outline onClick={handleGoToDetail} wrapper="col-span-4 mt-2 ml-2">
+          <Button outline onClick={handleGoToDetail} wrapper="col-span-5 mt-2 ml-2">
             Mua lại
           </Button>
         </div>

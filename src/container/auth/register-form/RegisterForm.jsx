@@ -10,28 +10,28 @@ import BrandLogo from 'src/components/BrandLogo';
 import Button from 'src/components/Button';
 import { CheckBoxField, FormProvider, TextField } from 'src/components/HookForms';
 import { images } from 'src/constants';
+import { emailChecking } from 'src/fetching/auth';
 import { sendCode } from 'src/fetching/mailer';
 import { PATH } from 'src/routes';
 import { formatSearchString } from 'src/utils/formatString';
 import styles from './RegisterForm.module.css';
-import { emailChecking } from 'src/fetching/auth';
 
 const mk = classNames.bind(styles);
 
 const schema = yup.object().shape({
-  firstName: yup.string().required('*Bắt buộc!'),
-  lastName: yup.string().required('*Bắt buộc!'),
+  firstName: yup.string().required('*Vui lòng nhập họ!'),
+  lastName: yup.string().required('*Vui lòng nhập tên!'),
   email: yup
     .string()
-    .required('*Vui lòng nhập địa chỉ email của bạn')
+    .required('*Vui lòng nhập địa chỉ email của bạn!')
     .matches(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      '*Vui lòng nhập đúng địa chỉ email của bạn',
+      '*Vui lòng nhập đúng địa chỉ email!',
     ),
   password: yup
     .string()
     .trim()
-    .required('*Vui lòng nhập mật khẩu')
+    .required('*Vui lòng nhập mật khẩu!')
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
       '*Tối thiểu 8 ký tự, trong đó có 1 ký tự viết hoa, 1 ký tự thường, 1 chữ số và 1 ký tự đặc biệt',
@@ -39,8 +39,8 @@ const schema = yup.object().shape({
   confirmPassword: yup
     .string()
     .trim()
-    .required('*Vui lòng nhập lại mật khẩu')
-    .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng'),
+    .required('*Vui lòng nhập lại mật khẩu!')
+    .oneOf([yup.ref('password'), null], '*Mật khẩu đã nhập chưa đúng!'),
   terms: yup.boolean().oneOf([true], '*Bạn cần đọc và đồng ý với các điều khoản chính sách'),
 });
 
@@ -56,7 +56,7 @@ export default function RegisterForm() {
       password: '',
       confirmPassword: '',
       promotions: false,
-      terms: false,
+      terms: true,
     },
   });
 
@@ -154,6 +154,7 @@ export default function RegisterForm() {
             <div className="flex items-center gap-2 ">
               <CheckBoxField
                 hidden
+                disabled
                 checked={true}
                 name="terms"
                 value={{
@@ -171,7 +172,6 @@ export default function RegisterForm() {
                 &nbsp;của Miki Jewelry
               </label>
             </div>
-
             <Button primary wrapper="w-full">
               Đăng ký
             </Button>
