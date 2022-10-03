@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
-// import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
@@ -51,7 +50,10 @@ export default function LoginForm() {
       password: '',
     },
   });
-
+  const BASE_URL =
+    process.env.NODE_ENV === 'production'
+      ? process.env.PRODUCTION_BASE_URL
+      : process.env.DEV_BASE_URL;
   const { handleSubmit, reset, setFocus } = methods;
 
   useEffect(() => {
@@ -85,7 +87,6 @@ export default function LoginForm() {
         },
         { autoClose: 4000 },
       );
-      console.log(res);
 
       const user = res.data.user;
 
@@ -94,10 +95,6 @@ export default function LoginForm() {
         access_token: res.data.accessToken,
         isAuthenticated: true,
       });
-
-      if (user.role === 'admin') {
-        return replace(PATH.ADMIN_DASHBOARD);
-      }
 
       replace(PATH.HOME);
     } catch (error) {
@@ -146,14 +143,19 @@ export default function LoginForm() {
 
             <p className="mt-8">Hoặc đăng nhập bằng</p>
             <div className="flex justify-between gap-2 mt-6 xs:mt-4">
-              <Button rounded leftIcon={<FacebookColorIcon />} wrapper="xs:w-[168px]">
+              <Button
+                rounded
+                leftIcon={<FacebookColorIcon />}
+                wrapper="xs:w-[168px]"
+                internalLink={`${BASE_URL}/api/auth/facebook`}
+              >
                 Facebook
               </Button>
               <Button
                 rounded
                 leftIcon={<GoogleColorIcon />}
                 wrapper="w-[200px] xs:w-[168px]"
-                // onClick={() => signIn()}
+                internalLink={`${BASE_URL}/api/auth/google`}
               >
                 Google
               </Button>

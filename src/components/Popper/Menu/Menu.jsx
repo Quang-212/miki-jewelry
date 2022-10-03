@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react/headless';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 import { Wrapper as PopperWrapper } from 'src/components/Popper';
@@ -8,10 +8,14 @@ import Header from './Header';
 import MenuItem from './MenuItem';
 
 export default function Menu({ items = [], hideOnClick = false, children }) {
-  const [history, setHistory] = useState([{ data: items }]);
+  const [history, setHistory] = useState([]);
   const { push } = useRouter();
 
-  const current = history[history.length - 1];
+  useEffect(() => {
+    setHistory([{ data: items }]);
+  }, [items]);
+
+  const current = history[history.length - 1] || {};
 
   const renderItems = () => {
     const handleClick = (item) => {
@@ -22,7 +26,7 @@ export default function Menu({ items = [], hideOnClick = false, children }) {
       item.onClick ? item.onClick() : push(item.path);
     };
 
-    return current.data.map((item, index) => {
+    return current.data?.map((item, index) => {
       return (
         <li key={index}>
           <MenuItem data={item} onClick={() => handleClick(item)} />

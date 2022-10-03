@@ -17,11 +17,14 @@ async function logout(req, res) {
           userId: req.user._id,
         }).lean();
 
-        if (refreshTokenMongo.concurrency <= 1) {
-          await RefreshToken.findByIdAndDelete(refreshTokenMongo._id);
+        if (refreshTokenMongo && refreshTokenMongo.list.length <= 1) {
+          await RefreshToken.findByIdAndUpdate(refreshTokenMongo._id, {
+            isExpired: true,
+            list: [],
+          });
         } else {
           await RefreshToken.findByIdAndUpdate(refreshTokenMongo._id, {
-            $inc: { concurrency: -1 },
+            $pull: { list: refreshTokenCookie },
           });
         }
 

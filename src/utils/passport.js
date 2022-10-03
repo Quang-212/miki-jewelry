@@ -1,9 +1,8 @@
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { genSalt, hash, compare } from 'bcrypt';
 import User from 'src/models/User';
-
+import { formatSearchString } from './formatString';
 // passport.serializeUser((user, done) => {
 //   console.log(user);
 //   done(null, user._id);
@@ -28,25 +27,31 @@ passport.use(
     {
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: `${BASE_URL}/api/google/callback`,
+      callbackURL: `${BASE_URL}/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       try {
-        const { sub, name, picture, email } = profile._json;
-        const existGGUser = await User.findOne({ email, googleId: sub }).lean();
-        // if (existGGUser) {
-        //   return done(null, existGGUser);
-        // }
-        // const newGGUser = await User.create({
-        //   googleId: sub.toString(),
-        //   displayName: name,
-        //   profilePhoto: picture,
-        //   email,
-        //   provider: 'google',
-        // });
-        console.log(accessToken, refreshToken);
-        return done(null, profile);
+        const { sub, name, given_name, family_name, picture, email } = profile._json;
+
+        const existGGUser = await User.findOne({ email }).lean();
+        if (!existGGUser) {
+          const newGGUser = await User.create({
+            googleId: sub,
+            userName: name,
+            profilePicture: { url: picture, public_id: null },
+            email,
+            search: formatSearchString([given_name, family_name, email]),
+          });
+          const { password, search, ...safeData } = newGGUser;
+          return done(null, safeData);
+        }
+        if (existGGUser && !existGGUser.googleId) {
+          const updatedUser = await findByIdAndUpdate(existGGUser._id, { googleId: sub });
+          const { password, search, ...safeData } = updatedUser;
+          return done(null, safeData);
+        }
+        const { password, search, ...safeData } = existGGUser;
+        done(null, safeData);
       } catch (err) {
         return done(null, err);
       }
@@ -54,41 +59,48 @@ passport.use(
   ),
 );
 
-// passport.use(
-//   new FacebookStrategy(
-//     {
-//       clientID: process.env.FACEBOOK_APP_ID,
-//       clientSecret: process.env.FACEBOOK_APP_SECRET,
-//       callbackURL: `${process.env.SECRET_SERVER_DOMAIN}/auth/facebook/callback`,
-//       profileFields: ['id', 'displayName', 'photos', 'email'],
-//     },
-//     async (accessToken, refreshToken, profile, done) => {
-//       try {
-//         const {
-//           id,
-//           name,
-//           picture: {
-//             data: { url },
-//           },
-//           email,
-//         } = profile._json;
-//         const existFbUser = await User.findOne({ facebookId: id }).exec();
-//         if (existFbUser) {
-//           return done(null, existFbUser);
-//         } else {
-//           const newFbUser = new User({
-//             facebookId: id.toString(),
-//             displayName: name,
-//             profilePhoto: url,
-//             email,
-//             provider: 'facebook',
-//           });
-//           const savedUser = await newFbUser.save();
-//           return done(null, savedUser);
-//         }
-//       } catch (err) {
-//         return done(null, err);
-//       }
-//     },
-//   ),
-// );
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+      callbackURL: `${BASE_URL}/api/auth/facebook/callback`,
+      profileFields: ['id', 'displayName', 'photos', 'email'],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const {
+          id,
+          name,
+          picture: {
+            data: { url },
+          },
+          email,
+        } = profile._json;
+
+        const existUser = await User.findOne({ email }).lean();
+
+        if (!existUser) {
+          const newUser = await User.create({
+            facebookId: id,
+            userName: name,
+            profilePicture: { url, public_id: null },
+            email,
+            search: formatSearchString([name, email]),
+          });
+          const { password, search, ...safeData } = newUser;
+          return done(null, safeData);
+        }
+        if (existUser && !existUser.googleId) {
+          const updatedUser = await findByIdAndUpdate(existUser._id, { facebookId: sub });
+          const { password, search, ...safeData } = updatedUser;
+          return done(null, safeData);
+        }
+        const { password, search, ...safeData } = existUser;
+        done(null, safeData);
+      } catch (err) {
+        return done(null, err);
+      }
+    },
+  ),
+);

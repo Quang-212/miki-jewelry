@@ -8,10 +8,13 @@ const nextConfig = {
   env: {
     ACCESS_TOKEN_KEY: 'q4x6VwslHJ5n1822be76c',
     REFRESH_TOKEN_KEY: 'Y6ckMK1K9HSJR4oZWUFyhQPCgYIARAAG',
+    DEFAULT_OAUTH_PASSWORD: '8e2c1822b95468sCIq9Cj6TcOA',
     MONGODB_URI:
       'mongodb+srv://ngockhoi96:nOhAnnCFpeiAPoYe@cluster0.k5yfvio.mongodb.net/miki_shop?retryWrites=true&w=majority',
     GOOGLE_ID: '648607880723-hkc95468mv9na657f574obdbud3o9fah.apps.googleusercontent.com',
     GOOGLE_SECRET: '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',
+    FACEBOOK_ID: '838456543843386',
+    FACEBOOK_SECRET: 'c91b5f60660b3ee79f896f5474935118',
     GOOGLE_EMAIL: 'ngockhoi9671@gmail.com',
     GOOGLE_EMAIL_REDIRECT: 'https://developers.google.com/oauthplayground',
     GOOGLE_OAUTH_RF_TOKEN:

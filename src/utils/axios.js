@@ -3,8 +3,6 @@ import decode from 'jwt-decode';
 
 import { getLocalStorage, setLocalStorage } from './handleLocalStorage';
 
-const recoilPersist = getLocalStorage('recoil-persist');
-
 const getToken = () => {
   if (typeof window !== 'undefined') {
     return getLocalStorage('recoil-persist')?.authentication.access_token;
@@ -13,6 +11,7 @@ const getToken = () => {
 };
 
 const setToken = (token) => {
+  const recoilPersist = getLocalStorage('recoil-persist');
   setLocalStorage('recoil-persist', {
     ...recoilPersist,
     authentication: { ...recoilPersist.authentication, access_token: token },

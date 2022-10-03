@@ -46,6 +46,15 @@ export const loginForm = (data, options) => {
   });
 };
 
+export const initOAuthUser = (options) => {
+  return axios({
+    method: 'GET',
+    url: '/api/users/oauth-init',
+    withCredentials: true,
+    ...options,
+  });
+};
+
 export const logoutForm = (options) => {
   return axiosInstance({
     method: 'DELETE',

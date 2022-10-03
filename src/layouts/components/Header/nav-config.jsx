@@ -121,10 +121,6 @@ export const ABOUT_LINKS = [
   },
 ];
 
-export const MENU_ITEMS = [];
-
-const rest = MENU_ITEMS.slice(2);
-
 export const MENU_USER_ITEMS = ({ handleClickLogout, currentAuthState }) => {
   const { user, isAuthenticated } = currentAuthState;
 

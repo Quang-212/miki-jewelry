@@ -13,13 +13,16 @@ async function handlerRefreshToken(req, res) {
       case 'POST':
         const refreshTokenCookie = req.cookies.refreshToken;
 
-        const isRefreshToken = await RefreshToken.findOne({
-          refreshToken: refreshTokenCookie,
+        const refreshTokenMongo = await RefreshToken.findOne({
+          list: refreshTokenCookie,
         });
 
-        if (isRefreshToken) {
-          jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, (err, payload) => {
+        if (refreshTokenMongo && !refreshTokenMongo.isExpired) {
+          jwt.verify(refreshTokenCookie, REFRESH_TOKEN_KEY, async (err, payload) => {
             if (err) {
+              await RefreshToken.findByIdAndUpdate(refreshTokenMongo._id, {
+                $pull: { list: refreshTokenCookie },
+              });
               return res.status(401).json({
                 message: 'Token expired',
                 code: 401,

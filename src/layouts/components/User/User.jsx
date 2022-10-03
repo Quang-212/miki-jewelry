@@ -6,7 +6,7 @@ import { logoutForm } from 'src/fetching/auth';
 import { useClientSide, useRouter } from 'src/hooks';
 import { userState } from 'src/recoils';
 import { PATH } from 'src/routes';
-import { MENU_ITEMS, MENU_USER_ITEMS } from '../Header/nav-config';
+import { MENU_USER_ITEMS } from '../Header/nav-config';
 
 export default function User() {
   const isClient = useClientSide();
@@ -19,7 +19,7 @@ export default function User() {
 
   const handleClickLogout = async () => {
     try {
-      const res = await logoutForm();
+      await logoutForm();
       resetUserValue();
       replace(PATH.HOME);
     } catch (error) {

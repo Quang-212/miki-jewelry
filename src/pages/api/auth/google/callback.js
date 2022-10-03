@@ -1,11 +1,9 @@
+import { serialize } from 'cookie';
 import passport from 'passport';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { genSalt, hash, compare } from 'bcrypt';
-import User from 'src/models/User';
-import VerifyCode from 'src/models/VerifyCode';
 import dbConnect from 'src/utils/dbConnect';
-//handle passport common
+import { generateAccessToken, generateRefreshToken } from 'src/utils/generateToken';
+import 'src/utils/passport';
+import RefreshToken from 'src/models/RefreshToken';
 
 export default async function (req, res, next) {
   try {
@@ -14,12 +12,39 @@ export default async function (req, res, next) {
       process.env.NODE_ENV === 'production'
         ? process.env.PRODUCTION_BASE_URL
         : process.env.DEV_BASE_URL;
-    passport.authenticate('google', (error, user, info) => {
+    passport.authenticate('google', async (error, user) => {
       if (error || !user) {
         return res.redirect(`${BASE_URL}/failed_to_authenticated`);
       }
-      res.redirect('/');
-    });
+      const accessToken = generateAccessToken(user);
+      const refreshToken = generateRefreshToken(user);
+      const existedRefreshToken = await RefreshToken.findOne({ userId: user._id }).lean();
+      if (existedRefreshToken) {
+        await RefreshToken.findByIdAndUpdate(existedRefreshToken._id, {
+          $addToSet: { list: refreshToken },
+          isExpired: false,
+        });
+      }
+      if (!existedRefreshToken) {
+        await RefreshToken.create({
+          userId: user._id,
+          list: [refreshToken],
+        });
+      }
+
+      res.setHeader(
+        'Set-Cookie',
+        serialize('refreshToken', refreshToken, {
+          httpOnly: true,
+          sameSite: 'Strict',
+          path: '/',
+          secure: process.env.NODE_ENV === 'production',
+          maxAge: 365 * 24 * 60 * 60,
+        }),
+      );
+
+      return res.redirect(307, `${BASE_URL}?access_token=${accessToken}`);
+    })(req, res, next);
   } catch (error) {
     return res.status(500).json({
       message: error.message,

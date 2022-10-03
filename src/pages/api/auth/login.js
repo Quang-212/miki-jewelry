@@ -27,32 +27,34 @@ async function loginUser(req, res) {
           });
 
         const accessToken = generateAccessToken(emailUser);
+        const refreshToken = generateRefreshToken(emailUser);
         const existedRefreshToken = await RefreshToken.findOne({ userId: emailUser._id }).lean();
         if (existedRefreshToken) {
           await RefreshToken.findByIdAndUpdate(existedRefreshToken._id, {
-            $inc: { concurrency: 1 },
+            $addToSet: { list: refreshToken },
+            isExpired: false,
           });
         }
-        const refreshToken = generateRefreshToken(emailUser);
+
         if (!existedRefreshToken) {
           await RefreshToken.create({
             userId: emailUser._id,
-            refreshToken,
+            list: [refreshToken],
           });
         }
 
         res.setHeader(
           'Set-Cookie',
-          serialize('refreshToken', existedRefreshToken?.refreshToken || refreshToken, {
+          serialize('refreshToken', refreshToken, {
             httpOnly: true,
             sameSite: 'Strict',
             path: '/',
-            secure: false,
+            secure: process.env.NODE_ENV === 'production',
             maxAge: 365 * 24 * 60 * 60,
           }),
         );
 
-        const { password, ...other } = emailUser;
+        const { password, search, ...other } = emailUser;
         return res.status(200).json({
           message: 'Chào mừng bạn đến với Miki Jewelry',
           code: 200,

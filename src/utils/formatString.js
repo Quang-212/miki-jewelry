@@ -1,6 +1,3 @@
-import { map } from 'lodash';
-import { isEmpty } from 'lodash';
-
 export const formatReplaceString = (sourceString) => {
   return sourceString.replace(/[^\wèéòàùì\s]/gi, '');
 };
