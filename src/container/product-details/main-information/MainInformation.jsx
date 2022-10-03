@@ -13,6 +13,7 @@ import { addToCart } from 'src/fetching/cart';
 import { createFavorite } from 'src/fetching/favorite';
 import { useRouter } from 'src/hooks';
 import { addToCartState, userState } from 'src/recoils';
+import { PATH } from 'src/routes';
 import { formatVndCurrency } from 'src/utils/formatNumber';
 import styles from './MainInformation.module.css';
 
@@ -178,7 +179,8 @@ export default function MainInformation({ product, averageRating }) {
   };
 
   const handleBuyNow = () => {
-    console.log('buy now');
+    handleAddToCart();
+    push(PATH.CART);
   };
 
   return (
