@@ -36,6 +36,11 @@ const axiosInstance = axios.create({
   },
 });
 
+const BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? process.env.PRODUCTION_BASE_URL
+    : process.env.DEV_BASE_URL;
+
 axiosInstance.interceptors.request.use(
   async (config) => {
     const now = new Date();
@@ -51,7 +56,7 @@ axiosInstance.interceptors.request.use(
             _id: payload._id,
             role: payload.role,
           },
-          url: `/api/auth/refresh-token`,
+          url: `${BASE_URL}/api/auth/refresh-token`,
           withCredentials: true,
         });
 
