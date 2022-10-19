@@ -22,7 +22,7 @@ const nextConfig = {
     CLOUD_NAME: 'doa5p4v4z',
     API_KEY: '713324216691184',
     API_SECRET: 'UiCKSCwd-jKb_Bt8TvDbXnKf4Q8',
-    PRODUCTION_BASE_URL: 'https://miki-jewelry-quang-212.vercel.app',
+    PRODUCTION_BASE_URL: 'https://miki-jewelry.vercel.app',
     DEV_BASE_URL: 'http://localhost:3000',
     PUSHER_ID: '1482193',
     PUSHER_KEY: 'fb8e2c1822be76c549cc',
@@ -38,7 +38,7 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://miki-jewelry-quang-212.vercel.app, http://localhost:3000',
+            value: 'https://miki-jewelry.vercel.app, http://localhost:3000',
           },
           { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
           {
