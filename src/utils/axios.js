@@ -44,7 +44,10 @@ const BASE_URL =
 axiosInstance.interceptors.request.use(
   async (config) => {
     const now = new Date();
-
+    config.headers = {
+      ...config.headers,
+      'Content-Type': 'application/json',
+    };
     const payload = getToken() && decode(getToken());
     if (payload && payload.exp * 1000 < now.getTime() && !config._retry) {
       config._retry = true;
