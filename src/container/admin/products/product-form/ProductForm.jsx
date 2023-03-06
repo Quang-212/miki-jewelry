@@ -57,8 +57,6 @@ export function ProductForm({
     setPrimaryImage(+event.target.value);
   };
 
-  const previewImage = (index) => previewImages[index] && URL.createObjectURL(previewImages[index]);
-
   const handleGoToProductsList = () => {
     setCurrentProduct((prev) => ({ ...prev, formOpen: false }));
     setShowProductsList((prev) => !prev);
@@ -86,7 +84,7 @@ export function ProductForm({
   const image = useWatch({
     control,
   });
-  console.log(errors);
+
   const {
     fields: stocksField,
     append: addStock,
@@ -105,8 +103,30 @@ export function ProductForm({
     name: 'images',
   });
 
+  const handleAddImage = () => {
+    addImage();
+  };
+
+  const handleRemoveImage = (index) => {
+    URL.revokeObjectURL(previewImages[index].preview);
+    removeImage(index);
+    setPreviewImages((prev) => prev.filter((_, i) => i != index));
+  };
+
+  const getPreviewURL = (file) => file && URL.createObjectURL(file);
+
   useEffect(() => {
-    setPreviewImages(image.images?.map((image) => image[0]) || []);
+    setPreviewImages(
+      image.images.length
+        ? image.images.map((image, ix) => {
+            if (previewImages[ix]) {
+              return previewImages[ix];
+            } else if (image[0]) {
+              return { file: image[0], preview: getPreviewURL(image[0]) };
+            }
+          })
+        : [],
+    );
   }, [image]);
 
   const onSubmit = async (data) => {
@@ -268,10 +288,11 @@ export function ProductForm({
           <div className="bg-white pt-6 px-6">
             <h5 className="font-primary font-bold text-xl leading-7 text-primary">Images</h5>
             <p>{errors.images?.message}</p>
-            <Button primary type="button" onClick={() => addImage()}>
+            <Button primary type="button" onClick={() => handleAddImage()}>
               Add image
             </Button>
             {imagesField.map((item, index) => {
+              console.log(imagesField);
               return (
                 <div key={item.id}>
                   <input
@@ -282,13 +303,13 @@ export function ProductForm({
                     onChange={handleCheckPrimaryImage}
                   />
                   <Image
-                    src={previewImage(index) || item.url}
+                    src={previewImages[index]?.preview || item.url}
                     alt="hello"
                     width={120}
                     height={120}
                   />
                   <TextField name={`images[${index}]`} type="file" />
-                  <Button primary type="button" onClick={() => removeImage(index)}>
+                  <Button primary type="button" onClick={() => handleRemoveImage(index)}>
                     Remove
                   </Button>
                 </div>
